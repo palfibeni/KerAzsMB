@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="KerAzs_mb.lua"/>
+	<Script file="caster_core.lua"/>
+	<Include file="warrior\warrior.xml"/>
+	<Include file="warlock\warlock.xml"/>
+	<Include file="priest\priest.xml"/>
+	<Include file="mage\mage.xml"/>
+	<Include file="pala\pala.xml"/>
+	<Include file="rouge\rouge.xml"/>
+</Ui>
