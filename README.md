@@ -16,10 +16,11 @@ It is working as a SuperMacro extension, but I have plans to make it into a sepa
 ```
 /script mage_attack_skull()
 ```
+4. enjoy :)
 
 ## Special Thanks
 ### Kearlah
 He is my guildmaster, and without him, I wouldn't even know multiboxing exists, and most of these macros are written by him. You can find them [here](https://github.com/KocsiLevente/multibox).
 ### FurySwipes
-A very generous developer, he made the 5mmb which is a similar framework, and from I learnt, and copied a lot. Check it out [here](https://furyswipes.wixsite.com/mysite)
+A very generous developer, he made the 5mmb which is a similar framework, and from I learnt, and copied a lot. Check it out [here](https://furyswipes.wixsite.com/mysite).
 
