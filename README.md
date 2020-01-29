@@ -3,8 +3,8 @@
 Works with WoW 1.12
 
 ## Intro
-This project contains many script and macro written to make multiboxer's life easier.
-It is working as a SuperMacro extension, but I have plans to make it into a separate addon.
+This repository contains many prewritten macros to certain classes, making multiboxing life easier.
+In it's current state it could be used as a SuperMacro extension.
 
 ## How to setup
 1. Download the scripts and place them inside you Interface/Addons/SuperMacro folder.
