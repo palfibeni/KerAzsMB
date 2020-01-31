@@ -1,5 +1,5 @@
 function rouge_attack_skull()
-    if target_is_skull() then
+    if is_target_skull() then
         rouge_attack()
     else
         stop_autoattack()
@@ -8,7 +8,7 @@ function rouge_attack_skull()
 end
 
 function rouge_attack_cross()
-    if target_is_cross() then
+    if is_target_cross() then
         rouge_attack()
     else
         stop_autoattack()

@@ -36,7 +36,7 @@ function warlock_cross()
 	if is_target_cross() then
 		warlock_attack("CoS")
 	else
-		target_skull()
+		target_cross()
 	end
 end
 
