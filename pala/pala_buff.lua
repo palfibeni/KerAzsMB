@@ -8,7 +8,7 @@ end
 
 function pala_small_buff_by_group(group)
     TargetByName(group_list[group].tank)
-    pala_small_bless()
+    pala_small_kings()
     TargetByName(group_list[group].heal)
     pala_small_bless()
     for i,dps in pairs(group_list[group].dps_list) do
@@ -32,4 +32,12 @@ end
 
 function pala_small_wisdom()
     cast_buff("Spell_Holy_SealOfWisdom", "Blessing of Wisdom")
+end
+
+function pala_small_kings()
+    cast_buff("Spell_Magic_MageArmor", "Blessing of Kings")
+end
+
+function pala_small_light()
+    cast_buff("Spell_Holy_PrayerOfHealing02", "Blessing of Light")
 end
