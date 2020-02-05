@@ -24,3 +24,7 @@ He is my guildmaster, and without him, I wouldn't even know multiboxing exists, 
 #### FurySwipes
 He made the 5MMB framework which is really similar project, and from I learnt, and copied a lot. Check it out [here](https://furyswipes.wixsite.com/mysite).
 
+## Useful links
+- [WoW LUA API](https://vanilla-wow.fandom.com/wiki/World_of_Warcraft_API)
+- [Buff/Debuff icons](https://wowwiki.fandom.com/wiki/Queriable_buff_effects)
+- [Inventory slot names](https://wowwiki.fandom.com/wiki/InventorySlotName)

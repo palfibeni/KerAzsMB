@@ -19,7 +19,7 @@ end
 function priest_attack()
     if (UnitMana("player")>=221) then
 		stop_wand()
-        shadowWordPain_skull()
+        shadow_word_pain()
         cast("Mind Blast")
         cast("Smite")
     else
@@ -47,8 +47,9 @@ end
 
 function sh_priest_attack()
     if (UnitMana("player")>=221) then
-		stop_wand()
-        shadowWordPain_skull()
+        stop_wand()
+        shadow_form()
+        shadow_word_pain()
         cast_debuff("Spell_Shadow_UnsummonBuilding", "Vampiric Embrace")
         cast("Mind Blast")
         cast("Mind Flay")
@@ -57,6 +58,10 @@ function sh_priest_attack()
     end
 end
 
-function shadowWordPain_skull()
+function shadow_word_pain()
     cast_debuff("Spell_Shadow_ShadowWordPain", "Shadow Word: Pain")
+end
+
+function shadow_form()
+    cast_buff_player("Spell_Shadow_Shadowform", "Shadowform")
 end

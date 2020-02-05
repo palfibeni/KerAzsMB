@@ -1,4 +1,24 @@
 function mage_buff_group1()
+    TargetByName(group_list[1].tank)
+    mage_big_int()
+    mage_armor()
+end
+
+function mage_buff_group2()
+    TargetByName(group_list[2].tank)
+    mage_big_int()
+    mage_armor()
+end
+
+function mage_big_int()
+    cast_buff("Spell_Holy_ArcaneIntellect", "Arcane Brilliance")
+end
+
+function mage_armor()
+    cast_buff_player("Spell_MageArmor", "Mage Armor")
+end
+
+function mage_buff_group1()
     mage_small_buff_by_group(1)
 end
 
@@ -22,14 +42,6 @@ function mage_small_int()
 	cast_buff("Spell_Holy_MagicalSentry", "Arcane Intellect")
 end
 
-function mage_big_int()
-    cast_buff("Spell_Holy_ArcaneIntellect", "Arcane Brilliance")
-end
-
-function mage_armor()
-    cast_buff_player("Spell_MageArmor", "Mage Armor")
-end
-
-function mage_ampli()
+function mage_amplify()
     cast_buff("Spell_Holy_FlashHeal", "Amplify Magic")
 end

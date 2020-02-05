@@ -19,6 +19,9 @@ function mage_attack()
     local evoc, dur_evoc, en_evoc = GetActionCooldown(61)
     if (UnitMana("player")>=221) then
         stop_wand()
+		-- Useable trinkets
+        -- UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+        -- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
         cast("Frostbolt")
     elseif (evoc == 0) then
         cast("Evocation")

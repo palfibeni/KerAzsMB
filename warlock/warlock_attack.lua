@@ -44,6 +44,9 @@ end
 function warlock_attack(curse)
 	if (UnitMana("player")>376) then
 		stop_wand()
+		-- Useable trinkets
+        -- UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+        -- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		warlock_curse(curse)
 		corruption()
 		cast("Shadow Bolt")
