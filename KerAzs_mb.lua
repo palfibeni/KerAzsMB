@@ -9,7 +9,7 @@ group_list = {
 	[2] = {
 		tank="Liberton",
 		heal="Lionel",
-		dps_list={"PinkyPe", "Fabregas", "Windou", "Roxon"}
+		dps_list={"PinkyPe", "Fabregas", "Windou"}
 	},
 	[3] = {},
 	[4] = {}

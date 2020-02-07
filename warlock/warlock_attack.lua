@@ -32,9 +32,9 @@ function warlock_cross_coa()
 	warlock_cross("CoA")
 end
 
-function warlock_cross()
+function warlock_cross(curse)
 	if is_target_cross() then
-		warlock_attack("CoS")
+		warlock_attack(curse)
 	else
 		target_cross()
 	end
