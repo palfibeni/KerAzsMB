@@ -20,9 +20,19 @@ end
 
 function pala_heal_tank()
     if UnitIsDead("target") then return end
+    pala_cleanse()
     pala_heal_under_50()
     lay_on_hand()
     heal_under_percent(0.7, "Flash of Light")
+end
+
+function pala_cleanse()
+    for x=1,16 do
+	    local name,count,debuffType=UnitDebuff("target",x,1)
+	    if debuffType=="Magic" then
+            cast("Cleanse")
+        end
+    end
 end
 
 function pala_heal_under_50()
@@ -48,6 +58,7 @@ end
 
 function pala_heal_dps()
     heal_under_percent(0.2, "Blessing of Protection")
+    pala_cleanse()
     heal_under_percent(0.3, "Holy Light")
     heal_under_percent(0.6, "Flash of Light")
 end
