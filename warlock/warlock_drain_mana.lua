@@ -1,4 +1,4 @@
-function warlock_drain_soul_skull()
+function warlock_drain_mana_skull()
     if casting_or_channeling() then return end
     if is_target_skull() then
         warlock_drain_mana()
@@ -7,7 +7,7 @@ function warlock_drain_soul_skull()
     end
 end
 
-function warlock_drain_soul_cross()
+function warlock_drain_mana_cross()
     if casting_or_channeling() then return end
     if is_target_cross() then
         warlock_drain_mana()
@@ -16,9 +16,9 @@ function warlock_drain_soul_cross()
     end
 end
 
-function warlock_drain_soul()
+function warlock_drain_mana()
     if (UnitMana("player")>=290) then
-        cast("Drain Soul")
+        cast("Drain Mana")
     else
         cast("Life Tap")
     end
