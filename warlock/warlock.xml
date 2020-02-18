@@ -6,4 +6,5 @@
 	<Script file="warlock_banish.lua"/>
 	<Script file="warlock_buff.lua"/>
 	<Script file="warlock_drain_soul.lua"/>
+	<Script file="warlock_drain_mana.lua"/>
 </Ui>

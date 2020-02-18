@@ -34,9 +34,19 @@ function priest_heal_tank()
     fear_ward()
 end
 
+function priest_dispel()
+    for x=1,16 do
+	    local name,count,debuffType=UnitDebuff("target",x,1)
+	    if debuffType=="Magic" then
+            cast("Dispel Magic")
+        end
+    end
+end
+
 function priest_heal_dps()
     if casting_or_channeling() then return end
     if UnitIsDead("target") then return end
+    priest_dispel()
     heal_under_percent(0.5, "Flash Heal")
 end
 
