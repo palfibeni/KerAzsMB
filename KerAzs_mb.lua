@@ -155,7 +155,20 @@ end
 --	end
 --end
 
---local function initKeyBindings()
+--  function createTankWarriorMacro()
+--  	local index=CreateMacro("Attack def",16777218,"/script warrior_tank_attack()",1)
+--		PickupMacro(index)
+--		PlaceAction(1)
+--		PickupMacro(index)
+--		PlaceAction(2)
+--		PickupMacro(index)
+--		PlaceAction(3)
+--      index=CreateMacro("aoe",16777219,"/script warrior_aoe()",1)
+--		PickupMacro(index)
+--		PlaceAction(5)
+--  end
+
+--  function initKeyBindings()
 --	SetBinding("SHIFT-1","MULTIACTIONBAR1BUTTON1")
 --	SetBinding("SHIFT-2","MULTIACTIONBAR1BUTTON2")
 --	SetBinding("SHIFT-3","MULTIACTIONBAR1BUTTON3")
