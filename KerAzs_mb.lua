@@ -4,12 +4,12 @@ group_list = {
 	[1] = {
 		tank="Cooperbeard",
 		heal="Baleog",
-		dps_list={"Daemona", "Azsgrof", "Jaliana", "Carla"}
+		dps_list={"Liberton", "Azsgrof", "Daemona", "Jaliana", "Carla"}
 	},
 	[2] = {
 		tank="Liberton",
 		heal="Lionel",
-		dps_list={"PinkyPe", "Fabregas", "Windou"}
+		dps_list={"Cooperbeard", "PinkyPe", "Fabregas", "Windou"}
 	},
 	[3] = {},
 	[4] = {}
@@ -20,7 +20,7 @@ group_list = {
 
 function is_tank_by_name(name)
 	for i,tank in pairs(tank_list) do
-		if tank == name then return i end
+		if tank == name then return true end
 	end
 	return nil
 end

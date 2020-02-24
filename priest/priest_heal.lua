@@ -16,6 +16,9 @@ function priest_heal_by_group(group)
 		TargetByName(dps)
         priest_heal_dps()
 	end
+    TargetByName(group_list[group].tank)
+    priest_shield_over_70()
+    fear_ward()
 end
 
 function priest_heal_self()
@@ -28,16 +31,14 @@ end
 
 function priest_heal_tank()
     if UnitIsDead("target") then return end
-    heal_under_percent(0.4, "Flash Heal")
-    heal_under_percent(0.7, "Heal")
-    priest_shield_over_70()
-    fear_ward()
+    heal_under_percent(0.5, "Flash Heal")
+    heal_under_percent(0.8, "Heal")
 end
 
 function priest_dispel()
     for x=1,16 do
 	    local name,count,debuffType=UnitDebuff("target",x,1)
-	    if debuffType=="Magic" then
+	    if debuffType == "Magic" then
             cast("Dispel Magic")
         end
     end
@@ -53,7 +54,7 @@ end
 function priest_shield_over_70()
     if casting_or_channeling() then return end
     if is_target_hp_over(0,7) then
-        if (UnitMana("player")>=2000) then
+        if (UnitMana("player") >= 2000) then
             cast("Power Word: Shield")
         end
     end

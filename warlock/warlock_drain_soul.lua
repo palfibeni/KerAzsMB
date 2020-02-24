@@ -1,7 +1,7 @@
 function warlock_drain_soul_skull()
     if casting_or_channeling() then return end
     if is_target_skull() then
-        warlock_drain_mana()
+        warlock_drain_soul()
     else
         target_skull()
     end
@@ -10,7 +10,7 @@ end
 function warlock_drain_soul_cross()
     if casting_or_channeling() then return end
     if is_target_cross() then
-        warlock_drain_mana()
+        warlock_drain_soul()
     else
         target_cross()
     end

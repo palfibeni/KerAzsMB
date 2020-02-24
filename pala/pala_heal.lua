@@ -23,7 +23,7 @@ function pala_heal_tank()
     pala_cleanse()
     pala_heal_under_50()
     lay_on_hand()
-    heal_under_percent(0.7, "Flash of Light")
+    heal_under_percent(0.8, "Flash of Light")
 end
 
 function pala_cleanse()
@@ -36,21 +36,21 @@ function pala_cleanse()
 end
 
 function pala_heal_under_50()
-    if is_target_hp_under(0.5) then
+    if is_target_hp_under(0.4) then
         cast("Divine Favor")
         cast("Holy Light")
     end
 end
 
 function lay_on_hand()
-    if is_target_hp_under(0.15) and UnitMana("player") < 500 then
+    if is_target_hp_under(0.15) and UnitMana("player") < 1000 then
         if casting_or_channeling() then SpellStopCasting() end
         cast("Lay on Hands")
     end
 end
 
 function pala_heal_self()
-    if is_player_hp_under(0.25) then
+    if is_player_hp_under(0.4) then
         if casting_or_channeling() then SpellStopCasting() end
         cast("Divine Shield")
     end
@@ -59,6 +59,6 @@ end
 function pala_heal_dps()
     heal_under_percent(0.2, "Blessing of Protection")
     pala_cleanse()
-    heal_under_percent(0.3, "Holy Light")
-    heal_under_percent(0.6, "Flash of Light")
+    heal_under_percent(0.4, "Holy Light")
+    heal_under_percent(0.7, "Flash of Light")
 end
