@@ -6,6 +6,10 @@ function priest_big_buff_group2()
     priest_big_buff_by_group(2)
 end
 
+function priest_big_buff_group3()
+    priest_big_buff_by_group(3)
+end
+
 function priest_big_buff_by_group(group)
     TargetByName(group_list[group].tank)
     big_stamina()
@@ -27,6 +31,10 @@ end
 
 function priest_small_buff_group2()
     priest_small_buff_by_group(2)
+end
+
+function priest_small_buff_group3()
+    priest_small_buff_by_group(3)
 end
 
 function priest_small_buff_by_group(group)

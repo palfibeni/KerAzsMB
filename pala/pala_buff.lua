@@ -6,6 +6,10 @@ function pala_big_buff_group2()
     pala_big_buff_by_group(2)
 end
 
+function pala_big_buff_group3()
+    pala_big_buff_by_group(3)
+end
+
 function pala_big_buff_by_group(group)
     TargetByName(group_list[group].tank)
     pala_big_kings()
@@ -48,6 +52,10 @@ end
 
 function pala_buff_group2()
     pala_small_buff_by_group(2)
+end
+
+function pala_buff_group3()
+    pala_small_buff_by_group(3)
 end
 
 function pala_small_buff_by_group(group)

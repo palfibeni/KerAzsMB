@@ -11,7 +11,11 @@ group_list = {
 		heal="Lionel",
 		dps_list={"Cooperbeard", "PinkyPe", "Fabregas", "Windou"}
 	},
-	[3] = {},
+	[3] = {
+		tank="Oakheart",
+		heal="Nobleforged",
+		dps_list={"Cromwell", "Leilena", "Featherfire"}
+	},
 	[4] = {}
 }
 

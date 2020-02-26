@@ -1,11 +1,17 @@
-function mage_buff_group1()
+function mage_big_buff_group1()
     TargetByName(group_list[1].tank)
     mage_big_int()
     mage_armor()
 end
 
-function mage_buff_group2()
+function mage_big_buff_group2()
     TargetByName(group_list[2].tank)
+    mage_big_int()
+    mage_armor()
+end
+
+function mage_big_buff_group3()
+    TargetByName(group_list[3].tank)
     mage_big_int()
     mage_armor()
 end
@@ -24,6 +30,10 @@ end
 
 function mage_buff_group2()
     mage_small_buff_by_group(2)
+end
+
+function mage_buff_group3()
+    mage_small_buff_by_group(3)
 end
 
 function mage_small_buff_by_group(group)
