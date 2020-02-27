@@ -25,6 +25,7 @@ function burst_dmg()
     if (GetComboPoints("target") >= 1) then
         cast("Blade Flurry")
         cast("Adrenaline Rush")
+        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
     end
 end
 

@@ -108,14 +108,7 @@ function cast_buff(icon, spell_name)
 end
 
 function target_has_buff(icon)
-	local i,x=1,0
-	while (UnitBuff("target",i)) do
-		if (UnitBuff("target",i) == ("Interface\\Icons\\" .. icon)) then
-			x=1
-		end
-		i=i+1
-	end
-	return x == 1
+	return has_buff("target", icon)
 end
 
 function cast_buff_player(icon, spell_name)
@@ -124,9 +117,13 @@ function cast_buff_player(icon, spell_name)
 end
 
 function player_has_buff(icon)
+	return has_buff("player", icon)
+end
+
+function has_buff(target, icon)
 	local i,x=1,0
-	while (UnitBuff("player",i)) do
-		if (UnitBuff("player",i) == ("Interface\\Icons\\" .. icon)) then
+	while (UnitBuff(target,i)) do
+		if (UnitBuff(target,i) == ("Interface\\Icons\\" .. icon)) then
 			x=1
 		end
 		i=i+1
@@ -149,6 +146,20 @@ function use_autoattack()
 		PickupAction(62)
 		PlaceAction(63)
 	end
+end
+
+function pick_up_item(name)
+	if not CursorHasItem() then
+		for bag=0,4 do
+			for slot = 1,GetContainerNumSlots(bag) do
+				local texture,itemCount,locked,quality,readable,lootable,link = GetContainerItemInfo(bag,slot)
+				if texture then
+					if string.find(link, name) then PickupContainerItem(bag,slot) return end
+				end
+			end
+		end
+	end
+	ResetCursor()
 end
 
 --KerAzs = CreateFrame("Button","KerAzs",UIParent)

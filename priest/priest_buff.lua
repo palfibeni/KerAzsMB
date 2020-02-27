@@ -14,6 +14,7 @@ function priest_big_buff_by_group(group)
     TargetByName(group_list[group].tank)
     big_stamina()
     big_spirit()
+    fear_ward()
     inner_fire()
 end
 
@@ -23,6 +24,10 @@ end
 
 function big_spirit()
     cast_buff("Spell_Holy_PrayerofSpirit", "Prayer of Spirit")
+end
+
+function fear_ward()
+    cast_buff("Spell_Holy_Excorcism", "Fear Ward")
 end
 
 function priest_small_buff_group1()

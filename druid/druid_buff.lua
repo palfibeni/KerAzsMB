@@ -41,7 +41,5 @@ function druid_small_buff_by_group(group)
 end
 
 function druid_small_buff()
-    local class = UnitClass("target")
-	if class=="Warrior" or class=="Rogue" then return end
 	cast_buff("Spell_Nature_Regeneration", "Mark of the Wild")
 end

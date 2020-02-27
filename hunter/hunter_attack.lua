@@ -25,6 +25,8 @@ function hunter_attack()
 		use_autoattack()
 	else
 		stop_autoattack()
+		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
+		cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
 		cast("Arcane Shot")
 		use_ranged_attack()
     end
