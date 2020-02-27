@@ -9,4 +9,5 @@
 	<Include file="pala\pala.xml"/>
 	<Include file="rouge\rouge.xml"/>
 	<Include file="druid\druid.xml"/>
+	<Include file="hunter\hunter.xml"/>
 </Ui>

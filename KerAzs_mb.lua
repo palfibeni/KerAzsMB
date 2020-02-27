@@ -134,6 +134,10 @@ function player_has_buff(icon)
 	return x == 1
 end
 
+function is_in_melee_range()
+	return CheckInteractDistance("target",3)
+end
+
 function stop_autoattack()
 	PickupAction(63)
 	PlaceAction(62)
