@@ -8,4 +8,5 @@
 	<Include file="mage\mage.xml"/>
 	<Include file="pala\pala.xml"/>
 	<Include file="rouge\rouge.xml"/>
+	<Include file="druid\druid.xml"/>
 </Ui>

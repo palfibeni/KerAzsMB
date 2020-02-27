@@ -6,6 +6,10 @@ function priest_heal_group2()
     priest_heal_by_group(2)
 end
 
+function priest_heal_group3()
+    priest_heal_by_group(3)
+end
+
 function priest_heal_by_group(group)
     TargetByName(group_list[group].tank)
     priest_heal_tank()
@@ -22,7 +26,8 @@ function priest_heal_by_group(group)
 end
 
 function priest_heal_self()
-    if is_player_hp_under(0.25) then
+    local desp, dur_desp, en_desp = GetActionCooldown(61)
+    if desp == 0 and is_player_hp_under(0.25) then
         if casting_or_channeling() then SpellStopCasting() end
         cast("Desperate Prayer")
         cast("Fade")

@@ -6,6 +6,10 @@ function mage_decurse_group2()
     mage_decurse_by_group(2)
 end
 
+function mage_decurse_group3()
+    mage_decurse_by_group(3)
+end
+
 function mage_decurse_by_group(group)
     TargetByName(group_list[group].tank)
     mage_decurse()
