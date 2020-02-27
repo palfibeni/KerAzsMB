@@ -12,14 +12,16 @@ end
 
 function druid_heal_by_group(group)
     TargetByName(group_list[group].tank)
-    heal_under_percent(0.6, "Healing Touch")
-    heal_under_percent(0.8, "Rejuvenation")
+    druid_heal()
     TargetByName(group_list[group].heal)
-    heal_under_percent(0.8, "Healing Touch")
-    heal_under_percent(0.8, "Rejuvenation")
+    druid_heal()
     for i,dps in pairs(group_list[group].dps_list) do
 		TargetByName(dps)
-        heal_under_percent(0.8, "Healing Touch")
-        heal_under_percent(0.8, "Rejuvenation")
+        druid_heal()
 	end
+end
+
+function druid_heal()
+    heal_under_percent(0.6, "Healing Touch")
+    heal_under_percent(0.8, "Rejuvenation")
 end

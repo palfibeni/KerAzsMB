@@ -30,6 +30,8 @@ function druid_buff_group3()
 end
 
 function druid_small_buff_by_group(group)
+    TargetByName(group_list[group].tank)
+    druid_small_buff()
     TargetByName(group_list[group].heal)
     druid_small_buff()
     for i,dps in pairs(group_list[group].dps_list) do
