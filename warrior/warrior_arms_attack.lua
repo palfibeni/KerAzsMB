@@ -14,12 +14,12 @@ function warrior_arms_cross()
 	end
 end
 
-local function warrior_arms_attack()
+function warrior_arms_attack()
 	rend()
 	heroic_strike()
 end
 
-local function rend()
+function rend()
 	if target_has_debuff("Ability_Gouge") then return end
 	if get_rage()>10 then
 		cast("Rend")
@@ -29,7 +29,7 @@ local function rend()
 end
 
 
-local function heroic_strike()
+function heroic_strike()
 	if get_rage()>15 then
 		cast("Heroic Strike")
 	else
