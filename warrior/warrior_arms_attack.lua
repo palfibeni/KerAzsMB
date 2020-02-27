@@ -17,7 +17,7 @@ function warrior_arms_cross()
 end
 
 function warrior_arms_attack()
-	start_autoattack()
+	use_autoattack()
 	rend()
 	heroic_strike()
 end

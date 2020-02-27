@@ -25,6 +25,6 @@ function druid_attack()
         cast("Wrath")
 		stop_autoattack()
 	else
-		start_autoattack()
+		use_autoattack()
     end
 end

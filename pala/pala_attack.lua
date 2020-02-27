@@ -23,5 +23,5 @@ function pala_attack()
 		cast("Exorcism")
 		cast("Holy Wrath")
 	end
-    start_autoattack()
+    use_autoattack()
 end
