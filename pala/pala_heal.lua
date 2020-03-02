@@ -40,7 +40,7 @@ function pala_cleanse()
 end
 
 function pala_heal_under_50()
-    if is_target_hp_under(0.4) then
+    if is_target_hp_under(0.5) then
         cast("Divine Favor")
         cast("Holy Light")
     end
@@ -48,14 +48,12 @@ end
 
 function lay_on_hand()
     if is_target_hp_under(0.15) and UnitMana("player") < 1000 then
-        if casting_or_channeling() then SpellStopCasting() end
         cast("Lay on Hands")
     end
 end
 
 function pala_heal_self()
     if is_player_hp_under(0.4) then
-        if casting_or_channeling() then SpellStopCasting() end
         cast("Divine Shield")
     end
 end

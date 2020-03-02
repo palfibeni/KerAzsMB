@@ -14,6 +14,7 @@ function druid_big_buff_group3()
 end
 
 function druid_big_buff()
+    cast_buff("Spell_Nature_Thorns", "Thorns")
     cast_buff("Spell_Nature_Regeneration", "Gift of the Wild")
 end
 
@@ -32,6 +33,7 @@ end
 function druid_small_buff_by_group(group)
     TargetByName(group_list[group].tank)
     druid_small_buff()
+    cast_buff("Spell_Nature_Thorns", "Thorns")
     TargetByName(group_list[group].heal)
     druid_small_buff()
     for i,dps in pairs(group_list[group].dps_list) do

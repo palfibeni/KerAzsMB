@@ -5,5 +5,6 @@
 	<Script file="druid_bear_attack.lua"/>
 	<Script file="druid_heal.lua"/>
 	<Script file="druid_buff.lua"/>
+	<Script file="druid_aoe.lua"/>
 	<Script file="druid_entangle.lua"/>
 </Ui>
