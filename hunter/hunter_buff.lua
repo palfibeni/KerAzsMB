@@ -2,7 +2,7 @@ consumables = {"Chunk of Boar Meat", "Strigy Wolf Meat"}
 
 function buff_pet()
     if UnitExists("pet") and not UnitIsDead("pet") then
-		FeedPet()
+		feed_pet()
 	else
 		cast("Call Pet")
 		cast("Revive Pet")
