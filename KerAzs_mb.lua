@@ -152,8 +152,9 @@ function pick_up_item(name)
 	if not CursorHasItem() then
 		for bag=0,4 do
 			for slot = 1,GetContainerNumSlots(bag) do
-				local texture,itemCount,locked,quality,readable,lootable,link = GetContainerItemInfo(bag,slot)
+				local texture = GetContainerItemInfo(bag,slot)
 				if texture then
+					local link = GetContainerItemLink(bag,slot)
 					if string.find(link, name) then PickupContainerItem(bag,slot) return end
 				end
 			end
@@ -166,8 +167,9 @@ function pick_up_item_from_list(name_list)
 	if not CursorHasItem() then
 		for bag=0,4 do
 			for slot = 1,GetContainerNumSlots(bag) do
-				local texture,itemCount,locked,quality,readable,lootable,link = GetContainerItemInfo(bag,slot)
+				local texture = GetContainerItemInfo(bag,slot)
 				if texture then
+					local link = GetContainerItemLink(bag,slot)
 					for k,name in pairs(name_list) do
 						if string.find(link, name) then PickupContainerItem(bag,slot) return end
 					end
