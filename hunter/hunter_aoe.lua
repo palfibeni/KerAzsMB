@@ -1,4 +1,4 @@
-function hunter_attack_skull()
+function hunter_aoe_skull()
 	if is_target_skull() then
         hunter_aoe()
 	else
@@ -8,7 +8,7 @@ function hunter_attack_skull()
 	end
 end
 
-function hunter_attack_cross()
+function hunter_aoe_cross()
 	if is_target_cross() then
         hunter_aoe()
 	else
