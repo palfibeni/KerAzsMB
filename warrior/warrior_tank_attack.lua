@@ -1,8 +1,16 @@
-function warrior_tank_attack_cross()
-	if GetRaidTargetIndex("target") == 7 then
+function warrior_tank_attack_skull()
+	if is_target_skull() then
 		warrior_tank_attack()
 	else
-		targetCross()
+		target_skull()
+	end
+end
+
+function warrior_tank_attack_cross()
+	if is_target_cross() then
+		warrior_tank_attack()
+	else
+		target_cross()
 	end
 end
 

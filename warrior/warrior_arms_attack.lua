@@ -1,5 +1,5 @@
 function warrior_arms_skull()
-	if (is_target_skull()) then
+	if is_target_skull() then
 		warrior_arms_attack()
 	else
         stop_autoattack()
@@ -8,7 +8,7 @@ function warrior_arms_skull()
 end
 
 function warrior_arms_cross()
-	if (GetRaidTargetIndex("target")==7) then
+	if is_target_cross() then
 		warrior_arms_attack()
 	else
         stop_autoattack()
@@ -18,6 +18,7 @@ end
 
 function warrior_arms_attack()
 	use_autoattack()
+	cast("Overpower")
 	rend()
 	heroic_strike()
 end
