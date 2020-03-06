@@ -19,9 +19,6 @@ group_list = {
 	[4] = {}
 }
 
--- test command:
--- RunLine("/say " .. "test" )
-
 function is_tank_by_name(name)
 	for i,tank in pairs(tank_list) do
 		if tank == name then return true end
@@ -45,109 +42,34 @@ function is_player_hp_under(percent)
 	return UnitHealth("player") / UnitHealthMax("player") < percent
 end
 
+function heal_under_percent(percent, spell)
+	if is_target_hp_under(percent) then
+		cast(spell)
+	end
+end
+
 function get_rage()
     return UnitMana("player")
-end
-
-function target_cross()
-	target_by_icon(7)
-end
-
-function is_target_cross()
-	return (GetRaidTargetIndex("target") == 7)
-end
-
-function target_skull()
-	target_by_icon(8)
-end
-
-function is_target_skull()
-	return (GetRaidTargetIndex("target") == 8)
-end
-
-function target_by_icon(icon)
-	for k,tank in pairs(tank_list) do
-		TargetByName(tank)
-		TargetUnit("targettarget")
-		if (GetRaidTargetIndex("target") == icon) then
-			return
-		end
-	end
-	tab_target_by_icon(icon)
-end
-
-function tab_target_by_icon(icon)
-	for i=1,10 do
-		TargetNearestEnemy()
-		if (GetRaidTargetIndex("target") == icon) then
-			return
-		end
-	end
-	TargetUnit("player")
-end
-
-function cast_debuff(icon, spell_name)
-	if target_has_debuff(icon) then return end
-	cast(spell_name)
-end
-
-function target_has_debuff(icon)
-	local i,x=1,0
-	while (UnitDebuff("target",i)) do
-		if (UnitDebuff("target",i) == ("Interface\\Icons\\" .. icon)) then
-			x=1
-		end
-		i=i+1
-	end
-	return x == 1
-end
-
-function cast_buff(icon, spell_name)
-	if target_has_buff(icon) then return end
-	cast(spell_name)
-end
-
-function target_has_buff(icon)
-	return has_buff("target", icon)
-end
-
-function cast_buff_player(icon, spell_name)
-	if player_has_buff(icon) then return end
-	cast(spell_name)
-end
-
-function player_has_buff(icon)
-	return has_buff("player", icon)
-end
-
-function has_buff(target, icon)
-	local i,x=1,0
-	while (UnitBuff(target,i)) do
-		if (UnitBuff(target,i) == ("Interface\\Icons\\" .. icon)) then
-			x=1
-		end
-		i=i+1
-	end
-	return x == 1
 end
 
 function is_in_melee_range()
 	return CheckInteractDistance("target",3)
 end
 
-function stop_autoattack()
-	PickupAction(63)
-	PlaceAction(62)
+function casting()
+    return CastingBarFrame.casting
 end
 
-function use_autoattack()
-	if not IsCurrentAction(62) and not IsCurrentAction(63) then
-		UseAction(62)
-		PickupAction(62)
-		PlaceAction(63)
-	end
+function channeling()
+    return CastingBarFrame.channeling
 end
 
+-- Returns whether
+function casting_or_channeling()
+    return casting() or channeling()
+end
+
+-- pick up an item to use by name
 function pick_up_item(name)
 	if not CursorHasItem() then
 		for bag=0,4 do
@@ -163,6 +85,7 @@ function pick_up_item(name)
 	ResetCursor()
 end
 
+-- pick up any item to use from a list of names
 function pick_up_item_from_list(name_list)
 	if not CursorHasItem() then
 		for bag=0,4 do
@@ -179,6 +102,10 @@ function pick_up_item_from_list(name_list)
 	end
 	ResetCursor()
 end
+
+
+-- test command:
+-- RunLine("/say " .. "test" )
 
 --KerAzs = CreateFrame("Button","KerAzs",UIParent)
 --KerAzs:RegisterEvent("ADDON_LOADED") -- register event "ADDON_LOADED"
@@ -244,11 +171,3 @@ end
 --	SetBinding("SHIFT-F12","MULTIACTIONBAR2BUTTON12")
 --	ReloadUI()
 --end
-
--- warrior
--- tankattack
--- /script warrior_tank_attack()
-
--- pala
--- palaAOE
--- /scipt pala_aoe_group2()
