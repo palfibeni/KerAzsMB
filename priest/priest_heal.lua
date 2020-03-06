@@ -25,19 +25,19 @@ function priest_heal_by_group(group)
     fear_ward()
 end
 
-function priest_heal_self()
-    local desp, dur_desp, en_desp = GetActionCooldown(61)
-    if desp == 0 and is_player_hp_under(0.25) then
-        if casting_or_channeling() then SpellStopCasting() end
-        cast("Desperate Prayer")
-        cast("Fade")
-    end
-end
-
 function priest_heal_tank()
     if UnitIsDead("target") then return end
     heal_under_percent(0.5, "Flash Heal")
     heal_under_percent(0.8, "Heal")
+    priest_dispel()
+end
+
+function priest_heal_self()
+    local desp, dur_desp, en_desp = GetActionCooldown(61)
+    if desp == 0 and is_player_hp_under(0.25) then
+        cast("Desperate Prayer")
+        cast("Fade")
+    end
 end
 
 function priest_dispel()
