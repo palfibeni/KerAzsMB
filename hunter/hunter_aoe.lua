@@ -20,9 +20,7 @@ end
 
 function hunter_aoe()
     if is_in_melee_range() then
-		stop_ranged_attack()
-		cast("Raptor Strike")
-		use_autoattack()
+		hunter_melee()
 	else
 		stop_autoattack()
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")

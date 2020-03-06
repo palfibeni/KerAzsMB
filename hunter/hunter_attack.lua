@@ -20,27 +20,30 @@ end
 
 function hunter_attack()
     if is_in_melee_range() then
-		stop_ranged_attack()
-		cast("Raptor Strike")
-		use_autoattack()
+		hunter_melee()
 	else
-		stop_autoattack()
-		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
-		cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
-		cast("Arcane Shot")
-		use_ranged_attack()
+		hunter_ranged()
     end
+	hunter_pet_attack()
 end
 
-function stop_ranged_attack()
-	PickupAction(65)
-	PlaceAction(64)
-end
-
-function use_ranged_attack()
-	if not IsCurrentAction(64) and not IsCurrentAction(65) then
-		UseAction(64)
-		PickupAction(64)
-		PlaceAction(65)
+function hunter_pet_attack()
+	if not PetHasActionBar() == nil then
+		PetAttack()
 	end
+end
+
+function hunter_melee()
+	stop_ranged_attack()
+	cast("Mongoose Bite")
+	cast("Raptor Strike")
+	use_autoattack()
+end
+
+function hunter_ranged()
+	stop_autoattack()
+	cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
+	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
+	cast("Arcane Shot")
+	use_ranged_attack()
 end
