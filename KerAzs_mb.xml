@@ -4,7 +4,6 @@
 	<Script file="targeting.lua"/>
 	<Script file="autoattack.lua"/>
 	<Script file="buffing.lua"/>
-	<Script file="caster_core.lua"/>
 	<Include file="warrior\warrior.xml"/>
 	<Include file="warlock\warlock.xml"/>
 	<Include file="priest\priest.xml"/>
