@@ -18,14 +18,14 @@ end
 
 -- Removes given type of debuff from target with given spell
 function remove_debuff_type_target(icon, type, spell_name)
-	if has_debuff_type("target", icon, type, spell_name)
+	if has_debuff_type("target", icon, type, spell_name) then
 		cast(spell_name)
 	end
 end
 
 -- Removes given type of debuff from player with given spell
 function remove_debuff_type_player(type, spell_name)
-	if has_debuff_type("player", type, spell_name)
+	if has_debuff_type("player", type, spell_name) then
 		cast(spell_name)
 	end
 end
