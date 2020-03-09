@@ -23,7 +23,7 @@ function warrior_aoe()
 end
 
 function warrior_demo_shout()
-	if target_has_debuff("Ability_Warrior_WarCry") then return end
+	if has_debuff("Ability_Warrior_WarCry") then return end
 	if get_rage() > 10 then
 		cast("Demoralizing Shout")
 	else

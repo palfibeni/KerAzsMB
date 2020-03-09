@@ -24,7 +24,7 @@ function warrior_arms_attack()
 end
 
 function rend()
-	if target_has_debuff("Ability_Gouge") then return end
+	if has_debuff("Ability_Gouge") then return end
 	if get_rage()>10 then
 		cast("Rend")
 	else

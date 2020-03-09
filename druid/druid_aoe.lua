@@ -4,7 +4,7 @@ function druid_aoe()
 end
 
 function druid_demo_shout()
-	if target_has_debuff("Ability_Druid_DemoralizingRoar") then return end
+	if has_debuff("Ability_Druid_DemoralizingRoar") then return end
 	if get_rage() > 10 then
 		cast("Demoralizing Roar")
 	else
