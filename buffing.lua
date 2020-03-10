@@ -48,8 +48,12 @@ end
 
 -- Casts given buff on player
 function cast_buff_player(icon, spell_name)
-	if has_buff("player", icon) then return end
+	if player_has_buff(icon) then return end
 	cast(spell_name)
+end
+
+function player_has_buff(icon)
+	return has_buff("player", icon)
 end
 
 -- Return whether given target has the given buff
