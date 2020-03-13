@@ -1,15 +1,15 @@
 function druid_big_buff_group1()
-    TargetByName(group_list[1].tank)
+    exact_target_by_name(group_list[1].tank)
     druid_big_buff()
 end
 
 function druid_big_buff_group2()
-    TargetByName(group_list[2].tank)
+    exact_target_by_name(group_list[2].tank)
     druid_big_buff()
 end
 
 function druid_big_buff_group3()
-    TargetByName(group_list[3].tank)
+    exact_target_by_name(group_list[3].tank)
     druid_big_buff()
 end
 
@@ -31,13 +31,13 @@ function druid_buff_group3()
 end
 
 function druid_small_buff_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     druid_small_buff()
     cast_buff("Spell_Nature_Thorns", "Thorns")
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     druid_small_buff()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         druid_small_buff()
 	end
 end

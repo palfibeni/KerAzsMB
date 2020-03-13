@@ -11,13 +11,13 @@ function pala_heal_group3()
 end
 
 function pala_heal_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     pala_heal_tank()
     priest_heal_self()
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     pala_heal_dps()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         pala_heal_dps()
 	end
 end

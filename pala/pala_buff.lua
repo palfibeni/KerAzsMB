@@ -11,12 +11,12 @@ function pala_big_buff_group3()
 end
 
 function pala_big_buff_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     pala_big_kings()
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     pala_big_bless()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         pala_big_bless()
 	end
 end
@@ -35,15 +35,23 @@ function pala_big_might()
 end
 
 function pala_big_wisdom()
-    cast_buff("Spell_Holy_GreaterBlessingOfWisdom", "Greater Blessing of Wisdom")
+    cast_buff("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom")
 end
 
 function pala_big_kings()
-    cast_buff("Spell_Magic_GreaterBlessingOfKings", "Greater Blessing of Kings")
+    cast_buff("Spell_Magic_GreaterBlessingofKings", "Greater Blessing of Kings")
 end
 
 function pala_big_light()
     cast_buff("Spell_Holy_GreaterBlessingofLight", "Greater Blessing of Light")
+end
+
+function pala_big_salva()
+    cast_buff("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation")
+end
+
+function pala_big_sanc()
+    cast_buff("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
 end
 
 function pala_buff_group1()
@@ -59,12 +67,12 @@ function pala_buff_group3()
 end
 
 function pala_small_buff_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     pala_small_kings()
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     pala_small_bless()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         pala_small_bless()
 	end
 end
@@ -92,4 +100,12 @@ end
 
 function pala_small_light()
     cast_buff("Spell_Holy_PrayerOfHealing02", "Blessing of Light")
+end
+
+function pala_small_salva()
+    cast_buff("Spell_Holy_SealOfSalvation", "Blessing of Salvation")
+end
+
+function pala_small_sanc()
+	cast_buff("Spell_Nature_LightningShield", "Blessing of Sanctuary")
 end

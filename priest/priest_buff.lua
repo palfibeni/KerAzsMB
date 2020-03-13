@@ -11,7 +11,7 @@ function priest_big_buff_group3()
 end
 
 function priest_big_buff_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     big_stamina()
     big_spirit()
     fear_ward()
@@ -43,12 +43,12 @@ function priest_small_buff_group3()
 end
 
 function priest_small_buff_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     priest_small_buff()
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     priest_small_buff()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         priest_small_buff()
 	end
     inner_fire()

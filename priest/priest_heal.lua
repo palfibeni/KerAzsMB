@@ -11,16 +11,16 @@ function priest_heal_group3()
 end
 
 function priest_heal_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     priest_heal_tank()
     priest_heal_self()
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     priest_heal_dps()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         priest_heal_dps()
 	end
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     priest_shield_over_70()
     fear_ward()
 end

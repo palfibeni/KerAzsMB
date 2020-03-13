@@ -11,12 +11,12 @@ function mage_decurse_group3()
 end
 
 function mage_decurse_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     mage_decurse()
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     mage_decurse()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         mage_decurse()
 	end
 end

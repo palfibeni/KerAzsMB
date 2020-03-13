@@ -11,12 +11,12 @@ function druid_heal_group3()
 end
 
 function druid_heal_by_group(group)
-    TargetByName(group_list[group].tank)
+    exact_target_by_name(group_list[group].tank)
     druid_heal()
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     druid_heal()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         druid_heal()
 	end
 end

@@ -1,3 +1,7 @@
+function exact_target_by_name(name)
+	TargetByName(name, true)
+end
+
 function is_target_skull()
 	return (GetRaidTargetIndex("target") == 8)
 end
@@ -16,7 +20,7 @@ end
 
 function target_by_icon(icon)
 	for k,tank in pairs(tank_list) do
-		TargetByName(tank)
+		exact_target_by_name(tank)
 		TargetUnit("targettarget")
 		if (GetRaidTargetIndex("target") == icon) then
 			return

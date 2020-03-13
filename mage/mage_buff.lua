@@ -1,17 +1,17 @@
 function mage_big_buff_group1()
-    TargetByName(group_list[1].tank)
+    exact_target_by_name(group_list[1].tank)
     mage_big_int()
     mage_armor()
 end
 
 function mage_big_buff_group2()
-    TargetByName(group_list[2].tank)
+    exact_target_by_name(group_list[2].tank)
     mage_big_int()
     mage_armor()
 end
 
 function mage_big_buff_group3()
-    TargetByName(group_list[3].tank)
+    exact_target_by_name(group_list[3].tank)
     mage_big_int()
     mage_armor()
 end
@@ -37,10 +37,10 @@ function mage_buff_group3()
 end
 
 function mage_small_buff_by_group(group)
-    TargetByName(group_list[group].heal)
+    exact_target_by_name(group_list[group].heal)
     mage_small_int()
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         mage_small_int()
 	end
     mage_armor()

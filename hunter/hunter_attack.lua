@@ -29,7 +29,7 @@ end
 
 function hunter_pet_attack()
 	if not PetHasActionBar() == nil then
-		PetAttack()
+		PetAttack("target")
 	end
 end
 
@@ -44,6 +44,9 @@ function hunter_ranged()
 	stop_autoattack()
 	cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
-	cast("Arcane Shot")
+	cast("Aimed Shot")
+	if not casting_or_channeling() then
+   		cast("Arcane Shot")
+	end
 	use_ranged_attack()
 end

@@ -13,7 +13,7 @@ end
 function pala_aoe_by_group(group)
     cast("Consecration")
     for i,dps in pairs(group_list[group].dps_list) do
-		TargetByName(dps)
+		exact_target_by_name(dps)
         pala_heal_dps()
 	end
 end
