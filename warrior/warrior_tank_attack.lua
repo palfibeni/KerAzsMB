@@ -40,11 +40,15 @@ end
 function revenge()
 	if get_rage() > 5 then
 		cast("Revenge")
+	else
+		cast("Bloodrage")
 	end
 end
 
 function heroicStrike()
 	if get_rage() > 15 then
 		cast("Heroic Strike")
+	else
+		cast("Bloodrage")
 	end
 end

@@ -1,5 +1,5 @@
-consumables = {"Mystery Meat", "Tiger Meat", "Lean Wolf Flank", "Boar Ribs",
-    "Goretusk Liver", "Chunk of Boar Meat", "Stringy Wolf Meat"}
+consumables = {"Mystery Meat", "Raptor Flesh", "Tiger Meat", "Lean Wolf Flank",
+    "Boar Ribs", "Goretusk Liver", "Chunk of Boar Meat", "Stringy Wolf Meat"}
 
 function buff_pet()
     if UnitExists("pet") and not UnitIsDead("pet") then

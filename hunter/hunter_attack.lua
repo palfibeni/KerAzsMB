@@ -24,13 +24,7 @@ function hunter_attack()
 	else
 		hunter_ranged()
     end
-	hunter_pet_attack()
-end
-
-function hunter_pet_attack()
-	if not PetHasActionBar() == nil then
-		PetAttack("target")
-	end
+	PetAttack("target")
 end
 
 function hunter_melee()

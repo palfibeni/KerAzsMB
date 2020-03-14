@@ -68,7 +68,7 @@ end
 
 function pala_small_buff_by_group(group)
     exact_target_by_name(group_list[group].tank)
-    pala_small_kings()
+    small_bless_tank()
     exact_target_by_name(group_list[group].heal)
     pala_small_bless()
     for i,dps in pairs(group_list[group].dps_list) do
@@ -77,9 +77,16 @@ function pala_small_buff_by_group(group)
 	end
 end
 
+function small_bless_tank()
+    pala_small_kings()
+    if not has_buff("target", "Spell_Magic_MageArmor") then
+		pala_small_might()
+    end
+end
+
 function pala_small_bless()
     local class = UnitClass("target")
-	if class=="Warrior" or class=="Rogue" or class=="Hunter" then
+	if class=="Warrior" or class=="Rogue" or class=="Druid" then
 		pala_small_might()
 	else
 		pala_small_wisdom()

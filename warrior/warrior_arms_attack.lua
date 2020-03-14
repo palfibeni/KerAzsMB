@@ -18,24 +18,36 @@ end
 
 function warrior_arms_attack()
 	use_autoattack()
-	cast("Overpower")
-	rend()
-	heroic_strike()
+	if UnitHealth("target") / UnitHealthMax("target") <= .25 then
+		execute()
+	else
+		cast("Overpower")
+		rend()
+		heroic_strike()
+	end
 end
 
 function rend()
 	if has_debuff("target", "Ability_Gouge") then return end
-	if get_rage()>10 then
+	if get_rage() > 10 then
 		cast("Rend")
 	else
 		cast("Bloodrage")
 	end
 end
 
-
 function heroic_strike()
-	if get_rage()>15 then
+	if get_rage() > 15 then
 		cast("Heroic Strike")
+	else
+		cast("Bloodrage")
+	end
+end
+
+
+function execute()
+	if get_rage() > 20 then
+		cast("Execute")
 	else
 		cast("Bloodrage")
 	end
