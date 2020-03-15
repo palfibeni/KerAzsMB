@@ -1,22 +1,22 @@
-function warrior_arms_skull()
+function warrior_fury_skull()
 	if is_target_skull() then
-		warrior_arms_attack()
+		warrior_fury_attack()
 	else
         stop_autoattack()
 		target_skull()
 	end
 end
 
-function warrior_arms_cross()
+function warrior_fury_cross()
 	if is_target_cross() then
-		warrior_arms_attack()
+		warrior_fury_attack()
 	else
         stop_autoattack()
 		target_cross()
 	end
 end
 
-function warrior_arms_attack()
+function warrior_fury_attack()
 	use_autoattack()
 	cast("Berserker Rage")
 	if UnitHealth("target") / UnitHealthMax("target") <= .25 then
