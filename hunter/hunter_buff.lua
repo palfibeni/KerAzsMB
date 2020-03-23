@@ -1,4 +1,4 @@
-consumables = {"Tender Wolf Meat", "Red Wolf Meat" "Mystery Meat", "Raptor Flesh", "Tiger Meat",
+consumables = {"Tender Wolf Meat", "Red Wolf Meat", "Mystery Meat", "Raptor Flesh", "Tiger Meat",
     "Lean Wolf Flank", "Boar Ribs", "Goretusk Liver", "Chunk of Boar Meat",
     "Stringy Wolf Meat"}
 
