@@ -1,5 +1,6 @@
-consumables = {"Mystery Meat", "Raptor Flesh", "Tiger Meat", "Lean Wolf Flank",
-    "Boar Ribs", "Goretusk Liver", "Chunk of Boar Meat", "Stringy Wolf Meat"}
+consumables = {"Tender Wolf Meat", "Red Wolf Meat" "Mystery Meat", "Raptor Flesh", "Tiger Meat",
+    "Lean Wolf Flank", "Boar Ribs", "Goretusk Liver", "Chunk of Boar Meat",
+    "Stringy Wolf Meat"}
 
 function buff_pet()
     if UnitExists("pet") and not UnitIsDead("pet") then
@@ -8,6 +9,7 @@ function buff_pet()
 		cast("Call Pet")
 		cast("Revive Pet")
     end
+    cast_buff("Ability_TrueShot", "Trueshot Aura")
 end
 
 function feed_pet()

@@ -67,3 +67,14 @@ function has_buff(target, icon)
 	end
 	return x == 1
 end
+
+-- Buffs whole raid with spell
+function buff_raid(icon, spell_name)
+	for i=1,GetNumRaidMembers() do
+		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
+		if name and class and UnitIsConnected("raid"..i) then
+			TargetByName(name)
+			cast_buff(icon, spell_name)
+		end
+	end
+end
