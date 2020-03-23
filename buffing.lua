@@ -58,6 +58,7 @@ end
 
 -- Return whether given target has the given buff
 function has_buff(target, icon)
+	if UnitIsDead(target) then return false end
 	local i,x=1,0
 	while (UnitBuff(target,i)) do
 		if (UnitBuff(target,i) == ("Interface\\Icons\\" .. icon)) then

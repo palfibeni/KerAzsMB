@@ -9,7 +9,7 @@ group_list = {
 	[2] = {
 		tank="Liberton",
 		heal="Lionel",
-		dps_list={"Cooperbeard", "PinkyPe", "Fabregas", "Windou"}
+		dps_list={"Cooperbeard", "Pinkypie", "Fabregas", "Windou"}
 	},
 	[3] = {
 		tank="Oakheart",
@@ -43,6 +43,7 @@ function is_player_hp_under(percent)
 end
 
 function heal_under_percent(percent, spell)
+	if UnitIsDead("target") then return end
 	if is_target_hp_under(percent) then
 		cast(spell)
 	end

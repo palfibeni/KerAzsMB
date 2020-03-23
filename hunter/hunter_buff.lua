@@ -9,7 +9,7 @@ function buff_pet()
 		cast("Call Pet")
 		cast("Revive Pet")
     end
-    cast_buff("Ability_TrueShot", "Trueshot Aura")
+    cast_buff_player("Ability_TrueShot", "Trueshot Aura")
 end
 
 function feed_pet()
