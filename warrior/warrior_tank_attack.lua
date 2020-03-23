@@ -15,6 +15,7 @@ function warrior_tank_attack_cross()
 end
 
 function warrior_tank_attack()
+	cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
 	warrior_taunt()
 	shieldSlam()
 	revenge()

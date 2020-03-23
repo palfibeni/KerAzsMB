@@ -17,22 +17,26 @@ function warrior_fury_cross()
 end
 
 function warrior_fury_attack()
-	use_autoattack()
-	cast("Berserker Rage")
-	if UnitHealth("target") / UnitHealthMax("target") <= .25 then
+	cast_buff_player("Ability_Racial_Avatar", "Berserker Stance")
+	cast_buff_player("Ability_Warrior_AncestralGuardian", "Berserker Rage")
+	if UnitHealth("target") / UnitHealthMax("target") <= .30 then
+		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"))
+		cast_buff_player("Ability_Racial_DeathPact", "Death Wish")
+		cast_buff_player("Ability_Racial_CriticalStrike", "Recklessness")
 		execute()
 	else
 		bloodthrist()
 		whirlwind()
 		fury_heroic_strike()
 	end
+	use_autoattack()
 end
 
 function bloodthrist()
 	if get_rage() > 30 then
-		cast("Bloodthirst")
+		cast("Ability_Racial_BloodLust", "Bloodthirst")
 	else
-		cast("Bloodrage")
+		cast("Ability_Racial_BloodRage", "Bloodrage")
 	end
 end
 
@@ -45,7 +49,7 @@ function whirlwind()
 end
 
 function fury_heroic_strike()
-	if get_rage() > 45 then
+	if get_rage() > 55 then
 		cast("Heroic Strike")
 	else
 		cast("Bloodrage")

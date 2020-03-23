@@ -17,9 +17,10 @@ function warrior_aoe_cross()
 end
 
 function warrior_aoe()
-	use_autoattack()
+	cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
 	warrior_demo_shout()
 	warrior_cleave()
+	use_autoattack()
 end
 
 function warrior_demo_shout()
