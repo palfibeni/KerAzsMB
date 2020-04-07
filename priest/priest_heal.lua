@@ -10,6 +10,10 @@ function priest_heal_group3()
     priest_heal_by_group(3)
 end
 
+function priest_heal_group4()
+    priest_heal_by_group(4)
+end
+
 function priest_heal_by_group(group)
     exact_target_by_name(group_list[group].tank)
     priest_heal_tank()
@@ -41,12 +45,7 @@ function priest_heal_self()
 end
 
 function priest_dispel()
-    for x=1,16 do
-	    local name,count,debuffType=UnitDebuff("target",x,1)
-	    if debuffType == "Magic" then
-            cast("Dispel Magic")
-        end
-    end
+    remove_debuff_type_target("Magic", "Dispel Magic")
 end
 
 function priest_heal_dps()

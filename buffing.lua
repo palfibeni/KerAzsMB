@@ -17,8 +17,8 @@ function has_debuff(target, icon)
 end
 
 -- Removes given type of debuff from target with given spell
-function remove_debuff_type_target(icon, type, spell_name)
-	if has_debuff_type("target", icon, type, spell_name) then
+function remove_debuff_type_target(type, spell_name)
+	if has_debuff_type("target", type) then
 		cast(spell_name)
 	end
 end
@@ -78,4 +78,20 @@ function buff_raid(icon, spell_name)
 			cast_buff(icon, spell_name)
 		end
 	end
+end
+
+-- Remove Debuffs from whole raid with spell
+function remove_debuff_type_raid(type, spell_name)
+	for i=1,GetNumRaidMembers() do
+		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
+		if name and class and UnitIsConnected("raid"..i) then
+			TargetByName(name)
+			remove_debuff_type_target(icon, spell_name)
+		end
+	end
+end
+
+-- Buffs all tanks with spell
+function buff_tanks(icon, spell_name)
+
 end

@@ -16,7 +16,11 @@ group_list = {
 		heal="Nobleforged",
 		dps_list={"Cromwell", "Leilena", "Featherfire"}
 	},
-	[4] = {}
+	[4] = {
+		tank="Gorebleed",
+		heal="Blueligt",
+		dps_list={"Felfire", "Flamestorm", "Coldbringer"}
+	}
 }
 
 function is_tank_by_name(name)

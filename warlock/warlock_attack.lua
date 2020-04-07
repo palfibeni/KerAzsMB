@@ -42,7 +42,7 @@ end
 
 -- ATTACK
 function warlock_attack(curse)
-	if (UnitMana("player")>376) then
+	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
 		-- Useable trinkets
         -- UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));

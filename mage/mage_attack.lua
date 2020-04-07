@@ -17,7 +17,7 @@ end
 function mage_attack()
     if casting_or_channeling() then return end
     local evoc, dur_evoc, en_evoc = GetActionCooldown(61)
-    if (UnitMana("player")>=221) then
+    if (UnitMana("player")>= (UnitLevel("player") * 6)) then
         stop_wand()
 		-- Useable trinkets
         -- UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));

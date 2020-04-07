@@ -10,6 +10,10 @@ function mage_decurse_group3()
     mage_decurse_by_group(3)
 end
 
+function mage_decurse_raid()
+    remove_debuff_type_raid("Curse", "Remove Lesser Curse")
+end
+
 function mage_decurse_by_group(group)
     exact_target_by_name(group_list[group].tank)
     mage_decurse()
@@ -22,10 +26,5 @@ function mage_decurse_by_group(group)
 end
 
 function mage_decurse()
-    for x=1,16 do
-	  local name,count,debuffType=UnitDebuff("target",x,1)
-	  if debuffType=="Curse" then
-          cast("Remove Lesser Curse")
-      end
-    end
+    remove_debuff_type_target("Curse", "Remove Lesser Curse")
 end
