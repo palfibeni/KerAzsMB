@@ -6,14 +6,12 @@ end
 
 -- Return whether given target has the given debuff
 function has_debuff(target, icon)
-	local i,x=1,0
-	while (UnitDebuff(target,i)) do
-		if (UnitDebuff(target,i) == ("Interface\\Icons\\" .. icon)) then
-			x=1
+	for x=1,16 do
+		if (UnitDebuff(target,x) == ("Interface\\Icons\\" .. icon)) then
+			return true
 		end
-		i=i+1
 	end
-	return x == 1
+	return false
 end
 
 -- Removes given type of debuff from target with given spell
@@ -34,10 +32,11 @@ end
 function has_debuff_type(target, type)
 	for x=1,16 do
 	    local name,count,debuffType=UnitDebuff(target,x,1)
-	    if type == "Magic" then
+	    if debuffType == type then
             return true
         end
     end
+	return false
 end
 
 -- Casts given buff on target
@@ -59,14 +58,12 @@ end
 -- Return whether given target has the given buff
 function has_buff(target, icon)
 	if UnitIsDead(target) then return false end
-	local i,x=1,0
-	while (UnitBuff(target,i)) do
-		if (UnitBuff(target,i) == ("Interface\\Icons\\" .. icon)) then
-			x=1
+	for x=1,16 do
+		if (UnitBuff(target,x) == ("Interface\\Icons\\" .. icon)) then
+			return true
 		end
-		i=i+1
 	end
-	return x == 1
+	return false
 end
 
 -- Buffs whole raid with spell

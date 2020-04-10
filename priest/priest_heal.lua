@@ -67,3 +67,17 @@ end
 function fear_ward()
     cast_buff("Spell_Holy_Excorcism", "Fear Ward")
 end
+
+
+function priest_lesser_heal_tank()
+    if UnitIsDead("target") then return end
+    heal_under_percent(0.7, "Lesser Heal")
+    priest_dispel()
+end
+
+function priest_lesser_heal_dps()
+    if casting_or_channeling() then return end
+    if UnitIsDead("target") then return end
+    priest_dispel()
+    heal_under_percent(0.5, "Lesser Heal")
+end
