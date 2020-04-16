@@ -21,3 +21,17 @@ end
 function pala_raid_sanc()
     buff_raid("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
 end
+
+function buff_raid_pala_might_wisdom()
+	for i=1,GetNumRaidMembers() do
+		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
+		if name and class and UnitIsConnected("raid"..i) then
+			TargetByName(name)
+            if class=="Warrior" or class=="Rogue" or class=="Druid" then
+			    cast_buff("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might")
+        	else
+			    cast_buff("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom")
+        	end
+		end
+	end
+end

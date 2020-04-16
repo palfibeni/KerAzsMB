@@ -17,7 +17,7 @@ function druid_balance_cross()
 end
 
 function druid_balance_attack()
-	cast_buff_player("Spell_Nature_ForceofNature", "Moonkin Form")
+	moonkin_form()
     if casting_or_channeling() then return end
     if (UnitMana("player")>=50) then
 		cast_debuff("Spell_Nature_StarFall", "Moonfire")
@@ -27,4 +27,8 @@ function druid_balance_attack()
 	else
 		use_autoattack()
     end
+end
+
+function moonkin_form()
+	cast_buff_player("Spell_Nature_MoonGlow", "Moonkin Form")
 end

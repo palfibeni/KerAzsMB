@@ -31,12 +31,7 @@ function pala_heal_tank()
 end
 
 function pala_cleanse()
-    for x=1,16 do
-	    local name,count,debuffType=UnitDebuff("target",x,1)
-	    if debuffType=="Magic" then
-            cast("Cleanse")
-        end
-    end
+    remove_debuff_type_target("Magic", "Cleanse")
 end
 
 function pala_heal_under_50()
