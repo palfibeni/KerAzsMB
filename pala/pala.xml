@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 	<Script file="pala_attack.lua"/>
     <Script file="pala_heal.lua"/>
+    <Script file="pala_heal_raid.lua"/>
     <Script file="pala_buff.lua"/>
     <Script file="pala_buff_big.lua"/>
     <Script file="pala_buff_raid.lua"/>

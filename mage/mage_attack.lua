@@ -19,9 +19,12 @@ function mage_attack()
     local evoc, dur_evoc, en_evoc = GetActionCooldown(61)
     if (UnitMana("player")>= (UnitLevel("player") * 6)) then
         stop_wand()
-		-- Useable trinkets
-        -- UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-        -- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+		if UnitHealth("target") / UnitHealthMax("target") <= .30 then
+			cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
+			-- Useable trinkets
+	        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+			-- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+		end
         cast("Frostbolt")
     elseif (evoc == 0) then
         cast("Evocation")

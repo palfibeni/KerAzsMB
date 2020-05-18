@@ -14,7 +14,7 @@ function demon_armor()
     if player_has_buff("Spell_Shadow_RagingScream") then
         return
     end
-    if (UnitMana("player")>=1580) then
+    if (UnitMana("player") >= (UnitLevel("player") * 26)) then
         cast("Demon Armor")
     else
         cast("Life Tap")
@@ -26,7 +26,7 @@ function demonic_sacrifice()
         return
     end
     cast("Demonic Sacrifice")
-    if (UnitMana("player")>=1373) then
+    if (UnitMana("player") >= (UnitLevel("player") * 22)) then
         cast("Fel Domination")
         cast("Summon Succubus")
     else
@@ -38,7 +38,7 @@ function summon_imp()
     if player_has_buff("Spell_Shadow_BloodBoil") then
         return
     end
-    if (UnitMana("player")>=1000) then
+    if (UnitMana("player") >= (UnitLevel("player") * 16)) then
         cast("Fel Domination")
         cast("Summon Imp")
     else

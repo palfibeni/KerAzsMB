@@ -24,7 +24,6 @@ function hunter_aoe()
 	else
 		stop_autoattack()
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
-		cast("Volley")
 		cast("Multi-Shot")
 		use_ranged_attack()
     end

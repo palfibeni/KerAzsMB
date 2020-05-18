@@ -23,14 +23,11 @@ end
 
 function small_bless_tank()
     pala_small_kings()
-    if not has_buff("target", "Spell_Magic_MageArmor") then
-		pala_small_might()
-    end
 end
 
 function pala_small_bless()
     local class = UnitClass("target")
-	if class=="Warrior" or class=="Rogue" or class=="Druid" then
+	if class=="Warrior" or class=="Rogue" then
 		pala_small_might()
 	else
 		pala_small_wisdom()

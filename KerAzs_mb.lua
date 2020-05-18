@@ -4,17 +4,17 @@ group_list = {
 	[1] = {
 		tank="Cooperbeard",
 		heal="Baleog",
-		dps_list={"Liberton", "Azsgrof", "Daemona", "Jaliana", "Carla"}
+		dps_list={"Azsgrof", "Daemona", "Jaliana", "Carla"}
 	},
 	[2] = {
-		tank="Liberton",
+		tank="Cooperbeard",
 		heal="Lionel",
-		dps_list={"Cooperbeard", "Pinkypie", "Fabregas", "Windou"}
+		dps_list={"Liberton", "Pinkypie", "Fabregas", "Windou"}
 	},
 	[3] = {
-		tank="Oakheart",
+		tank="Cooperbeard",
 		heal="Nobleforged",
-		dps_list={"Cromwell", "Leilena", "Featherfire"}
+		dps_list={"Oakheart", "Cromwell", "Leilena", "Featherfire"}
 	},
 	[4] = {
 		tank="Gorebleed",

@@ -25,12 +25,12 @@ end
 function buff_raid_pala_might_wisdom()
 	for i=1,GetNumRaidMembers() do
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
-		if name and class and UnitIsConnected("raid"..i) then
+		if name and class and UnitIsConnected("raid"..i) and not UnitIsDead("target") then
 			TargetByName(name)
-            if class=="Warrior" or class=="Rogue" or class=="Druid" then
-			    cast_buff("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might")
+            if class=="Warrior" or class=="Rogue" then
+			    pala_big_might()
         	else
-			    cast_buff("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom")
+			    pala_big_wisdom()
         	end
 		end
 	end

@@ -42,5 +42,6 @@ function hunter_ranged()
 	if not casting_or_channeling() then
    		cast("Arcane Shot")
 	end
+	-- cast("Multi-Shot")
 	use_ranged_attack()
 end
