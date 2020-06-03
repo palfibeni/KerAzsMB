@@ -1,12 +1,15 @@
 -- SKULL
+-- /script warlock_skull_cos()
 function warlock_skull_cos()
 	warlock_skull("CoS")
 end
 
+-- /script warlock_skull_coe()
 function warlock_skull_coe()
 	warlock_skull("CoE")
 end
 
+-- /script warlock_skull_coa()
 function warlock_skull_coa()
 	warlock_skull("CoA")
 end

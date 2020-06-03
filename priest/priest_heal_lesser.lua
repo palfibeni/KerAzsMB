@@ -1,15 +1,19 @@
+-- /script priest_heal_group1()
 function priest_heal_group1()
     priest_heal_lesser_by_group(1)
 end
 
+-- /script priest_heal_group2()
 function priest_heal_group2()
     priest_heal_lesser_by_group(2)
 end
 
+-- /script priest_heal_group3()
 function priest_heal_group3()
     priest_heal_lesser_by_group(3)
 end
 
+-- /script priest_heal_group4()
 function priest_heal_group4()
     priest_heal_lesser_by_group(4)
 end

@@ -10,6 +10,10 @@ function pala_heal_group3()
     pala_heal_by_group(3)
 end
 
+function pala_heal_group4()
+    pala_heal_by_group(4)
+end
+
 function pala_heal_by_group(group)
     exact_target_by_name(group_list[group].tank)
     pala_heal_tank()

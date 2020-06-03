@@ -19,7 +19,7 @@ end
 function warrior_fury_attack()
 	cast_buff_player("Ability_Racial_Avatar", "Berserker Stance")
 	cast_buff_player("Ability_Warrior_AncestralGuardian", "Berserker Rage")
-	if UnitHealth("target") / UnitHealthMax("target") <= .30 then
+	if is_target_hp_under(0.3) then
 		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"))
 		cast_buff_player("Ability_Racial_DeathPact", "Death Wish")
 		cast_buff_player("Ability_Racial_CriticalStrike", "Recklessness")

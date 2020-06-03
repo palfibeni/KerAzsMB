@@ -58,7 +58,7 @@ end
 function priest_shield_over_70()
     if casting_or_channeling() then return end
     if is_target_hp_over(0,7) then
-        if (UnitMana("player") >= (UnitLevel("player") * 60)) then
+        if (UnitMana("player") >= (UnitLevel("player") * 40)) then
             cast("Power Word: Shield")
         end
     end
@@ -66,4 +66,22 @@ end
 
 function fear_ward()
     cast_buff("Spell_Holy_Excorcism", "Fear Ward")
+end
+
+function priest_heal_horde_group1()
+    priest_heal_horde_by_group(1)
+end
+
+function priest_heal_horde_by_group(group)
+    exact_target_by_name(horde_group_list[group].tank)
+    priest_heal_tank()
+    priest_heal_self()
+    exact_target_by_name(horde_group_list[group].heal)
+    priest_heal_dps()
+    for i,dps in pairs(horde_group_list[group].dps_list) do
+		exact_target_by_name(dps)
+        priest_heal_dps()
+	end
+    exact_target_by_name(horde_group_list[group].tank)
+    priest_shield_over_70()
 end

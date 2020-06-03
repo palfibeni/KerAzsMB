@@ -1,3 +1,4 @@
+-- /script druid_balance_skull()
 function druid_balance_skull()
 	if is_target_skull() then
         druid_balance_attack()
@@ -7,6 +8,7 @@ function druid_balance_skull()
 	end
 end
 
+-- /script druid_balance_cross()
 function druid_balance_cross()
 	if is_target_cross() then
         druid_balance_attack()
@@ -16,6 +18,7 @@ function druid_balance_cross()
 	end
 end
 
+-- /script druid_balance_attack()
 function druid_balance_attack()
 	moonkin_form()
     if casting_or_channeling() then return end

@@ -1,4 +1,4 @@
-tank_list = {"Copperbeard", "Liberton", "Oakheart", "Gaelber", "LLanewryn", "Naderius"}
+tank_list = {"Copperbeard", "Gaelber", "LLanewryn", "Naderius", "Obier", "Vynnes", "Dobzse"}
 
 group_list = {
 	[1] = {
@@ -17,8 +17,16 @@ group_list = {
 		dps_list={"Oakheart", "Cromwell", "Leilena", "Featherfire"}
 	},
 	[4] = {
+		tank="Stardancer",
+		heal="Lightbeard",
+		dps_list={"Miraclemike", "Pompedous", "Morbent"}
+	},
+}
+
+horde_group_list = {
+	[1] = {
 		tank="Gorebleed",
-		heal="Blueligt",
+		heal="Bluelight",
 		dps_list={"Felfire", "Flamestorm", "Coldbringer"}
 	}
 }

@@ -24,6 +24,7 @@ end
 
 function warrior_taunt()
 	if UnitName("targettarget") == nil then return end
+	if UnitName("targettarget") == UnitName("player") then return end
 	if is_tank_by_name(UnitName("targettarget")) then return end
 	if UnitIsEnemy("target","player") then
 		cast("Taunt")

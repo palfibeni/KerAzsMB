@@ -10,6 +10,10 @@ function mage_buff_group3()
     mage_small_buff_by_group(3)
 end
 
+function mage_buff_group4()
+    mage_small_buff_by_group(4)
+end
+
 function mage_small_buff_by_group(group)
     exact_target_by_name(group_list[group].heal)
     mage_small_int()

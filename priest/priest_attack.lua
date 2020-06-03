@@ -1,3 +1,4 @@
+-- /script priest_skull()
 function priest_skull()
     if casting_or_channeling() then return end
     if is_target_skull() then
@@ -7,6 +8,7 @@ function priest_skull()
     end
 end
 
+-- /script priest_cross()
 function priest_cross()
     if casting_or_channeling() then return end
     if is_target_cross() then
