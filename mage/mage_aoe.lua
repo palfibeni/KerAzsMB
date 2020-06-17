@@ -1,3 +1,4 @@
+-- /script mage_aoe()
 function mage_aoe()
     if casting_or_channeling() then return end
     if (UnitMana("player")>=300) then

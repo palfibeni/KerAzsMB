@@ -10,6 +10,10 @@ function priest_big_buff_group3()
     priest_big_buff_by_group(3)
 end
 
+function priest_big_buff_group4()
+    priest_big_buff_by_group(4)
+end
+
 function priest_big_buff_by_group(group)
     exact_target_by_name(group_list[group].tank)
     big_stamina()
@@ -40,6 +44,10 @@ end
 
 function priest_small_buff_group3()
     priest_small_buff_by_group(3)
+end
+
+function priest_small_buff_group4()
+    priest_small_buff_by_group(4)
 end
 
 function priest_small_buff_by_group(group)
