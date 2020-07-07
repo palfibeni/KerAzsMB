@@ -12,8 +12,7 @@ end
 
 -- /script pala_cleanse_raid()
 function pala_cleanse_raid()
-    remove_debuff_type_raid("Poison", "Cleanse")
-    remove_debuff_type_raid("Disease", "Cleanse")
+    remove_debuff_types_raid({"Poison", "Magic", "Disease"}, "Cleanse")
 end
 
 function pala_cleanse_by_group(group)
@@ -28,6 +27,5 @@ function pala_cleanse_by_group(group)
 end
 
 function pala_cleanse()
-    remove_debuff_type_target("Poison", "Cleanse")
-    remove_debuff_type_target("Disease", "Cleanse")
+    remove_debuff_types_target({"Poison", "Magic", "Disease"}, "Cleanse")
 end

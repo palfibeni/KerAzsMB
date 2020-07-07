@@ -21,6 +21,12 @@ function remove_debuff_type_target(type, spell_name)
 	end
 end
 
+function remove_debuff_types_target(types, spell_name)
+	if has_debuff_types("target", types) then
+		cast(spell_name)
+	end
+end
+
 -- Removes given type of debuff from player with given spell
 function remove_debuff_type_player(type, spell_name)
 	if has_debuff_type("player", type, spell_name) then
@@ -35,6 +41,18 @@ function has_debuff_type(target, type)
 	    if debuffType == type then
             return true
         end
+    end
+	return false
+end
+
+function has_debuff_types(target, types)
+	for x=1,16 do
+	    local name,count,debuffType=UnitDebuff(target,x,1)
+		for i,type in pairs(types) do
+			if debuffType == type then
+	            return true
+	        end
+		end
     end
 	return false
 end
@@ -94,9 +112,7 @@ function remove_debuff_types_raid(types, spell_name)
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
 		if name and class and UnitIsConnected("raid"..i) then
 			TargetByName(name)
-			for i,type in pairs(types) do
-				remove_debuff_type_target(type, spell_name)
-			end
+			remove_debuff_types_target(types, spell_name)
 		end
 	end
 end
