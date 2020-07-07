@@ -10,6 +10,7 @@ function mage_decurse_group3()
     mage_decurse_by_group(3)
 end
 
+-- /script mage_decurse_raid()
 function mage_decurse_raid()
     remove_debuff_type_raid("Curse", "Remove Lesser Curse")
 end

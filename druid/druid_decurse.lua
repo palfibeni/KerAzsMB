@@ -10,6 +10,11 @@ function druid_decurse_group3()
     druid_decurse_by_group(3)
 end
 
+-- /script druid_decurse_raid()
+function druid_decurse_raid()
+    remove_debuff_type_raid("Curse", "Remove Curse")
+end
+
 function druid_decurse_by_group(group)
     exact_target_by_name(group_list[group].tank)
     druid_decurse()

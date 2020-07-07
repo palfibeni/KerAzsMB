@@ -7,4 +7,6 @@
 	<Script file="druid_buff.lua"/>
 	<Script file="druid_aoe.lua"/>
 	<Script file="druid_entangle.lua"/>
+	<Script file="druid_decurse.lua"/>
+	<Script file="druid_depoison.lua"/>
 </Ui>

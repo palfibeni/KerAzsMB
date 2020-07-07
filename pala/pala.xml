@@ -8,4 +8,5 @@
     <Script file="pala_buff_big.lua"/>
     <Script file="pala_buff_raid.lua"/>
     <Script file="pala_aoe.lua"/>
+    <Script file="pala_clease.lua"/>
 </Ui>
