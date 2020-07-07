@@ -83,7 +83,20 @@ function remove_debuff_type_raid(type, spell_name)
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
 		if name and class and UnitIsConnected("raid"..i) then
 			TargetByName(name)
-			remove_debuff_type_target(icon, spell_name)
+			remove_debuff_type_target(type, spell_name)
+		end
+	end
+end
+
+-- Remove Debuffs from whole raid with spell
+function remove_debuff_types_raid(types, spell_name)
+	for i=1,GetNumRaidMembers() do
+		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
+		if name and class and UnitIsConnected("raid"..i) then
+			TargetByName(name)
+			for i,type in pairs(types) do
+				remove_debuff_type_target(type, spell_name)
+			end
 		end
 	end
 end
