@@ -45,6 +45,7 @@ end
 
 -- ATTACK
 function warlock_attack(curse)
+	if casting() then return end
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
 		-- Useable trinkets

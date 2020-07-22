@@ -37,6 +37,7 @@ function priest_heal_tank()
 end
 
 function priest_heal_self()
+    if casting_or_channeling() then return end
     local desp, dur_desp, en_desp = GetActionCooldown(61)
     if desp == 0 and is_player_hp_under(0.25) then
         cast("Desperate Prayer")
@@ -45,6 +46,7 @@ function priest_heal_self()
 end
 
 function priest_dispel()
+    if casting_or_channeling() then return end
     remove_debuff_type_target("Magic", "Dispel Magic")
 end
 
@@ -56,6 +58,7 @@ function priest_heal_dps()
 end
 
 function priest_shield_over_70()
+    if not is_tank_by_name(UnitName("targettarget")) then return end
     if casting_or_channeling() then return end
     if is_target_hp_over(0,7) then
         if (UnitMana("player") >= (UnitLevel("player") * 40)) then
@@ -65,6 +68,8 @@ function priest_shield_over_70()
 end
 
 function fear_ward()
+    if not is_tank_by_name(UnitName("targettarget")) then return end
+    if casting_or_channeling() then return end
     cast_buff("Spell_Holy_Excorcism", "Fear Ward")
 end
 

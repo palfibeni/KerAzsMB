@@ -35,6 +35,7 @@ function pala_heal_tank()
 end
 
 function pala_cleanse()
+    if casting_or_channeling() then return end
     remove_debuff_type_target("Magic", "Cleanse")
 end
 

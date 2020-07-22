@@ -1,4 +1,4 @@
-tank_list = {"Copperbeard", "Gaelber", "LLanewryn", "Naderius", "Obier", "Vynnes", "Dobzse"}
+tank_list = {"Copperbeard", "Gaelber", "Llanewryn", "Naderius", "Obier", "Vynnes", "Dobzse", "Stardancer"}
 
 group_list = {
 	[1] = {
@@ -65,8 +65,20 @@ function get_rage()
     return UnitMana("player")
 end
 
+-- 1 = Inspect, 9.9 yards
+-- 2 = Trade, 11.11 yards
+-- 3 = Duel, 9.9 yards
+-- 4 = Follow, 28 yards
 function is_in_melee_range()
 	return CheckInteractDistance("target",3)
+end
+
+-- 1 = Inspect, 9.9 yards
+-- 2 = Trade, 11.11 yards
+-- 3 = Duel, 9.9 yards
+-- 4 = Follow, 28 yards
+function is_in_buff_range()
+	return CheckInteractDistance("target",4)
 end
 
 function casting()
@@ -77,7 +89,7 @@ function channeling()
     return CastingBarFrame.channeling
 end
 
--- Returns whether
+-- Returns whether the player is casting or channeling a spell
 function casting_or_channeling()
     return casting() or channeling()
 end
@@ -130,6 +142,19 @@ function use_item(name)
 end
 
 
+--  function createTankWarriorMacro()
+--  	local index=CreateMacro("Attack def",16777218,"/script warrior_tank_attack()",1)
+--		PickupMacro(index)
+--		PlaceAction(1)
+--		PickupMacro(index)
+--		PlaceAction(2)
+--		PickupMacro(index)
+--		PlaceAction(3)
+--      index=CreateMacro("aoe",16777219,"/script warrior_aoe()",1)
+--		PickupMacro(index)
+--		PlaceAction(5)
+--  end
+
 -- test command:
 -- RunLine("/say " .. "test" )
 
@@ -144,19 +169,6 @@ end
 --		initKeyBindings()
 --	end
 --end
-
---  function createTankWarriorMacro()
---  	local index=CreateMacro("Attack def",16777218,"/script warrior_tank_attack()",1)
---		PickupMacro(index)
---		PlaceAction(1)
---		PickupMacro(index)
---		PlaceAction(2)
---		PickupMacro(index)
---		PlaceAction(3)
---      index=CreateMacro("aoe",16777219,"/script warrior_aoe()",1)
---		PickupMacro(index)
---		PlaceAction(5)
---  end
 
 --  function initKeyBindings()
 --	SetBinding("SHIFT-1","MULTIACTIONBAR1BUTTON1")

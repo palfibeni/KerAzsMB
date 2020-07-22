@@ -9,4 +9,5 @@
 	<Script file="priest_shackle.lua"/>
 	<Script file="priest_buff.lua"/>
 	<Script file="priest_mana_burn.lua"/>
+	<Script file="priest_fear_ward.lua"/>
 </Ui>

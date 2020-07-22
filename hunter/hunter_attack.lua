@@ -29,6 +29,7 @@ end
 
 function hunter_melee()
 	stop_ranged_attack()
+	cast_buff_player("Ability_Hunter_AspectOfTheMonkey", "Aspect of the Monkey")
 	cast("Mongoose Bite")
 	cast("Raptor Strike")
 	use_autoattack()
@@ -38,6 +39,9 @@ function hunter_ranged()
 	stop_autoattack()
 	cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
+	if is_target_hp_under(0.3) then
+		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
+	end
 	cast("Aimed Shot")
 	if not casting_or_channeling() then
    		cast("Arcane Shot")

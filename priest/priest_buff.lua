@@ -64,7 +64,7 @@ end
 
 function priest_small_buff()
     small_stamina()
-    small_spirit()
+    -- small_spirit()
 end
 
 function small_stamina()

@@ -20,6 +20,7 @@ end
 
 -- /script druid_balance_attack()
 function druid_balance_attack()
+	if casting() then return end
 	moonkin_form()
     if casting_or_channeling() then return end
     if (UnitMana("player")>=50) then

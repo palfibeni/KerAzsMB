@@ -7,7 +7,11 @@ end
 -- Return whether given target has the given debuff
 function has_debuff(target, icon)
 	for x=1,16 do
-		if (UnitDebuff(target,x) == ("Interface\\Icons\\" .. icon)) then
+		local name = UnitDebuff(target,x)
+		if (name == nil) then
+			return false
+		end
+		if (name == ("Interface\\Icons\\" .. icon)) then
 			return true
 		end
 	end
@@ -16,12 +20,16 @@ end
 
 -- Removes given type of debuff from target with given spell
 function remove_debuff_type_target(type, spell_name)
+	if not is_in_buff_range() then return end
+    if UnitIsDead("target") then return end
 	if has_debuff_type("target", type) then
 		cast(spell_name)
 	end
 end
 
 function remove_debuff_types_target(types, spell_name)
+	if not is_in_buff_range() then return end
+    if UnitIsDead("target") then return end
 	if has_debuff_types("target", types) then
 		cast(spell_name)
 	end
@@ -38,6 +46,9 @@ end
 function has_debuff_type(target, type)
 	for x=1,16 do
 	    local name,count,debuffType=UnitDebuff(target,x,1)
+		if name == nil then
+			return false
+		end
 	    if debuffType == type then
             return true
         end
@@ -49,9 +60,12 @@ function has_debuff_types(target, types)
 	for x=1,16 do
 	    local name,count,debuffType=UnitDebuff(target,x,1)
 		for i,type in pairs(types) do
+			if name == nil then
+				return false
+			end
 			if debuffType == type then
 	            return true
-	        end
+			end
 		end
     end
 	return false
@@ -59,6 +73,8 @@ end
 
 -- Casts given buff on target
 function cast_buff(icon, spell_name)
+	if not is_in_buff_range() then return end
+    if UnitIsDead("target") then return end
 	if has_buff("target", icon) then return end
 	cast(spell_name)
 end
@@ -77,7 +93,11 @@ end
 function has_buff(target, icon)
 	if UnitIsDead(target) then return false end
 	for x=1,16 do
-		if (UnitBuff(target,x) == ("Interface\\Icons\\" .. icon)) then
+		local name = UnitBuff(target,x)
+		if name == nil then
+			return false
+		end
+		if (name == ("Interface\\Icons\\" .. icon)) then
 			return true
 		end
 	end
@@ -115,9 +135,4 @@ function remove_debuff_types_raid(types, spell_name)
 			remove_debuff_types_target(types, spell_name)
 		end
 	end
-end
-
--- Buffs all tanks with spell
-function buff_tanks(icon, spell_name)
-
 end
