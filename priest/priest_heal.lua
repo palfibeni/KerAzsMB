@@ -58,7 +58,7 @@ function priest_heal_dps()
 end
 
 function priest_shield_over_70()
-    if not is_tank_by_name(UnitName("targettarget")) then return end
+    if has_debuff("target", "Spell_Holy_AshesToAshes") then return end
     if casting_or_channeling() then return end
     if is_target_hp_over(0,7) then
         if (UnitMana("player") >= (UnitLevel("player") * 40)) then
