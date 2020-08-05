@@ -24,3 +24,8 @@ function priest_heal_dps_downgrade()
     priest_dispel()
     heal_under_percent(0.5, "Flash Heal(Rank 4)")
 end
+
+-- /script priest_clear_disease_raid()
+function priest_clear_disease_raid()
+    remove_debuff_type_raid("Disease", "Cure Disease")
+end
