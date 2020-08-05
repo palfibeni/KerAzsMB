@@ -22,7 +22,10 @@ function druid_heal_by_group(group)
 end
 
 function druid_heal()
-    heal_under_percent(0.6, "Healing Touch")
+    heal_under_percent(0.4, "Healing Touch")
+    if is_target_hp_under(0.6) then
+        cast_buff("Spell_Nature_ResistNature", "Regrowth")
+    end
     if is_target_hp_under(0.8) then
         cast_buff("Spell_Nature_Rejuvenation", "Rejuvenation")
     end
