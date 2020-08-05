@@ -37,7 +37,9 @@ end
 
 function hunter_ranged()
 	stop_autoattack()
-	cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
+	if not has_debuff("player", "Spell_Nature_ProtectionformNature") then
+		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
+	end
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
 	if is_target_hp_under(0.3) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
