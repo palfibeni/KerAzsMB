@@ -38,6 +38,11 @@ function druid_buff_group4()
     druid_small_buff_by_group(4)
 end
 
+-- /script druid_buff_group5()
+function druid_buff_group5()
+    druid_small_buff_by_group(5)
+end
+
 function druid_small_buff_by_group(group)
     exact_target_by_name(group_list[group].tank)
     druid_small_buff()

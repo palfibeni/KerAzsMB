@@ -20,7 +20,6 @@ end
 
 -- Removes given type of debuff from target with given spell
 function remove_debuff_type_target(type, spell_name)
-	if not is_in_buff_range() then return end
     if UnitIsDead("target") then return end
 	if has_debuff_type("target", type) then
 		cast(spell_name)
@@ -28,7 +27,6 @@ function remove_debuff_type_target(type, spell_name)
 end
 
 function remove_debuff_types_target(types, spell_name)
-	if not is_in_buff_range() then return end
     if UnitIsDead("target") then return end
 	if has_debuff_types("target", types) then
 		cast(spell_name)
@@ -37,6 +35,7 @@ end
 
 -- Removes given type of debuff from player with given spell
 function remove_debuff_type_player(type, spell_name)
+    if UnitIsDead("target") then return end
 	if has_debuff_type("player", type, spell_name) then
 		cast(spell_name)
 	end

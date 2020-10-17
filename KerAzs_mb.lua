@@ -21,6 +21,11 @@ group_list = {
 		heal="Lightbeard",
 		dps_list={"Miraclemike", "Pompedous", "Morbent"}
 	},
+	[5] = {
+		tank="Moonflower",
+		heal="Bronzecoat",
+		dps_list={"Maleficus", "Nightleaf", "Ravencloud"}
+	},
 }
 
 horde_group_list = {
@@ -39,11 +44,11 @@ function is_tank_by_name(name)
 end
 
 function is_target_hp_over(percent)
-	return UnitHealth("target") / UnitHealthMax("target") > percent
+	return not UnitIsDead("target") and UnitHealth("target") / UnitHealthMax("target") > percent
 end
 
 function is_target_hp_under(percent)
-	return UnitHealth("target") / UnitHealthMax("target") < percent
+	return not UnitIsDead("target") and UnitHealth("target") / UnitHealthMax("target") < percent
 end
 
 function is_player_hp_over(percent)
@@ -143,7 +148,7 @@ end
 
 
 --  function createTankWarriorMacro()
---  	local index=CreateMacro("Attack def",16777218,"/script warrior_tank_attack()",1)
+--  	local index=CreateMacro("Attaccsakk def",16777218,"/script warrior_tank_attack()",1)
 --		PickupMacro(index)
 --		PlaceAction(1)
 --		PickupMacro(index)

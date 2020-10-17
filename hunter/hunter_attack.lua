@@ -8,7 +8,27 @@ function hunter_attack_skull()
 	end
 end
 
+function hunter_attack_multi_skull()
+	if is_target_skull() then
+        hunter_attack()
+	else
+		stop_ranged_attack()
+		stop_autoattack()
+		target_skull()
+	end
+end
+
 function hunter_attack_cross()
+	if is_target_cross() then
+        hunter_attack()
+	else
+		stop_ranged_attack()
+		stop_autoattack()
+		target_cross()
+	end
+end
+
+function hunter_attack_multi_cross()
 	if is_target_cross() then
         hunter_attack()
 	else
@@ -23,6 +43,16 @@ function hunter_attack()
 		hunter_melee()
 	else
 		hunter_ranged()
+    end
+	PetAttack("target")
+end
+
+function hunter_attack_multi()
+    if is_in_melee_range() then
+		hunter_melee()
+	else
+		hunter_ranged()
+		cast("Multi-Shot")
     end
 	PetAttack("target")
 end

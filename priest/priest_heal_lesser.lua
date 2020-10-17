@@ -18,6 +18,10 @@ function priest_heal_lesser_group4()
     priest_heal_lesser_by_group(4)
 end
 
+-- /script priest_heal_group5()
+function priest_heal_lesser_group5()
+    priest_heal_lesser_by_group(5)
+end
 
 function priest_heal_lesser_by_group(group)
     exact_target_by_name(group_list[group].tank)

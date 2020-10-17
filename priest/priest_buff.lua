@@ -50,6 +50,10 @@ function priest_small_buff_group4()
     priest_small_buff_by_group(4)
 end
 
+function priest_small_buff_group5()
+    priest_small_buff_by_group(5)
+end
+
 function priest_small_buff_by_group(group)
     exact_target_by_name(group_list[group].tank)
     priest_small_buff()
