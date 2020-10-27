@@ -18,24 +18,13 @@ end
 
 function warrior_aoe()
 	cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
+	CastSpellByName("Bloodrage")
 	warrior_demo_shout()
-	warrior_cleave()
+	cast_buff_player("Ability_Warrior_BattleShout", "Battle Shout")
+	CastSpellByName("Cleave")
 	use_autoattack()
 end
 
 function warrior_demo_shout()
-	if has_debuff("target", "Ability_Warrior_WarCry") then return end
-	if get_rage() > 10 then
-		CastSpellByName("Demoralizing Shout")
-	else
-		CastSpellByName("Bloodrage")
-	end
-end
-
-function warrior_cleave()
-	if get_rage() > 20 then
-		CastSpellByName("Cleave")
-	else
-		CastSpellByName("Bloodrage")
-	end
+	cast_debuff("Ability_Warrior_WarCry", "Demoralizing Shout")
 end

@@ -24,6 +24,10 @@ function pala_heal_by_group(group)
 		exact_target_by_name(dps)
         pala_heal_dps()
 	end
+    if UnitMana("player") / UnitManaMax("player") < 0.5 then
+        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+        UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+    end
 end
 
 function pala_heal_tank()

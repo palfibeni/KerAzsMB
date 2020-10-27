@@ -19,6 +19,21 @@ function pala_heal_raid_reverse()
 	end
 end
 
+function pala_heal_raid_from_group5()
+	pala_heal_raid(21, 40)
+	pala_heal_raid(1, 20)
+end
+
+function pala_heal_raid(start, end)
+	for i=start,end do
+		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
+		if name and class and not isdead and UnitIsConnected("raid"..i) then
+			TargetByName(name)
+            pala_heal_dps_downgrade()
+		end
+	end
+end
+
 function pala_heal_dps_downgrade()
     if casting_or_channeling() then return end
     if UnitIsDead("target") then return end

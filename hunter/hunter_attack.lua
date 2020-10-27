@@ -1,8 +1,10 @@
+hunter_auto_attack = false;
+
 function hunter_attack_skull()
 	if is_target_skull() then
         hunter_attack()
 	else
-		stop_ranged_attack()
+		stop_hunter_auto_shot()
 		stop_autoattack()
 		target_skull()
 	end
@@ -12,7 +14,7 @@ function hunter_attack_multi_skull()
 	if is_target_skull() then
         hunter_attack()
 	else
-		stop_ranged_attack()
+		stop_hunter_auto_shot()
 		stop_autoattack()
 		target_skull()
 	end
@@ -22,7 +24,7 @@ function hunter_attack_cross()
 	if is_target_cross() then
         hunter_attack()
 	else
-		stop_ranged_attack()
+		stop_hunter_auto_shot()
 		stop_autoattack()
 		target_cross()
 	end
@@ -32,7 +34,7 @@ function hunter_attack_multi_cross()
 	if is_target_cross() then
         hunter_attack()
 	else
-		stop_ranged_attack()
+		stop_hunter_auto_shot()
 		stop_autoattack()
 		target_cross()
 	end
@@ -58,8 +60,10 @@ function hunter_attack_multi()
 end
 
 function hunter_melee()
-	stop_ranged_attack()
-	cast_buff_player("Ability_Hunter_AspectOfTheMonkey", "Aspect of the Monkey")
+	stop_hunter_auto_shot()
+	if not has_debuff("player", "Spell_Nature_ProtectionformNature") then
+		cast_buff_player("Ability_Hunter_AspectOfTheMonkey", "Aspect of the Monkey")
+	end
 	CastSpellByName("Mongoose Bite")
 	CastSpellByName("Raptor Strike")
 	use_autoattack()
@@ -79,5 +83,19 @@ function hunter_ranged()
    		CastSpellByName("Arcane Shot")
 	end
 	-- CastSpellByName("Multi-Shot")
+	use_hunter_auto_shot()
+end
+
+function use_hunter_auto_shot()
+	if hunter_auto_attack then return end
+	hunter_auto_attack = true
 	use_ranged_attack()
+	CastSpellByName("Auto Shot")
+
+
+end
+
+function stop_hunter_auto_shot()
+    stop_ranged_attack()
+	hunter_auto_attack = false
 end

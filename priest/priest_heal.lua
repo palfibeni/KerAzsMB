@@ -36,6 +36,10 @@ function priest_heal_by_group(group)
     exact_target_by_name(group_list[group].tank)
     priest_shield_over_70()
     fear_ward()
+    if UnitMana("player") / UnitManaMax("player") < 0.5 then
+        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+        UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+    end
 end
 
 function priest_heal_tank()

@@ -20,6 +20,7 @@ function druid_bear_attack()
 	cast_buff_player("Ability_Racial_BearForm", "Dire Bear Form")
 	cast_buff_player("Ability_Racial_BearForm", "Bear Form")
 	druid_bear_taunt()
+	cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire (Feral)()");
 	if (UnitMana("player")>=15) then
 		CastSpellByName("Maul")
 	else

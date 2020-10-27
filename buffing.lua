@@ -18,6 +18,20 @@ function has_debuff(target, icon)
 	return false
 end
 
+-- Return whether given target has the given debuff
+function get_debuff_count(target, icon)
+	for x=1,16 do
+		local name, rank, icon, count = UnitDebuff(target,x)
+		if (name == nil) then
+			return 0
+		end
+		if (name == ("Interface\\Icons\\" .. icon)) then
+			return count
+		end
+	end
+	return 0
+end
+
 -- Removes given type of debuff from target with given spell
 function remove_debuff_type_target(type, spell_name)
     if UnitIsDead("target") then return end

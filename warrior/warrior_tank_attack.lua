@@ -1,3 +1,5 @@
+lastSunder = 0
+
 function warrior_tank_attack_skull()
 	if is_target_skull() then
 		warrior_tank_attack()
@@ -16,10 +18,13 @@ end
 
 function warrior_tank_attack()
 	cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
+	CastSpellByName("Bloodrage")
 	warrior_taunt()
-	shieldSlam()
-	revenge()
-	heroicStrike()
+	CastSpellByName("Shield Slam")
+	warrior_demo_shout()
+    sunderArmor()
+    CastSpellByName("Revenge")
+	CastSpellByName("Heroic Strike")
 end
 
 function warrior_taunt()
@@ -31,26 +36,11 @@ function warrior_taunt()
 	end
 end
 
-function shieldSlam()
-	if get_rage() > 20 then
-		CastSpellByName("Shield Slam")
-	else
-		CastSpellByName("Bloodrage")
-	end
-end
-
-function revenge()
-	if get_rage() > 5 then
-		CastSpellByName("Revenge")
-	else
-		CastSpellByName("Bloodrage")
-	end
-end
-
-function heroicStrike()
-	if get_rage() > 15 then
-		CastSpellByName("Heroic Strike")
-	else
-		CastSpellByName("Bloodrage")
-	end
+function sunderArmor()
+	if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
+        if get_rage() >= 12 then
+            CastSpellByName("Sunder Armor")
+            lastSunder = GetTime()
+        end
+    end
 end

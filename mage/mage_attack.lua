@@ -25,7 +25,7 @@ function mage_attack()
 			cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
 			-- Useable trinkets
 	        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-			-- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		end
         CastSpellByName("Frostbolt")
     elseif (evoc == 0) then

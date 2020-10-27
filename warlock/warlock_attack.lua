@@ -14,6 +14,11 @@ function warlock_skull_coa()
 	warlock_skull("CoA")
 end
 
+-- /script warlock_skull_cow()
+function warlock_skull_cow()
+	warlock_skull("CoW")
+end
+
 function warlock_skull(curse)
 	if is_target_skull() then
 		warlock_attack(curse)
@@ -23,16 +28,24 @@ function warlock_skull(curse)
 end
 
 -- CROSS
+-- /script warlock_cross_cos()
 function warlock_cross_cos()
 	warlock_cross("CoS")
 end
 
+-- /script warlock_cross_coe()
 function warlock_cross_coe()
 	warlock_cross("CoE")
 end
 
+-- /script warlock_cross_coa()
 function warlock_cross_coa()
 	warlock_cross("CoA")
+end
+
+-- /script warlock_cross_cow()
+function warlock_cross_cow()
+	warlock_cross("CoW")
 end
 
 function warlock_cross(curse)
@@ -49,10 +62,9 @@ function warlock_attack(curse)
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
 		-- Useable trinkets
-        -- UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-        -- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+        UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		warlock_curse(curse)
-		corruption()
 		CastSpellByName("Shadow Bolt")
 	elseif (is_player_hp_over(0.3)) then
 		CastSpellByName("Life Tap")
@@ -68,6 +80,10 @@ function warlock_curse(curse)
 		cast_debuff("Spell_Shadow_ChillTouch", "Curse of the Elements")
 	elseif curse == "CoA" then
 		cast_debuff("Spell_Shadow_CurseOfSargeras", "Curse of Agony")
+	elseif curse == "CoW" then
+		corruption()
+		CastSpellByName("Amplify Curse")
+		cast_debuff("Spell_Shadow_CurseOfMannoroth", "Curse of Weakness")
 	end
 end
 
