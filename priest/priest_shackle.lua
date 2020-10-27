@@ -25,6 +25,6 @@ end
 function shackle_by_icon(icon)
     target_by_icon(icon)
     if (GetRaidTargetIndex("target") == icon) then
-        cast("Shackle Undead")
+        CastSpellByName("Shackle Undead")
     end
 end

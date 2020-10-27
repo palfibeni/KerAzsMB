@@ -50,9 +50,9 @@ function priest_heal_self()
     if is_player_hp_under(0.4) then
         local desp, dur_desp, en_desp = GetActionCooldown(61)
         if desp == 0 then
-            cast("Desperate Prayer")
+            CastSpellByName("Desperate Prayer")
         end
-        cast("Fade")
+        CastSpellByName("Fade")
     end
 end
 
@@ -73,7 +73,7 @@ function priest_shield_over_70()
     if casting_or_channeling() then return end
     if is_target_hp_over(0,7) then
         if (UnitMana("player") >= (UnitLevel("player") * 40)) then
-            cast("Power Word: Shield")
+            CastSpellByName("Power Word: Shield")
         end
     end
 end

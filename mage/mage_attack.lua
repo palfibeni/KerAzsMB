@@ -27,9 +27,9 @@ function mage_attack()
 	        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
 			-- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		end
-        cast("Frostbolt")
+        CastSpellByName("Frostbolt")
     elseif (evoc == 0) then
-        cast("Evocation")
+        CastSpellByName("Evocation")
     else
         use_wand()
     end

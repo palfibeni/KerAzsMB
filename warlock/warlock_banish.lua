@@ -25,6 +25,6 @@ end
 function banish_by_icon(icon)
     target_by_icon(icon)
     if (GetRaidTargetIndex("target") == icon) then
-        cast("Banish")
+        CastSpellByName("Banish")
     end
 end

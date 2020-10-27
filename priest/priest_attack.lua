@@ -22,8 +22,8 @@ function priest_attack()
     if (UnitMana("player")>=221) then
 		stop_wand()
         shadow_word_pain()
-        cast("Mind Blast")
-        cast("Smite")
+        CastSpellByName("Mind Blast")
+        CastSpellByName("Smite")
     else
 		use_wand()
     end

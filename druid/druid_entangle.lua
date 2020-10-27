@@ -25,6 +25,6 @@ end
 function entangle_by_icon(icon)
     target_by_icon(icon)
     if (GetRaidTargetIndex("target") == icon) then
-        cast("Entangling Roots")
+        CastSpellByName("Entangling Roots")
     end
 end

@@ -23,17 +23,17 @@ end
 
 function burst_dmg()
     if (GetComboPoints("target") >= 1) then
-        cast("Blade Flurry")
-        cast("Adrenaline Rush")
+        CastSpellByName("Blade Flurry")
+        CastSpellByName("Adrenaline Rush")
         UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
     end
 end
 
 function sinister_eviscerate()
     if (GetComboPoints("target") == 5) then
-        cast("Eviscerate")
+        CastSpellByName("Eviscerate")
     else
-        cast("Sinister Strike")
+        CastSpellByName("Sinister Strike")
     end
 end
 
@@ -62,8 +62,8 @@ end
 
 function backstab_eviscerate()
     if (GetComboPoints("target") == 5) then
-        cast("Eviscerate")
+        CastSpellByName("Eviscerate")
     else
-        cast("Backstab")
+        CastSpellByName("Backstab")
     end
 end

@@ -41,20 +41,20 @@ end
 
 function pala_heal_under_50()
     if is_target_hp_under(0.5) then
-        cast("Divine Favor")
-        cast("Holy Light")
+        CastSpellByName("Divine Favor")
+        CastSpellByName("Holy Light")
     end
 end
 
 function lay_on_hand()
     if is_target_hp_under(0.15) and UnitMana("player") < 1000 then
-        cast("Lay on Hands")
+        CastSpellByName("Lay on Hands")
     end
 end
 
 function pala_heal_self()
     if is_player_hp_under(0.4) then
-        cast("Divine Shield")
+        CastSpellByName("Divine Shield")
     end
 end
 

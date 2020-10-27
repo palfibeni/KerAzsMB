@@ -6,8 +6,8 @@ function buff_pet()
     if UnitExists("pet") and not UnitIsDead("pet") then
 		feed_pet()
 	else
-		cast("Call Pet")
-		cast("Revive Pet")
+		CastSpellByName("Call Pet")
+		CastSpellByName("Revive Pet")
     end
     cast_buff_player("Ability_TrueShot", "Trueshot Aura")
 end
@@ -15,7 +15,7 @@ end
 function feed_pet()
 	if GetPetHappiness()~=nil and GetPetHappiness()~=3 then
 		if not has_buff("pet", "Ability_Hunter_BeastTraining") then
-			cast("Feed Pet")
+			CastSpellByName("Feed Pet")
 			pick_up_item_from_list(consumables)
 		end
 	end

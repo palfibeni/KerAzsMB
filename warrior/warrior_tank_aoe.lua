@@ -26,16 +26,16 @@ end
 function warrior_demo_shout()
 	if has_debuff("target", "Ability_Warrior_WarCry") then return end
 	if get_rage() > 10 then
-		cast("Demoralizing Shout")
+		CastSpellByName("Demoralizing Shout")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
 
 function warrior_cleave()
 	if get_rage() > 20 then
-		cast("Cleave")
+		CastSpellByName("Cleave")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end

@@ -34,33 +34,33 @@ end
 
 function bloodthrist()
 	if get_rage() > 30 then
-		cast("Ability_Racial_BloodLust", "Bloodthirst")
+		CastSpellByName("Ability_Racial_BloodLust", "Bloodthirst")
 	else
-		cast("Ability_Racial_BloodRage", "Bloodrage")
+		CastSpellByName("Ability_Racial_BloodRage", "Bloodrage")
 	end
 end
 
 function whirlwind()
 	if get_rage() > 40 then
-		cast("Whirlwind")
+		CastSpellByName("Whirlwind")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
 
 function fury_heroic_strike()
 	if get_rage() > 55 then
-		cast("Heroic Strike")
+		CastSpellByName("Heroic Strike")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
 
 
 function execute()
 	if get_rage() > 20 then
-		cast("Execute")
+		CastSpellByName("Execute")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end

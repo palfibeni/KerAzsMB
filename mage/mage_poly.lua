@@ -31,6 +31,6 @@ end
 function poly_by_icon(icon)
     target_by_icon(icon)
     if (GetRaidTargetIndex("target") == icon) then
-        cast("Polymorph")
+        CastSpellByName("Polymorph")
     end
 end

@@ -19,8 +19,8 @@ end
 
 function warlock_drain_soul()
     if (UnitMana("player")>=290) then
-        cast("Drain Soul")
+        CastSpellByName("Drain Soul")
     else
-        cast("Life Tap")
+        CastSpellByName("Life Tap")
     end
 end

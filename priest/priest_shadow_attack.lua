@@ -22,8 +22,8 @@ function sh_priest_attack()
         shadow_form()
         shadow_word_pain()
         cast_debuff("Spell_Shadow_UnsummonBuilding", "Vampiric Embrace")
-        cast("Mind Blast")
-        cast("Mind Flay")
+        CastSpellByName("Mind Blast")
+        CastSpellByName("Mind Flay")
     else
 		use_wand()
     end

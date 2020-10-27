@@ -21,7 +21,7 @@ function warrior_arms_attack()
 	if UnitHealth("target") / UnitHealthMax("target") <= .25 then
 		execute()
 	else
-		cast("Overpower")
+		CastSpellByName("Overpower")
 		rend()
 		heroic_strike()
 	end
@@ -30,25 +30,25 @@ end
 function rend()
 	if has_debuff("target", "Ability_Gouge") then return end
 	if get_rage() > 10 then
-		cast("Rend")
+		CastSpellByName("Rend")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
 
 function heroic_strike()
 	if get_rage() > 15 then
-		cast("Heroic Strike")
+		CastSpellByName("Heroic Strike")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
 
 
 function execute()
 	if get_rage() > 20 then
-		cast("Execute")
+		CastSpellByName("Execute")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end

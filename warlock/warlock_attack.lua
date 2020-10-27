@@ -53,9 +53,9 @@ function warlock_attack(curse)
         -- UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		warlock_curse(curse)
 		corruption()
-		cast("Shadow Bolt")
+		CastSpellByName("Shadow Bolt")
 	elseif (is_player_hp_over(0.3)) then
-		cast("Life Tap")
+		CastSpellByName("Life Tap")
 	else
 		use_wand()
 	end

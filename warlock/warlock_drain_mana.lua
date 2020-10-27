@@ -18,8 +18,8 @@ end
 
 function warlock_drain_mana()
     if (UnitMana("player")>=290) then
-        cast("Drain Mana")
+        CastSpellByName("Drain Mana")
     else
-        cast("Life Tap")
+        CastSpellByName("Life Tap")
     end
 end

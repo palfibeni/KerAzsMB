@@ -21,9 +21,9 @@ function druid_bear_attack()
 	cast_buff_player("Ability_Racial_BearForm", "Bear Form")
 	druid_bear_taunt()
 	if (UnitMana("player")>=15) then
-		cast("Maul")
+		CastSpellByName("Maul")
 	else
-		cast("Enrage")
+		CastSpellByName("Enrage")
 	end
 	use_autoattack()
 end
@@ -33,6 +33,6 @@ function druid_bear_taunt()
 	if UnitName("targettarget") == UnitName("player") then return end
 	if is_tank_by_name(UnitName("targettarget")) then return end
 	if UnitIsEnemy("target","player") then
-		cast("Growl")
+		CastSpellByName("Growl")
 	end
 end

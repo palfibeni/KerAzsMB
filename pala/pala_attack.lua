@@ -17,11 +17,11 @@ function pala_attack_skull()
 end
 
 function pala_attack()
-    cast("Hammer of Justice")
+    CastSpellByName("Hammer of Justice")
     cast_buff_player("Spell_Holy_HolySmite", "Seal of the crusader")
     if UnitCreatureType("target") == "Undead" or UnitCreatureType("target") == "Demon" then
-		cast("Exorcism")
-		cast("Holy Wrath")
+		CastSpellByName("Exorcism")
+		CastSpellByName("Holy Wrath")
 	end
     use_autoattack()
 end

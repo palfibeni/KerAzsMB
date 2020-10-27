@@ -32,7 +32,7 @@ function pala_dispel_raid()
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
 		if name and class and UnitIsConnected("raid"..i) and not UnitIsDead("target") then
 			if has_debuff_pala("target") then
-				cast("Cleanse")
+				CastSpellByName("Cleanse")
 			end
 		end
 	end

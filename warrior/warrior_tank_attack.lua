@@ -27,30 +27,30 @@ function warrior_taunt()
 	if UnitName("targettarget") == UnitName("player") then return end
 	if is_tank_by_name(UnitName("targettarget")) then return end
 	if UnitIsEnemy("target","player") then
-		cast("Taunt")
+		CastSpellByName("Taunt")
 	end
 end
 
 function shieldSlam()
 	if get_rage() > 20 then
-		cast("Shield Slam")
+		CastSpellByName("Shield Slam")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
 
 function revenge()
 	if get_rage() > 5 then
-		cast("Revenge")
+		CastSpellByName("Revenge")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
 
 function heroicStrike()
 	if get_rage() > 15 then
-		cast("Heroic Strike")
+		CastSpellByName("Heroic Strike")
 	else
-		cast("Bloodrage")
+		CastSpellByName("Bloodrage")
 	end
 end
