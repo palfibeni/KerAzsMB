@@ -4,6 +4,8 @@
 	<Script file="targeting.lua"/>
 	<Script file="autoattack.lua"/>
 	<Script file="buffing.lua"/>
+	<Script file="debuff_apply.lua"/>
+	<Script file="debuff_remove.lua"/>
 	<Include file="warrior\warrior.xml"/>
 	<Include file="warlock\warlock.xml"/>
 	<Include file="priest\priest.xml"/>

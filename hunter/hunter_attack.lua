@@ -54,7 +54,9 @@ function hunter_attack_multi()
 		hunter_melee()
 	else
 		hunter_ranged()
-		CastSpellByName("Multi-Shot")
+		if not casting_or_channeling() then
+			CastSpellByName("Multi-Shot")
+		end
     end
 	PetAttack("target")
 end
@@ -78,12 +80,13 @@ function hunter_ranged()
 	if is_target_hp_under(0.3) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
 	end
-	CastSpellByName("Aimed Shot")
-	if not casting_or_channeling() then
-   		CastSpellByName("Arcane Shot")
+	local aimed, dur_aimed, en_aimed = GetActionCooldown(61)
+	if aimed == 0 then
+		CastSpellByName("Aimed Shot")
+		CastSpellByName("Arcane Shot") -- Used for leveling only
+	else
+		use_hunter_auto_shot()
 	end
-	-- CastSpellByName("Multi-Shot")
-	use_hunter_auto_shot()
 end
 
 function use_hunter_auto_shot()
@@ -91,8 +94,6 @@ function use_hunter_auto_shot()
 	hunter_auto_attack = true
 	use_ranged_attack()
 	CastSpellByName("Auto Shot")
-
-
 end
 
 function stop_hunter_auto_shot()

@@ -26,7 +26,7 @@ function druid_balance_attack()
     if (UnitMana("player")>=50) then
 		cast_debuff("Spell_Nature_StarFall", "Moonfire")
         CastSpellByName("Starfire")
-        CastSpellByName("Wrath")
+        CastSpellByName("Wrath") -- Used for leveling only
 		stop_autoattack()
 	else
 		use_autoattack()

@@ -8,7 +8,6 @@ function pala_heal_raid()
 	end
 end
 
-
 function pala_heal_raid_reverse()
     for i=GetNumRaidMembers(),1,-1 do
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
@@ -24,8 +23,8 @@ function pala_heal_raid_from_group5()
 	pala_heal_raid(1, 20)
 end
 
-function pala_heal_raid(start, end)
-	for i=start,end do
+function pala_heal_raid(start, last)
+	for i=start,last do
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
 		if name and class and not isdead and UnitIsConnected("raid"..i) then
 			TargetByName(name)

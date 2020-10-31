@@ -10,6 +10,14 @@ function druid_heal_group3()
     druid_heal_by_group(3)
 end
 
+function druid_heal_group4()
+    druid_heal_by_group(4)
+end
+
+function druid_heal_group5()
+    druid_heal_by_group(5)
+end
+
 function druid_heal_by_group(group)
     exact_target_by_name(group_list[group].tank)
     druid_heal()
