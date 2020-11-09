@@ -1,6 +1,6 @@
 # KerAzsMB - Vanilla WoW Multibox Framework
 
-Works with WoW 1.12
+Works with World of Warcraft version 1.12 and [Vanilla compatible SuperMacro](https://legacy-wow.com/vanilla-addons/SuperMacro/)
 
 ## Intro
 This repository contains many prewritten macros to certain classes, making multiboxing life easier.
