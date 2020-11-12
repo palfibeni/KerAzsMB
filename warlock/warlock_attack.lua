@@ -73,10 +73,10 @@ function warlock_attack(curse, element)
 		-- Useable trinkets
         UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
         UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
-		warlock_curse(curse)
 		if element == "Fire" then
 	        CastSpellByName("Immolation")
 		else
+			warlock_curse(curse)
 			CastSpellByName("Shadow Bolt")
 		end
 	elseif (is_player_hp_over(0.3)) then

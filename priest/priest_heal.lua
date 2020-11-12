@@ -1,3 +1,8 @@
+-- burst heal:
+-- /target Cooperbeard
+-- /script renew()
+-- /cast Flash Heal
+
 -- /script priest_heal_group1()
 function priest_heal_group1()
     priest_heal_by_group(1)
@@ -80,6 +85,11 @@ function priest_shield_over_70()
             CastSpellByName("Power Word: Shield")
         end
     end
+end
+
+function renew()
+    if casting_or_channeling() then return end
+    cast_buff("Spell_Holy_Renew", "Renew")
 end
 
 function fear_ward()

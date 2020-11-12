@@ -91,6 +91,7 @@ end
 
 function use_hunter_auto_shot()
 	if hunter_auto_attack then return end
+	if casting_or_channeling() then return end
 	hunter_auto_attack = true
 	use_ranged_attack()
 	CastSpellByName("Auto Shot")

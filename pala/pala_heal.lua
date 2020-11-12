@@ -1,3 +1,8 @@
+-- burst heal:
+-- /target Cooperbeard
+-- /cast Divine Favor
+-- /cast Flash of Light
+
 function pala_heal_group1()
     pala_heal_by_group(1)
 end
