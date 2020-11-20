@@ -29,6 +29,10 @@ function priest_heal_group5()
 end
 
 function priest_heal_by_group(group)
+    if (GetRaidTargetIndex("player") == 8 ) then
+        SpellStopCasting()
+        return
+    end
     exact_target_by_name(group_list[group].tank)
     priest_heal_tank()
     priest_heal_self()

@@ -53,6 +53,10 @@ function mage_attack_arcane_cross()
 end
 
 function mage_attack(element)
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     if casting_or_channeling() then return end
     local evoc, dur_evoc, en_evoc = GetActionCooldown(61)
     if (UnitMana("player")>= (UnitLevel("player") * 6)) then

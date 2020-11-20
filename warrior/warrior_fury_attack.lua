@@ -17,6 +17,10 @@ function warrior_fury_cross()
 end
 
 function warrior_fury_attack()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
 	if not is_in_melee_range() and UnitAffectingCombat("player") == nil then
 		cast_buff_player("Ability_Warrior_OffensiveStance", "Battle Stance")
 		CastSpellByName("Charge")

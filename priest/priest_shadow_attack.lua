@@ -17,6 +17,10 @@ function sh_priest_cross()
 end
 
 function sh_priest_attack()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     if (UnitMana("player")>=221) then
         stop_wand()
         shadow_form()

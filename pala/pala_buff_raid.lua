@@ -22,6 +22,7 @@ function pala_raid_sanc()
     buff_raid("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
 end
 
+-- /script buff_raid_pala_might_wisdom()
 function buff_raid_pala_might_wisdom()
 	for i=1,GetNumRaidMembers() do
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)

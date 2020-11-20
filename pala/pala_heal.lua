@@ -20,6 +20,10 @@ function pala_heal_group4()
 end
 
 function pala_heal_by_group(group)
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     exact_target_by_name(group_list[group].tank)
     pala_heal_tank()
     pala_heal_self()

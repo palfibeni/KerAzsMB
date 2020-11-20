@@ -67,6 +67,10 @@ end
 
 -- ATTACK
 function warlock_attack(curse, element)
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
 	if casting() then return end
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()

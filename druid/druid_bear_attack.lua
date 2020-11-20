@@ -17,6 +17,10 @@ function druid_bear_cross()
 end
 
 function druid_bear_attack()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
 	cast_buff_player("Ability_Racial_BearForm", "Dire Bear Form")
 	cast_buff_player("Ability_Racial_BearForm", "Bear Form")
 	druid_bear_taunt()

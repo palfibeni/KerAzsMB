@@ -19,6 +19,10 @@ function druid_heal_group5()
 end
 
 function druid_heal_by_group(group)
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     exact_target_by_name(group_list[group].tank)
     druid_heal()
     exact_target_by_name(group_list[group].heal)

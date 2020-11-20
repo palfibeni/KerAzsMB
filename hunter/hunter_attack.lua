@@ -42,6 +42,10 @@ function hunter_attack_multi_cross()
 end
 
 function hunter_attack()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     if is_in_melee_range() then
 		hunter_melee()
 	else
@@ -51,6 +55,10 @@ function hunter_attack()
 end
 
 function hunter_attack_multi()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     if is_in_melee_range() then
 		hunter_melee()
 	else

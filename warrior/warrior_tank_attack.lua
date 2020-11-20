@@ -17,6 +17,10 @@ function warrior_tank_attack_cross()
 end
 
 function warrior_tank_attack()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
 	cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
 	CastSpellByName("Bloodrage")
 	warrior_taunt()

@@ -17,6 +17,10 @@ function rouge_attack_cross()
 end
 
 function rouge_attack()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     burst_dmg()
     sinister_eviscerate()
 end
@@ -56,6 +60,10 @@ function rouge_attack_dagger_cross()
 end
 
 function rouge_dagger_attack()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
     burst_dmg()
     backstab_eviscerate()
 end
