@@ -13,18 +13,17 @@ function use_autoattack()
 	end
 end
 
--- hunters should have autoshot in slot 64, and slot 65 should be empty
+-- hunters should have autoshot in slot 64
 function stop_ranged_attack()
-	PickupAction(65)
-	PlaceAction(64)
+	if IsAutoRepeatAction(64) then
+		CastSpellByName("Auto Shot")
+	end
 end
 
--- hunters should have autoshot in slot 64, and slot 65 should be empty
+-- hunters should have autoshot in slot 64
 function use_ranged_attack()
-	if not IsCurrentAction(64) and not IsCurrentAction(65) then
-		UseAction(64)
-		PickupAction(64)
-		PlaceAction(65)
+	if not IsAutoRepeatAction(64) then
+		CastSpellByName("Auto Shot")
 	end
 end
 

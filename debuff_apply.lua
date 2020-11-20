@@ -21,12 +21,12 @@ end
 -- Return whether given target has the given debuff
 function get_debuff_count(target, icon)
 	for x=1,16 do
-		local name, rank, icon, count = UnitDebuff(target,x)
+		local name, count = UnitDebuff(target,x)
 		if (name == nil) then
 			return 0
 		end
-		if (name == ("Interface\\Icons\\" .. icon)) then
-			return count
+		if (name == ("Interface\\Icons\\" .. icon)) and count then
+			return tonumber(count)
 		end
 	end
 	return 0

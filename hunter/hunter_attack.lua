@@ -1,10 +1,11 @@
-hunter_auto_attack = false;
+last_aimed = 0;
+last_multi = 0;
 
 function hunter_attack_skull()
 	if is_target_skull() then
         hunter_attack()
 	else
-		stop_hunter_auto_shot()
+		stop_ranged_attack()
 		stop_autoattack()
 		target_skull()
 	end
@@ -14,7 +15,7 @@ function hunter_attack_multi_skull()
 	if is_target_skull() then
         hunter_attack()
 	else
-		stop_hunter_auto_shot()
+		stop_ranged_attack()
 		stop_autoattack()
 		target_skull()
 	end
@@ -24,7 +25,7 @@ function hunter_attack_cross()
 	if is_target_cross() then
         hunter_attack()
 	else
-		stop_hunter_auto_shot()
+		stop_ranged_attack()
 		stop_autoattack()
 		target_cross()
 	end
@@ -34,7 +35,7 @@ function hunter_attack_multi_cross()
 	if is_target_cross() then
         hunter_attack()
 	else
-		stop_hunter_auto_shot()
+		stop_ranged_attack()
 		stop_autoattack()
 		target_cross()
 	end
@@ -54,7 +55,7 @@ function hunter_attack_multi()
 		hunter_melee()
 	else
 		hunter_ranged()
-		if not casting_or_channeling() then
+		if not casting_or_channeling() and last_multi + 10 < GetTime() then
 			CastSpellByName("Multi-Shot")
 		end
     end
@@ -62,7 +63,7 @@ function hunter_attack_multi()
 end
 
 function hunter_melee()
-	stop_hunter_auto_shot()
+	stop_ranged_attack()
 	if not has_debuff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Ability_Hunter_AspectOfTheMonkey", "Aspect of the Monkey")
 	end
@@ -80,24 +81,10 @@ function hunter_ranged()
 	if is_target_hp_under(0.3) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
 	end
-	local aimed, dur_aimed, en_aimed = GetActionCooldown(61)
-	if aimed == 0 then
+	if last_aimed + 6 < GetTime() then
 		CastSpellByName("Aimed Shot")
 		CastSpellByName("Arcane Shot") -- Used for leveling only
 	else
-		use_hunter_auto_shot()
+		use_ranged_attack()
 	end
-end
-
-function use_hunter_auto_shot()
-	if hunter_auto_attack then return end
-	if casting_or_channeling() then return end
-	hunter_auto_attack = true
-	use_ranged_attack()
-	CastSpellByName("Auto Shot")
-end
-
-function stop_hunter_auto_shot()
-    stop_ranged_attack()
-	hunter_auto_attack = false
 end
