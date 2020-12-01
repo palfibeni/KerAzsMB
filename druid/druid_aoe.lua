@@ -5,7 +5,7 @@ end
 
 function druid_demo_shout()
 	if has_debuff("target", "Ability_Druid_DemoralizingRoar") then return end
-	if get_rage() > 10 then
+	if UnitMana("player") > 10 then
 		CastSpellByName("Demoralizing Roar")
 	else
 		CastSpellByName("Enrage")
@@ -13,7 +13,7 @@ function druid_demo_shout()
 end
 
 function druid_cleave()
-	if get_rage() > 20 then
+	if UnitMana("player") > 20 then
 		CastSpellByName("Swipe")
 	else
 		CastSpellByName("Enrage")

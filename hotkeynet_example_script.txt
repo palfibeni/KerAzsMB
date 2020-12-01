@@ -45,7 +45,15 @@
 <Hotkey ScrollLockOn Alt Ctrl o>
   <SendLabel w0,w1,w2,w3,w4>
   <CloseWin>
-	
+
+<Hotkey ScrollLockOn Ctrl i>
+    <Key enter>
+    <Wait 250>
+    <Key divide>
+    <Wait 25>
+    <Text init>
+    <Wait 175>
+    <Key enter>
 
 //-----------------------------------------------------------
 	// DEFINE HOTKEYS FOR ALL KEY COMBINATIONS THAT WILL GET
@@ -53,18 +61,16 @@
 	//-----------------------------------------------------------
 
 <MovementHotKey ScrollLockOn 0, 1, 2, 3, 4, 5, 6, 7, 8, 9>
-<SendLabel w0,w1,w2,w3,w4>
-<Key %Trigger%>
-
-
+    <SendLabel w0,w1,w2,w3,w4>
+    <Key %Trigger%>
 
 //Mana forward
 <MovementHotkey ScrollLockOn R>
-	<Sendlabel w1,w2,w3,w4>
-	<Key UP>
+    <Sendlabel w1,w2,w3,w4>
+    <Key UP>
 
 //Mana backup
 <MovementHotkey ScrollLockOn H>
-	<Sendlabel w1,w2,w3,w4>
-	<Key Down>
+    <Sendlabel w1,w2,w3,w4>
+    <Key Down>
 

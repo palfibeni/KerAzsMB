@@ -1,11 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-	<Script file="KerAzs_mb.lua"/>
-	<Script file="targeting.lua"/>
-	<Script file="autoattack.lua"/>
-	<Script file="buffing.lua"/>
-	<Script file="debuff_apply.lua"/>
-	<Script file="debuff_remove.lua"/>
+	<Script file="KerAzsMB.lua"/>
+	<Include file="util\util.xml"/>
 	<Include file="warrior\warrior.xml"/>
 	<Include file="warlock\warlock.xml"/>
 	<Include file="priest\priest.xml"/>

@@ -1,3 +1,26 @@
+function is_tank_by_name(name)
+	for i,tank in pairs(tank_list) do
+		if tank == name then return true end
+	end
+	return nil
+end
+
+-- 1 = Inspect, 9.9 yards
+-- 2 = Trade, 11.11 yards
+-- 3 = Duel, 9.9 yards
+-- 4 = Follow, 28 yards
+function is_in_melee_range()
+	return CheckInteractDistance("target",3)
+end
+
+-- 1 = Inspect, 9.9 yards
+-- 2 = Trade, 11.11 yards
+-- 3 = Duel, 9.9 yards
+-- 4 = Follow, 28 yards
+function is_in_buff_range()
+	return CheckInteractDistance("target",4)
+end
+
 function exact_target_by_name(name)
 	TargetByName(name, true)
 end

@@ -1,0 +1,11 @@
+# Do not delete the following line!
+## Interface: 11200
+## Title: KerAzsMB
+## Notes: Vanilla WoW Multibox Framework Works with World of Warcraft version 1.12
+## First created: Mar 9, 2020
+## OptionalDeps:
+## SavedVariables:
+##..\..\FrameXML\Fonts.xml
+##..\..\FrameXML\UIPanelTemplates.xml
+##..\..\FrameXML\ClassTrainerFrameTemplates.xml 
+KerAzsMB.xml

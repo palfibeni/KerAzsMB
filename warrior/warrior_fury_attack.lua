@@ -43,7 +43,7 @@ function warrior_fury_attack()
 end
 
 function fury_heroic_strike()
-	if get_rage() > 55 then
+	if UnitMana("player") > 55 then
 		CastSpellByName("Heroic Strike")
 	else
 		CastSpellByName("Bloodrage")
