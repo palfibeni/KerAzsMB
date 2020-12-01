@@ -1,7 +1,7 @@
 function priest_mana_burn_skull()
     if casting_or_channeling() then return end
     if is_target_skull() then
-        CastSpellByName("Mana Burn")
+        cast_debuff("Ability_Hunter_AimedShot", "Viper Sting")
     else
         target_skull()
     end
@@ -10,7 +10,7 @@ end
 function priest_mana_burn_cross()
     if casting_or_channeling() then return end
     if is_target_cross() then
-        CastSpellByName("Mana Burn")
+        cast_debuff("Ability_Hunter_AimedShot", "Viper Sting")
     else
         target_cross()
     end

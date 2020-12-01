@@ -1,9 +1,41 @@
-last_aimed = 0;
-last_multi = 0;
+-- Settings
+multiShotEnabled = false
+aimedShotWindow = 1 -- low value, with 3.0+ ranged attack speed (full/auto shot rotation), or a higher value with 2.9- ranged attack speed (clipped/aimed shot rotation)
+multiShotWindow = 1.9 -- should be around ranged attack speed minus 1
+
+aimedShotExpire = 0
+multiShotExpire = 0
+arrowCount = GetInventoryItemCount("player", 0)
+ignoreNext = false
+
+raptorStrikeActionSlot = 14
+mongooseBiteActionSlot = 13
+aimedShotActionSlot = 15
+multiShotActionSlot = 16
+
+local f = CreateFrame("FRAME", "HunterFrame")
+f:RegisterEvent("BAG_UPDATE")
+
+function HunterEventHandler()
+    local newArrowCount = GetInventoryItemCount("player", 0)
+    if arrowCount ~= newArrowCount then
+        arrowCount = newArrowCount
+        if ignoreNext then
+            ignoreNext = false
+        else
+            --Debug("Auto Shot!")
+            aimedShotExpire = GetTime() + aimedShotWindow
+            multiShotExpire = GetTime() + multiShotWindow
+        end
+    end
+end
+
+f:SetScript("OnEvent", HunterEventHandler)
 
 function hunter_attack_skull()
 	if is_target_skull() then
-        hunter_attack()
+	    multiShotEnabled = false
+        hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
@@ -13,7 +45,8 @@ end
 
 function hunter_attack_multi_skull()
 	if is_target_skull() then
-        hunter_attack()
+	    multiShotEnabled = true
+        hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
@@ -23,7 +56,8 @@ end
 
 function hunter_attack_cross()
 	if is_target_cross() then
-        hunter_attack()
+	    multiShotEnabled = false
+        hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
@@ -33,7 +67,8 @@ end
 
 function hunter_attack_multi_cross()
 	if is_target_cross() then
-        hunter_attack()
+	    multiShotEnabled = true
+        hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
@@ -41,58 +76,56 @@ function hunter_attack_multi_cross()
 	end
 end
 
-function hunter_attack()
-	if (GetRaidTargetIndex("player") == 8 ) then
+function hunterDps()
+    if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		return
 	end
     if is_in_melee_range() then
-		hunter_melee()
+		hunterMeleeDps()
 	else
-		hunter_ranged()
+		hunterRangedDps()
     end
 	PetAttack("target")
 end
 
-function hunter_attack_multi()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
-    if is_in_melee_range() then
-		hunter_melee()
-	else
-		hunter_ranged()
-		if not casting_or_channeling() and last_multi + 10 < GetTime() then
-			CastSpellByName("Multi-Shot")
-		end
-    end
-	PetAttack("target")
-end
-
-function hunter_melee()
+function hunterMeleeDps()
 	stop_ranged_attack()
 	if not has_debuff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Ability_Hunter_AspectOfTheMonkey", "Aspect of the Monkey")
 	end
-	CastSpellByName("Mongoose Bite")
-	CastSpellByName("Raptor Strike")
+    if IsActionReady(mongooseBiteActionSlot) then
+        CastSpellByName("Mongoose Bite")
+    elseif not IsCurrentAction(raptorStrikeActionSlot) and IsActionReady(raptorStrikeActionSlot) then
+        CastSpellByName("Raptor Strike")
+    end
 	use_autoattack()
 end
 
-function hunter_ranged()
-	stop_autoattack()
+function hunterRangedDps()
+    stop_autoattack()
 	if not has_debuff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	end
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
-	if is_target_hp_under(0.3) then
+	if is_target_hp_under(0.5) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
 	end
-	if last_aimed + 6 < GetTime() then
-		CastSpellByName("Aimed Shot")
-		CastSpellByName("Arcane Shot") -- Used for leveling only
-	else
-		use_ranged_attack()
-	end
+	use_ranged_attack()
+	if not IsCurrentAction(aimedShotActionSlot) and not IsCurrentAction(multiShotActionSlot) then
+		if aimedShotExpire >= GetTime() and IsActionReady(aimedShotActionSlot) then
+            CastSpellByName("Aimed Shot")
+            ignoreNext = true
+        elseif multiShotEnabled and multiShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
+            CastSpellByName("Multi-Shot")
+            ignoreNext = true
+        end
+    end
+end
+
+function IsActionReady(actionSlot)
+    if IsUsableAction(actionSlot) and GetActionCooldown(actionSlot) == 0 then
+        return true
+    end
+    return false
 end

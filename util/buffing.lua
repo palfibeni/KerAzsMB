@@ -3,13 +3,13 @@ function cast_buff(icon, spell_name)
 	if not is_in_buff_range() then return end
     if UnitIsDead("target") then return end
 	if has_buff("target", icon) then return end
-	cast(spell_name)
+	CastSpellByName(spell_name)
 end
 
 -- Casts given buff on player
 function cast_buff_player(icon, spell_name)
 	if player_has_buff(icon) then return end
-	cast(spell_name)
+	CastSpellByName(spell_name)
 end
 
 -- Buffs whole raid with spell

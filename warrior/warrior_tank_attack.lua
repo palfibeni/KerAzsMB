@@ -1,4 +1,5 @@
 lastSunder = 0
+tauntEnabled = false
 
 function warrior_tank_attack_skull()
 	if is_target_skull() then
@@ -32,6 +33,7 @@ function warrior_tank_attack()
 end
 
 function warrior_taunt()
+	if not tauntEnabled then return end
 	if UnitName("targettarget") == nil then return end
 	if UnitName("targettarget") == UnitName("player") then return end
 	if is_tank_by_name(UnitName("targettarget")) then return end
@@ -42,7 +44,7 @@ end
 
 function sunderArmor()
 	if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
-        if get_rage() >= 12 then
+        if UnitMana("player") >= 12 then
             CastSpellByName("Sunder Armor")
             lastSunder = GetTime()
         end

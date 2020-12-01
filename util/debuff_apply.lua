@@ -1,7 +1,7 @@
 -- If target has no debuff, cast it.
 function cast_debuff(icon, spell_name)
 	if has_debuff("target", icon) then return end
-	cast(spell_name)
+	CastSpellByName(spell_name)
 end
 
 -- Return whether given target has the given debuff

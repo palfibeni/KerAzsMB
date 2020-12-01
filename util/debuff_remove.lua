@@ -2,7 +2,7 @@
 function remove_debuff_type_target(type, spell_name)
     if UnitIsDead("target") then return end
 	if has_debuff_type("target", type) then
-		cast(spell_name)
+		CastSpellByName(spell_name)
 	end
 end
 
@@ -10,7 +10,7 @@ end
 function remove_debuff_types_target(types, spell_name)
     if UnitIsDead("target") then return end
 	if has_debuff_types("target", types) then
-		cast(spell_name)
+		CastSpellByName(spell_name)
 	end
 end
 
@@ -18,7 +18,7 @@ end
 function remove_debuff_type_player(type, spell_name)
     if UnitIsDead("target") then return end
 	if has_debuff_type("player", type, spell_name) then
-		cast(spell_name)
+		CastSpellByName(spell_name)
 	end
 end
 

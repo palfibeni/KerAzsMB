@@ -1,6 +1,6 @@
 # KerAzsMB - Vanilla WoW Multibox Framework
 
-Works with World of Warcraft version 1.12 and [Vanilla compatible SuperMacro](https://legacy-wow.com/vanilla-addons/SuperMacro/)
+Works with World of Warcraft version 1.12
 
 ## Intro
 This repository contains many prewritten macros to certain classes, making multiboxing life easier.
@@ -15,11 +15,8 @@ This will target the enemy with the skull (ID = 8) raidTargetIcon, and start dps
 
 ## How to setup
 ### Wiring in the addon:
-1. Download the scripts and place them inside you Interface/Addons/SuperMacro folder.
-2. Add the following line to the SuperMacro.xml, inside it's <UI> tag:
-```
-<Include file="KerAzsMB\KerAzs_mb.xml"/>
-```
+1. Download the scripts and place them inside you Interface/Addons/ folder.
+2. Edit the groups according to yours in the KerAzs_mb.lua.
 3. Now you can access the functions in the game with macros like this:
 ```
 /script mage_attack_skull()

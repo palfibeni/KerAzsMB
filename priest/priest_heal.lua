@@ -52,6 +52,7 @@ function priest_heal_by_group(group)
 end
 
 function priest_heal_tank()
+    if not UnitExists("target") then return end
     if UnitIsDead("target") then return end
     heal_under_percent(0.5, "Flash Heal")
     heal_under_percent(0.8, "Heal")
@@ -61,8 +62,8 @@ end
 function priest_heal_self()
     if casting_or_channeling() then return end
     if is_player_hp_under(0.4) then
-        local desp, dur_desp, en_desp = GetActionCooldown(61)
-        if desp == 0 then
+        local cd = GetActionCooldown(61)
+        if cd == 0 then
             CastSpellByName("Desperate Prayer")
         end
         CastSpellByName("Fade")
@@ -75,6 +76,7 @@ function priest_dispel()
 end
 
 function priest_heal_dps()
+    if not UnitExists("target") then return end
     if casting_or_channeling() then return end
     if UnitIsDead("target") then return end
     -- priest_dispel()

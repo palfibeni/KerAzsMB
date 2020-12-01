@@ -40,7 +40,9 @@ function pala_heal_by_group(group)
 end
 
 function pala_heal_tank()
+    if not UnitExists("target") then return end
     if UnitIsDead("target") then return end
+    if casting_or_channeling() then return end
     pala_cleanse()
     pala_heal_under_50()
     lay_on_hand()
@@ -48,8 +50,7 @@ function pala_heal_tank()
 end
 
 function pala_cleanse()
-    if casting_or_channeling() then return end
-    remove_debuff_type_target("Magic", "Cleanse")
+    remove_debuff_types_target({"Magic", "Poison"}, "Cleanse")
 end
 
 function pala_heal_under_50()
@@ -66,12 +67,15 @@ function lay_on_hand()
 end
 
 function pala_heal_self()
-    if is_player_hp_under(0.4) then
+    local cd = GetActionCooldown(61)
+    if is_player_hp_under(0.4) and cd == 0 then
         CastSpellByName("Divine Shield")
     end
 end
 
 function pala_heal_dps()
+    if not UnitExists("target") then return end
+    if casting_or_channeling() then return end
     heal_under_percent(0.2, "Blessing of Protection")
     pala_cleanse()
     heal_under_percent(0.4, "Holy Light")
