@@ -1,3 +1,5 @@
+divineShieldActionSlot = 61
+
 -- burst heal:
 -- /target Cooperbeard
 -- /cast Divine Favor
@@ -67,7 +69,7 @@ function lay_on_hand()
 end
 
 function pala_heal_self()
-    local cd = GetActionCooldown(61)
+    local cd = GetActionCooldown(divineShieldActionSlot)
     if is_player_hp_under(0.4) and cd == 0 then
         CastSpellByName("Divine Shield")
     end

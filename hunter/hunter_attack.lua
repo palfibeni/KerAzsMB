@@ -108,8 +108,10 @@ function hunterRangedDps()
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	end
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
-	if is_target_hp_under(0.5) then
+	if is_target_hp_under(0.7) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
+		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+		UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 	end
 	use_ranged_attack()
 	if not IsCurrentAction(aimedShotActionSlot) and not IsCurrentAction(multiShotActionSlot) then

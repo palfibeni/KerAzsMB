@@ -1,3 +1,5 @@
+evocationActionSlot = 61
+
 -- /script mage_attack_skull()
 function mage_attack_skull()
 	if is_target_skull() then
@@ -58,7 +60,7 @@ function mage_attack(element)
 		return
 	end
     if casting_or_channeling() then return end
-    local evoc, dur_evoc, en_evoc = GetActionCooldown(61)
+    local evoc, dur_evoc, en_evoc = GetActionCooldown(evocationActionSlot)
     if (UnitMana("player")>= (UnitLevel("player") * 6)) then
         stop_wand()
 		if is_target_hp_under(0.7) then

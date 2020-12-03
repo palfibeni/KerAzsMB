@@ -1,4 +1,6 @@
-tank_list = {"Copperbeard", "Gaelber", "Llanewrynn", "Naderius", "Obier", "Vynnes", "Dobzse", "Stardancer", "Moonflower"}
+tank_list = {"Copperbeard", "Gaelber", "Llanewrynn", "Naderius", 
+	"Obier", "Vynnes", "Dobzse", "Stardancer", 
+	"Moonflower", "Harklen"}
 
 group_list = {
 	[1] = {
@@ -12,7 +14,7 @@ group_list = {
 		dps_list={"Liberton", "Pinkypie", "Fabregas", "Windou"}
 	},
 	[3] = {
-		tank="Cooperbeard",
+		tank="Stardancer",
 		heal="Nobleforged",
 		dps_list={"Oakheart", "Cromwell", "Leilena", "Featherfire"}
 	},
@@ -45,7 +47,6 @@ function KerAzs:OnEvent()
 	-- do init things.
 		KerAzs:UnregisterEvent("ADDON_LOADED") -- unregister the event as we dont need it anymore
 		-- initKeyBindings()
-		debug("/init")
 	end
 end
 
@@ -62,15 +63,15 @@ function initActionBar()
 	elseif UnitClass("player") == "Rogue" then
 		placeSpellByName("Attack", autoAttackActionSlot)
 	elseif UnitClass("player") == "Paladin" then
-		placeSpellByName("Divine Shield", 61)
+		placeSpellByName("Divine Shield", divineShieldActionSlot)
 		placeSpellByName("Attack", autoAttackActionSlot)
 	elseif UnitClass("player") == "Mage" then
-		placeSpellByName("Evocation", 61)
+		placeSpellByName("Evocation", evocationActionSlot)
 		placeSpellByName("Shoot", autoAttackActionSlot)
 	elseif UnitClass("player") == "Warlock" then
 		placeSpellByName("Shoot", autoAttackActionSlot)
 	elseif UnitClass("player") == "Priest" then
-		placeSpellByName("Desperate Prayer", 61)
+		placeSpellByName("Desperate Prayer", desperatePrayerActionSlot)
 		placeSpellByName("Shoot", autoAttackActionSlot)
 	end
 end

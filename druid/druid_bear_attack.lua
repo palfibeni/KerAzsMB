@@ -1,3 +1,5 @@
+druidTauntEnabled = false
+
 function druid_bear_skull()
 	if is_target_skull() then
         druid_bear_attack()
@@ -34,6 +36,7 @@ function druid_bear_attack()
 end
 
 function druid_bear_taunt()
+	if not druidTauntEnabled then return end
 	if UnitName("targettarget") == nil then return end
 	if UnitName("targettarget") == UnitName("player") then return end
 	if is_tank_by_name(UnitName("targettarget")) then return end

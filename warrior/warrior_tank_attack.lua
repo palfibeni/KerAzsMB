@@ -1,5 +1,5 @@
 lastSunder = 0
-tauntEnabled = false
+warriorTauntEnabled = false
 
 function warrior_tank_attack_skull()
 	if is_target_skull() then
@@ -33,7 +33,7 @@ function warrior_tank_attack()
 end
 
 function warrior_taunt()
-	if not tauntEnabled then return end
+	if not warriorTauntEnabled then return end
 	if UnitName("targettarget") == nil then return end
 	if UnitName("targettarget") == UnitName("player") then return end
 	if is_tank_by_name(UnitName("targettarget")) then return end

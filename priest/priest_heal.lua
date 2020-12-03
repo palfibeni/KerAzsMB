@@ -1,3 +1,5 @@
+desperatePrayerActionSlot = 61
+
 -- burst heal:
 -- /target Cooperbeard
 -- /script renew()
@@ -62,7 +64,7 @@ end
 function priest_heal_self()
     if casting_or_channeling() then return end
     if is_player_hp_under(0.4) then
-        local cd = GetActionCooldown(61)
+        local cd = GetActionCooldown(desperatePrayerActionSlot)
         if cd == 0 then
             CastSpellByName("Desperate Prayer")
         end
