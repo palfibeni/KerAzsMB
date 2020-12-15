@@ -6,7 +6,6 @@ nameList={
 	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",
 	"Fabregas", "Windou", "Oakheart", "Cromwell", "Leilena", "Featherfire",
 	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud"}
-	-- TODO: Add multibox heals and dps.
 }
 roles={"tank","heal","multiheal","multidps","dps"}
 
@@ -19,6 +18,36 @@ biasList={group={}}
 -- Set default global bias values
 biasList.tank,biasList.heal,biasList.multiheal,biasList.multidps=-0.1,0,-0.08,-0.05
 
+-- This function should be used in SuperMacro's extended LUA code fields, to easily manage healing biases per healer.
+-- I could set biasList as a saved variable, might do it later, but since the addon doesn't have ui elements, the method above is more comfortable to use.
+function SetBias(bias,list,groupNum)
+	local oldBias
+	if list=="group" then
+		oldBias=biasList.group[groupNum]
+		biasList.group[groupNum]=bias
+	else
+		oldBias=biasList[list]
+		biasList[list]=bias
+	end
+	if oldBias==bias then
+		return
+	end
+	if targetList then
+		if list=="group" then
+			for target,info in pairs(targetList.group[groupNum]) do
+				RemoveBias(info,oldBias)
+				AddBias(info,bias)
+			end
+		else
+			for target,info in pairs(targetList[list]) do
+				RemoveBias(info,oldBias)
+				AddBias(info,bias)
+			end
+		end
+	end
+	--Debug("New bias value set.")
+end
+
 function Debug(message)
 	if message==nil then
 		DEFAULT_CHAT_FRAME:AddMessage("nil")
@@ -28,7 +57,7 @@ function Debug(message)
 end
 
 function GroupManagementHandler()
-	if not UnitClass("player") == "Priest" and not UnitClass("player") == "Paladin" then return end
+	if not UnitClass("player") == "Priest" and not UnitClass("player") == "Paladin" and not UnitClass("player") == "Druid" then return end
 	if not targetList then
 		BuildTargetList()
 	elseif event=="PLAYER_ENTERING_WORLD" or event=="RAID_ROSTER_UPDATE" and UnitInRaid("player") or event=="PARTY_MEMBERS_CHANGED" and not UnitInRaid("player") then

@@ -1,7 +1,7 @@
 -- Casts given buff on target
 function cast_buff(icon, spell_name)
 	if not is_in_buff_range() then return end
-    if UnitIsDead("target") then return end
+  if UnitIsDead("target") then return end
 	if has_buff("target", icon) then return end
 	CastSpellByName(spell_name)
 end

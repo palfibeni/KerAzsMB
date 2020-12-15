@@ -1,4 +1,4 @@
-druidTauntEnabled = false
+druidTauntEnabled = true
 
 function druid_bear_skull()
 	if is_target_skull() then
