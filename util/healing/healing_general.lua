@@ -76,3 +76,10 @@ function GetDispelTarget(targetList,dispelSpell,dispelTypes,dispelByHp)
 	return currentTarget,debuffType
 	-- TODO: Check the amount of debuffs on a player and maybe priorities by debuff type. Will be important for Chromaggus.
 end
+
+function UseHealTrinket()
+	if UnitMana("player") / UnitManaMax("player") < 0.8 then
+			UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+	end
+end

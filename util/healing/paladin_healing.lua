@@ -7,6 +7,7 @@ palaDispelNoDisease={Magic=true,Poison=true}
 palaDispelNoPoison={Magic=true,Disease=true}
 
 function PalaHealOrDispel(targetList,hpThreshold,dispelTypes,dispelByHp,dispelHpThreshold)
+	UseHealTrinket()
 	hpThreshold=hpThreshold or 0.9
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
@@ -20,6 +21,7 @@ function PalaHealOrDispel(targetList,hpThreshold,dispelTypes,dispelByHp,dispelHp
 end
 
 function PalaHeal(targetList,hpThreshold)
+	UseHealTrinket()
 	hpThreshold=hpThreshold or 0.9
 	local target,hp=GetHealTarget(targetList,"Flash of Light",hpThreshold)
 	PalaHealTarget(target,hp)
@@ -45,6 +47,7 @@ function PalaHealTarget(target,hp)
 end
 
 function PalaDispel(targetList,dispelTypes,dispelByHp)
+	UseHealTrinket()
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	local target=GetDispelTarget(targetList,"Cleanse",dispelTypes,dispelByHp)

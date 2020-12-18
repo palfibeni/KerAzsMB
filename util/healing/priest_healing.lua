@@ -6,6 +6,7 @@ priestDispelMagic={Magic=true}
 priestDispelDisease={Disease=true}
 
 function PriestHealOrDispel(targetList,hpThreshold,dispelTypes,dispelByHp,dispelHpThreshold)
+	UseHealTrinket()
 	hpThreshold=hpThreshold or 0.9
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
@@ -19,6 +20,7 @@ function PriestHealOrDispel(targetList,hpThreshold,dispelTypes,dispelByHp,dispel
 end
 
 function PriestHeal(targetList,hpThreshold)
+	UseHealTrinket()
 	hpThreshold=hpThreshold or 0.9
 	local target,hp=GetHealTarget(targetList,"Heal",0.9)
 	PriestHealTarget(target,hp)
@@ -50,6 +52,7 @@ function PriestHealTarget(target,hp)
 end
 
 function PriestDispel(targetList,dispelTypes,dispelByHp)
+	UseHealTrinket()
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	local target,debuffType=GetDispelTarget(targetList,"Dispel Magic",priestDispelAll,false)
