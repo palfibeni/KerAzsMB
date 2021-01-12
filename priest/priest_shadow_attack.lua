@@ -21,16 +21,16 @@ function sh_priest_attack()
 		SpellStopCasting()
 		return
 	end
-    if (UnitMana("player")>=221) then
-        stop_wand()
-        shadow_form()
-        shadow_word_pain()
-        cast_debuff("Spell_Shadow_UnsummonBuilding", "Vampiric Embrace")
-        CastSpellByName("Mind Blast")
-        CastSpellByName("Mind Flay")
-    else
-		use_wand()
-    end
+  if (UnitMana("player")>=221) then
+      stop_wand()
+      shadow_form()
+      shadow_word_pain()
+      cast_debuff("Spell_Shadow_UnsummonBuilding", "Vampiric Embrace")
+      CastSpellByName("Mind Blast")
+      CastSpellByName("Mind Flay")
+  else
+	    use_wand()
+  end
 end
 
 function shadow_word_pain()

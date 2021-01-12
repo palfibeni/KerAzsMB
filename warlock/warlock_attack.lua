@@ -29,6 +29,8 @@ function warlock_skull_coe_fire()
 end
 
 function warlock_skull(curse, element)
+	curse = curse or "CoE"
+	element = element or "Shadow"
 	if is_target_skull() then
 		warlock_attack(curse, element)
 	else
@@ -58,6 +60,8 @@ function warlock_cross_cow()
 end
 
 function warlock_cross(curse, element)
+	curse = curse or "CoE"
+	element = element or "Shadow"
 	if is_target_cross() then
 		warlock_attack(curse, element)
 	else
@@ -67,11 +71,13 @@ end
 
 -- ATTACK
 function warlock_attack(curse, element)
+	curse = curse or "CoE"
+	element = element or "Shadow"
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		return
 	end
-	if casting() then return end
+	if casting_or_channeling() then return end
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
 		-- Useable trinkets
@@ -96,6 +102,7 @@ function warlock_curse(curse)
 	elseif curse == "CoE" then
 		cast_debuff("Spell_Shadow_ChillTouch", "Curse of the Elements")
 	elseif curse == "CoA" then
+		corruption()
 		cast_debuff("Spell_Shadow_CurseOfSargeras", "Curse of Agony")
 	elseif curse == "CoW" then
 		corruption()

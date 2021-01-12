@@ -32,6 +32,9 @@ function druid_bear_attack()
 	else
 		CastSpellByName("Enrage")
 	end
+	if (UnitMana("player")>=50) then
+		CastSpellByName("Swipe")
+	end
 	use_autoattack()
 end
 
