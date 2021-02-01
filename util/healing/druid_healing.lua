@@ -1,58 +1,89 @@
 buffAbolishPoison="Spell_Nature_NullifyPoison_02"
 buffRegrowth="Spell_Nature_ResistNature"
 buffRejuvenation="Spell_Nature_Rejuvenation"
+druidNatureSwiftness="Spell_Nature_RavenForm"
 
 druidDispelAll={Posion=true,Curse=true}
-priestDispelCurse={Curse=true}
-priestDispelPosion={Posion=true}
+druidDispelCurse={Curse=true}
+druidDispelPosion={Posion=true}
 
-function DruidHealOrDispel(targetList,hpThreshold,dispelTypes,dispelByHp,dispelHpThreshold)
-	UseHealTrinket()
-	hpThreshold=hpThreshold or 0.9
+druidHealRange="Healing Touch"
+druidDispelRange="Remove Curse"
+
+
+function DruidHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+	healProfile=healProfile or "regular"
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
-	local target,hpOrDebuffType,action=GetHealOrDispelTarget(targetList,"Healing Touch",hpThreshold,"Remove Curse",dispelTypes,dispelByHp,dispelHpThreshold)
-	if action=="heal" then
-		DruidHealTarget(target,hpOrDebuffType)
+	if SpellCastReady(druidHealRange,stopCastingDelayExpire) then
+		stopCastingDelayExpire=nil
+		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(targetList,druidHealRange,buffRegrowth,druidDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
+		if action=="heal" then
+			DruidHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp)
+		else
+			DruidDispelTarget(target,hpOrDebuffType)
+		end
 	else
-		DruidDispelTarget(target,hpOrDebuffType)
+		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
 end
 
-function DruidHeal(targetList,hpThreshold)
+function DruidHeal(targetList,healProfile)
 	UseHealTrinket()
-	hpThreshold=hpThreshold or 0.9
-	local target,hp=GetHealTarget(targetList,"Heal",0.9)
-	DruidHealTarget(target,hp)
+	healProfile=healProfile or "regular"
+	if SpellCastReady(druidHealRange,stopCastingDelayExpire) then
+		stopCastingDelayExpire=nil
+		local target,hp,hotTarget,hotHp=GetHealTarget(targetList,druidHealRange,buffRegrowth)
+		DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
+	else
+		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
+	end
 end
 
-function DruidHealTarget(target,hp)
-	if target then
-		local mana=UnitMana("player")
-		if hp<0.3 and has_buff(target,buffRegrowth) and targetList.all[target].role=="tank" then
-			CastSpellByName("Swiftmend")
-		elseif hp<0.3 and mana>=350 and not has_buff(target,buffRegrowth) then
-			CastSpellByName("Regrowth(Rank 4)")
-		elseif hp<0.5 and mana>=243 then
-			CastSpellByName("Healing Touch(Rank 4)")
-		elseif hp<0.7 and mana>=280 and not has_buff(target,buffRegrowth) then
-			CastSpellByName("Regrowth(Rank 3)")
-		elseif hp<0.8 and mana>=105 and not has_buff(target,buffRejuvenation) then
-			CastSpellByName("Rejuvenation(Rank 4)")
-		else
-			return
+function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
+	if druidHealProfiles[healProfile] then
+		for i,healProfileEntry in ipairs(druidHealProfiles[healProfile]) do
+			local hpThreshold,manaCost,spellName,healMode,targetList,withCdOnly=unpack(healProfileEntry)
+			local mana=UnitMana("player")
+			if mana>=manaCost and (not withCdOnly or has_buff("player",druidNatureSwiftness)) and GetSpellCooldownByName(spellName)==0 then
+				if (not healMode or healMode==1) and target and hp<hpThreshold and (not targetList or targetList[target]) then
+					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					currentHealTarget=target
+					CastSpellByName(spellName)
+					SpellTargetUnit(target)
+					break
+				elseif healMode==2 then
+					if is_target_skull() or is_target_skull() or target_skull() or target_cross() then
+						if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
+							--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+							currentHealTarget="targettarget"
+							currentHealFinish=GetTime()+(GetSpellCastTimeByName(spellName) or 1.5)
+							precastHpThreshold=hpThreshold
+							CastSpellByName(spellName)
+							SpellTargetUnit("targettarget")
+						end
+					end
+					break
+				elseif healMode==3 and hotTarget and hotHp<hpThreshold and (not targetList or targetList[hotTarget]) then
+					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					currentHealTarget=nil
+					CastSpellByName(spellName)
+					SpellTargetUnit(hotTarget)
+					break
+				end
+			end
 		end
-		SpellTargetUnit(target)
 	end
 end
 
 function DruidDispel(targetList,dispelTypes,dispelByHp)
-	UseHealTrinket()
-	dispelTypes=dispelTypes or priestDispelAll
+	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
-	local target,debuffType=GetDispelTarget(targetList,"Dispel Magic",priestDispelAll,false)
-	PriestDispelTarget(target,debuffType)
+	if SpellCastReady(druidDispelRange) then
+		local target,debuffType=GetDispelTarget(targetList,druidDispelRange,druidDispelAll,false)
+		DruidDispelTarget(target,debuffType)
+	end
 end
 
 function DruidDispelTarget(target,debuffType)
@@ -66,4 +97,17 @@ function DruidDispelTarget(target,debuffType)
 		end
 	end
 end
-remove_debuff_type_raid("Poison", "Abolish Poison")
+
+function initDruidHealProfiles()
+	druidHealProfiles={
+		regular={
+			{0.4 , 248, "Swiftmend",1,targetList.tank},
+			{0.5 , 350 , "Regrowth(Rank 4)",3},
+			{0.5 , 166, "Healing Touch(Rank 4)"},
+			{0.65 , 99, "Healing Touch(Rank 3)"},
+			{0.75 , 49, "Healing Touch(Rank 2)"},
+			{0.9 , 280 , "Regrowth(Rank 3)",3},
+			{0.9 , 22, "Healing Touch(Rank 1)",2}
+		},
+	}
+end

@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 	<Script file="druid_balance_attack.lua"/>
 	<Script file="druid_bear_attack.lua"/>
+	<Script file="druid_cat_attack.lua"/>
 	<Script file="druid_heal.lua"/>
 	<Script file="druid_buff.lua"/>
 	<Script file="druid_aoe.lua"/>

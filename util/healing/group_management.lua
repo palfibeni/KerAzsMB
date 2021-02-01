@@ -7,7 +7,6 @@ nameList={
 	"Fabregas", "Windou", "Oakheart", "Cromwell", "Leilena", "Featherfire",
 	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud"}
 }
-roles={"tank","heal","multiheal","multidps","dps"}
 
 -- targetLists: {all,tank,heal,dps(default),multiheal,multidps,party,group<1-8>,<charname>,master,self}   TODO: assist?,class,custom<any>?
 -- playerInfo: uid -> {name,role,class,group,bias}
@@ -68,7 +67,7 @@ end
 function BuildTargetList()
 	-- Initialize/reset target list
 	targetList={all={},group={},party={},master={},self={}}
-	for i,role in ipairs(roles) do
+	for role,names in pairs(nameList) do
 		targetList[role]={}
 	end
 	for i=1,8 do
@@ -103,6 +102,8 @@ function BuildTargetList()
 			end
 		end
 	end
+	initHealProfiles()
+	BuildSpellData()
 	--Debug("Target list built")
 end
 
@@ -327,6 +328,7 @@ function RemoveUid(uid)
 		targetList.self[uid]=nil
 	end
 end
+
 function AddBias(targetInfo,value)
 	if value then
 		targetInfo.bias=targetInfo.bias+value
@@ -340,11 +342,8 @@ function RemoveBias(targetInfo,value)
 end
 
 function GetRole(name)
-	for i,role in ipairs(roles) do
-		if role=="dps" then
-			break
-		end
-		for j,currentName in ipairs(nameList[role]) do
+	for role,names in pairs(nameList) do
+		for i,currentName in ipairs(names) do
 			if currentName==name then
 				return role
 			end

@@ -34,7 +34,6 @@ f:SetScript("OnEvent", HunterEventHandler)
 
 function hunter_attack_skull()
 	if is_target_skull() then
-	    multiShotEnabled = false
         hunterDps()
 	else
 		stop_ranged_attack()
@@ -45,7 +44,6 @@ end
 
 function hunter_attack_multi_skull()
 	if is_target_skull() then
-	    multiShotEnabled = true
         hunterDps()
 	else
 		stop_ranged_attack()
@@ -56,7 +54,6 @@ end
 
 function hunter_attack_cross()
 	if is_target_cross() then
-	    multiShotEnabled = false
         hunterDps()
 	else
 		stop_ranged_attack()
@@ -67,7 +64,6 @@ end
 
 function hunter_attack_multi_cross()
 	if is_target_cross() then
-	    multiShotEnabled = true
         hunterDps()
 	else
 		stop_ranged_attack()
@@ -91,7 +87,7 @@ end
 
 function hunterMeleeDps()
 	stop_ranged_attack()
-	if not has_debuff("player", "Spell_Nature_ProtectionformNature") then
+	if not has_buff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Ability_Hunter_AspectOfTheMonkey", "Aspect of the Monkey")
 	end
     if IsActionReady(mongooseBiteActionSlot) then
@@ -104,7 +100,7 @@ end
 
 function hunterRangedDps()
     stop_autoattack()
-	if not has_debuff("player", "Spell_Nature_ProtectionformNature") then
+	if not has_buff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	end
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")

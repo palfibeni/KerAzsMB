@@ -1,7 +1,17 @@
+precastInterruptWindow=1
+healHpThreshold=0.9
+healInterruptThreshold=0.95
+stopCastingDelay=0.5
+
+stopCastingDelayExpire=nil
+currentHealTarget=nil
+currentHealFinish=nil
+precastHpThreshold=nil
+
 -- 7 PARAMETERS!!! YEP!!!!!!
-function GetHealOrDispelTarget(targetList,healSpell,hpThreshold,dispelSpell,dispelTypes,dispelByHp,dispelHpThreshold)
+function GetHealOrDispelTarget(targetList,healSpell,healIcon,dispelSpell,dispelTypes,dispelByHp,dispelHpThreshold)
 	local dispelTarget,debuffType,action
-	local healTarget,minHp=GetHealTarget(targetList,healSpell,hpThreshold)
+	local healTarget,minHp,healHotTarget,minHotHp=GetHealTarget(targetList,healSpell,healIcon)
 	if not healTarget or minHp>dispelHpThreshold then
 		dispelTarget,debuffType=GetDispelTarget(targetList,dispelSpell,dispelTypes,dispelByHp)
 		if dispelTarget then
@@ -13,28 +23,57 @@ function GetHealOrDispelTarget(targetList,healSpell,hpThreshold,dispelSpell,disp
 		action="heal"
 	end
 	if action=="heal" then
-		return healTarget,minHp,action
+		return healTarget,minHp,healHotTarget,minHotHp,action
 	end
-	return dispelTarget,debuffType,action
+	return dispelTarget,debuffType,nil,nil,action
 end
 
-function GetHealTarget(targetList,healSpell,hpThreshold)
+function GetHealTarget(targetList,healSpell,healIcon)
 	ClearFriendlyTarget()
 	CastSpellByName(healSpell)
 	local currentTarget,minHp,minBiasedHp
+	local currentHotTarget,minHotHp,minBiasedHotHp
 	for target,info in pairs(targetList) do
 		local hp=UnitHealth(target)/UnitHealthMax(target)
-		if hp<hpThreshold and IsValidSpellTarget(target) then
+		if hp<healHpThreshold and IsValidSpellTarget(target) then
 			local biasedHp=hp+info.bias
 			if not minHp or biasedHp<minBiasedHp then
-				minHp=hp
-				minBiasedHp=biasedHp
-				currentTarget=target
+				minHp,minBiasedHp,currentTarget=hp,biasedHp,target
+			end
+			if healIcon and (not minHotHp or biasedHp<minBiasedHotHp) and not has_buff(target,healIcon) then
+				minHotHp,minBiasedHotHp,currentHotTarget=hp,biasedHp,target
 			end
 		end
 	end
 	SpellStopTargeting()
-	return currentTarget,minHp
+	return currentTarget,minHp,currentHotTarget,minHotHp
+end
+
+function ManaLower(target,manaThreshold)
+	local manaCurrent=UnitMana(target)/UnitManaMax(target)
+	return manaCurrent<manaThreshold
+end
+
+function HpLower(target,hpThreshold)
+	local hpCurrent=UnitHealth(target)/UnitHealthMax(target)
+	return hpCurrent<hpThreshold
+end
+
+function GetSpellSlot(texture)
+	for i=1,120 do
+		if GetActionTexture(i)==texture then
+			return i
+		end
+	end
+	return nil
+end
+
+function IsCastingOrChanneling()
+	return CastingBarFrame.casting or CastingBarFrame.channeling
+end
+
+function IsValidSpellTarget(target)
+	return not UnitIsDeadOrGhost(target) and SpellCanTargetUnit(target)
 end
 
 function ClearFriendlyTarget()
@@ -43,15 +82,10 @@ function ClearFriendlyTarget()
 	end
 end
 
-function IsValidSpellTarget(target)
-	return not UnitIsDeadOrGhost(target) and SpellCanTargetUnit(target)
-end
-
-
 function GetDispelTarget(targetList,dispelSpell,dispelTypes,dispelByHp)
 	ClearFriendlyTarget()
 	CastSpellByName(dispelSpell)
-	local currentTarget,topPriority,debuffType
+	local currentTarget,topPriority,debuffType,currentDebuffType
 	for target,info in pairs(targetList) do
 		if IsValidSpellTarget(target) then
 			for i=1,16 do
@@ -68,13 +102,43 @@ function GetDispelTarget(targetList,dispelSpell,dispelTypes,dispelByHp)
 				if not topPriority or priority<topPriority then
 					topPriority=priority
 					currentTarget=target
+					currentDebuffType=debuffType
 				end
 			end
 		end
 	end
 	SpellStopTargeting()
-	return currentTarget,debuffType
+	return currentTarget,currentDebuffType
 	-- TODO: Check the amount of debuffs on a player and maybe priorities by debuff type. Will be important for Chromaggus.
+	-- TODO: Implement check for abolish effects (priest Abolish Disease, Druid abolish poison, Restorative Poison, etc...)
+end
+
+function HealInterrupt(target,finish,hpThreshold)
+	if not stopCastingDelayExpire then
+		if target=="targettarget" then -- Precast
+			if not (is_target_skull("target",8) or is_target_cross("target",7)) or
+			not UnitExists(target) or not UnitIsFriend("player",target) or
+			finish-precastInterruptWindow<GetTime() and not HpLower(target,hpThreshold) then
+				SpellStopCasting()
+				--Debug("Precast interrupt!")
+				stopCastingDelayExpire=GetTime()+stopCastingDelay
+			end
+		elseif target then -- Overheal prevention
+			if UnitExists(target) and not HpLower(target,healInterruptThreshold) then
+				SpellStopCasting()
+				--Debug("Overheal interrupt!")
+				stopCastingDelayExpire=GetTime()+stopCastingDelay
+			end
+		end
+	end
+end
+
+function IsCastingOrChanelling()
+	return CastingBarFrame.casting or CastingBarFrame.channeling
+end
+
+function SpellCastReady(spell,delay)
+	return not IsCastingOrChanelling() and GetSpellCooldownByName(spell)==0 and (not delay or delay<GetTime())
 end
 
 function UseHealTrinket()
@@ -82,4 +146,10 @@ function UseHealTrinket()
 			UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
 			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 	end
+end
+
+function initHealProfiles()
+	initPalaHealProfiles()
+	initPriestHealProfiles()
+	initDruidHealProfiles()
 end

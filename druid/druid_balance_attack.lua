@@ -9,18 +9,19 @@ function druid_balance_skull(element)
 	end
 end
 
+-- /script druid_balance_skull("Nature")
 -- /script druid_balance_cross()
 function druid_balance_cross(element)
 	element = element or "Arcane"
 	if is_target_cross() then
-        druid_balance_attack()
+        druid_balance_attack(element)
 	else
 		stop_autoattack()
 		target_cross()
 	end
 end
 
--- /script druid_balance_attack()
+-- /script druid_balance_attack("Nature")
 function druid_balance_attack(element)
 	element = element or "Arcane"
 	if (GetRaidTargetIndex("player") == 8 ) then
@@ -31,7 +32,7 @@ function druid_balance_attack(element)
 	moonkin_form()
 	if casting_or_channeling() then return end
 	if (UnitMana("player")>=50) then
-		if (element == "Nature") then 
+		if (element == "Nature") then
 			CastSpellByName("Wrath")
 		else
 			cast_debuff("Spell_Nature_StarFall", "Moonfire")

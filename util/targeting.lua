@@ -26,11 +26,11 @@ function exact_target_by_name(name)
 end
 
 function is_target_skull()
-	return (GetRaidTargetIndex("target") == 8)
+	return checkRaidTargetIcon("target", icon)
 end
 
 function is_target_cross()
-	return (GetRaidTargetIndex("target") == 7)
+	return checkRaidTargetIcon("target", icon)
 end
 
 function target_skull()
@@ -45,19 +45,23 @@ function target_by_icon(icon)
 	for k,tank in pairs(tank_list) do
 		exact_target_by_name(tank)
 		TargetUnit("targettarget")
-		if (GetRaidTargetIndex("target") == icon) then
-			return
+		if checkRaidTargetIcon("target", icon) then
+			return true
 		end
 	end
-	tab_target_by_icon(icon)
+	return tabTargetByIcon(icon)
 end
 
-function tab_target_by_icon(icon)
+function tabTargetByIcon(icon)
 	for i=1,10 do
 		TargetNearestEnemy()
-		if (GetRaidTargetIndex("target") == icon) then
-			return
+		if checkRaidTargetIcon("target", icon) then
+			return true
 		end
 	end
-	TargetUnit("player")
+	return false
+end
+
+function checkRaidTargetIcon(target,icon)
+	return UnitExists(target) and not UnitIsDead(target) and GetRaidTargetIndex(target)==icon
 end

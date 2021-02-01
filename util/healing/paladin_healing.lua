@@ -1,3 +1,7 @@
+buffDivineFavor="Spell_Holy_Heal"
+palaHealRange="Holy Light"
+palaDispelRange="Purify"
+
 palaDispelAll={Magic=true,Disease=true,Poison=true}
 palaDispelMagic={Magic=true}
 palaDispelDisease={Disease=true}
@@ -6,57 +10,123 @@ palaDispelNoMagic={Disease=true,Poison=true}
 palaDispelNoDisease={Magic=true,Poison=true}
 palaDispelNoPoison={Magic=true,Disease=true}
 
-function PalaHealOrDispel(targetList,hpThreshold,dispelTypes,dispelByHp,dispelHpThreshold)
-	UseHealTrinket()
-	hpThreshold=hpThreshold or 0.9
+
+function PalaHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+	healProfile=healProfile or "regular"
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
-	local target,hpOrDebuffType,action=GetHealOrDispelTarget(targetList,"Flash of Light",hpThreshold,"Cleanse",dispelTypes,dispelByHp,dispelHpThreshold)
-	if action=="heal" then
-		PalaHealTarget(target,hpOrDebuffType)
-	else
-		PalaDispelTarget(target,hpOrDebuffType)
-	end
-end
-
-function PalaHeal(targetList,hpThreshold)
-	UseHealTrinket()
-	hpThreshold=hpThreshold or 0.9
-	local target,hp=GetHealTarget(targetList,"Flash of Light",hpThreshold)
-	PalaHealTarget(target,hp)
-end
-
-function PalaHealTarget(target,hp)
-	if target then
-		local mana=UnitMana("player")
-		if hp<0.4 and mana>=140 and targetList.all[target].role=="tank" then
-			CastSpellByName("Divine Favor")
-			CastSpellByName("Flash of Light")
-		elseif hp<0.6 and mana>=115 then
-			CastSpellByName("Flash of Light(Rank 5)")
-		elseif hp<0.8 and mana>=70 then
-			CastSpellByName("Flash of Light(Rank 3)")
-		elseif mana>=35 then
-			CastSpellByName("Flash of Light(Rank 1)")
+	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
+		stopCastingDelayExpire=nil
+		local target,hpOrDebuffType,_,_,action=GetHealOrDispelTarget(targetList,palaHealRange,nil,palaDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
+		if action=="heal" then
+			PalaHealTarget(healProfile,target,hpOrDebuffType)
 		else
-			return
+			PalaDispelTarget(target,hpOrDebuffType)
 		end
-		SpellTargetUnit(target)
+	else
+		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
 end
+
+function PalaHeal(targetList,healProfile)
+	UseHealTrinket()
+	healProfile=healProfile or "regular"
+	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
+		stopCastingDelayExpire=nil
+		local target,hp=GetHealTarget(targetList,palaHealRange)
+		PalaHealTarget(healProfile,target,hp)
+	else
+		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
+	end
+end
+
+function PalaHealTarget(healProfile,target,hp)
+	if palaHealProfiles[healProfile] then
+		for i,healProfileEntry in ipairs(palaHealProfiles[healProfile]) do
+			local hpThreshold,manaCost,spellName,healMode,targetList,withCdOnly=unpack(healProfileEntry)
+			local mana=UnitMana("player")
+			if mana>=manaCost and (not withCdOnly or has_buff("player",buffDivineFavor)) and GetSpellCooldownByName(spellName)==0 then
+				if (not healMode or healMode==1) and target and hp<hpThreshold and (not targetList or targetList[target]) then
+					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					currentHealTarget=target
+					CastSpellByName(spellName)
+					SpellTargetUnit(target)
+					break
+				elseif healMode==2 then
+					if is_target_skull() or is_target_skull() or target_skull() or target_cross() then
+						if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
+							--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+							currentHealTarget="targettarget"
+							currentHealFinish=GetTime()+(GetSpellCastTimeByName(spellName) or 1.5)
+							precastHpThreshold=hpThreshold
+							CastSpellByName(spellName)
+							SpellTargetUnit("targettarget")
+						end
+					end
+					break
+				end
+			end
+		end
+	end
+end
+
+palaDispelAll={Magic=true,Disease=true,Poison=true}
+palaDispelMagic={Magic=true}
+palaDispelDisease={Disease=true}
+palaDispelPoison={Poison=true}
+palaDispelNoMagic={Disease=true,Poison=true}
+palaDispelNoDisease={Magic=true,Poison=true}
+palaDispelNoPoison={Magic=true,Disease=true}
 
 function PalaDispel(targetList,dispelTypes,dispelByHp)
-	UseHealTrinket()
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
-	local target=GetDispelTarget(targetList,"Cleanse",dispelTypes,dispelByHp)
-	PalaDispelTarget(target)
+	if SpellCastReady(palaDispelRange) then
+		local target=GetDispelTarget(targetList,palaDispelRange,dispelTypes,dispelByHp)
+		PalaDispelTarget(target)
+	end
 end
+
 
 function PalaDispelTarget(target)
 	if target then
 		CastSpellByName("Cleanse")
 		SpellTargetUnit(target)
 	end
+end
+
+function initPalaHealProfiles()
+	palaHealProfiles={
+		regular={
+			{0.4 , 720, "Divine Favor"},
+			{0.4 , 660, "Holy Light"},
+			{0.6 , 140, "Flash of Light"},
+			{0.8 , 90 , "Flash of Light(Rank 4)"},
+			{0.9 , 50 , "Flash of Light(Rank 2)"},
+			{0.9 , 35 , "Holy Light(Rank 1)", 2}
+		},
+		hlTankOnly={
+			{0.4 , 720, "Divine Favor",1,targetList.tank},
+			{0.4 , 660, "Holy Light",1,targetList.tank},
+			{0.6 , 140, "Flash of Light"},
+			{0.8 , 70 , "Flash of Light(Rank 3)"},
+			{0.9 , 35 , "Flash of Light(Rank 1)"},
+			{0.9 , 35 , "Holy Light(Rank 1)", 2}
+		},
+		low={
+			{0.4 , 720, "Divine Favor",1,targetList.tank},
+			{0.4 , 660, "Holy Light",1,targetList.tank,true},
+			{0.6 , 70 , "Flash of Light(Rank 5)"},
+			{0.8 , 50 , "Flash of Light(Rank 3)"},
+			{0.9 , 35 , "Flash of Light(Rank 1)"},
+			{0.9 , 35 , "Holy Light(Rank 1)", 2}
+		},
+		UNLIMITEDPOWER={
+			{0.5 , 0  , "Holy Light",1,targetList.tank},
+			{0.3 , 0  , "Holy Light"},
+			{0.99, 0  , "Flash of Light"},
+			{0.9 , 35 , "Holy Light(Rank 1)", 2}
+		}
+	}
 end

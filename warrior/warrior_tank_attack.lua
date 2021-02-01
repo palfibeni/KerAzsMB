@@ -27,8 +27,8 @@ function warrior_tank_attack()
 	warrior_taunt()
 	CastSpellByName("Shield Slam")
 	warrior_demo_shout()
-    sunderArmor()
-    CastSpellByName("Revenge")
+  sunderArmor()
+  CastSpellByName("Revenge")
 	CastSpellByName("Heroic Strike")
 end
 
