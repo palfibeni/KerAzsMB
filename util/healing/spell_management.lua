@@ -14,7 +14,14 @@ spellCastTime={
 	["Flash Heal"]=1.5,
 	-- Paladin
 	["Holy Light"]=2.5,
-	["Flash of Light"]=1.5
+	["Flash of Light"]=1.5,
+	-- Druid
+	["Regrowth"]=2,
+	["Healing Touch(Rank 1)"]=1,
+	["Healing Touch(Rank 2)"]=1.5,
+	["Healing Touch(Rank 3)"]=2,
+	["Healing Touch(Rank 4)"]=2.5,
+	["Healing Touch"]=3,
 }
 
 function BuildSpellData()

@@ -101,13 +101,13 @@ end
 function initDruidHealProfiles()
 	druidHealProfiles={
 		regular={
+			{0.4 , 350 , "Regrowth(Rank 4)",3},
 			{0.4 , 248, "Swiftmend",1,targetList.tank},
-			{0.5 , 350 , "Regrowth(Rank 4)",3},
 			{0.5 , 166, "Healing Touch(Rank 4)"},
 			{0.65 , 99, "Healing Touch(Rank 3)"},
 			{0.75 , 49, "Healing Touch(Rank 2)"},
 			{0.9 , 280 , "Regrowth(Rank 3)",3},
-			{0.9 , 22, "Healing Touch(Rank 1)",2}
+			{0.9 , 49, "Healing Touch(Rank 2)",2}
 		},
 	}
 end
