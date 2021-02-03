@@ -26,11 +26,11 @@ function exact_target_by_name(name)
 end
 
 function is_target_skull()
-	return checkRaidTargetIcon("target", icon)
+	return checkRaidTargetIcon("target", 8)
 end
 
 function is_target_cross()
-	return checkRaidTargetIcon("target", icon)
+	return checkRaidTargetIcon("target", 7)
 end
 
 function target_skull()
