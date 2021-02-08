@@ -18,6 +18,7 @@ end
 
 function warrior_arms_attack()
 	use_autoattack()
+		warrior_battle_stance()
 	CastSpellByName("Bloodrage")
 	if is_target_hp_under(0.3) then
 		CastSpellByName("Execute")

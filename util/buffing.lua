@@ -30,7 +30,7 @@ end
 -- Return whether given target has the given buff
 function has_buff(target, icon)
 	if UnitIsDead(target) then return false end
-	for x=1,16 do
+	for x=1,20 do
 		local name = UnitBuff(target,x)
 		if name == nil then
 			return false

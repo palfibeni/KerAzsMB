@@ -4,7 +4,6 @@ function druid_balance_skull(element)
 	if is_target_skull() then
         druid_balance_attack()
 	else
-		stop_autoattack()
 		target_skull()
 	end
 end
@@ -16,7 +15,6 @@ function druid_balance_cross(element)
 	if is_target_cross() then
         druid_balance_attack(element)
 	else
-		stop_autoattack()
 		target_cross()
 	end
 end
@@ -28,10 +26,9 @@ function druid_balance_attack(element)
 		SpellStopCasting()
 		return
 	end
-	if casting() then return end
-	moonkin_form()
 	if casting_or_channeling() then return end
-	if (UnitMana("player")>=50) then
+	if (UnitMana("player")>=340) then
+		druid_moonkin_form()
 		if (element == "Nature") then
 			CastSpellByName("Wrath")
 		else
@@ -40,10 +37,20 @@ function druid_balance_attack(element)
 		end
 		stop_autoattack()
 	else
-		use_autoattack()
-    end
+		innervate()
+  end
 end
 
-function moonkin_form()
-	cast_buff_player("Spell_Nature_MoonGlow", "Moonkin Form")
+function druid_moonkin_form()
+	local icon, name, active, castable = GetShapeshiftFormInfo(5);
+	if not active then
+		CastSpellByName("Moonkin Form")
+	end
+end
+
+function druid_leave_moonkin_form()
+	local icon, name, active, castable = GetShapeshiftFormInfo(5);
+	if active then
+		CastSpellByName("Moonkin Form")
+	end
 end

@@ -1,3 +1,6 @@
+lastEnrage = 0;
+lastFeralFaerieFire = 0;
+
 druidTauntEnabled = true
 
 function druid_bear_skull()
@@ -23,19 +26,25 @@ function druid_bear_attack()
 		SpellStopCasting()
 		return
 	end
-	cast_buff_player("Ability_Racial_BearForm", "Dire Bear Form")
-	cast_buff_player("Ability_Racial_BearForm", "Bear Form")
+	druid_bear_form()
 	druid_bear_taunt()
 	cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire (Feral)()");
-	if (UnitMana("player")>=15) then
+	enrage()
+	if (UnitMana("player")>=7) then
 		CastSpellByName("Maul")
-	else
-		CastSpellByName("Enrage")
 	end
 	if (UnitMana("player")>=50) then
 		CastSpellByName("Swipe")
 	end
 	use_autoattack()
+end
+
+function druid_bear_form()
+	local icon, name, active, castable = GetShapeshiftFormInfo(1);
+	if not active then
+		CastSpellByName("Dire Bear Form")
+		CastSpellByName("Bear Form")
+	end
 end
 
 function druid_bear_taunt()
@@ -46,4 +55,18 @@ function druid_bear_taunt()
 	if UnitIsEnemy("target","player") then
 		CastSpellByName("Growl")
 	end
+end
+
+function feralFaerieFire()
+  if lastFeralFaerieFire + 6 < GetTime() then
+		cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire (Feral)()");
+    lastFeralFaerieFire = GetTime()
+  end
+end
+
+function enrage()
+  if lastEnrage + 60 < GetTime() then
+		CastSpellByName("Enrage")
+    lastEnrage = GetTime()
+  end
 end

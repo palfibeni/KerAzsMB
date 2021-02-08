@@ -10,7 +10,16 @@ palaDispelNoMagic={Disease=true,Poison=true}
 palaDispelNoDisease={Magic=true,Poison=true}
 palaDispelNoPoison={Magic=true,Disease=true}
 
+-- /script pala_heal_mandokir()
+function pala_heal_mandokir()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
+	PalaHealOrDispel(targetList.all, false)
+end
 
+-- /script PalaHealOrDispel(targetList.all, false)
 function PalaHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	healProfile=healProfile or "regular"
 	dispelTypes=dispelTypes or palaDispelAll

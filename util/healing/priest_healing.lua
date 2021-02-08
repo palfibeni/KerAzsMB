@@ -8,6 +8,16 @@ priestHealRange="Heal"
 priestDispelRange="Cure Disease"
 aoeHealMinPlayers=3
 
+-- /script priest_heal_mandokir()
+function priest_heal_mandokir()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
+ PriestHeal(targetList.all, false)
+end
+
+-- /script  PriestHealOrDispel(targetList.all, false)
 function PriestHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	healProfile=healProfile or "regular"
 	dispelTypes=dispelTypes or priestDispelAll
@@ -112,6 +122,7 @@ priestDispelDisease={Disease=true}
 function PriestDispelTarget(target,debuffType)
 	if target then
 		if debuffType=="Magic" then
+			ClearTarget()
 			CastSpellByName("Dispel Magic")
 		elseif not has_buff(target,buffAbolishDisease) then
 			CastSpellByName("Abolish Disease")

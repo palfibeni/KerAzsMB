@@ -1,4 +1,6 @@
 lastSunder = 0
+lastBloodrage = 0
+lastShieldSlam = 0
 warriorTauntEnabled = false
 
 function warrior_tank_attack_skull()
@@ -22,14 +24,24 @@ function warrior_tank_attack()
 		SpellStopCasting()
 		return
 	end
-	cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
-	CastSpellByName("Bloodrage")
+	warrior_defense_stance()
+	-- cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
+	bloodrage()
 	warrior_taunt()
-	CastSpellByName("Shield Slam")
+	shieldSlam()
 	warrior_demo_shout()
   sunderArmor()
-  CastSpellByName("Revenge")
-	CastSpellByName("Heroic Strike")
+	  CastSpellByName("Revenge")
+	if UnitMana("player") >= 20 then
+		CastSpellByName("Heroic Strike")
+	end
+end
+
+function warrior_defense_stance()
+	local icon, name, active, castable = GetShapeshiftFormInfo(2);
+	if not active then
+		CastSpellByName("Defensive Stance")
+	end
 end
 
 function warrior_taunt()
@@ -43,10 +55,24 @@ function warrior_taunt()
 end
 
 function sunderArmor()
-	if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
-        if UnitMana("player") >= 12 then
+	if UnitMana("player") >= 12 then
+		if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
             CastSpellByName("Sunder Armor")
             lastSunder = GetTime()
         end
     end
+end
+
+function bloodrage()
+  if lastBloodrage + 60 < GetTime() then
+		CastSpellByName("Bloodrage")
+    lastBloodrage = GetTime()
+  end
+end
+
+function shieldSlam()
+  if UnitMana("player") >= 20 and lastShieldSlam + 6 < GetTime() then
+		CastSpellByName("Shield Slam")
+    lastBloodrage = GetTime()
+  end
 end

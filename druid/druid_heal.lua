@@ -1,3 +1,5 @@
+lastInner = 0;
+
 function druid_heal_group1()
     druid_heal_by_group(1)
 end
@@ -41,4 +43,12 @@ function druid_heal()
     if is_target_hp_under(0.8) then
         cast_buff("Spell_Nature_Rejuvenation", "Rejuvenation")
     end
+end
+
+function innervate()
+  if (lastInner + 300 <= GetTime()) then
+		druid_leave_moonkin_form()
+    CastSpellByName("Innervate")
+    SpellTargetUnit("player")
+  end
 end

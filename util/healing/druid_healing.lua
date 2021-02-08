@@ -11,6 +11,16 @@ druidHealRange="Healing Touch"
 druidDispelRange="Remove Curse"
 
 
+-- /script dudu_heal_mandokir()
+function dudu_heal_mandokir()
+	if (GetRaidTargetIndex("player") == 8 ) then
+		SpellStopCasting()
+		return
+	end
+	DruidHealOrDispel(targetList.all, false)
+end
+
+-- /script  DruidHealOrDispel(targetList.all, false)
 function DruidHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	healProfile=healProfile or "regular"
 	dispelTypes=dispelTypes or druidDispelAll
@@ -31,6 +41,9 @@ end
 
 function DruidHeal(targetList,healProfile)
 	UseHealTrinket()
+	if (UnitMana("player") < 500) then
+		innervate()
+	end
 	healProfile=healProfile or "regular"
 	if SpellCastReady(druidHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil

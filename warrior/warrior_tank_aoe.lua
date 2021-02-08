@@ -17,11 +17,13 @@ function warrior_aoe_cross()
 end
 
 function warrior_aoe()
-	cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
-	CastSpellByName("Bloodrage")
+	warrior_defense_stance()
+	bloodrage()
 	warrior_demo_shout()
-	cast_buff_player("Ability_Warrior_BattleShout", "Battle Shout")
-	CastSpellByName("Cleave")
+	battleShout()
+	if UnitMana("player") >= 20 then
+		CastSpellByName("Cleave")
+	end
 	use_autoattack()
 end
 

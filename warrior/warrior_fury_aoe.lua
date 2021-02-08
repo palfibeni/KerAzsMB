@@ -17,10 +17,10 @@ function warrior_fury_aoe_cross()
 end
 
 function warrior_fury_aoe()
-	cast_buff_player("Ability_Racial_Avatar", "Berserker Stance")
-	CastSpellByName("Berserker Rage")
-	CastSpellByName("Bloodrage")
-	CastSpellByName("Whirlwind")
-    CastSpellByName("Cleave")
+	warrior_berserker_stance()
+	berserkerRage()
+	bloodrage()
+	whirlwind()
+  CastSpellByName("Cleave")
 	use_autoattack()
 end
