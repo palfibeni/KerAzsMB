@@ -46,8 +46,11 @@ function druid_heal()
 end
 
 function innervate()
-  if (lastInner + 300 <= GetTime()) then
-		druid_leave_moonkin_form()
+  local icon, name, active, castable = GetShapeshiftFormInfo(5);
+  if active then
+		CastSpellByName("Moonkin Form")
+	elseif (lastInner + 300 <= GetTime()) then
+    SpellStopCasting()
     ClearFriendlyTarget()
     CastSpellByName("Innervate")
     SpellTargetUnit("player")
