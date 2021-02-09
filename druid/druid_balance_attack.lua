@@ -27,7 +27,7 @@ function druid_balance_attack(element)
 		return
 	end
 	if casting_or_channeling() then return end
-	if (UnitMana("player")>=340) then
+	if (UnitMana("player") >= 340) then
 		druid_moonkin_form()
 		if (element == "Nature") then
 			CastSpellByName("Wrath")
@@ -44,13 +44,6 @@ end
 function druid_moonkin_form()
 	local icon, name, active, castable = GetShapeshiftFormInfo(5);
 	if not active then
-		CastSpellByName("Moonkin Form")
-	end
-end
-
-function druid_leave_moonkin_form()
-	local icon, name, active, castable = GetShapeshiftFormInfo(5);
-	if active then
 		CastSpellByName("Moonkin Form")
 	end
 end

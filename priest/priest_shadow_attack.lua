@@ -28,6 +28,7 @@ function sh_priest_attack()
 		SpellStopCasting()
 		return
 	end
+	if casting_or_channeling() then return end
   if (UnitMana("player")>=221) then
       stop_wand()
       cast_buff_player("Spell_Shadow_Shadowform", "Shadowform")

@@ -46,14 +46,16 @@ function druid_heal()
 end
 
 function innervate()
-  local icon, name, active, castable = GetShapeshiftFormInfo(5);
-  if active then
-		CastSpellByName("Moonkin Form")
-	elseif (lastInner + 300 <= GetTime()) then
-    SpellStopCasting()
-    ClearFriendlyTarget()
-    CastSpellByName("Innervate")
-    SpellTargetUnit("player")
-    lastInner = GetTime()
+  if (lastInner + 300 <= GetTime()) then
+    local icon, name, active, castable = GetShapeshiftFormInfo(5);
+    if active then
+  		CastSpellByName("Moonkin Form")
+      return
+    elseif (UnitMana("player") >= 70) then
+      ClearFriendlyTarget()
+      CastSpellByName("Innervate")
+      SpellTargetUnit("player")
+      lastInner = GetTime()
+    end
   end
 end
