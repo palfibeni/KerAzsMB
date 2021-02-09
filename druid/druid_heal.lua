@@ -48,7 +48,9 @@ end
 function innervate()
   if (lastInner + 300 <= GetTime()) then
 		druid_leave_moonkin_form()
+    ClearFriendlyTarget()
     CastSpellByName("Innervate")
     SpellTargetUnit("player")
+    lastInner = GetTime()
   end
 end
