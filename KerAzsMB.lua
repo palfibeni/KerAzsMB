@@ -1,6 +1,4 @@
-tank_list = {"Copperbeard", "Gaelber", "Llanewrynn", "Naderius", 
-	"Obier", "Vynnes", "Dobzse", "Stardancer", 
-	"Moonflower", "Harklen"}
+tank_list = {"Copperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen"}
 
 group_list = {
 	[1] = {
@@ -38,15 +36,28 @@ horde_group_list = {
 	}
 }
 
-KerAzs = CreateFrame("Button","KerAzsMB",UIParent)
-KerAzs:RegisterEvent("ADDON_LOADED") -- register event "ADDON_LOADED"
+local timer = CreateFrame("FRAME");
+--'duration' is in seconds and 'func' is the function that will be executed in the end
+local function setTimer(duration, func)
+	local endTime = GetTime() + duration;
+
+	timer:SetScript("OnUpdate", function()
+		if(endTime < GetTime()) then
+			--time is up
+			func();
+			timer:SetScript("OnUpdate", nil);
+		end
+	end);
+end
 
 -- create the OnEvent function
-function KerAzs:OnEvent()
-	if (event == "ADDON_LOADED") and arg1 == "SuperMacro" then
-	-- do init things.
-		KerAzs:UnregisterEvent("ADDON_LOADED") -- unregister the event as we dont need it anymore
+function AddonLoadedEventListener()
+	if (event == "ADDON_LOADED") and arg1 == "KerAzsMB" then
+		KerAzsMB_EventsFrame:UnregisterEvent("ADDON_LOADED") -- unregister the event as we dont need it anymore
+		-- do init things.
+		--setTimer(2, performCDproffs)
 		-- initKeyBindings()
+		Debug("KerazsMB loaded")
 	end
 end
 
@@ -93,8 +104,40 @@ function placeSpellByName(spellName, slot)
 	end
 end
 
-function debug(text)
-    RunLine("/say " .. text )
+function performCDproffs()
+	createArcanite()
+	createRefinedSalt()
+	createMooncloth()
+end
+
+function createArcanite()
+	if getSpellId("Alchemy") ~= nil then
+		CastSpellByName("Alchemy")
+		performTradeSkill("Transmute: Arcanite")
+	end
+end
+
+function createRefinedSalt()
+	if getSpellId("Leatherworking") ~= nil then
+		use_item("Salt Shaker")
+	end
+end
+
+function createMooncloth()
+	if getSpellId("Tailoring") ~= nil then
+		CastSpellByName("Tailoring")
+		performTradeSkill("Mooncloth")
+	end
+end
+
+function performTradeSkill(tradeSkillName)
+	for i=1,GetNumTradeSkills() do
+		if GetTradeSkillInfo(i) == tradeSkillName then
+			CloseTradeSkill()
+			DoTradeSkill(i)
+			break
+		end
+	end
 end
 
 --  function createTankWarriorMacro()

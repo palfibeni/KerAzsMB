@@ -1,8 +1,8 @@
 -- Group Management
 nameList={
-	tank={"Harklen","Gaelber","Llanewrynn","Stardancer","Cooperbeard","Naderius","Dobzse","Obier","Nyavalyás", "Moonflower"},
+	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber","Llanewrynn","Nyavalyás"},
 	heal={},
-	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat"},
+	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat", "Fordragon", "Moonflower"},
 	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",
 	"Fabregas", "Windou", "Oakheart", "Cromwell", "Leilena", "Featherfire",
 	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud"}
@@ -15,7 +15,10 @@ nameList={
 biasList={group={}}
 
 -- Set default global bias values
-biasList.tank,biasList.heal,biasList.multiheal,biasList.multidps=-0.1,0,-0.08,-0.05
+biasList.tank=-0.1
+biasList.heal=0
+biasList.multiheal=-0.08
+biasList.multidps=-0.05
 
 -- This function should be used in SuperMacro's extended LUA code fields, to easily manage healing biases per healer.
 -- I could set biasList as a saved variable, might do it later, but since the addon doesn't have ui elements, the method above is more comfortable to use.

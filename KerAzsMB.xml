@@ -10,4 +10,14 @@
 	<Include file="rouge\rouge.xml"/>
 	<Include file="druid\druid.xml"/>
 	<Include file="hunter\hunter.xml"/>
+	<Frame name="KerAzsMB_EventsFrame">
+		<Scripts>
+			<OnLoad>
+				this:RegisterEvent("ADDON_LOADED")
+			</OnLoad>
+			<OnEvent>
+				AddonLoadedEventListener();
+			</OnEvent>
+		</Scripts>
+	</Frame>
 </Ui>

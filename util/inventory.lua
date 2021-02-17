@@ -44,3 +44,20 @@ function use_item(name)
 	end
 	ResetCursor()
 end
+
+-- use an item from the inventory to use by name
+-- /script Debug(count_item("Conjured Crystal Water"))
+function count_item(name)
+	count = 0;
+	if CursorHasItem() then return end
+	for bag=0,4 do
+		for slot = 1,GetContainerNumSlots(bag) do
+			local icon, itemCount = GetContainerItemInfo(bag,slot)
+			if icon then
+				local link = GetContainerItemLink(bag,slot)
+				if string.find(link, name) then count = count + itemCount end
+			end
+		end
+	end
+	return count;
+end

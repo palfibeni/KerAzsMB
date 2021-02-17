@@ -1,23 +1,29 @@
+-- /script pala_raid_might()
 function pala_raid_might()
     buff_raid("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might")
 end
 
+-- /script pala_raid_wisdom()
 function pala_raid_wisdom()
     buff_raid("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom")
 end
 
+-- /script pala_raid_kings()
 function pala_raid_kings()
     buff_raid("Spell_Magic_GreaterBlessingofKings", "Greater Blessing of Kings")
 end
 
+-- /script pala_raid_light()
 function pala_raid_light()
     buff_raid("Spell_Holy_GreaterBlessingofLight", "Greater Blessing of Light")
 end
 
+-- /script pala_raid_salva()
 function pala_raid_salva()
     buff_raid("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation")
 end
 
+-- /script pala_raid_sanc()
 function pala_raid_sanc()
     buff_raid("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
 end
