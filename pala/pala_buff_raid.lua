@@ -28,17 +28,32 @@ function pala_raid_sanc()
     buff_raid("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
 end
 
+-- /script buff_raid_pala_sanc_salva()
+function buff_raid_pala_sanc_salva()
+	for i=1,GetNumRaidMembers() do
+		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
+		if name and class and UnitIsConnected("raid"..i) and not UnitIsDead("target") then
+			TargetByName(name)
+      if class=="Warrior" or class=="Druid" then
+        pala_big_sanc()
+      else
+        pala_big_salva()
+      end
+		end
+	end
+end
+
 -- /script buff_raid_pala_might_wisdom()
 function buff_raid_pala_might_wisdom()
 	for i=1,GetNumRaidMembers() do
 		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
 		if name and class and UnitIsConnected("raid"..i) and not UnitIsDead("target") then
 			TargetByName(name)
-            if class=="Warrior" or class=="Rogue" then
-			    pala_big_might()
-        	else
-			    pala_big_wisdom()
-        	end
+      if class=="Warrior" or class=="Rogue" then
+        pala_big_might()
+      else
+        pala_big_wisdom()
+      end
 		end
 	end
 end

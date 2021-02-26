@@ -1,4 +1,4 @@
-tank_list = {"Copperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen"}
+tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen"}
 
 group_list = {
 	[1] = {
