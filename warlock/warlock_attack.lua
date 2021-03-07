@@ -103,7 +103,10 @@ function warlock_curse(curse)
 		cast_debuff("Spell_Shadow_ChillTouch", "Curse of the Elements")
 	elseif curse == "CoA" then
 		corruption()
+		CastSpellByName("Amplify Curse")
 		cast_debuff("Spell_Shadow_CurseOfSargeras", "Curse of Agony")
+	elseif curse == "CoT" then
+		cast_debuff("Spell_Shadow_CurseOfTounges", "Curse of Tounges")
 	elseif curse == "CoW" then
 		corruption()
 		CastSpellByName("Amplify Curse")

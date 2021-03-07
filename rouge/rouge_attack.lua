@@ -23,6 +23,7 @@ function rouge_attack()
 	end
     burst_dmg()
     sinister_eviscerate()
+    use_autoattack()
 end
 
 function burst_dmg()
@@ -66,6 +67,7 @@ function rouge_dagger_attack()
 	end
     burst_dmg()
     backstab_eviscerate()
+    use_autoattack()
 end
 
 function backstab_eviscerate()

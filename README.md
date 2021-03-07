@@ -6,8 +6,8 @@ Works with World of Warcraft version 1.12
 This repository contains many prewritten macros to certain classes, making multiboxing life easier.
 In it's current state it could be used as a SuperMacro extension.
 Before you start using, understand a few things:
-This addon helps you build 1 liner macros, which makes each character only a few button class, 
-for example, the mage's primary functionality will be on the button 1, where we put a simple macro: 
+This addon helps you build 1 liner macros, which makes each character only a few button class,
+for example, the mage's primary functionality will be on the button 1, where we put a simple macro:
 ```
 /script mage_attack_skull()
 ```
@@ -25,24 +25,24 @@ This will target the enemy with the skull (ID = 8) raidTargetIcon, and start dps
 
 ### How to setup healing:
 To create healer class with only one button, you need to edit some files in the addon extension.
-1. In the SuperMacro/KerAzs/ you will find a KerAzs.lua file, open it in a text editor, I advice to download notepad++ for this purpose.
-2. Edit the tank_list by adding before the } at the end your tank's name like: "last_name_in_the_list" ,"your_tank_name" }.
-3. Edit the group_list, where you can just edit the [1] = {...} part, by adding switching the existing names to your party's members.
-By doing these changes, you can start using the buff macros like:
+1. In the util\healing\ you will find a group_management.lua file, open it in a text editor, I advice to download notepad++ for this purpose.
+2. Edit the nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multidps. This is just a bit of help for your healer, on who should they focus on.
+By doing these changes, you can start using heal macros on priests, paladins, and druids like:
 ```
-/script mage_buff_group1()
+/script  PriestHealOrDispel(targetList.all, false)
+/script PalaHealOrDispel(targetList.all, false)
+/script  DruidHealOrDispel(targetList.all, false)
 ```
-and heal macros like :
+Optional: If you have multiple healers, after setting up their healing macro, add into the supermacro LUA extension the following, to further improve the targeting:
 ```
-/script priest_heal_group1() 
+SetBias(-0.15,"group",1)
 ```
-please note that priest uses flash heal, and heal spells in this macro, for leveling to level ~25 you might wanna use
-/script priest_heal_lesser_group1()
+The last number 1 here refer to the first group, the healer will prioritize the first group with this extension.
 
 ### Hotkey.net
 To use this framework in its full potential I use Hotkey.net for a keydown broadcasting tool.
-Please visit [this tutorial] (https://www.dual-boxing.com/threads/16177-Guide-HowTo-use-HotKeyNet-for-boxing) for more info how to setup it.
-I also added a hotkeynet_script_example.txt to the project, which you can edit.
+Please visit [thier page] (http://www.hotkeynet.com/p/download.html) to download it, and for more information about the program.
+I also added a hotkeynet_script_example.txt to the project, which you can edit into the main directory.
 
 ## Tactic:
 
@@ -52,17 +52,18 @@ I also added a hotkeynet_script_example.txt to the project, which you can edit.
 | - | ----------------------------- | --------------------- | ------------------- |
 | 1 | dps skull 					| healing all groups 	| threat attack |
 | 2 | dps cross 					| healing all groups 	| threat attack |
-| 3 | cc 							| healing all groups 	| cc |
+| 3 | cc 							    | healing all groups 	| cc |
 | 4 | manaDrain/soulDrain/dps skull | healing all groups 	| threat attack/taunt |
-| 5 | aoe dps 						| aoe heal 				| aoe threat attack |
-| 6 | - 							| aoe hea 				| aoe threat attack |
-| 7 | drink 						| drink 				| drink |
-| 8 | buff 							| buff 					| buff |
-| 9 | mount up 						| mount up 				| mount up |
-| 0 | follow 						| follow 				| follow |
-| H | ranged move backward 			| ranged move backward 	| ranged move backward |
-| V | mellee move backward 			| mellee move backward 	| mellee move backward |
-| R | ranged/caster move forward 	| mellee move backward 	| mellee move backward |
+| 5 | aoe dps 						| healing all groups 	| aoe threat attack |
+| 6 | - 							    | aoe heal 				    | aoe threat attack |
+| 7 | drink 						  | drink 				      | drink |
+| 8 | buff 							  | buff 					      | buff |
+| 9 | mount up 						| mount up 				    | mount up |
+| 0 | follow 						  | follow 				      | follow |
+| R | mellee move forward 	| mellee move backward 	| mellee move backward |
+| V | mellee move backward 	| mellee move backward 	| mellee move backward |
+| Z | ranged move backward 	| ranged move backward 	| ranged move backward |
+| H | ranged move backward 	| ranged move backward 	| ranged move backward |
 
 ### Example
 
@@ -76,17 +77,15 @@ lets see an example with the following character:
 | Windou	| sh priest dps |
 
 #### Liberton, the tank:
-- 1,2,4: /script warrior_tank_attack() 
+- 1,2,4: /script warrior_tank_attack()
 - 3: Concussion Blow
 - 5,6: /script warrior_tank_aoe()
 - 9: mount
 - Marking skull, somewhere on the actionbar, preferably on slot "-": /script SetRaidTarget("target",8)
 
 #### Lionel, the heal:
-- 1,2,3,4: /script pala_heal_group1() 
-- 5,6: /script pala_heal_aoe()
+- 1,2,3,4,5,6: /script PalaHealOrDispel(targetList.all, false)
 - 7: mana drink
-- 8: /script pala_buff_group1() // this will only add might/wisdom but you can edit it in the KerAzsMB/pala/pala_buff.lua file
 - 9: mount
 - 0: /follow Liberton
 
@@ -109,7 +108,7 @@ Note: in raid on certain bosses I setup for button 4 /script warlock_drain_mana_
 - 3: /script poly_star() // polymorphs the target with the yellow star raid icon, find more options in mage/mage_poly.lua
 - 5: /script mage_aoe()
 - 7: mana drink
-- 8: /script mage_buff_group1()
+- 8: /script mage_armor()
 - 9: mount
 - 0: /follow Liberton
 
@@ -121,7 +120,6 @@ Note: in raid on certain bosses I setup for 1-2-4 buttons the /script mage_decur
 - 3: /script hackle_orange() // shakles the target with the orange shield raid icon, find more options in /priest/priest_shackle.lua
 - 5,6: Prayer of Healing // this might need to manually remove the shadow form if needed. Mainly used on Vaelstrasz fight
 - 7: mana drink
-- 8: /script priest_small_buff_group1()
 - 9: mount
 - 0: /follow Liberton
 

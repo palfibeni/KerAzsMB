@@ -73,8 +73,9 @@ function hunter_attack_multi_cross()
 end
 
 function hunterDps()
-    if (GetRaidTargetIndex("player") == 8 ) then
+  if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
+		stop_autoattack()
 		return
 	end
     if is_in_melee_range() then

@@ -16,7 +16,6 @@
 <Command LaunchAndRename>
 	<SendPC %1%>
 	<Run "C:/WoW/Vanilla/Wow.exe" >
-	
 	<RenameTargetWin %2%>
 	<SetWinSize %5% %6%>
 	<SetWinPos %7% %8%>

@@ -110,6 +110,7 @@ function performCDproffs()
 	createMooncloth()
 end
 
+-- /script createArcanite()
 function createArcanite()
 	if getSpellId("Alchemy") ~= nil then
 		CastSpellByName("Alchemy")
@@ -117,12 +118,14 @@ function createArcanite()
 	end
 end
 
+-- /script createRefinedSalt()
 function createRefinedSalt()
 	if getSpellId("Leatherworking") ~= nil then
 		use_item("Salt Shaker")
 	end
 end
 
+-- /script createMooncloth()
 function createMooncloth()
 	if getSpellId("Tailoring") ~= nil then
 		CastSpellByName("Tailoring")
