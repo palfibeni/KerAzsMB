@@ -1,45 +1,49 @@
-// Version 121219b
 // Comments begin with //. They don't do anything in the script.
 <SetActiveWindowTrackingDelay 175>
 <SetActiveWindowTracking on>
 
 // These are window labels. Kind of like nicknames for long window names.
 
-  <Label w0 Local SendWinM liberton_1p12>
-  <Label w1 Local SendWinM lionel_1p11>
-  <Label w2 Local SendWinM pinkypie_1p11>
-  <Label w3 Local SendWinM fabregas_1p14>
-  <Label w4 Local SendWinM windou_1pi4>
+  <Label w0 Local SendWinM window1>
+  <Label w1 Local SendWinM window2>
+  <Label w2 Local SendWinM window3>
+  <Label w3 Local SendWinM window4>
+  <Label w4 Local SendWinM window5>
 
 
 // This is the main launcher command definition.
 <Command LaunchAndRename>
-	<SendPC %1%>
-	<Run "C:/WoW/Vanilla/Wow.exe" >
-	<RenameTargetWin %2%>
-	<SetWinSize %5% %6%>
-	<SetWinPos %7% %8%>
-	<TargetWin %2%>
-	<SetForegroundWin>
-	<Text %3%>
-	<Key Tab>
-	<Text %4%>
-	<Wait 300>
-	<TargetWin %2%>
-	<SetForegroundWin>
-	<Key Enter>
+    <Wait 1000>
+    <SendPC %1%>
+    <Run "PATH_TO_WoW.exe">
+    <SetBackgroundFocusDelays 0 50>
+    <SendWinM "World of Warcraft">
+    <Wait 500>
+    <RenameWin "World of Warcraft" %2%>
+    <SetWinSize %5% %6%>
+    <SetWinPos %7% %8%>
+    <TargetWin %2%>
+    <Wait 1000>
+    <Text %3%>
+    <Wait 1000>
+    <Key Tab>
+    <Text %4%>
+    <Wait 1000>
+    <TargetWin %2%>
+    <SetForegroundWin>
+    <Key Enter>
 
 <Hotkey ScrollLockOn Alt Ctrl m>
-  <if WinDoesNotExist liberton_1p12>
-  <LaunchAndRename Local liberton_1p12 [accountName1] [accountPassword1] 960 720 480 360>
-  <if WinDoesNotExist lionel_1p11>
-  <LaunchAndRename Local lionel_1p11 [accountName2] [accountPassword2] 480 360 0 360>
-  <if WinDoesNotExist pinkypie_1p11>
-  <LaunchAndRename Local pinkypie_1p11 [accountName3] [accountPassword3] 480 360 480 0>
-  <if WinDoesNotExist fabregas_1p14>
-  <LaunchAndRename Local fabregas_1p14 [accountName4] [accountPassword4] 480 360 960 0>
-  <if WinDoesNotExist windou_1pi4>
-  <LaunchAndRename Local windou_1pi4 [accountName5] [accountPassword15] 480 360 0 0>
+  <if WinDoesNotExist window1>
+  <LaunchAndRename Local window1 ACCOUNT_NAME1 PASSWORD1 960 720 480 360>
+  <if WinDoesNotExist window2>
+  <LaunchAndRename Local window2 ACCOUNT_NAME2 PASSWORD2 480 360 0 360>
+  <if WinDoesNotExist window3>
+  <LaunchAndRename Local window3 ACCOUNT_NAME3 PASSWORD3 480 360 480 0>
+  <if WinDoesNotExist window4>
+  <LaunchAndRename Local window4 ACCOUNT_NAME4 PASSWORD4 480 360 960 0>
+  <if WinDoesNotExist window5>
+  <LaunchAndRename Local window5 ACCOUNT_NAME5 PASSWORD15 480 360 0 0>
 	
 <Hotkey ScrollLockOn Alt Ctrl o>
   <SendLabel w0,w1,w2,w3,w4>
@@ -55,9 +59,9 @@
     <Key enter>
 
 //-----------------------------------------------------------
-	// DEFINE HOTKEYS FOR ALL KEY COMBINATIONS THAT WILL GET
-	// SENT TO BOTH WOWS. ADD MORE KEY COMBO'S IF YOU WANT.
-	//-----------------------------------------------------------
+// DEFINE HOTKEYS FOR ALL KEY COMBINATIONS THAT WILL GET
+// SENT TO BOTH WOWS. ADD MORE KEY COMBO'S IF YOU WANT.
+//-----------------------------------------------------------
 
 <MovementHotKey ScrollLockOn 0, 1, 2, 3, 4, 5, 6, 7, 8, 9>
     <SendLabel w0,w1,w2,w3,w4>

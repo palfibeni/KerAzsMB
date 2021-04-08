@@ -43,6 +43,13 @@ The last number 1 here refer to the first group, the healer will prioritize the 
 To use this framework in its full potential I use Hotkey.net for a keydown broadcasting tool.
 Please visit [thier page] (http://www.hotkeynet.com/p/download.html) to download it, and for more information about the program.
 I also added a hotkeynet_script_example.txt to the project, which you can edit into the main directory.
+You have to add your wow.exe path in place of PATH_TO_WoW.exe
+ACCOUNT_NAMEX, PASSWORDX should be replaced with your login information.
+To start multiboxing load the script file into the Hotkey.net client, and after turning ScrollLock on, you can start multiboxing.
+CTRL+ALT+M will start your wow clients, while the process is ongoing, you cannot do anything else with mouse, keyboard.
+While the ScrollLock is ON the numbers 0-9, will be redirected to each WoW client you have set up, and  only to them,.
+I have setup in this example an R, H keybind also, only for the sub clients, when pressed, you will send an ArrowUp, or ArrowDown to these, resulting in going forward, or backward with only on windows 2-5.
+You can add further key logic, like separate movement for mellee, and casters, or starfe for example with Numpad keys.
 
 ## Tactic:
 
@@ -131,6 +138,7 @@ It's important to note, that there is a few spells that should be placed in spec
 - Holy Priest's Desperate Prayer same slot
 - Wand(every class using wand)/Mellee Auto Attack (rouges, warriors, feral druid, hunter): slot 62 (slot 63 needs to be empty, the attack macro uses this slot)
 - Autoshot for hunters should be put into slot 64 (slot 65 should be empty, becasue the attack macro uses this slot)
+to set these up, just run the /init command, and it will automatically adjust your layout
 
 ## Special Thanks
 #### Kearlah
