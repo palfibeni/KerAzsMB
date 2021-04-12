@@ -1,7 +1,7 @@
-lastBerserkerRage = 0
-lastBattleShout = 0
-lastWhirlwind = 0
-lastBloodThirst = 0
+heroicStrikeActionSlot = 13
+berserkerRageActionSlot = 14
+whirlwindActionSlot = 15
+bloodThirstActionSlot = 17
 
 function warrior_fury_skull()
 	if is_target_skull() then
@@ -24,10 +24,11 @@ end
 function warrior_fury_attack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
+		stop_autoattack()
 		return
 	end
 	if charge() then return end
-	warrior_berserker_stance()
+	warriorBerserkerStance()
 	berserkerRage()
 	bloodrage()
 	battleShout()
@@ -38,30 +39,34 @@ function warrior_fury_attack()
 		cast_buff_player("Ability_Racial_CriticalStrike", "Recklessness")
 		CastSpellByName("Execute")
 	else
-		bloodthirst()
+		if IsActionReady(bloodThirstActionSlot) and  UnitMana("player") >= 30 then
+			CastSpellByName("Bloodthirst")
+		end
 		whirlwind()
-		fury_heroic_strike()
+		if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 55 then
+			CastSpellByName("Heroic Strike")
+		end
 	end
 	use_autoattack()
 end
 
 function charge()
 	if not is_in_melee_range() and UnitAffectingCombat("player") == nil then
-		warrior_battle_stance()
+		warriorBattleStance()
 		CastSpellByName("Charge")
 		return true
 	end
 	return false
 end
 
-function warrior_battle_stance()
+function warriorBattleStance()
 	local icon, name, active, castable = GetShapeshiftFormInfo(1);
 	if not active then
 		CastSpellByName("Battle Stance")
 	end
 end
 
-function warrior_berserker_stance()
+function warriorBerserkerStance()
 	local icon, name, active, castable = GetShapeshiftFormInfo(3);
 	if not active then
 		CastSpellByName("Berserker Stance")
@@ -69,35 +74,19 @@ function warrior_berserker_stance()
 end
 
 function berserkerRage()
-  if lastBerserkerRage + 30 < GetTime() then
+  if IsActionReady(berserkerRageActionSlot) then
 		CastSpellByName("Berserker Rage")
-    lastBerserkerRage = GetTime()
   end
 end
 
-function fury_heroic_strike()
-	if UnitMana("player") >= 55 and lastBloodThirst + 6 > GetTime() and lastWhirlwind + 10 > GetTime() then
-		CastSpellByName("Heroic Strike")
-	end
-end
-
-function bloodthirst()
-	if UnitMana("player") >= 30 and lastBloodThirst + 6 < GetTime() then
-		CastSpellByName("Bloodthirst")
-		lastBloodThirst = GetTime()
-	end
-end
-
 function whirlwind()
-	if UnitMana("player") >= 25 and lastWhirlwind + 10 < GetTime() then
+	if IsActionReady(whirlwindActionSlot) and  UnitMana("player") >= 25 then
 		CastSpellByName("Whirlwind")
-		lastWhirlwind = GetTime()
 	end
 end
 
 function battleShout()
-	if UnitMana("player") >= 10 and lastBattleShout + 120 < GetTime() and not player_has_buff("Ability_Warrior_BattleShout") then
+	if not player_has_buff("Ability_Warrior_BattleShout") then
 		CastSpellByName("Battle Shout")
-    lastBerserkerRage = GetTime()
 	end
 end

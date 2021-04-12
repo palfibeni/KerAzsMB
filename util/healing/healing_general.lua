@@ -153,3 +153,13 @@ function initHealProfiles()
 	initPriestHealProfiles()
 	initDruidHealProfiles()
 end
+
+function getDefaultHealingProfile()
+	if UnitLevel("player") < 26 then
+		return "lesser"
+	end
+	if UnitLevel("player") < 40 then
+		return "midLevel"
+	end
+		return "regular"
+end

@@ -26,3 +26,10 @@ function getSpellId(spellName)
 	end
 	return highestRankId
 end
+
+function IsActionReady(actionSlot)
+    if IsUsableAction(actionSlot) and GetActionCooldown(actionSlot) == 0 then
+        return true
+    end
+    return false
+end

@@ -10,6 +10,8 @@ druidDispelPosion={Posion=true}
 druidHealRange="Healing Touch"
 druidDispelRange="Remove Curse"
 
+lastInner = 0;
+innervateActionSlot = 61;
 
 -- /script dudu_heal_mandokir()
 function dudu_heal_mandokir()
@@ -22,7 +24,7 @@ end
 
 -- /script  DruidHealOrDispel(targetList.all, false)
 function DruidHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
-	healProfile=healProfile or "regular"
+	healProfile=healProfile or getDefaultHealingProfile()
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
@@ -44,7 +46,7 @@ function DruidHeal(targetList,healProfile)
 	if (UnitMana("player") < 500) then
 		innervate()
 	end
-	healProfile=healProfile or "regular"
+	healProfile=healProfile or getDefaultHealingProfile()
 	if SpellCastReady(druidHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp,hotTarget,hotHp=GetHealTarget(targetList,druidHealRange,buffRegrowth)
@@ -111,6 +113,21 @@ function DruidDispelTarget(target,debuffType)
 	end
 end
 
+function innervate()
+  if (lastInner + 300 <= GetTime()) then
+    local icon, name, active, castable = GetShapeshiftFormInfo(5);
+    if active then
+  		CastSpellByName("Moonkin Form")
+      return
+    elseif IsActionReady(innervateActionSlot) and (UnitMana("player") >= 70) then
+      ClearFriendlyTarget()
+      CastSpellByName("Innervate")
+      SpellTargetUnit("player")
+      lastInner = GetTime()
+    end
+  end
+end
+
 function initDruidHealProfiles()
 	druidHealProfiles={
 		regular={
@@ -121,6 +138,17 @@ function initDruidHealProfiles()
 			{0.75 , 49, "Healing Touch(Rank 2)"},
 			{0.9 , 280 , "Regrowth(Rank 3)",3},
 			{0.9 , 49, "Healing Touch(Rank 2)",2}
+		},
+		midLevel={
+			{0.4 , 150 , "Healing Touch(Rank 3)"},
+			{0.5 , 150, "Healing Touch(Rank 3)",1,targetList.tank,true},
+			{0.7 , 120 , "Regrowth(Rank 2)",3},
+			{0.8 , 35 , "Healing Touch(Rank 1)", 2}
+		},
+		lesser={
+			{0.3 , 35 , "Healing Touch"},
+			{0.4 , 35, "Healing Touch",1,targetList.tank,true},
+			{0.6 , 35 , "Healing Touch(Rank 1)"}
 		},
 	}
 end

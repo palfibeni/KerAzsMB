@@ -39,6 +39,7 @@ function mage_attack(element)
 				UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 			end
 			if element == "Fire" then
+				CastSpellByName("Fireblast")
 				CastSpellByName("Fireball")
 			elseif element == "Arcane" then
 				CastSpellByName("Arcane Missiles")

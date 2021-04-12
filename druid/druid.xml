@@ -4,9 +4,8 @@
 	<Script file="druid_balance_attack.lua"/>
 	<Script file="druid_bear_attack.lua"/>
 	<Script file="druid_cat_attack.lua"/>
-	<Script file="druid_heal.lua"/>
-	<Script file="druid_buff.lua"/>
-	<Script file="druid_aoe.lua"/>
+	<Script file="druid_healing.lua"/>
+	<Script file="druid_bear_aoe.lua"/>
 	<Script file="druid_entangle.lua"/>
 	<Script file="druid_decurse.lua"/>
 	<Script file="druid_depoison.lua"/>

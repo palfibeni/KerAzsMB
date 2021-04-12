@@ -17,7 +17,7 @@ function warrior_fury_aoe_cross()
 end
 
 function warrior_fury_aoe()
-	warrior_berserker_stance()
+	warriorBerserkerStance()
 	berserkerRage()
 	bloodrage()
 	whirlwind()

@@ -4,9 +4,11 @@ buffAbolishDisease="Spell_Nature_NullifyDisease"
 buffRenew="Spell_Holy_Renew"
 buffInnerFocus="Spell_Frost_WindWalkOn"
 
-priestHealRange="Heal"
+priestHealRange="Lesser Heal"
 priestDispelRange="Cure Disease"
 aoeHealMinPlayers=3
+
+desperatePrayerActionSlot = 61
 
 -- /script priest_heal_mandokir()
 function priest_heal_mandokir()
@@ -17,9 +19,14 @@ function priest_heal_mandokir()
  PriestHeal(targetList.all, false)
 end
 
+function fear_ward()
+    if casting_or_channeling() then return end
+    cast_buff("Spell_Holy_Excorcism", "Fear Ward")
+end
+
 -- /script  PriestHealOrDispel(targetList.all, false)
 function PriestHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
-	healProfile=healProfile or "regular"
+	healProfile=healProfile or getDefaultHealingProfile()
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
@@ -37,8 +44,11 @@ function PriestHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispel
 end
 
 function PriestHeal(targetList,healProfile)
+	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.4) then
+			CastSpellByName("Desperate Prayer")
+	end
 	UseHealTrinket()
-	healProfile=healProfile or "regular"
+	healProfile=healProfile or getDefaultHealingProfile()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp,hotTarget,hotHp=GetHealTarget(targetList,priestHealRange,buffRenew)
@@ -167,6 +177,21 @@ function initPriestHealProfiles()
 			--{0.9 , 0  , "Prayer of Healing",4},
 			{0.99, 0  , "Flash Heal"},
 			{0.9 , 131, "Heal(Rank 1)",2}
-		}
+		},
+    midLevel={
+			{0.4 , 265, "Flash Heal",1,targetList.tank},
+      {0.3 , 265, "Flash Heal"},
+      {0.5 , 155, "Flash Heal(Rank 2)"},
+      {0.6 , 259, "Heal"},
+      {0.7 , 174, "Heal(Rank 2)"},
+      {0.8 , 131, "Heal(Rank 1)"},
+      {0.9 , 96 , "Renew(Rank 3)",3}
+    },
+    lesser={
+			{0.5 , 63, "Lesser Heal",1,targetList.tank},
+      {0.3 , 63, "Lesser Heal"},
+      {0.7 , 38, "Lesser Heal(Rank 2)"},
+      {0.8 , 94 , "Renew(Rank 1)",3}
+    }
 	}
 end

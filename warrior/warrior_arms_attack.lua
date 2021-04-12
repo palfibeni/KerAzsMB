@@ -18,7 +18,7 @@ end
 
 function warrior_arms_attack()
 	use_autoattack()
-	warrior_battle_stance()
+	warriorBattleStance()
 	if charge() then return end
 	bloodrage()
 	battleShout()

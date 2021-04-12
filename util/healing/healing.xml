@@ -4,9 +4,6 @@
     <Script file="group_management.lua"/>
     <Script file="spell_management.lua"/>
     <Script file="healing_general.lua"/>
-    <Script file="paladin_healing.lua"/>
-    <Script file="priest_healing.lua"/>
-    <Script file="druid_healing.lua"/>
     <Frame name="RynMultibox_EventsFrame">
       <Scripts>
         <OnLoad>

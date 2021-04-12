@@ -70,7 +70,7 @@ function initActionBar()
 	if UnitClass("player") == "Hunter" then
 		initActionBarForHunter()
 	elseif UnitClass("player") == "Warrior" then
-		placeSpellByName("Attack", autoAttackActionSlot)
+		initActionBarForWarrior()
 	elseif UnitClass("player") == "Rogue" then
 		placeSpellByName("Attack", autoAttackActionSlot)
 	elseif UnitClass("player") == "Paladin" then
@@ -84,6 +84,9 @@ function initActionBar()
 	elseif UnitClass("player") == "Priest" then
 		placeSpellByName("Desperate Prayer", desperatePrayerActionSlot)
 		placeSpellByName("Shoot", autoAttackActionSlot)
+	elseif UnitClass("player") == "Druid" then
+		placeSpellByName("Innervate", innervateActionSlot)
+		placeSpellByName("Attack", autoAttackActionSlot)
 	end
 end
 
@@ -94,6 +97,21 @@ function initActionBarForHunter()
 	placeSpellByName("Multi-Shot", multiShotActionSlot)
 	placeSpellByName("Raptor Strike", raptorStrikeActionSlot)
 	placeSpellByName("Mongoose Bite", mongooseBiteActionSlot)
+end
+
+function initActionBarForWarrior()
+	placeSpellByName("Attack", autoAttackActionSlot)
+	placeSpellByName("Heroic Strike", heroicStrikeActionSlot)
+	placeSpellByName("Bloodrage", bloodrageActionSlot)
+	if is_tank_by_name(UnitName("player")) then
+		placeSpellByName("Revenge", revengeActionSlot)
+		placeSpellByName("Sunder Armor", sunderArmorActionSlot)
+		placeSpellByName("Shield Slam", shieldSlamActionSlot)
+	else
+		placeSpellByName("Berserker Rage", berserkerRageActionSlot)
+		placeSpellByName("Whirlwind", whirlwindActionSlot)
+		placeSpellByName("Bloodthirst", bloodThirstActionSlot)
+	end
 end
 
 function placeSpellByName(spellName, slot)

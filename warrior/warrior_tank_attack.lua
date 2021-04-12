@@ -1,7 +1,12 @@
-lastSunder = 0
-lastBloodrage = 0
-lastShieldSlam = 0
 warriorTauntEnabled = false
+
+heroicStrikeActionSlot = 13
+revengeActionSlot = 14
+sunderArmorActionSlot = 15
+bloodrageActionSlot = 16
+shieldSlamActionSlot = 17
+
+lastSunder = 0
 
 function warrior_tank_attack_skull()
 	if is_target_skull() then
@@ -22,19 +27,29 @@ end
 function warrior_tank_attack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
+		stop_autoattack()
 		return
 	end
 	warrior_defense_stance()
-	-- cast_buff_player("Ability_Warrior_DefensiveStance", "Defensive Stance")
 	bloodrage()
 	warrior_taunt()
-	shieldSlam()
+	if IsActionReady(shieldSlamActionSlot) and UnitMana("player") >= 20 then
+		CastSpellByName("Shield Slam")
+  end
 	warrior_demo_shout()
-  sunderArmor()
-	  CastSpellByName("Revenge")
-	if UnitMana("player") >= 20 then
+	if IsActionReady(sunderArmorActionSlot) and UnitMana("player") >= 12 then
+			if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
+					CastSpellByName("Sunder Armor")
+					lastSunder = GetTime()
+			end
+	end
+	if IsActionReady(revengeActionSlot) then
+		CastSpellByName("Revenge")
+  end
+	if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 30 then
 		CastSpellByName("Heroic Strike")
 	end
+	use_autoattack()
 end
 
 function warrior_defense_stance()
@@ -54,25 +69,8 @@ function warrior_taunt()
 	end
 end
 
-function sunderArmor()
-	if UnitMana("player") >= 12 then
-		if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
-            CastSpellByName("Sunder Armor")
-            lastSunder = GetTime()
-        end
-    end
-end
-
 function bloodrage()
-  if lastBloodrage + 60 < GetTime() then
+  if IsActionReady(bloodrageActionSlot) then
 		CastSpellByName("Bloodrage")
-    lastBloodrage = GetTime()
-  end
-end
-
-function shieldSlam()
-  if UnitMana("player") >= 20 and lastShieldSlam + 6 < GetTime() then
-		CastSpellByName("Shield Slam")
-    lastBloodrage = GetTime()
   end
 end

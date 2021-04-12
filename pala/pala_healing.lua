@@ -10,6 +10,8 @@ palaDispelNoMagic={Disease=true,Poison=true}
 palaDispelNoDisease={Magic=true,Poison=true}
 palaDispelNoPoison={Magic=true,Disease=true}
 
+divineShieldActionSlot = 61
+
 -- /script pala_heal_mandokir()
 function pala_heal_mandokir()
 	if (GetRaidTargetIndex("player") == 8 ) then
@@ -19,9 +21,10 @@ function pala_heal_mandokir()
 	PalaHealOrDispel(targetList.all, false)
 end
 
+-- /script PalaHeal(targetList.all, false)
 -- /script PalaHealOrDispel(targetList.all, false)
 function PalaHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
-	healProfile=healProfile or "regular"
+	healProfile=healProfile or getDefaultHealingProfile()
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
@@ -39,8 +42,11 @@ function PalaHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHp
 end
 
 function PalaHeal(targetList,healProfile)
+	if IsActionReady(divineShieldActionSlot) and is_player_hp_under(0.4) then
+			CastSpellByName("Divine Shield")
+	end
 	UseHealTrinket()
-	healProfile=healProfile or "regular"
+	healProfile=healProfile or getDefaultHealingProfile()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp=GetHealTarget(targetList,palaHealRange)
@@ -136,6 +142,16 @@ function initPalaHealProfiles()
 			{0.3 , 0  , "Holy Light"},
 			{0.99, 0  , "Flash of Light"},
 			{0.9 , 35 , "Holy Light(Rank 1)", 2}
-		}
+		},
+		midLevel={
+			{0.4 , 150 , "Holy Light(Rank 3)"},
+			{0.5 , 150, "Holy Light(Rank 3)",1,targetList.tank,true},
+			{0.8 , 35 , "Flash of Light"}
+		},
+		lesser={
+			{0.3 , 35 , "Holy Light"},
+			{0.4 , 35, "Holy Light",1,targetList.tank,true},
+			{0.6 , 35 , "Holy Light(Rank 1)"}
+		},
 	}
 end

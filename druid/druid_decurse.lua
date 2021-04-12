@@ -1,15 +1,3 @@
-function druid_decurse_group1()
-    druid_decurse_by_group(1)
-end
-
-function druid_decurse_group2()
-    druid_decurse_by_group(2)
-end
-
-function druid_decurse_group3()
-    druid_decurse_by_group(3)
-end
-
 -- /script druid_decurse_raid()
 function druid_decurse_raid()
     remove_debuff_type_raid("Curse", "Remove Curse")

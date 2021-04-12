@@ -1,15 +1,3 @@
-function druid_depoison_group1()
-    druid_depoison_by_group(1)
-end
-
-function druid_depoison_group2()
-    druid_depoison_by_group(2)
-end
-
-function druid_depoison_group3()
-    druid_depoison_by_group(3)
-end
-
 -- /script druid_depoison_raid()
 function druid_depoison_raid()
     remove_debuff_type_raid("Poison", "Abolish Poison")
