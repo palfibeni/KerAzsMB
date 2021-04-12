@@ -1,41 +1,5 @@
 tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen"}
 
-group_list = {
-	[1] = {
-		tank="Cooperbeard",
-		heal="Baleog",
-		dps_list={"Azsgrof", "Daemona", "Jaliana", "Carla"}
-	},
-	[2] = {
-		tank="Cooperbeard",
-		heal="Lionel",
-		dps_list={"Liberton", "Pinkypie", "Fabregas", "Windou"}
-	},
-	[3] = {
-		tank="Stardancer",
-		heal="Nobleforged",
-		dps_list={"Oakheart", "Cromwell", "Leilena", "Featherfire"}
-	},
-	[4] = {
-		tank="Stardancer",
-		heal="Lightbeard",
-		dps_list={"Miraclemike", "Pompedous", "Morbent"}
-	},
-	[5] = {
-		tank="Moonflower",
-		heal="Bronzecoat",
-		dps_list={"Maleficus", "Nightleaf", "Ravencloud"}
-	},
-}
-
-horde_group_list = {
-	[1] = {
-		tank="Gorebleed",
-		heal="Bluelight",
-		dps_list={"Felfire", "Flamestorm", "Coldbringer"}
-	}
-}
-
 local timer = CreateFrame("FRAME");
 --'duration' is in seconds and 'func' is the function that will be executed in the end
 local function setTimer(duration, func)

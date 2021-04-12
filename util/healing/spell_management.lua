@@ -72,7 +72,10 @@ function GetSpellIdEntries(pSpellId)
 end
 
 function GetSpellCooldownByName(spellName)
-	return GetSpellCooldown(spellData[spellName].spellId,spellData[spellName].bookType)
+	if spellData[spellName] ~= nil then
+		return GetSpellCooldown(spellData[spellName].spellId,spellData[spellName].bookType)
+	end
+	return 999
 end
 
 function GetSpellCastTimeByName(spellName)
