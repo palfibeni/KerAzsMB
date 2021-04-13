@@ -6,4 +6,5 @@
 	<Script file="priest_healing.lua"/>
 	<Script file="priest_shackle.lua"/>
 	<Script file="priest_mana_burn.lua"/>
+	<Script file="priest_buff.lua"/>
 </Ui>

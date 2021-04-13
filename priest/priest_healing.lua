@@ -1,4 +1,4 @@
--- TODO Fix AOE
+-- TODO Fix AOE, add Fade
 
 buffAbolishDisease="Spell_Nature_NullifyDisease"
 buffRenew="Spell_Holy_Renew"

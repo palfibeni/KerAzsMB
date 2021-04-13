@@ -2,10 +2,11 @@
 nameList={
 	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber","Llanewrynn","Nyavalyás"},
 	heal={},
-	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat", "Fordragon", "Moonflower"},
+	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat", "Fordragon", "Moonflower", "Ligtweight"},
 	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",
 	"Fabregas", "Windou", "Oakheart", "Cromwell", "Leilena", "Featherfire",
-	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud"}
+	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud",
+	"Barbariana", "Lemonjuice", "Thinarms", "Toxica"}
 }
 
 -- targetLists: {all,tank,heal,dps(default),multiheal,multidps,party,group<1-8>,<charname>,master,self}   TODO: assist?,class,custom<any>?
@@ -59,7 +60,7 @@ function Debug(message)
 end
 
 function GroupManagementHandler()
-	if not UnitClass("player") == "Priest" and not UnitClass("player") == "Paladin" and not UnitClass("player") == "Druid" then return end
+	if not UnitClass("player") == "Priest" and not UnitClass("player") == "Paladin" and not UnitClass("player") == "Druid" and not UnitClass("player") == "Mage" then return end
 	if not targetList then
 		BuildTargetList()
 	elseif event=="PLAYER_ENTERING_WORLD" or event=="RAID_ROSTER_UPDATE" and UnitInRaid("player") or event=="PARTY_MEMBERS_CHANGED" and not UnitInRaid("player") then

@@ -1,3 +1,5 @@
+-- TODO barskin
+
 buffAbolishPoison="Spell_Nature_NullifyPoison_02"
 buffRegrowth="Spell_Nature_ResistNature"
 buffRejuvenation="Spell_Nature_Rejuvenation"
