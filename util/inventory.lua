@@ -38,7 +38,7 @@ function use_item(name)
 			local texture = GetContainerItemInfo(bag,slot)
 			if texture then
 				local link = GetContainerItemLink(bag,slot)
-				if string.find(link, name) then UseInventoryItem(bag,slot) return end
+				if string.find(link, name) then UseContainerItem(bag,slot) return end
 			end
 		end
 	end

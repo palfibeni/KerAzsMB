@@ -141,6 +141,8 @@ It's important to note, that there is a few spells that should be placed in spec
 to set these up, just run the /init command, and it will automatically adjust your layout
 
 ## Special Thanks
+#### Ryonn/Alaniel
+He made a similar addon, a bit after I started, and I used a lot of his awesome solution, salute to you Alaniel. Check it out [here](https://github.com/Ryonn-0/ryn-multibox).
 #### Kearlah
 He is my guildmaster, and without him, I wouldn't even know multiboxing exists, and most of these macros are written by him. You can find them [here](https://github.com/KocsiLevente/multibox).
 #### FurySwipes

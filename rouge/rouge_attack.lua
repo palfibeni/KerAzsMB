@@ -22,7 +22,14 @@ function rouge_attack()
 		return
 	end
     burst_dmg()
-    sinister_eviscerate()
+    if (GetComboPoints("target") > 1 ) then
+      cast_buff_player("Ability_Rogue_SliceDice", "Slice and Dice")
+    end
+    if (GetComboPoints("target") == 5) then
+        CastSpellByName("Eviscerate")
+    else
+        CastSpellByName("Sinister Strike")
+    end
     use_autoattack()
 end
 
@@ -31,14 +38,6 @@ function burst_dmg()
         CastSpellByName("Blade Flurry")
         CastSpellByName("Adrenaline Rush")
         UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-    end
-end
-
-function sinister_eviscerate()
-    if (GetComboPoints("target") == 5) then
-        CastSpellByName("Eviscerate")
-    else
-        CastSpellByName("Sinister Strike")
     end
 end
 
@@ -66,14 +65,13 @@ function rouge_dagger_attack()
 		return
 	end
     burst_dmg()
-    backstab_eviscerate()
-    use_autoattack()
-end
-
-function backstab_eviscerate()
+    if (GetComboPoints("target") > 1 ) then
+      cast_buff_player("Ability_Rogue_SliceDice", "Slice and Dice")
+    end
     if (GetComboPoints("target") == 5) then
         CastSpellByName("Eviscerate")
     else
         CastSpellByName("Backstab")
     end
+    use_autoattack()
 end

@@ -60,7 +60,7 @@ function buff_raid_pala_might_wisdom(lTargetList)
 	end
 end
 
--- /script buff_raid_pala_might_wisdom()
+-- /script buff_pala_small_might_wisdom()
 function buff_pala_small_might_wisdom(lTargetList)
   setDefaultAura()
 	lTargetList=lTargetList or targetList.all

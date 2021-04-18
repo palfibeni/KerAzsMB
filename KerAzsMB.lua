@@ -80,7 +80,8 @@ end
 
 function placeSpellByName(spellName, slot)
 	spellId = getSpellId(spellName)
-	if spellId ~= nil then
+	if spellId ~= -1 then
+		PickupAction(slot)
 		PickupSpell(spellId, "BOOKTYPE_SPELL")
 		PlaceAction(slot)
 	end
