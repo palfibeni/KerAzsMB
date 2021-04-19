@@ -1,6 +1,6 @@
 -- Group Management
 nameList={
-	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber","Llanewrynn","Nyavalyás"},
+	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber","Llanewrynn","Nyavalyás","Bendegúz","Lothbrok"},
 	heal={},
 	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat", "Fordragon", "Moonflower", "Ligtweight"},
 	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",
@@ -8,9 +8,6 @@ nameList={
 	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud",
 	"Barbariana", "Lemonjuice", "Thinarms", "Toxica"}
 }
-
--- targetLists: {all,tank,heal,dps(default),multiheal,multidps,party,group<1-8>,<charname>,master,self}   TODO: assist?,class,custom<any>?
--- playerInfo: uid -> {name,role,class,group,bias}
 
 -- Initialize bias list structure
 biasList={group={}}

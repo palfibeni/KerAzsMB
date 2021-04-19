@@ -29,11 +29,13 @@ function warlock_attack(curse, element)
 	if casting_or_channeling() then return end
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
-		-- Useable trinkets
-        UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-        UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+		if is_target_hp_under(0.7) then
+			-- Useable trinkets
+			UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+		end
 		if element == "Fire" then
-	        CastSpellByName("Immolation")
+			CastSpellByName("Immolation")
 		else
 			warlock_curse(curse)
 			CastSpellByName("Shadow Bolt")
