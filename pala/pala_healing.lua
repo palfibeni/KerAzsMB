@@ -42,7 +42,7 @@ function PalaHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHp
 end
 
 function PalaHeal(targetList,healProfile)
-	if IsActionReady(divineShieldActionSlot) and is_player_hp_under(0.4) then
+	if IsActionReady(divineShieldActionSlot) and is_player_hp_under(0.5) then
 			CastSpellByName("Divine Shield")
 	end
 	UseHealTrinket()

@@ -1,4 +1,4 @@
-tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen"}
+tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen", "Bendegúz"}
 
 local timer = CreateFrame("FRAME");
 --'duration' is in seconds and 'func' is the function that will be executed in the end

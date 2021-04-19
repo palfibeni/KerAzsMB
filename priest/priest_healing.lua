@@ -44,7 +44,7 @@ function PriestHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispel
 end
 
 function PriestHeal(targetList,healProfile)
-	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.4) then
+	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.5) then
 			CastSpellByName("Desperate Prayer")
 	end
 	UseHealTrinket()

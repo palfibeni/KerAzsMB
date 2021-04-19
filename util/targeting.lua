@@ -9,6 +9,14 @@ end
 -- 2 = Trade, 11.11 yards
 -- 3 = Duel, 9.9 yards
 -- 4 = Follow, 28 yards
+function is_in_trade_range()
+	return CheckInteractDistance("target",2)
+end
+
+-- 1 = Inspect, 9.9 yards
+-- 2 = Trade, 11.11 yards
+-- 3 = Duel, 9.9 yards
+-- 4 = Follow, 28 yards
 function is_in_melee_range()
 	return CheckInteractDistance("target",3)
 end

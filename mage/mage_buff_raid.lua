@@ -15,9 +15,3 @@ end
 function mage_amplify()
     cast_buff("Spell_Holy_FlashHeal", "Amplify Magic")
 end
-
-function mage_water()
-  if count_item("Conjured Crystal Water") < 39 then
-    CastSpellByName("Conjure Water")
-  end
-end

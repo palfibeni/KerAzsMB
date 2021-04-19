@@ -1,33 +1,3 @@
--- SKULL
--- /script warlock_skull_cos()
-function warlock_skull_cos()
-	warlock_skull("CoS", "Shadow")
-end
-
--- /script warlock_skull_coe()
-function warlock_skull_coe()
-	warlock_skull("CoE", "Shadow")
-end
-
--- /script warlock_skull_coa()
-function warlock_skull_coa()
-	warlock_skull("CoA", "Shadow")
-end
-
--- /script warlock_skull_cow()
-function warlock_skull_cow()
-	warlock_skull("CoW", "Shadow")
-end
--- /script warlock_skull_cos()
-function warlock_skull_cos_fire()
-	warlock_skull("CoS", "Fire")
-end
-
--- /script warlock_skull_coe()
-function warlock_skull_coe_fire()
-	warlock_skull("CoE", "Fire")
-end
-
 function warlock_skull(curse, element)
 	curse = curse or "CoE"
 	element = element or "Shadow"
@@ -36,27 +6,6 @@ function warlock_skull(curse, element)
 	else
 		target_skull()
 	end
-end
-
--- CROSS
--- /script warlock_cross_cos()
-function warlock_cross_cos()
-	warlock_cross("CoS", "Shadow")
-end
-
--- /script warlock_cross_coe()
-function warlock_cross_coe()
-	warlock_cross("CoE", "Shadow")
-end
-
--- /script warlock_cross_coa()
-function warlock_cross_coa()
-	warlock_cross("CoA", "Shadow")
-end
-
--- /script warlock_cross_cow()
-function warlock_cross_cow()
-	warlock_cross("CoW", "Shadow")
 end
 
 function warlock_cross(curse, element)

@@ -29,8 +29,7 @@ function mage_attack(element)
 		return
 	end
     if casting_or_channeling() then return end
-    local evoc, dur_evoc, en_evoc = GetActionCooldown(evocationActionSlot)
-    if (UnitMana("player")>= (UnitLevel("player") * 6)) then
+    if (UnitMana("player") >= (UnitLevel("player") * 6)) then
       stop_wand()
 			if is_target_hp_under(0.7) then
 				cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
@@ -46,7 +45,7 @@ function mage_attack(element)
 			else
 				CastSpellByName("Frostbolt")
 			end
-    elseif (evoc == 0) then
+    elseif IsActionReady(evocationActionSlot) then
         CastSpellByName("Evocation")
     else
         use_wand()
