@@ -35,10 +35,10 @@ function pala_raid_sanc()
 end
 
 -- /script buff_raid_pala_sanc_salva()
-function buff_raid_pala_sanc_salva(lTargetList)
+function buff_raid_pala_sanc_salva(ltargetList)
   setDefaultAura()
-	lTargetList=lTargetList or targetList.all
-	for target,info in pairs(lTargetList) do
+	ltargetList=ltargetList or azs.targetList.all
+	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "DRUID" then
 			castBuff("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary", target)
     else
@@ -48,10 +48,10 @@ function buff_raid_pala_sanc_salva(lTargetList)
 end
 
 -- /script buff_raid_pala_might_wisdom()
-function buff_raid_pala_might_wisdom(lTargetList)
+function buff_raid_pala_might_wisdom(ltargetList)
   setDefaultAura()
-	lTargetList=lTargetList or targetList.all
-	for target,info in pairs(lTargetList) do
+	ltargetList=ltargetList or azs.targetList.all
+	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "ROGUE" then
 			castBuff("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might", target)
     else
@@ -61,10 +61,10 @@ function buff_raid_pala_might_wisdom(lTargetList)
 end
 
 -- /script buff_pala_small_might_wisdom()
-function buff_pala_small_might_wisdom(lTargetList)
+function buff_pala_small_might_wisdom(ltargetList)
   setDefaultAura()
-	lTargetList=lTargetList or targetList.all
-	for target,info in pairs(lTargetList) do
+	ltargetList=ltargetList or azs.targetList.all
+	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "ROGUE" then
 			castBuff("Spell_Holy_FistOfJustice", "Blessing of Might", target)
     else

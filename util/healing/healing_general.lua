@@ -3,17 +3,39 @@ healHpThreshold=0.9
 healInterruptThreshold=0.95
 stopCastingDelay=0.5
 
+-- Delay a new spellcast after a spell is interrupted.
+blacklistTime=10
+retryBlacklist=true
+-- true: Try to heal/dispel blacklisted players, when no non-blacklisted player needs healing/dispelling.
+-- false: Blacklisted players won't get heals/dispels until blacklist time expires.
+
 stopCastingDelayExpire=nil
 currentHealTarget=nil
 currentHealFinish=nil
 precastHpThreshold=nil
 
+function HandleHealingEvent()
+	if event == "UI_ERROR_MESSAGE" and arg1 == "Target not in line of sight" then
+		BlacklistTarget(currentHealTarget)
+		currentHealTarget = nil
+		precastHpThreshold = nil
+	elseif event == "SPELLCAST_START" then
+		currentHealFinish=GetTime() + arg2 / 1000
+	elseif event == "SPELLCAST_DELAYED" then
+		currentHealFinish= currentHealFinish + arg1 / 1000
+	elseif event=="SPELLCAST_STOP" then
+		currentHealTarget = nil
+		currentHealFinish = nil
+		precastHpThreshold = nil
+	end
+end
+
 -- 7 PARAMETERS!!! YEP!!!!!!
-function GetHealOrDispelTarget(targetList,healSpell,healIcon,dispelSpell,dispelTypes,dispelByHp,dispelHpThreshold)
+function GetHealOrDispelTarget(lTargetList,healSpell,healIcon,dispelSpell,dispelTypes,dispelByHp,dispelHpThreshold)
 	local dispelTarget,debuffType,action
-	local healTarget,minHp,healHotTarget,minHotHp=GetHealTarget(targetList,healSpell,healIcon)
+	local healTarget,minHp,healHotTarget,minHotHp=GetHealTarget(lTargetList,healSpell,healIcon)
 	if not healTarget or minHp>dispelHpThreshold then
-		dispelTarget,debuffType=GetDispelTarget(targetList,dispelSpell,dispelTypes,dispelByHp)
+		dispelTarget,debuffType=GetDispelTarget(lTargetList,dispelSpell,dispelTypes,dispelByHp)
 		if dispelTarget then
 			action="dispel"
 		else
@@ -28,20 +50,36 @@ function GetHealOrDispelTarget(targetList,healSpell,healIcon,dispelSpell,dispelT
 	return dispelTarget,debuffType,nil,nil,action
 end
 
-function GetHealTarget(targetList,healSpell,healIcon)
+function GetHealTarget(lTargetList,healSpell,healIcon)
 	ClearFriendlyTarget()
 	CastSpellByName(healSpell)
-	local currentTarget,minHp,minBiasedHp
-	local currentHotTarget,minHotHp,minBiasedHotHp
-	for target,info in pairs(targetList) do
+	local currentTarget, minHp, minBiasedHp
+	local currentHotTarget, minHotHp, minBiasedHotHp
+	local blacklistFlag, minBlacklistTime = retryBlacklist,nil
+	for target,info in pairs(lTargetList) do
 		local hp=UnitHealth(target)/UnitHealthMax(target)
 		if hp<healHpThreshold and IsValidSpellTarget(target) then
-			local biasedHp=hp+info.bias
-			if not minHp or biasedHp<minBiasedHp then
-				minHp,minBiasedHp,currentTarget=hp,biasedHp,target
-			end
-			if healIcon and (not minHotHp or biasedHp<minBiasedHotHp) and not has_buff(target,healIcon) then
-				minHotHp,minBiasedHotHp,currentHotTarget=hp,biasedHp,target
+			if not info.blacklist or info.blacklist<=GetTime() then
+				if blacklistFlag then
+					blacklistFlag,currentTarget,currentHotTarget,minHp,minHotHp=false,nil,nil,nil,nil
+				end
+				local biasedHp=hp+info.bias
+				if not minHp or biasedHp<minBiasedHp then
+					minHp,minBiasedHp,currentTarget=hp,biasedHp,target
+				end
+				if healIcon and (not minHotHp or biasedHp<minBiasedHotHp) and not has_buff(target,healIcon) then
+					minHotHp,minBiasedHotHp,currentHotTarget=hp,biasedHp,target
+				end
+			elseif blacklistFlag then
+				if not minBlacklistTime or minBlacklistTime > info.blacklist then
+					minBlacklistTime = info.blacklist
+					currentTarget = target
+					minHp = hp
+					if healIcon and not has_buff(target,healIcon) then
+						currentHotTarget=target
+						minHotHp=hp
+					end
+				end
 			end
 		end
 	end
@@ -133,6 +171,15 @@ function HealInterrupt(target,finish,hpThreshold)
 	end
 end
 
+function BlacklistTarget(target)
+	if target then
+		local targetInfo=azs.targetList.all[target]
+		if targetInfo then
+			targetInfo.blacklist=GetTime()+blacklistTime
+		end
+	end
+end
+
 function IsCastingOrChanelling()
 	return CastingBarFrame.casting or CastingBarFrame.channeling
 end
@@ -155,7 +202,7 @@ function initHealProfiles()
 end
 
 function getDefaultHealingProfile()
-	if UnitLevel("player") < 26 then
+	if UnitLevel("player") < 21 then
 		return "lesser"
 	end
 	if UnitLevel("player") < 40 then

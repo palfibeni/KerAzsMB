@@ -18,6 +18,19 @@ biasList.heal=0
 biasList.multiheal=-0.08
 biasList.multidps=-0.05
 
+local function InitTargetList()
+	azs.targetList = {all = {}, group = {}, party = {}, master = {},self = {}}
+	for role,names in pairs(nameList) do
+		azs.targetList[role]={}
+	end
+	azs.targetList.dps = {}
+	for i=1,8 do
+		azs.targetList.group[i] = {}
+	end
+end
+InitTargetList()
+local targetListReady = false
+
 -- This function should be used in SuperMacro's extended LUA code fields, to easily manage healing biases per healer.
 -- I could set biasList as a saved variable, might do it later, but since the addon doesn't have ui elements, the method above is more comfortable to use.
 function SetBias(bias,list,groupNum)
@@ -32,14 +45,14 @@ function SetBias(bias,list,groupNum)
 	if oldBias==bias then
 		return
 	end
-	if targetList then
+	if azs.targetList then
 		if list=="group" then
-			for target,info in pairs(targetList.group[groupNum]) do
+			for target,info in pairs(azs.targetList.group[groupNum]) do
 				RemoveBias(info,oldBias)
 				AddBias(info,bias)
 			end
 		else
-			for target,info in pairs(targetList[list]) do
+			for target,info in pairs(azs.targetList[list]) do
 				RemoveBias(info,oldBias)
 				AddBias(info,bias)
 			end
@@ -56,54 +69,58 @@ function Debug(message)
 	end
 end
 
-function GroupManagementHandler()
-	if not UnitClass("player") == "Priest" and not UnitClass("player") == "Paladin" and not UnitClass("player") == "Druid" and not UnitClass("player") == "Mage" then return end
-	if not targetList then
+function GetGroupId(uid)
+	name=UnitName(uid)
+	for target,info in pairs(azs.targetList.all) do
+		if info.name==name then
+			return target
+		end
+	end
+	return nil
+end
+
+function HandleGroupManagementEvent()
+	if not targetListReady then
 		BuildTargetList()
-	elseif event=="PLAYER_ENTERING_WORLD" or event=="RAID_ROSTER_UPDATE" and UnitInRaid("player") or event=="PARTY_MEMBERS_CHANGED" and not UnitInRaid("player") then
+	else
 		UpdateTargetList()
 	end
 end
 
 function BuildTargetList()
+	targetListReady = false
 	-- Initialize/reset target list
-	targetList={all={},group={},party={},master={},self={}}
-	for role,names in pairs(nameList) do
-		targetList[role]={}
-	end
-	targetList.dps={}
-	for i=1,8 do
-		targetList.group[i]={}
-	end
+	InitTargetList()
 
 	-- Register players
 	if UnitInRaid("player") then
-		partyToRaidChack=true
+		partyToRaidCheck=true
 		for i=1,40 do
 			if UnitName("raid"..i)=="Unknown" then
 				--Debug("Couldn't build target list. raid"..i.."'s name is unknown.")
-				targetList=nil
+				azs.targetList=nil
 				return
 			end
 			RegisterUnit(true,i)
 		end
 	else
-		partyToRaidChack=false
+		partyToRaidCheck=false
 		RegisterUnit(false,"player")
 		if UnitName("player")=="Unknown" then
 			--Debug("Couldn't build target list. player's name is unknown.")
-			targetList=nil
+			azs.targetList=nil
 			return
 		end
 		for i=1,GetNumPartyMembers() do
 			RegisterUnit(false,"party"..i)
 			if UnitName("party"..i)=="Unknown" then
 				--Debug("Couldn't build target list. party"..i.."'s name is unknown.")
-				targetList=nil
+				azs.targetList=nil
 				return
 			end
 		end
 	end
+	targetListReady = true
 	initHealProfiles()
 	BuildSpellData()
 	--Debug("Target list built")
@@ -118,7 +135,7 @@ function RegisterUnit(isRaid,raidOrUnitId)
 	end
 	if UnitIsConnected(uid) then
 		-- Set player info, initialize bias
-		local unitName,unitGroup,unitClass,unitRole
+		local unitName,unitGroup,unitClass
 		if isRaid then
 			unitName,_,unitGroup,_,_,unitClass=GetRaidRosterInfo(raidOrUnitId)
 		else
@@ -136,34 +153,34 @@ function RegisterUnit(isRaid,raidOrUnitId)
 
 		-- Add player to target lists, set bias values
 		-- All
-		targetList.all[uid]=targetInfo
+		azs.targetList.all[uid]=targetInfo
 
 		-- Role
-		targetList[unitRole][uid]=targetInfo
+		azs.targetList[unitRole][uid]=targetInfo
 		AddBias(targetInfo,biasList[unitRole])
 
 		-- Group
 		if isRaid then
-			targetList.group[unitGroup][uid]=targetInfo
+			azs.targetList.group[unitGroup][uid]=targetInfo
 			AddBias(targetInfo,biasList.group[unitGroup])
 			if isPlayer then
-				targetList.party=targetList.group[unitGroup]
-				for target,partyInfo in pairs(targetList.party) do
+				azs.targetList.party=azs.targetList.group[unitGroup]
+				for target,partyInfo in pairs(azs.targetList.party) do
 					AddBias(partyInfo,biasList.party)
 				end
-			elseif targetList.party[uid] then
+			elseif azs.targetList.party[uid] then
 				AddBias(targetInfo,biasList.party)
 			end
 		else
-			targetList.party[uid]=targetInfo
+			azs.targetList.party[uid]=targetInfo
 		end
 
 		-- Player
-		targetList[unitName]={}
-		targetList[unitName][uid]=targetInfo
+		azs.targetList[unitName]={}
+		azs.targetList[unitName][uid]=targetInfo
 		AddBias(targetInfo,biasList[unitName])
 		if isPlayer then
-			targetList.self=targetList[unitName]
+			azs.targetList.self=azs.targetList[unitName]
 			AddBias(targetInfo,biasList.self)
 		end
 	end
@@ -171,20 +188,19 @@ end
 
 function UpdateTargetList()
 	if UnitInRaid("player") then
-		if not partyToRaidChack then
+		if not partyToRaidCheck then
 			BuildTargetList()
 		else
 			for i=1,40 do
 				local uid="raid"..i
 				if UnitIsConnected(uid) then
-					currentTargetInfo=targetList.all[uid]
+					currentTargetInfo=azs.targetList.all[uid]
 					if UnitName(uid)=="Unknown" then
 						--Debug("Couldn't update target list. raid"..i.."'s name is unknown.")
 						return
 					end
 					if not currentTargetInfo then
 						RegisterUnit(1,i)
-						--Debug("Added new uid")
 					else
 						local unitName,_,unitGroup,_,_,unitClass=GetRaidRosterInfo(i)
 						if unitName~=currentTargetInfo.name then
@@ -197,7 +213,7 @@ function UpdateTargetList()
 						end
 					end
 				else
-					if targetList.all[uid] then
+					if azs.targetList.all[uid] then
 						RemoveUid(uid)
 						--Debug("Removed unused uid")
 					end
@@ -206,7 +222,7 @@ function UpdateTargetList()
 			--Debug("Target list updated")
 		end
 	else
-		if partyToRaidChack then
+		if partyToRaidCheck then
 			BuildTargetList()
 		else
 			for i=1,GetNumPartyMembers() do
@@ -216,7 +232,7 @@ function UpdateTargetList()
 						--Debug("Couldn't update target list. party"..i.."'s name is unknown.")
 						return
 					end
-					currentTargetInfo=targetList.all[uid]
+					currentTargetInfo=azs.targetList.all[uid]
 					if not currentTargetInfo then
 						RegisterUnit(false,uid)
 						--Debug("Added new uid")
@@ -229,7 +245,7 @@ function UpdateTargetList()
 						end
 					end
 				else
-					if targetList.all[uid] then
+					if azs.targetList.all[uid] then
 						RemoveUid(uid)
 						--Debug("Removed unused uid")
 					end
@@ -249,8 +265,8 @@ function UpdatePlayer(uid,info,name,class)
 	-- Role
 	if role~=oldRole then
 		info.role=role
-		targetList[role][uid]=info
-		targetList[oldRole][uid]=nil
+		azs.targetList[role][uid]=info
+		azs.targetList[oldRole][uid]=nil
 		AddBias(info,biasList[role])
 		RemoveBias(info,biasList[oldRole])
 	end
@@ -262,20 +278,20 @@ function UpdatePlayer(uid,info,name,class)
 	if name~=oldName then -- Just to be safe.
 		info.name=name
 
-		if not targetList[name] then
-			targetList[name]={}
+		if not azs.targetList[name] then
+			azs.targetList[name]={}
 		end
-		targetList[name][uid]=info
-		targetList[oldName][uid]=nil
+		azs.targetList[name][uid]=info
+		azs.targetList[oldName][uid]=nil
 
 		AddBias(info,biasList[name])
 		RemoveBias(info,biasList[oldName])
 
 		if name==ownName then
-			targetList.self[uid]=info
+			azs.targetList.self[uid]=info
 			AddBias(info,biasList.self)
 		elseif oldName==ownName then
-			targetList.self[uid]=nil
+			azs.targetList.self[uid]=nil
 			RemoveBias(info,biasList.self)
 		end
 	end
@@ -287,47 +303,47 @@ function UpdateGroup(uid,info,groupNum)
 
 	if groupNum~=0 and oldGroupNum~=0 then -- Just to be safe
 		if ownName==info.name then
-			for target,partyInfo in pairs(targetList.party) do
+			for target,partyInfo in pairs(azs.targetList.party) do
 				RemoveBias(partyInfo,biasList.party)
 			end
-		elseif targetList.party[uid] then
+		elseif azs.targetList.party[uid] then
 			RemoveBias(info,biasList.party)
 		end
 
 		info.group=groupNum
-		targetList.group[groupNum][uid]=info
-		targetList.group[oldGroupNum][uid]=nil
+		azs.targetList.group[groupNum][uid]=info
+		azs.targetList.group[oldGroupNum][uid]=nil
 		AddBias(info,biasList.group[groupNum])
 		RemoveBias(info,biasList.group[oldGroupNum])
 
 		if ownName==info.name then
-			targetList.party=targetList.group[groupNum]
-			for target,partyInfo in pairs(targetList.party) do
+			azs.targetList.party=azs.targetList.group[groupNum]
+			for target,partyInfo in pairs(azs.targetList.party) do
 				AddBias(partyInfo,biasList.party)
 			end
-		elseif targetList.party[uid] then
+		elseif azs.targetList.party[uid] then
 			AddBias(info,biasList.party)
 		end
 	end
 end
 
 function RemoveUid(uid)
-	local info=targetList.all[uid]
+	local info=azs.targetList.all[uid]
 	local name=info.name
 	local group=info.group
 	local role=info.role
 
-	targetList.all[uid]=nil
-	targetList[name][uid]=nil
+	azs.targetList.all[uid]=nil
+	azs.targetList[name][uid]=nil
 
 	if group==0 then
-		targetList.party[uid]=nil
+		azs.targetList.party[uid]=nil
 	else
-		targetList.group[group][uid]=nil
+		azs.targetList.group[group][uid]=nil
 	end
-	targetList[role][uid]=nil
+	azs.targetList[role][uid]=nil
 	if name==UnitName("player") then
-		targetList.self[uid]=nil
+		azs.targetList.self[uid]=nil
 	end
 end
 
@@ -352,4 +368,10 @@ function GetRole(name)
 		end
 	end
 	return "dps"
+end
+
+function PrintTargetLists()
+	for uid,info in pairs(azs.targetList.all) do
+		DEFAULT_CHAT_FRAME:AddMessage(uid.." | "..info.name.." | "..info.role.." | "..info.class.." | group"..info.group.." | "..info.bias)
+	end
 end

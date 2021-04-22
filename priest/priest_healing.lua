@@ -16,7 +16,7 @@ function priest_heal_mandokir()
 		SpellStopCasting()
 		return
 	end
- PriestHeal(targetList.all, false)
+ PriestHeal(azs.targetList.all, false)
 end
 
 function fear_ward()
@@ -24,15 +24,16 @@ function fear_ward()
     cast_buff("Spell_Holy_Excorcism", "Fear Ward")
 end
 
--- /script  PriestHealOrDispel(targetList.all, false)
-function PriestHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+-- /script  PriestHealOrDispel(azs.targetList.all, false)
+function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+	lTargetList = lTargetList or azs.targetList.all
 	healProfile=healProfile or getDefaultHealingProfile()
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
-		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(targetList,priestHealRange,buffRenew,priestDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
+		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,priestHealRange,buffRenew,priestDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
 		if action=="heal" then
 			PriestHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp)
 		else
@@ -43,7 +44,8 @@ function PriestHealOrDispel(targetList,healProfile,dispelTypes,dispelByHp,dispel
 	end
 end
 
-function PriestHeal(targetList,healProfile)
+function PriestHeal(lTargetList,healProfile)
+	lTargetList = lTargetList or azs.targetList.all
 	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.5) then
 			CastSpellByName("Desperate Prayer")
 	end
@@ -51,7 +53,7 @@ function PriestHeal(targetList,healProfile)
 	healProfile=healProfile or getDefaultHealingProfile()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
-		local target,hp,hotTarget,hotHp=GetHealTarget(targetList,priestHealRange,buffRenew)
+		local target,hp,hotTarget,hotHp=GetHealTarget(lTargetList,priestHealRange,buffRenew)
 		local aoeInfo=PriestAoeInfo()
 		PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	else
@@ -63,7 +65,7 @@ function PriestAoeInfo()
 	ClearFriendlyTarget()
 	CastSpellByName("Cure Disease")
 	local playerCount,playerHps=0,{}
-	for target,info in pairs(targetList.party) do
+	for target,info in pairs(azs.targetList.party) do
 		local hp=UnitHealth(target)/UnitHealthMax(target)
 		if IsValidSpellTarget(target) then
 			playerCount=playerCount+1
@@ -78,11 +80,12 @@ end
 function PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	if priestHealProfiles[healProfile] then
 		for i,healProfileEntry in ipairs(priestHealProfiles[healProfile]) do
-			local hpThreshold,manaCost,spellName,healMode,targetList,withCdOnly=unpack(healProfileEntry)
+			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly=unpack(healProfileEntry)
 			local mana=UnitMana("player")
 			if mana>=manaCost and (not withCdOnly or has_buff("player",buffInnerFocus)) and GetSpellCooldownByName(spellName)==0 then
-				if (not healMode or healMode==1) and target and hp<hpThreshold and (not targetList or targetList[target]) then
+				if (not healMode or healMode==1) and target and hp<hpThreshold and (not lTargetList or lTargetList[target]) then
 					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					azs.targetList.all[target].blacklist=nil
 					currentHealTarget=target
 					CastSpellByName(spellName)
 					SpellTargetUnit(target)
@@ -99,9 +102,10 @@ function PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 						end
 					end
 					break
-				elseif healMode==3 and hotTarget and hotHp<hpThreshold and (not targetList or targetList[hotTarget]) then
+				elseif healMode==3 and hotTarget and hotHp<hpThreshold and (not lTargetList or lTargetList[hotTarget]) then
 					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
-					currentHealTarget=nil
+					azs.targetList.all[target].blacklist=nil
+					currentHealTarget=hotTarget
 					CastSpellByName(spellName)
 					SpellTargetUnit(hotTarget)
 					break
@@ -116,11 +120,12 @@ function PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	end
 end
 
-function PriestDispel(targetList,dispelTypes,dispelByHp)
+function PriestDispel(lTargetList,dispelTypes,dispelByHp)
+	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	if SpellCastReady(priestDispelRange) then
-		local target,debuffType=GetDispelTarget(targetList,priestDispelRange,priestDispelAll,false)
+		local target,debuffType=GetDispelTarget(lTargetList,priestDispelRange,priestDispelAll,false)
 		PriestDispelTarget(target,debuffType)
 	end
 end
@@ -131,6 +136,9 @@ priestDispelDisease={Disease=true}
 
 function PriestDispelTarget(target,debuffType)
 	if target then
+		azs.targetList.all[target].blacklist=nil
+		currentHealTarget=target
+		currentHealFinish=nil
 		if debuffType=="Magic" then
 			ClearTarget()
 			CastSpellByName("Dispel Magic")
@@ -146,9 +154,9 @@ end
 function initPriestHealProfiles()
 	priestHealProfiles={
 		regular={
-			{0.4 , 380, "Flash Heal",1,targetList.tank},
+			{0.4 , 380, "Flash Heal",1,azs.targetList.tank},
 			--{0.5 , 0  , "Inner Focus",4},
-			--{0.5 , 0  , "Prayer of Healing",4,targetList.party,true},
+			--{0.5 , 0  , "Prayer of Healing",4,azs.targetList.party,true},
 			--{0.8 , 410, "Prayer of Healing(Rank 1)",4},
 			{0.3 , 380, "Flash Heal"},
 			{0.5 , 215, "Flash Heal(Rank 4)"},
@@ -159,7 +167,7 @@ function initPriestHealProfiles()
 			{0.9 , 131, "Heal(Rank 1)",2}
 		},
 		renewSpam={
-			{0.4 , 380, "Flash Heal",1,targetList.tank},
+			{0.4 , 380, "Flash Heal",1,azs.targetList.tank},
 			--{0.5 , 0  , "Inner Focus",4},
 			--{0.5 , 0  , "Prayer of Healing",4,false,true},
 			--{0.8 , 410, "Prayer of Healing(Rank 1)",4},
@@ -179,7 +187,7 @@ function initPriestHealProfiles()
 			{0.9 , 131, "Heal(Rank 1)",2}
 		},
     midLevel={
-			{0.4 , 265, "Flash Heal",1,targetList.tank},
+			{0.4 , 265, "Flash Heal",1,azs.targetList.tank},
       {0.3 , 265, "Flash Heal"},
       {0.5 , 155, "Flash Heal(Rank 2)"},
       {0.6 , 259, "Heal"},
@@ -188,10 +196,10 @@ function initPriestHealProfiles()
       {0.9 , 96 , "Renew(Rank 3)",3}
     },
     lesser={
-			{0.5 , 63, "Lesser Heal",1,targetList.tank},
+			{0.5 , 63, "Lesser Heal",1,azs.targetList.tank},
       {0.3 , 63, "Lesser Heal"},
       {0.7 , 38, "Lesser Heal(Rank 2)"},
-      {0.8 , 94 , "Renew(Rank 1)",3}
+      {0.8 , 94 , "Renew",3}
     }
 	}
 end

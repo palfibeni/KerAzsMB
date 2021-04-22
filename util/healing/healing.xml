@@ -4,15 +4,20 @@
     <Script file="group_management.lua"/>
     <Script file="spell_management.lua"/>
     <Script file="healing_general.lua"/>
-    <Frame name="RynMultibox_EventsFrame">
+    <Script file="event_handler.lua"/>
+    <Frame name="KerAzsMB_Healing_EventsFrame">
       <Scripts>
         <OnLoad>
           this:RegisterEvent("PLAYER_ENTERING_WORLD")
           this:RegisterEvent("PARTY_MEMBERS_CHANGED")
           this:RegisterEvent("RAID_ROSTER_UPDATE")
+          this:RegisterEvent("UI_ERROR_MESSAGE")
+          this:RegisterEvent("SPELLCAST_START")
+          this:RegisterEvent("SPELLCAST_DELAYED")
+          this:RegisterEvent("SPELLCAST_STOP")
         </OnLoad>
         <OnEvent>
-          GroupManagementHandler();
+          HandleEvents();
         </OnEvent>
       </Scripts>
     </Frame>

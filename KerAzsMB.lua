@@ -1,3 +1,5 @@
+azs = {}
+
 tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen", "Bendegúz"}
 
 local timer = CreateFrame("FRAME");

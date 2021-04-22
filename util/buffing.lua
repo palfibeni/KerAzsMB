@@ -28,10 +28,10 @@ function has_buff(target, icon)
 	return false
 end
 
--- Buffs targetList with spell
-function buffTargetList(icon, spell_name, lTargetList)
-	lTargetList=lTargetList or targetList.all
-	for target,info in pairs(lTargetList) do
+-- Buffs azs.targetList with spell
+function buffTargetList(icon, spell_name, ltargetList)
+	ltargetList=ltargetList or azs.targetList.all
+	for target,info in pairs(ltargetList) do
 		castBuff(icon, spell_name, target)
 	end
 end

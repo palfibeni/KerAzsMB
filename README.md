@@ -29,9 +29,9 @@ To create healer class with only one button, you need to edit some files in the 
 2. Edit the nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multidps. This is just a bit of help for your healer, on who should they focus on.
 By doing these changes, you can start using heal macros on priests, paladins, and druids like:
 ```
-/script  PriestHealOrDispel(targetList.all, false)
-/script PalaHealOrDispel(targetList.all, false)
-/script  DruidHealOrDispel(targetList.all, false)
+/script  PriestHealOrDispel(azs.targetList.all, false)
+/script PalaHealOrDispel(azs.targetList.all, false)
+/script  DruidHealOrDispel(azs.targetList.all, false)
 ```
 Optional: If you have multiple healers, after setting up their healing macro, add into the supermacro LUA extension the following, to further improve the targeting:
 ```
@@ -91,7 +91,7 @@ lets see an example with the following character:
 - Marking skull, somewhere on the actionbar, preferably on slot "-": /script SetRaidTarget("target",8)
 
 #### Lionel, the heal:
-- 1,2,3,4,5,6: /script PalaHealOrDispel(targetList.all, false)
+- 1,2,3,4,5,6: /script PalaHealOrDispel(azs.targetList.all, false)
 - 7: mana drink
 - 9: mount
 - 0: /follow Liberton

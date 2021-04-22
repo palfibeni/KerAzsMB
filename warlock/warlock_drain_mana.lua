@@ -17,7 +17,7 @@ function warlock_drain_mana_cross()
 end
 
 function warlock_drain_mana()
-    if (UnitMana("player")>=290) then
+    if (UnitMana("player") >= (UnitLevel("player") * 5)) then
         CastSpellByName("Drain Mana")
     else
         CastSpellByName("Life Tap")
