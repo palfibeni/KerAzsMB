@@ -19,9 +19,11 @@ function priest_heal_mandokir()
  PriestHeal(azs.targetList.all, false)
 end
 
-function fear_ward()
-    if casting_or_channeling() then return end
-    cast_buff("Spell_Holy_Excorcism", "Fear Ward")
+function fear_ward(playerName)
+		playerName = playerName or UnitName("target")
+		for target,info in pairs(azs.targetList[playerName]) do
+			castBuff("Spell_Holy_Excorcism", "Fear Ward", target)
+		end
 end
 
 -- /script  PriestHealOrDispel(azs.targetList.all, false)
