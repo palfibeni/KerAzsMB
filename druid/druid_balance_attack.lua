@@ -1,3 +1,5 @@
+moonfireEnabled = false
+
 -- /script druid_balance_skull()
 function druid_balance_skull(element)
 	element = element or "Arcane"
@@ -32,7 +34,9 @@ function druid_balance_attack(element)
 		if (element == "Nature") then
 			CastSpellByName("Wrath")
 		else
-			cast_debuff("Spell_Nature_StarFall", "Moonfire")
+			if moonfireEnabled then
+				cast_debuff("Spell_Nature_StarFall", "Moonfire")
+			end
 			CastSpellByName("Starfire")
 		end
 		stop_autoattack()

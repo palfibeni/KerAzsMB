@@ -3,13 +3,13 @@ consumables = {"Tender Wolf Meat", "Red Wolf Meat", "Mystery Meat", "Raptor Fles
     "Stringy Wolf Meat"}
 
 function buff_pet()
-    if UnitExists("pet") and not UnitIsDead("pet") then
+  if UnitExists("pet") and not UnitIsDead("pet") then
 		feed_pet()
 	else
 		CastSpellByName("Call Pet")
 		CastSpellByName("Revive Pet")
-    end
-    cast_buff_player("Ability_TrueShot", "Trueshot Aura")
+  end
+  cast_buff_player("Ability_TrueShot", "Trueshot Aura")
 end
 
 function feed_pet()

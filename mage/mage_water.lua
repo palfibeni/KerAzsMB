@@ -62,7 +62,7 @@ function askMageWaterGroup()
 end
 
 function tradeForWaterByName(name)
-  TargetByName(name)
+  exact_target_by_name(name)
   InitiateTrade("target")
   if TradeFrame:IsShown() then
     return

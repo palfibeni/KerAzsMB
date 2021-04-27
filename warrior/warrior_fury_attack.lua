@@ -1,3 +1,5 @@
+chargeEnabled = false
+
 heroicStrikeActionSlot = 13
 berserkerRageActionSlot = 14
 whirlwindActionSlot = 15
@@ -51,7 +53,7 @@ function warrior_fury_attack()
 end
 
 function charge()
-	if not is_in_melee_range() and UnitAffectingCombat("player") == nil then
+	if chargeEnabled and not is_in_melee_range() and UnitAffectingCombat("player") == nil then
 		warriorBattleStance()
 		CastSpellByName("Charge")
 		return true

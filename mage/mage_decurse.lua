@@ -17,7 +17,7 @@ function MageDispelTarget(target,debuffType)
 		currentHealTarget=target
 		if debuffType=="Curse" then
 			ClearTarget()
-			CastSpellByName("Remove Curse")
+			CastSpellByName("Remove Lesser Curse")
 		end
 		SpellTargetUnit(target)
 	end
@@ -26,5 +26,5 @@ end
 -- DEPRECATED
 -- /script mage_decurse_raid()
 function mage_decurse_raid()
-    remove_debuff_type_raid("Curse", "Remove Lesser Curse")
+    MageDispel()
 end

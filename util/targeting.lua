@@ -71,5 +71,5 @@ function tabTargetByIcon(icon)
 end
 
 function checkRaidTargetIcon(target,icon)
-	return UnitExists(target) and not UnitIsDead(target) and GetRaidTargetIndex(target)==icon
+	return UnitExists(target) and not UnitIsDead(target) and GetRaidTargetIndex(target) == icon
 end

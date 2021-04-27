@@ -29,7 +29,9 @@ function druid_bear_attack()
 	druid_bear_form()
 	druid_bear_taunt()
 	cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire (Feral)()");
-	cast_debuff("Ability_Warrior_WarCry", "Demoralizing Shout");
+	if not has_debuff("target", "Ability_Warrior_WarCry") then
+		cast_debuff("Ability_Druid_DemoralizingRoar", "Demoralizing Roar");
+	end
 	enrage()
 	if (UnitMana("player")>=7) then
 		CastSpellByName("Maul")

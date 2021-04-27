@@ -3,6 +3,5 @@
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 	<Script file="hunter_attack.lua"/>
 	<Script file="hunter_buff.lua"/>
-	<Script file="hunter_aoe.lua"/>
 	<Script file="hunter_mana_burn.lua"/>
 </Ui>

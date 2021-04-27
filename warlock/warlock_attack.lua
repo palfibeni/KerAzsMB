@@ -1,3 +1,5 @@
+corruptionEnabled = false;
+
 function warlock_skull(curse, element)
 	curse = curse or "CoE"
 	element = element or "Shadow"
@@ -37,6 +39,7 @@ function warlock_attack(curse, element)
 		if element == "Fire" then
 			CastSpellByName("Immolation")
 		else
+			corruption()
 			warlock_curse(curse)
 			CastSpellByName("Shadow Bolt")
 		end
@@ -53,7 +56,6 @@ function warlock_curse(curse)
 	elseif curse == "CoE" then
 		cast_debuff("Spell_Shadow_ChillTouch", "Curse of the Elements")
 	elseif curse == "CoA" then
-		corruption()
 		CastSpellByName("Amplify Curse")
 		cast_debuff("Spell_Shadow_CurseOfSargeras", "Curse of Agony")
 	elseif curse == "CoT" then
@@ -61,12 +63,13 @@ function warlock_curse(curse)
 	elseif curse == "CoR" then
 		cast_debuff("Spell_Shadow_UnholyStrength", "Curse of Recklessness")
 	elseif curse == "CoW" then
-		corruption()
 		CastSpellByName("Amplify Curse")
 		cast_debuff("Spell_Shadow_CurseOfMannoroth", "Curse of Weakness")
 	end
 end
 
 function corruption()
-	cast_debuff("Spell_Shadow_AbominationExplosion", "Corruption")
+	if corruptionEnabled then
+		cast_debuff("Spell_Shadow_AbominationExplosion", "Corruption")
+	end
 end

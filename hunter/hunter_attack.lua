@@ -17,34 +17,24 @@ local f = CreateFrame("FRAME", "HunterFrame")
 f:RegisterEvent("BAG_UPDATE")
 
 function HunterEventHandler()
-    local newArrowCount = GetInventoryItemCount("player", 0)
-    if arrowCount ~= newArrowCount then
-        arrowCount = newArrowCount
-        if ignoreNext then
-            ignoreNext = false
-        else
-            --Debug("Auto Shot!")
-            aimedShotExpire = GetTime() + aimedShotWindow
-            multiShotExpire = GetTime() + multiShotWindow
-        end
+  local newArrowCount = GetInventoryItemCount("player", 0)
+  if arrowCount ~= newArrowCount then
+    arrowCount = newArrowCount
+    if ignoreNext then
+      ignoreNext = false
+    else
+      --Debug("Auto Shot!")
+      aimedShotExpire = GetTime() + aimedShotWindow
+      multiShotExpire = GetTime() + multiShotWindow
     end
+  end
 end
 
 f:SetScript("OnEvent", HunterEventHandler)
 
 function hunter_attack_skull()
 	if is_target_skull() then
-        hunterDps()
-	else
-		stop_ranged_attack()
-		stop_autoattack()
-		target_skull()
-	end
-end
-
-function hunter_attack_multi_skull()
-	if is_target_skull() then
-        hunterDps()
+    hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
@@ -54,17 +44,7 @@ end
 
 function hunter_attack_cross()
 	if is_target_cross() then
-        hunterDps()
-	else
-		stop_ranged_attack()
-		stop_autoattack()
-		target_cross()
-	end
-end
-
-function hunter_attack_multi_cross()
-	if is_target_cross() then
-        hunterDps()
+    hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
@@ -113,11 +93,11 @@ function hunterRangedDps()
 	use_ranged_attack()
 	if not IsCurrentAction(aimedShotActionSlot) and not IsCurrentAction(multiShotActionSlot) then
 		if aimedShotExpire >= GetTime() and IsActionReady(aimedShotActionSlot) then
-            CastSpellByName("Aimed Shot")
-            ignoreNext = true
-        elseif multiShotEnabled and multiShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
-            CastSpellByName("Multi-Shot")
-            ignoreNext = true
-        end
+      CastSpellByName("Aimed Shot")
+      ignoreNext = true
+    elseif multiShotEnabled and multiShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
+      CastSpellByName("Multi-Shot")
+      ignoreNext = true
     end
+  end
 end
