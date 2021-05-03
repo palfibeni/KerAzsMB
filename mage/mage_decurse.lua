@@ -1,25 +1,19 @@
-mageDispelRange="Remove Curse"
+mageDispelRange="Remove Lesser Curse"
 
 mageDecurse={Curse=true}
 
-function MageDispel(lTargetList,dispelByHp)
-	lTargetList = lTargetList or azs.targetList.all
-	dispelByHp=dispelByHp or false
-	if SpellCastReady(mageDispelRange) then
-		local target,debuffType=GetDispelTarget(lTargetList,mageDispelRange,mageDecurse,false)
-		MageDispelTarget(target,debuffType)
-	end
-end
-
-function MageDispelTarget(target,debuffType)
-	if target then
-		lTargetList[target].blacklist=nil
-		currentHealTarget=target
-		if debuffType=="Curse" then
-			ClearTarget()
+-- /script MageDispel(azs.targetList.all)
+function MageDispel(lTargetList)
+	lTargetList=lTargetList or azs.targetList.all
+	Debug(SpellCastReady(mageDispelRange,false))
+	if SpellCastReady(mageDispelRange,false) then
+		local target,debufftype=GetDispelTarget(lTargetList,mageDispelRange,mageDecurse,false)
+		if target then
+			lTargetList[target].blacklist=nil
+			currentHealTarget=target
 			CastSpellByName("Remove Lesser Curse")
+			SpellTargetUnit(target)
 		end
-		SpellTargetUnit(target)
 	end
 end
 
