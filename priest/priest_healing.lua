@@ -214,5 +214,9 @@ function initPriestHealProfiles()
 end
 
 function getPriestDefaultHealingProfile()
-	if priestClassCallExpire then return "instantOnly" else getDefaultHealingProfile() end
+	if priestClassCallExpire and priestClassCallExpire >= GetTime() then
+		 return "instantOnly"
+	  else
+			return getDefaultHealingProfile()
+		end
 end
