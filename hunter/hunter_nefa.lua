@@ -39,14 +39,14 @@ f:SetScript("OnEvent", HunterNefaEventHandler)
 function handleNefaCallHunter()
   if nextClassCall then
 		local t = GetTime()
-		hunterWeaponLink = GetInventoryItemLink("player",18) or hunterWeaponLink
+		hunterWeaponLink = hunterWeaponLink or GetInventoryItemLink("player",18)
 		if nextClassCall + 10 + timeoutTime <= t then
 			equipItemByItemLink(hunterWeaponLink,18)
 			nextClassCall = nil
 		elseif nextClassCall- unequipTime <= t then
 			unequipItemBySlotId(18)
-		elseif nextClassCall - 25 + timeoutTime <= t then
-			equipItemByItemLink(hunterWeaponLinkk, 18)
+		elseif nextClassCall - 25 + reequipTime <= t then
+			equipItemByItemLink(hunterWeaponLink, 18)
 		end
 	end
 end
