@@ -17,6 +17,7 @@ local f = CreateFrame("FRAME", "HunterFrame")
 f:RegisterEvent("BAG_UPDATE")
 
 function HunterEventHandler()
+  if not UnitClass("player") == "Hunter" then return end
   local newArrowCount = GetInventoryItemCount("player", 0)
   if arrowCount ~= newArrowCount then
     arrowCount = newArrowCount
@@ -80,7 +81,8 @@ function hunterMeleeDps()
 end
 
 function hunterRangedDps()
-    stop_autoattack()
+  stop_autoattack()
+  handleNefaCallHunter()
 	if not has_buff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	end

@@ -30,7 +30,7 @@ end
 -- /script  PriestHealOrDispel(azs.targetList.all, false)
 function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	lTargetList = lTargetList or azs.targetList.all
-	healProfile=healProfile or getDefaultHealingProfile()
+	healProfile=healProfile or getPriestDefaultHealingProfile()
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
@@ -53,7 +53,7 @@ function PriestHeal(lTargetList,healProfile)
 			CastSpellByName("Desperate Prayer")
 	end
 	UseHealTrinket()
-	healProfile=healProfile or getDefaultHealingProfile()
+	healProfile=healProfile or getPriestDefaultHealingProfile()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp,hotTarget,hotHp=GetHealTarget(lTargetList,priestHealRange,buffRenew)
@@ -184,6 +184,12 @@ function initPriestHealProfiles()
 			{0.9 , 94 , "Renew(Rank 3)",3},
 			{0.9 , 131, "Heal(Rank 1)",2}
 		},
+		instantOnly={
+			{0.6 , 184, "Power Word: Shield",1,azs.targetList.tank},
+			{0.3 , 184, "Power Word: Shield"},
+			{0.6 , 184, "Renew(Rank 6)",3},
+			{0.9 , 94 , "Renew(Rank 3)",3}
+		},
 		UNLIMITEDPOWER={
 			--{0.9 , 0  , "Prayer of Healing",4},
 			{0.99, 0  , "Flash Heal"},
@@ -205,4 +211,8 @@ function initPriestHealProfiles()
       {0.8 , 94 , "Renew",3}
     }
 	}
+end
+
+function getPriestDefaultHealingProfile()
+	if priestClassCallExpire then return "instantOnly" else getDefaultHealingProfile() end
 end

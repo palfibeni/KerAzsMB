@@ -128,6 +128,23 @@ function performTradeSkill(tradeSkillName)
 	end
 end
 
+function taxiToSentinelHill()
+	takeTaxi("Sentinel Hill")
+end
+
+function taxiToSilithus()
+	takeTaxi("Cenarion Hold")
+end
+
+function takeTaxi(destination)
+	if not UnitExists("target") then return end
+	for node = 1, NumTaxiNodes() do
+		if string.find(TaxiNodeName(node), destination) then
+			TakeTaxiNode(node)
+		end
+	end
+end
+
 --  function createTankWarriorMacro()
 --  	local index=CreateMacro("Tank Attack",16777218,"/script warrior_tank_attack()",1)
 --		PickupMacro(index)

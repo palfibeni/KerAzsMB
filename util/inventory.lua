@@ -61,3 +61,24 @@ function count_item(name)
 	end
 	return count;
 end
+
+function equipItemByItemLink(itemLink,invSlotId)
+	for bag=0,4 do
+		for slot=1,GetContainerNumSlots(bag) do
+			local item=GetContainerItemLink(bag,slot)
+			if item==itemLink then
+				PickupContainerItem(bag,slot)
+				EquipCursorItem(invSlotId)
+			end
+		end
+	end
+end
+
+function unequipItemBySlotId(invSlotId)
+	local itemLink=GetInventoryItemLink("player",invSlotId)
+	if itemLink then
+		PickupInventoryItem(invSlotId)
+		PutItemInBackpack()
+		return itemLink
+	end
+end
