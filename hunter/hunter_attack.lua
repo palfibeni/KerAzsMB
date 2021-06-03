@@ -8,6 +8,7 @@ multiShotExpire = 0
 arrowCount = GetInventoryItemCount("player", 0)
 ignoreNext = false
 
+feignDeathActionSlot = 61
 raptorStrikeActionSlot = 14
 mongooseBiteActionSlot = 13
 aimedShotActionSlot = 15
@@ -24,7 +25,7 @@ function HunterEventHandler()
     if ignoreNext then
       ignoreNext = false
     else
-      --Debug("Auto Shot!")
+      --azs.debug("Auto Shot!")
       aimedShotExpire = GetTime() + aimedShotWindow
       multiShotExpire = GetTime() + multiShotWindow
     end
@@ -34,22 +35,20 @@ end
 f:SetScript("OnEvent", HunterEventHandler)
 
 function hunter_attack_skull()
-	if is_target_skull() then
+	if azs.targetCross() then
     hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
-		target_skull()
 	end
 end
 
 function hunter_attack_cross()
-	if is_target_cross() then
+	if azs.targetCross() then
     hunterDps()
 	else
 		stop_ranged_attack()
 		stop_autoattack()
-		target_cross()
 	end
 end
 
@@ -57,13 +56,15 @@ function hunterDps()
   if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		stop_autoattack()
+  	stop_ranged_attack()
 		return
 	end
-    if is_in_melee_range() then
+  handleNefaCallHunter()
+  if is_in_melee_range() then
 		hunterMeleeDps()
 	else
 		hunterRangedDps()
-    end
+  end
 	PetAttack("target")
 end
 
@@ -80,9 +81,10 @@ function hunterMeleeDps()
 	use_autoattack()
 end
 
+-- Hunter ranged dps rotation (Aspect, Hunter's Mark, Auto Shot, Aimed Shot, Multi Shot)
+-- Multishot will be only used if 'multiShotEnabled' is set to true.
 function hunterRangedDps()
   stop_autoattack()
-  handleNefaCallHunter()
 	if not has_buff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	end
@@ -101,5 +103,11 @@ function hunterRangedDps()
       CastSpellByName("Multi-Shot")
       ignoreNext = true
     end
+  end
+end
+
+function hunterFeignDeath()
+  if UnitAffectingCombat("player") and IsActionReady(feignDeathActionSlot) then
+    CastSpellByName("Feign Death")
   end
 end

@@ -1,19 +1,19 @@
 function priest_mana_burn_skull()
     if casting_or_channeling() then return end
-    if is_target_skull() then
+    if azs.targetCross() then
       if casting_or_channeling() then return end
       CastSpellByName("Mana Burn")
     else
-        target_skull()
+        azs.targetSkull()
     end
 end
 
 function priest_mana_burn_cross()
     if casting_or_channeling() then return end
-    if is_target_cross() then
+    if azs.targetCross() then
       if casting_or_channeling() then return end
       CastSpellByName("Mana Burn")
     else
-      target_cross()
+      azs.targetCross()
     end
 end

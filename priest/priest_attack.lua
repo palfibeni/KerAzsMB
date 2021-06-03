@@ -1,20 +1,20 @@
 -- /script priest_skull()
 function priest_skull()
     if casting_or_channeling() then return end
-    if is_target_skull() then
+    if azs.targetCross() then
         priest_attack()
     else
-        target_skull()
+        azs.targetSkull()
     end
 end
 
 -- /script priest_cross()
 function priest_cross()
     if casting_or_channeling() then return end
-    if is_target_cross() then
+    if azs.targetCross() then
         priest_attack()
     else
-        target_cross()
+        azs.targetCross()
     end
 end
 

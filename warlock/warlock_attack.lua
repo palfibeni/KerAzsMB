@@ -1,29 +1,21 @@
 corruptionEnabled = false;
 
 function warlock_skull(curse, element)
-	curse = curse or "CoE"
-	element = element or "Shadow"
-	if is_target_skull() then
-		warlock_attack(curse, element)
-	else
-		target_skull()
+	if azs.targetCross() then
+		warlockAttack(curse, element)
 	end
 end
 
 function warlock_cross(curse, element)
-	curse = curse or "CoE"
-	element = element or "Shadow"
-	if is_target_cross() then
-		warlock_attack(curse, element)
-	else
-		target_cross()
+	if azs.targetCross() then
+		warlockAttack(curse, element)
 	end
 end
 
 -- ATTACK
-function warlock_attack(curse, element)
-	curse = curse or "CoE"
-	element = element or "Shadow"
+function warlockAttack(curse, element)
+	curse = curse or azs.class.curse
+	element = element or azs.class.element
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		return

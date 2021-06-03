@@ -1,5 +1,5 @@
 function is_tank_by_name(name)
-	for i,tank in pairs(tank_list) do
+	for i,tank in pairs(azs.tank_list) do
 		if tank == name then return true end
 	end
 	return nil
@@ -33,43 +33,35 @@ function exact_target_by_name(name)
 	TargetByName(name, true)
 end
 
-function is_target_skull()
-	return checkRaidTargetIcon("target", 8)
+azs.targetSkull = function()
+	return azs.targetByIcon(8)
 end
 
-function is_target_cross()
-	return checkRaidTargetIcon("target", 7)
+azs.targetCross = function()
+	return azs.targetByIcon(7)
 end
 
-function target_skull()
-	target_by_icon(8)
-end
-
-function target_cross()
-	target_by_icon(7)
-end
-
-function target_by_icon(icon)
-	for k,tank in pairs(tank_list) do
+azs.targetByIcon = function(icon)
+	if azs.checkRaidTargetIcon("target", icon) then return true end
+	for k,tank in pairs(azs.tank_list) do
 		exact_target_by_name(tank)
-		TargetUnit("targettarget")
-		if checkRaidTargetIcon("target", icon) then
+		if azs.checkRaidTargetIcon("target", icon) then
 			return true
 		end
 	end
-	return tabTargetByIcon(icon)
+	return azs.tabTargetByIcon(icon)
 end
 
-function tabTargetByIcon(icon)
+azs.tabTargetByIcon = function(icon)
 	for i=1,10 do
 		TargetNearestEnemy()
-		if checkRaidTargetIcon("target", icon) then
+		if azs.checkRaidTargetIcon("target", icon) then
 			return true
 		end
 	end
 	return false
 end
 
-function checkRaidTargetIcon(target,icon)
+azs.checkRaidTargetIcon = function(target,icon)
 	return UnitExists(target) and not UnitIsDead(target) and GetRaidTargetIndex(target) == icon
 end

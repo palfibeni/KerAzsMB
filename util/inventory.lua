@@ -46,7 +46,7 @@ function use_item(name)
 end
 
 -- use an item from the inventory to use by name
--- /script Debug(count_item("Conjured Crystal Water"))
+-- /script azs.debug(count_item("Conjured Crystal Water"))
 function count_item(name)
 	count = 0;
 	if CursorHasItem() then return end

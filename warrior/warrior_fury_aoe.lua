@@ -1,18 +1,18 @@
 function warrior_fury_aoe_skull()
-	if is_target_skull() then
+	if azs.targetCross() then
         warrior_fury_aoe()
 	else
 		stop_autoattack()
-		target_skull()
+		azs.targetSkull()
 	end
 end
 
 function warrior_fury_aoe_cross()
-	if is_target_cross() then
+	if azs.targetCross() then
         warrior_fury_aoe()
 	else
 		stop_autoattack()
-		target_cross()
+		azs.targetCross()
 	end
 end
 

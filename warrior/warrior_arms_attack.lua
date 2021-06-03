@@ -1,18 +1,16 @@
 function warrior_arms_skull()
-	if is_target_skull() then
+	if azs.targetCross() then
 		warrior_arms_attack()
 	else
     stop_autoattack()
-		target_skull()
 	end
 end
 
 function warrior_arms_cross()
-	if is_target_cross() then
+	if azs.targetCross() then
 		warrior_arms_attack()
 	else
     stop_autoattack()
-		target_cross()
 	end
 end
 
