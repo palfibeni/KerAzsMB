@@ -1,9 +1,8 @@
 function rouge_attack_skull()
-    if azs.targetCross() then
+    if azs.targetSkull() then
         rouge_attack()
     else
         stop_autoattack()
-        azs.targetSkull()
     end
 end
 
@@ -12,7 +11,6 @@ function rouge_attack_cross()
         rouge_attack()
     else
         stop_autoattack()
-        azs.targetCross()
     end
 end
 
@@ -43,20 +41,18 @@ function burst_dmg()
 end
 
 function rouge_attack_dagger_skull()
-    if azs.targetCross() then
+    if azs.targetSkull() then
         rouge_dagger_attack()
     else
         stop_autoattack()
-        azs.targetSkull()
     end
 end
 
 function rouge_attack_dagger_cross()
-    if azs.targetCross() then
+    if azs.targetSkull() then
         rouge_dagger_attack()
     else
         stop_autoattack()
-        azs.targetCross()
     end
 end
 

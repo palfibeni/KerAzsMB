@@ -9,7 +9,7 @@ shieldSlamActionSlot = 17
 lastSunder = 0
 
 function warrior_tank_attack_skull()
-	if azs.targetCross() then
+	if azs.targetSkull() then
 		warrior_tank_attack()
 	end
 end

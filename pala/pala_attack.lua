@@ -1,9 +1,8 @@
 function pala_attack_cross()
-  if azs.targetCross() then
+  if azs.targetSkull() then
       pala_attack()
   else
       stop_autoattack()
-      azs.targetCross()
   end
 end
 
@@ -12,7 +11,6 @@ function pala_attack_skull()
       pala_attack()
   else
       stop_autoattack()
-      azs.targetSkull()
   end
 end
 

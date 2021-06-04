@@ -1,5 +1,5 @@
 function warrior_aoe_skull()
-	if azs.targetCross() then
+	if azs.targetSkull() then
         warrior_aoe()
 	else
 		stop_autoattack()

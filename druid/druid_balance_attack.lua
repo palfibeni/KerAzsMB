@@ -3,7 +3,7 @@ moonkinFaerieFireEnabled = false
 
 -- /script druid_balance_skull()
 function druid_balance_skull(element)
-	if azs.targetCross() then
+	if azs.targetSkull() then
 		druid_balance_attack()
 	end
 end

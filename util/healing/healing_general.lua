@@ -154,7 +154,7 @@ end
 function HealInterrupt(target,finish,hpThreshold)
 	if not stopCastingDelayExpire then
 		if target=="targettarget" then -- Precast
-			if not (is_targetSkull("target",8) or is_targetCross("target",7)) or
+			if not (azs.targetSkull() or azs.targetCross()) or
 			not UnitExists(target) or not UnitIsFriend("player",target) or
 			finish-precastInterruptWindow<GetTime() and not HpLower(target,hpThreshold) then
 				SpellStopCasting()

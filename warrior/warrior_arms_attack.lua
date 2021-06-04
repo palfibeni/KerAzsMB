@@ -1,5 +1,5 @@
 function warrior_arms_skull()
-	if azs.targetCross() then
+	if azs.targetSkull() then
 		warrior_arms_attack()
 	else
     stop_autoattack()

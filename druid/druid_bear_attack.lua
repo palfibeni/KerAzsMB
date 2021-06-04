@@ -4,7 +4,7 @@ lastFeralFaerieFire = 0;
 druidTauntEnabled = true
 
 function druid_bear_skull()
-	if azs.targetCross() then
+	if azs.targetSkull() then
 		druid_bear_attack()
 	else
 		stop_autoattack()

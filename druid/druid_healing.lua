@@ -75,7 +75,7 @@ function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 					SpellTargetUnit(target)
 					break
 				elseif healMode==2 then
-					if azs.targetCross() or azs.targetCross() or azs.targetSkull() or azs.targetCross() then
+					if azs.targetSkull() or azs.targetCross() then
 						if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
 							--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 							currentHealTarget = "targettarget"

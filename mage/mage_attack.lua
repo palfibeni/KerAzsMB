@@ -3,7 +3,7 @@ evocationActionSlot = 61
 -- DEPRECTED
 -- /script mage_attack_skull()
 function mage_attack_skull()
-	if azs.targetCross() then
+	if azs.targetSkull() then
       mageAttack()
 	end
 end

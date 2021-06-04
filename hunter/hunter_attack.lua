@@ -35,7 +35,7 @@ end
 f:SetScript("OnEvent", HunterEventHandler)
 
 function hunter_attack_skull()
-	if azs.targetCross() then
+	if azs.targetSkull() then
     hunterDps()
 	else
 		stop_ranged_attack()

@@ -1,7 +1,7 @@
 corruptionEnabled = false;
 
 function warlock_skull(curse, element)
-	if azs.targetCross() then
+	if azs.targetSkull() then
 		warlockAttack(curse, element)
 	end
 end

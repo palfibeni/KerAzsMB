@@ -44,7 +44,7 @@ end
 azs.targetByIcon = function(icon)
 	if azs.checkRaidTargetIcon("target", icon) then return true end
 	for k,tank in pairs(azs.tank_list) do
-		exact_target_by_name(tank)
+		AssistByName(tank)
 		if azs.checkRaidTargetIcon("target", icon) then
 			return true
 		end

@@ -7,18 +7,14 @@ function warlockSpecial()
 end
 
 function warlock_drain_mana_skull()
-  if azs.targetCross() then
+  if azs.targetSkull() then
     warlockDrainMana()
-  else
-    azs.targetSkull()
   end
 end
 
 function warlock_drain_mana_cross()
   if azs.targetCross() then
     warlockDrainMana()
-  else
-    azs.targetCross()
   end
 end
 
@@ -33,18 +29,14 @@ end
 
 -- /script warlock_drain_soul_skull()
 function warlock_drain_soul_skull()
-  if azs.targetCross() or azs.targetCross() then
+  if azs.targetSkull() then
       warlockDrainSoul()
-  else
-      azs.targetSkull()
   end
 end
 
 function warlock_drain_soul_cross()
-  if azs.targetCross() or azs.targetCross() then
+  if azs.targetCross() then
     warlockDrainSoul()
-  else
-    azs.targetCross()
   end
 end
 

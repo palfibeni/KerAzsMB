@@ -6,7 +6,7 @@ whirlwindActionSlot = 15
 bloodThirstActionSlot = 17
 
 function warrior_fury_skull()
-	if azs.targetCross() then
+	if azs.targetSkull() then
 		warrior_fury_attack()
 	else
     stop_autoattack()
