@@ -48,6 +48,13 @@ SlashCmdList["INIT"]=function()
 	initActionBar()
 end
 
+SLASH_DEEPINIT1="/deepInit"
+SLASH_DEEPINIT2="/deepinit"
+SLASH_DEEPINIT3="/DeepInit"
+SlashCmdList["DEEPINIT"]=function()
+	initMacros()
+end
+
 SLASH_AZSHELP1="/azs.help"
 SLASH_AZSHELP2="/azshelp"
 SLASH_AZSHELP3="/azsh"
@@ -122,8 +129,10 @@ end
 
 function initActionBar()
 	if azs.class.initActionBar then
-		azs.class.initActionBar()
-		return
+		for i,actionbarEntry in ipairs(azs.class.initActionBar) do
+			local spellName,slot = unpack(actionbarEntry)
+			placeSpellByName(spellName, slot)
+		end
 	end
 	if UnitClass("player") == "Warrior" then
 		initActionBarForWarrior()
@@ -166,6 +175,41 @@ function placeSpellByName(spellName, slot)
 	end
 end
 
+function initMacros()
+	if azs.class.initMacros then
+		clearCharacterMacros()
+		for i,macroEntry in ipairs(azs.class.initMacros) do
+			initMacro(macroEntry)
+		end
+	end
+end
+
+function initMacro(macroEntry)
+	local name, iconName, script, slots = unpack(macroEntry)
+	local numIcons = GetNumMacroIcons()
+	for icon = 1,numIcons do
+	 if string.find(GetMacroIconInfo(icon), iconName) then
+		 local macroId = CreateMacro(name, icon, script, 1, 1);
+		 if slots then
+			 for i,slot in pairs(slots) do
+				 PickupMacro(macroId)
+				 PlaceAction(slot)
+				 ClearCursor()
+			 end
+			 return
+		 end
+	 end
+	end
+end
+
+function clearCharacterMacros()
+	for i = 36, 19, -1 do
+		if GetMacroInfo(i) then
+			DeleteMacro(i)
+		end
+	end
+end
+
 function performCDproffs()
 	createArcanite()
 	createRefinedSalt()
@@ -183,7 +227,7 @@ end
 -- /script createRefinedSalt()
 function createRefinedSalt()
 	if getSpellId("Leatherworking") ~= nil then
-		use_item("Salt Shaker")
+		useItem("Salt Shaker")
 	end
 end
 
@@ -230,7 +274,7 @@ end
 --		PlaceAction(2)
 --		PickupMacro(index)
 --		PlaceAction(3)
---      index=CreateMacro("Tank Aoe",16777219,"/script warrior_aoe()",1)
+--      index=CreateMacro("Tank Aoe",16777219,"/script warrior_aoe()",0)
 --		PickupMacro(index)
 --		PlaceAction(5)
 --  end

@@ -16,15 +16,23 @@ if UnitClass("player") == "Hunter" then
     stop_ranged_attack()
     stop_autoattack()
   end
-  azs.class.initActionBar = function()
-  	placeSpellByName("Attack", autoAttackActionSlot)
-  	placeSpellByName("Auto Shot", autoShotActionSlot)
-  	placeSpellByName("Feign Death", feignDeathActionSlot)
-  	placeSpellByName("Aimed Shot", aimedShotActionSlot)
-  	placeSpellByName("Multi-Shot", multiShotActionSlot)
-  	placeSpellByName("Raptor Strike", raptorStrikeActionSlot)
-  	placeSpellByName("Mongoose Bite", mongooseBiteActionSlot)
-  end
+  azs.class.initActionBar = {
+    {"Attack", autoAttackActionSlot},
+  	{"Auto Shot", autoShotActionSlot},
+  	{"Feign Death", feignDeathActionSlot},
+  	{"Aimed Shot", aimedShotActionSlot},
+  	{"Multi-Shot", multiShotActionSlot},
+  	{"Raptor Strike", raptorStrikeActionSlot},
+  	{"Mongoose Bite", mongooseBiteActionSlot}
+  }
+  azs.class.initMacros = {
+    {"Attack skull", "Ability_Hunter_CriticalShot", "/script azs.dps(\"skull\")", {1,5}},
+    {"Attack cross", "Ability_Marksmanship", "/script azs.dps(\"cross\")", {2}},
+    {"Trap", "Spell_Frost_ChainsOfIce", "/script azs.cc()", {3}},
+    {"Drain mana", "Spell_Holy_ElunesGrace", "/script azs.special()", {4}},
+    {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}},
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
+  }
   azs.class.help = function()
     azs.debug("Hunter ranged dps rotation is Aspect, Hunter's Mark, Auto Shot, Aimed Shot, Multi Shot.")
     azs.debug("Multishot will be only used if 'multiShotEnabled' is set to true.")

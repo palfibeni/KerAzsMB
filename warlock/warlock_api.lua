@@ -16,9 +16,18 @@ if UnitClass("player") == "Warlock" then
   azs.class.stopDps = function()
     SpellStopCasting()
   end
-  azs.class.initActionBar = function()
-		placeSpellByName("Shoot", autoAttackActionSlot)
-  end
+  azs.class.initActionBar = {
+		{"Shoot", autoAttackActionSlot},
+  	{"Summon Felsteed", 9}
+  }
+  azs.class.initMacros = {
+    {"Attack skull", "Spell_Shadow_DeathCoil", "/script azs.dps(\"skull\")", {1}},
+    {"Attack cross", "Spell_Shadow_ShadowBolt", "/script azs.dps(\"cross\")", {2}},
+    {"Banish Star", "Spell_Shadow_Cripple", "/script azs.cc(1)", {3}},
+    {"Drain mana", "Spell_Holy_DispelMagic", "/script azs.special()", {4}},
+    {"AoE", "Spell_Shadow_RainOfFire", "/script azs.aoe()", {5}},
+    {"Buff", "Spell_Shadow_SummonImp", "/script azs.buff()", {8}}
+  }
   azs.class.help = function()
     azs.debug("Warlock ranged dps rotation can be choosen by element,which can be set via the 'azs.class.element' set to either of \"Shadow\" or \"Fire\".")
     azs.debug("'azs.class.curse': Curse Choices \"CoE\", \"CoR\", \"CoW\" \"CoS\" or \"CoW\".")

@@ -28,8 +28,9 @@ end
 function mageArmor()
   if UnitLevel("player") >= 34 then
     cast_buff_player("Spell_MageArmor", "Mage Armor")
-  elseif if UnitLevel("player") >= 30
+  elseif UnitLevel("player") >= 30 then
     cast_buff_player("Spell_Frost_FrostArmor02", "Ice Armor")
   else
     cast_buff_player("Spell_Frost_FrostArmor02", "Frost Armor")
+  end
 end

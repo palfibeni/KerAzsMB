@@ -1,5 +1,16 @@
+slowMounts = {"Pinto Bridle", "Brown Horse Bridle", "Chestnut Mare Bridle",
+	"Brown Ram", "Gray Ram", "White Ram",
+	"Reins of the Spotted Frostsaber","Reins of the Striped Frostsaber","Reins of the Striped Nightsaber",
+	"Blue Mechanostrider", "Green Mechanostrider", "Red Mechanostrider", "Unpainted Mechanostrider"}
+
+paladinMount = "Summon Warhorse"
+
+function mountUp()
+	useItemFromList(slowMounts)
+end
+
 -- pick up an item to use by name
-function pick_up_item(name)
+function pickUpItem(name)
 	if CursorHasItem() then return end
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
@@ -14,7 +25,7 @@ function pick_up_item(name)
 end
 
 -- pick up any item to use from a list of names
-function pick_up_item_from_list(name_list)
+function pickUpItemFromList(name_list)
 	if CursorHasItem() then return end
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
@@ -31,7 +42,7 @@ function pick_up_item_from_list(name_list)
 end
 
 -- use an item from the inventory to use by name
-function use_item(name)
+function useItem(name)
 	if CursorHasItem() then return end
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
@@ -45,9 +56,26 @@ function use_item(name)
 	ResetCursor()
 end
 
+-- pick up any item to use from a list of names
+function useItemFromList(name_list)
+	if CursorHasItem() then return end
+	for bag=0,4 do
+		for slot = 1,GetContainerNumSlots(bag) do
+			local texture = GetContainerItemInfo(bag,slot)
+			if texture then
+				local link = GetContainerItemLink(bag,slot)
+				for k,name in pairs(name_list) do
+					if string.find(link, name) then UseContainerItem(bag,slot) return end
+				end
+			end
+		end
+	end
+	ResetCursor()
+end
+
 -- use an item from the inventory to use by name
--- /script azs.debug(count_item("Conjured Crystal Water"))
-function count_item(name)
+-- /script azs.debug(countItem("Conjured Crystal Water"))
+function countItem(name)
 	count = 0;
 	if CursorHasItem() then return end
 	for bag=0,4 do

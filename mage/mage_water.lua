@@ -5,13 +5,13 @@ function mageWater(minimumAmount, waterType)
   if casting_or_channeling() then return end
   minimumAmount = minimumAmount or 20
   waterType = waterType or deduceWaterType()
-  if count_item(waterType) < minimumAmount then
+  if countItem(waterType) < minimumAmount then
     if UnitMana("player") >= (UnitLevel("player") * 13) then
       CastSpellByName("Conjure Water")
     elseif IsActionReady(evocationActionSlot) then
       CastSpellByName("Evocation")
     else
-      use_item(deduceWaterType())
+      useItem(deduceWaterType())
     end
   end
 end
@@ -20,14 +20,14 @@ end
 function offerMageWater(waterType)
   if not TradeFrame:IsShown() then return end
   waterType = waterType or deduceWaterType()
-  use_item(waterType)
+  useItem(waterType)
   AcceptTrade()
 end
 
 function askMageWater(minimumAmount, waterType)
   minimumAmount = minimumAmount or 10
   waterType = waterType or deduceWaterType()
-  if count_item(waterType) >= minimumAmount then return end
+  if countItem(waterType) >= minimumAmount then return end
   if TradeFrame:IsShown() then
     AcceptTrade()
   end

@@ -24,6 +24,7 @@ function warlockArmor()
     end
   else
     cast_buff_player("Spell_Shadow_RagingScream", "Demon Skin")
+  end
 end
 
 function warlockSummon(summon)

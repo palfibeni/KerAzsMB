@@ -25,7 +25,7 @@ function feedPet()
 	if GetPetHappiness()~=nil and GetPetHappiness()~=3 then
 		if not has_buff("pet", "Ability_Hunter_BeastTraining") then
 			CastSpellByName("Feed Pet")
-			pick_up_item_from_list(consumables)
+			pickUpItemFromList(consumables)
 		end
 	end
 	ResetCursor()
