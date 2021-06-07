@@ -3,6 +3,7 @@ nameList={
 	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber",
 	"Llanewrynn","Nyavalyás","Bendegúz","Pinky"},
 	heal={},
+	multitank={"Stardancer","Cooperbeard", "Peacebringer"},
 	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat",
 	"Fordragon", "Moonflower", "Ligtweight", "Brunhilde"},
 	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",

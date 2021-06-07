@@ -41,6 +41,7 @@ function warlock_drain_soul_cross()
 end
 
 function warlockDrainSoul()
+  if casting_or_channeling() then return end
   if (UnitMana("player")>=290) then
     CastSpellByName("Drain Soul")
   else

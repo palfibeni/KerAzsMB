@@ -2,11 +2,37 @@ slowMounts = {"Pinto Bridle", "Brown Horse Bridle", "Chestnut Mare Bridle",
 	"Brown Ram", "Gray Ram", "White Ram",
 	"Reins of the Spotted Frostsaber","Reins of the Striped Frostsaber","Reins of the Striped Nightsaber",
 	"Blue Mechanostrider", "Green Mechanostrider", "Red Mechanostrider", "Unpainted Mechanostrider"}
-
-paladinMount = "Summon Warhorse"
+wizardOils = {"Brilliant Wizard Oil", "Wizard Oil", "Lesser Wizard Oil"}
+manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
+poisons = {"Instant Poison", "Deadly Poison"}
 
 function mountUp()
 	useItemFromList(slowMounts)
+end
+
+function applyEnchantToWeapon(name, weaponSlot)
+	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
+	if not hasWeaponEnchant(weaponSlot) then
+		useItem(name)
+		PickupInventoryItem(weaponSlot)
+		ClearCursor()
+	end
+end
+
+function applyEnchantsToWeapon(names, weaponSlot)
+	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
+	if not hasWeaponEnchant(weaponSlot) then
+		useItemFromList(name)
+		PickupInventoryItem(weaponSlot)
+		ReplaceEnchant()
+		ClearCursor()
+	end
+end
+
+
+function hasWeaponEnchant(weaponSlot)
+	hasMainHandEnchant, mainHandExpiration, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo()
+	return (weaponSlot == 16 and hasMainHandEnchant) or (weaponSlot == 17 and hasOffHandEnchant)
 end
 
 -- pick up an item to use by name

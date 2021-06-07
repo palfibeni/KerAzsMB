@@ -1,6 +1,7 @@
 if UnitClass("player") == "Mage" then
   azs.debug("I am mage")
-  azs.class.element = "Frost" -- Could be "Frost", "Fire" or "Arcane"
+  local _, _, pointsSpentInFrost = GetTalentTabInfo(3)
+  azs.class.element = pointsSpentInFrost > 3 and "Frost" or "Fire" -- Could be "Frost", "Fire" or "Arcane"
   azs.class.dps = function() mageAttack() end
   azs.class.dispel = function() mageDispel() end
   azs.class.cc = function(icon) polymorphByIcon(icon) end

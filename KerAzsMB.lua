@@ -20,12 +20,9 @@ local function setTimer(duration, func)
 end
 
 -- create the OnEvent function
-function AddonLoadedEventListener()
+function addonLoadedEventListener()
 	if (event == "ADDON_LOADED") and arg1 == "KerAzsMB" then
-		KerAzsMB_EventsFrame:UnregisterEvent("ADDON_LOADED") -- unregister the event as we dont need it anymore
-		-- do init things.
-		--setTimer(2, performCDproffs)
-		-- initKeyBindings()
+		KerAzsMB_EventsFrame:UnregisterEvent("ADDON_LOADED")
 		azs.debug("KerazsMB loaded")
 	end
 end
@@ -91,6 +88,33 @@ azs.dps = function(targetingMode)
 	else
 		azs.class.stopDps()
 	end
+end
+
+azs.heal = function(icon)
+	if not azs.class.heal then
+		azs.debug("This class is not supported yet or it doesnt have a heal option, please use old methods PriestHeal(), etc...")
+		return
+	end
+	-- handleJindoMark
+	azs.class.heal()
+end
+
+azs.dispel = function(icon)
+	if not azs.class.dispel then
+		azs.debug("This class is not supported yet or it doesnt have a dispel option, please use old methods mage_decuse_raid(), etc...")
+		return
+	end
+	-- handleJindoMark
+	azs.class.dispel()
+end
+
+azs.healOrDispel = function(icon)
+	if not azs.class.healOrDispel then
+		azs.debug("This class is not supported yet or it doesnt have a healOrDispel option, please use old methods PriestHealOrDispel(), etc...")
+		return
+	end
+	-- handleJindoMark
+	azs.class.healOrDispel()
 end
 
 azs.cc = function(icon)
@@ -262,6 +286,29 @@ function takeTaxi(destination)
 	for node = 1, NumTaxiNodes() do
 		if string.find(TaxiNodeName(node), destination) then
 			TakeTaxiNode(node)
+		end
+	end
+end
+
+function inviteMultiBoxToRaid()
+	for i,name in ipairs(nameList.multitank) do
+		InviteByName(name)
+	end
+	ConvertToRaid()
+	for i,name in ipairs(nameList.multiheal) do
+		InviteByName(name)
+	end
+	for i,name in ipairs(nameList.multidps) do
+		InviteByName(name)
+	end
+	SetLootMethod("freeforall")
+end
+
+function kickEveryone()
+	for i = 1,40 do
+		name = GetRaidRosterInfo(i)
+		if name then
+			UninviteByName(name)
 		end
 	end
 end
