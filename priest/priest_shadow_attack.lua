@@ -6,21 +6,21 @@ lastVampiric = 0
 
 function sh_priest_skull()
     if casting_or_channeling() then return end
-    if is_target_skull() then
+    if azs.targetSkull() then
         sh_priest_attack()
     else
-        target_skull()
-        lastShadowWord = 0
-        lastVampiric = 0
+      azs.targetSkull()
+      lastShadowWord = 0
+      lastVampiric = 0
     end
 end
 
 function sh_priest_cross()
     if casting_or_channeling() then return end
-    if is_target_cross() then
+    if azs.targetCross() then
         sh_priest_attack()
     else
-        target_cross()
+        azs.targetCross()
         lastShadowWord = 0
         lastVampiric = 0
     end

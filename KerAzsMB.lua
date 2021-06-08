@@ -1,9 +1,12 @@
 azs = {}
+azs.assistMe = "Cooperbeard"
+azs.targetingMode = "skull" -- "skull", "cross", "assist", "solo"
+azs.class={}
 
-tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen", "Bendegúz"}
+azs.tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen", "Bendegúz"}
 
 local timer = CreateFrame("FRAME");
---'duration' is in seconds and 'func' is the function that will be executed in the end
+--"duration" is in seconds and "func" is the function that will be executed in the end
 local function setTimer(duration, func)
 	local endTime = GetTime() + duration;
 
@@ -17,36 +20,151 @@ local function setTimer(duration, func)
 end
 
 -- create the OnEvent function
-function AddonLoadedEventListener()
+function addonLoadedEventListener()
 	if (event == "ADDON_LOADED") and arg1 == "KerAzsMB" then
-		KerAzsMB_EventsFrame:UnregisterEvent("ADDON_LOADED") -- unregister the event as we dont need it anymore
-		-- do init things.
-		--setTimer(2, performCDproffs)
-		-- initKeyBindings()
-		Debug("KerazsMB loaded")
+		KerAzsMB_EventsFrame:UnregisterEvent("ADDON_LOADED")
+		azs.debug("KerazsMB loaded")
 	end
 end
 
+azs.debug = function(message)
+	if message==nil then
+		DEFAULT_CHAT_FRAME:AddMessage("nil")
+	else
+		DEFAULT_CHAT_FRAME:AddMessage(message)
+	end
+end
+
+azs.deprectedWarning = function()
+	azs.debug("The method you are using is deprecated, please check the github page for more info.")
+end
+
 SLASH_INIT1="/init"
+SLASH_INIT2="/azs.init"
 SlashCmdList["INIT"]=function()
 	initActionBar()
 end
 
+SLASH_DEEPINIT1="/deepInit"
+SLASH_DEEPINIT2="/deepinit"
+SLASH_DEEPINIT3="/DeepInit"
+SlashCmdList["DEEPINIT"]=function()
+	initMacros()
+end
+
+SLASH_AZSHELP1="/azs.help"
+SLASH_AZSHELP2="/azshelp"
+SLASH_AZSHELP3="/azsh"
+SlashCmdList["AZSHELP"]=function()
+	azs.debug("To setup actionbars please write /init")
+	if azs.class.help then
+		azs.class.help()
+	end
+	azs.debug("You can find more information on https://github.com/palfibeni/KerAzsMB")
+end
+
+azs.getTarget = function(targetingMode)
+	targetingMode = targetingMode or azs.targetingMode
+	if targetingMode == "skull" then
+		return azs.targetSkull()
+	elseif targetingMode == "cross" then
+		return azs.targetCross()
+	elseif targetingMode == "assist" then
+		return AssistByName(azs.assistMe)
+	elseif targetingMode == "solo" then
+		return true
+	end
+end
+
+azs.dps = function(targetingMode)
+	if not azs.class.dps then
+		azs.debug("This class is not supported yet or it doesnt have a dps option, please use old methods mage_attack_skull(), etc...")
+		return
+	end
+	-- handleJindoMark
+	if azs.getTarget(targetingMode) then
+		if azs.class.handleNefaCall then azs.class.handleNefaCall() end
+		azs.class.dps()
+	else
+		azs.class.stopDps()
+	end
+end
+
+azs.heal = function(icon)
+	if not azs.class.heal then
+		azs.debug("This class is not supported yet or it doesnt have a heal option, please use old methods PriestHeal(), etc...")
+		return
+	end
+	-- handleJindoMark
+	azs.class.heal()
+end
+
+azs.dispel = function(icon)
+	if not azs.class.dispel then
+		azs.debug("This class is not supported yet or it doesnt have a dispel option, please use old methods mage_decuse_raid(), etc...")
+		return
+	end
+	-- handleJindoMark
+	azs.class.dispel()
+end
+
+azs.healOrDispel = function(icon)
+	if not azs.class.healOrDispel then
+		azs.debug("This class is not supported yet or it doesnt have a healOrDispel option, please use old methods PriestHealOrDispel(), etc...")
+		return
+	end
+	-- handleJindoMark
+	azs.class.healOrDispel()
+end
+
+azs.cc = function(icon)
+	if not azs.class.cc then
+		azs.debug("This class is not supported yet or it doesnt have a cc option, please use old methods mage_poly_star(), etc...")
+		return
+	end
+	azs.class.cc(icon)
+end
+
+azs.special = function(targetingMode)
+	if not azs.class.special then
+		azs.debug("This class is not supported yet or it doesnt have a special option, please use old methods warlock_drain_soul_skull(), etc...")
+		return
+	end
+	if azs.getTarget(targetingMode) then
+		azs.class.special(targetingMode)
+	end
+end
+
+azs.aoe = function(targetingMode)
+	if not azs.class.aoe then
+		azs.debug("This class is not supported yet or it doesnt have an aoe option, please use old methods mage_aoe(), etc...")
+		return
+	end
+	azs.class.aoe()
+end
+
+azs.buff = function()
+	if not azs.class.buff then
+		azs.debug("This class is not supported yet, or it doesnt have a buff option, please use old methods mage_buff_raid(), etc...")
+		return
+	end
+	azs.class.buff()
+end
+
 function initActionBar()
-	if UnitClass("player") == "Hunter" then
-		initActionBarForHunter()
-	elseif UnitClass("player") == "Warrior" then
+	if azs.class.initActionBar then
+		for i,actionbarEntry in ipairs(azs.class.initActionBar) do
+			local spellName,slot = unpack(actionbarEntry)
+			placeSpellByName(spellName, slot)
+		end
+	end
+	if UnitClass("player") == "Warrior" then
 		initActionBarForWarrior()
 	elseif UnitClass("player") == "Rogue" then
 		placeSpellByName("Attack", autoAttackActionSlot)
 	elseif UnitClass("player") == "Paladin" then
 		placeSpellByName("Divine Shield", divineShieldActionSlot)
 		placeSpellByName("Attack", autoAttackActionSlot)
-	elseif UnitClass("player") == "Mage" then
-		placeSpellByName("Evocation", evocationActionSlot)
-		placeSpellByName("Shoot", autoAttackActionSlot)
-	elseif UnitClass("player") == "Warlock" then
-		placeSpellByName("Shoot", autoAttackActionSlot)
 	elseif UnitClass("player") == "Priest" then
 		placeSpellByName("Desperate Prayer", desperatePrayerActionSlot)
 		placeSpellByName("Shoot", autoAttackActionSlot)
@@ -54,15 +172,6 @@ function initActionBar()
 		placeSpellByName("Innervate", innervateActionSlot)
 		placeSpellByName("Attack", autoAttackActionSlot)
 	end
-end
-
-function initActionBarForHunter()
-	placeSpellByName("Attack", autoAttackActionSlot)
-	placeSpellByName("Auto Shot", autoShotActionSlot)
-	placeSpellByName("Aimed Shot", aimedShotActionSlot)
-	placeSpellByName("Multi-Shot", multiShotActionSlot)
-	placeSpellByName("Raptor Strike", raptorStrikeActionSlot)
-	placeSpellByName("Mongoose Bite", mongooseBiteActionSlot)
 end
 
 function initActionBarForWarrior()
@@ -84,8 +193,44 @@ function placeSpellByName(spellName, slot)
 	spellId = getSpellId(spellName)
 	if spellId ~= -1 then
 		PickupAction(slot)
+		ClearCursor()
 		PickupSpell(spellId, "BOOKTYPE_SPELL")
 		PlaceAction(slot)
+	end
+end
+
+function initMacros()
+	if azs.class.initMacros then
+		clearCharacterMacros()
+		for i,macroEntry in ipairs(azs.class.initMacros) do
+			initMacro(macroEntry)
+		end
+	end
+end
+
+function initMacro(macroEntry)
+	local name, iconName, script, slots = unpack(macroEntry)
+	local numIcons = GetNumMacroIcons()
+	for icon = 1,numIcons do
+	 if string.find(GetMacroIconInfo(icon), iconName) then
+		 local macroId = CreateMacro(name, icon, script, 1, 1);
+		 if slots then
+			 for i,slot in pairs(slots) do
+				 PickupMacro(macroId)
+				 PlaceAction(slot)
+				 ClearCursor()
+			 end
+			 return
+		 end
+	 end
+	end
+end
+
+function clearCharacterMacros()
+	for i = 36, 19, -1 do
+		if GetMacroInfo(i) then
+			DeleteMacro(i)
+		end
 	end
 end
 
@@ -106,7 +251,7 @@ end
 -- /script createRefinedSalt()
 function createRefinedSalt()
 	if getSpellId("Leatherworking") ~= nil then
-		use_item("Salt Shaker")
+		useItem("Salt Shaker")
 	end
 end
 
@@ -145,6 +290,29 @@ function takeTaxi(destination)
 	end
 end
 
+function inviteMultiBoxToRaid()
+	for i,name in ipairs(nameList.multitank) do
+		InviteByName(name)
+	end
+	ConvertToRaid()
+	for i,name in ipairs(nameList.multiheal) do
+		InviteByName(name)
+	end
+	for i,name in ipairs(nameList.multidps) do
+		InviteByName(name)
+	end
+	SetLootMethod("freeforall")
+end
+
+function kickEveryone()
+	for i = 1,40 do
+		name = GetRaidRosterInfo(i)
+		if name then
+			UninviteByName(name)
+		end
+	end
+end
+
 --  function createTankWarriorMacro()
 --  	local index=CreateMacro("Tank Attack",16777218,"/script warrior_tank_attack()",1)
 --		PickupMacro(index)
@@ -153,7 +321,7 @@ end
 --		PlaceAction(2)
 --		PickupMacro(index)
 --		PlaceAction(3)
---      index=CreateMacro("Tank Aoe",16777219,"/script warrior_aoe()",1)
+--      index=CreateMacro("Tank Aoe",16777219,"/script warrior_aoe()",0)
 --		PickupMacro(index)
 --		PlaceAction(5)
 --  end

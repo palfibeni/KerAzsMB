@@ -23,7 +23,7 @@ function shackle_blue()
 end
 
 function shackle_by_icon(icon)
-    target_by_icon(icon)
+    azs.targetByIcon(icon)
     if (GetRaidTargetIndex("target") == icon) then
         CastSpellByName("Shackle Undead")
     end

@@ -7,4 +7,5 @@
 	<Script file="mage_buff_raid.lua"/>
 	<Script file="mage_decurse.lua"/>
 	<Script file="mage_water.lua"/>
+	<Script file="mage_api.lua"/>
 </Ui>

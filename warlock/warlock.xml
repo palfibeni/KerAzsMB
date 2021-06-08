@@ -5,6 +5,6 @@
 	<Script file="warlock_aoe.lua"/>
 	<Script file="warlock_banish.lua"/>
 	<Script file="warlock_buff.lua"/>
-	<Script file="warlock_drain_soul.lua"/>
-	<Script file="warlock_drain_mana.lua"/>
+	<Script file="warlock_special.lua"/>
+	<Script file="warlock_api.lua"/>
 </Ui>

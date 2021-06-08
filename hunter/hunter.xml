@@ -4,5 +4,7 @@
 	<Script file="hunter_attack.lua"/>
 	<Script file="hunter_buff.lua"/>
 	<Script file="hunter_mana_burn.lua"/>
+	<Script file="hunter_freezing_trap.lua"/>
 	<Script file="hunter_nefa.lua"/>
+	<Script file="hunter_api.lua"/>
 </Ui>

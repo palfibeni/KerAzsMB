@@ -23,7 +23,7 @@ function entangle_blue()
 end
 
 function entangle_by_icon(icon)
-    target_by_icon(icon)
+    azs.targetByIcon(icon)
     if (GetRaidTargetIndex("target") == icon) then
         CastSpellByName("Entangling Roots")
     end

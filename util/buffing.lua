@@ -18,14 +18,19 @@ end
 
 -- Return whether given target has the given buff
 function has_buff(target, icon)
+	return getIndexOfBuff(target, icon) ~= -1
+end
+
+-- Returns the index of given buff, if the target has it, otherwise -1
+function getIndexOfBuff(target, icon)
 	local i=1
-	while UnitBuff(target,i)~=nil do
-		if "Interface\\Icons\\" .. icon==UnitBuff(target,i) then
-			return true
+	while UnitBuff(target,i) ~= nil do
+		if "Interface\\Icons\\" .. icon == UnitBuff(target,i) then
+			return i
 		end
 		i=i+1
 	end
-	return false
+	return -1
 end
 
 -- Buffs azs.targetList with spell
@@ -45,4 +50,11 @@ function castBuff(icon, spell, target)
 		return
 	end
 	SpellStopTargeting()
+end
+
+function removeBuff(icon)
+	index = getIndexOfBuff("player", icon)
+	if index ~= -1 then
+		CancelPlayerBuff(index)
+	end
 end

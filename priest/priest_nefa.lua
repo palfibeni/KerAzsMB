@@ -8,11 +8,11 @@ classCallPrefixes={
 local f = CreateFrame("FRAME", "PriestNefaFrame")
 f:RegisterEvent("CHAT_MSG_MONSTER_YELL")
 
-function PriestNefaEventHandler()
+function NefaEventHandlerPriest()
   if not UnitClass("player") == "Priest" then return end
   if event == "CHAT_MSG_MONSTER_YELL" and string.find(arg1, classCallPrefixes.priest, 1, 1) then
     priestClassCallExpire = GetTime() + 30
   end
 end
 
-f:SetScript("OnEvent", PriestNefaEventHandler)
+f:SetScript("OnEvent", NefaEventHandlerPriest)

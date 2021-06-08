@@ -1,6 +1,5 @@
 engagePrefix="Well done"
 nextClassCall = nil
-isHunterCall = false
 hunterWeaponLink = nil
 
 unequipTime = 2.5
@@ -15,7 +14,7 @@ classCallPrefixes={
 local f = CreateFrame("FRAME", "HunterNefaFrame")
 f:RegisterEvent("CHAT_MSG_MONSTER_YELL")
 
-function HunterNefaEventHandler()
+function NefaEventHandlerHunter()
   if not UnitClass("player") == "Hunter" then return end
   if event == "CHAT_MSG_MONSTER_YELL" then
     if string.find(arg1, engagePrefix, 1, 1) then
@@ -26,7 +25,7 @@ function HunterNefaEventHandler()
       for _,callPrefix in classCallPrefixes do
         called = string.find(arg1, callPrefix, 1, 1)
         if called then
-          nextClassCall=GetTime()+25
+          nextClassCall=GetTime() + 25
           break
         end
       end
@@ -34,19 +33,18 @@ function HunterNefaEventHandler()
   end
 end
 
-f:SetScript("OnEvent", HunterNefaEventHandler)
+f:SetScript("OnEvent", NefaEventHandlerHunter)
 
 function handleNefaCallHunter()
-  if nextClassCall then
-		local t = GetTime()
-		hunterWeaponLink = hunterWeaponLink or GetInventoryItemLink("player",18)
-		if nextClassCall + 10 + timeoutTime <= t then
-			equipItemByItemLink(hunterWeaponLink,18)
-			nextClassCall = nil
-		elseif nextClassCall- unequipTime <= t then
-			unequipItemBySlotId(18)
-		elseif nextClassCall - 25 + reequipTime <= t then
-			equipItemByItemLink(hunterWeaponLink, 18)
-		end
+  if not nextClassCall then return end
+	local t = GetTime()
+	hunterWeaponLink = GetInventoryItemLink("player",18) or hunterWeaponLink
+	if nextClassCall + 10 + timeoutTime <= t then
+		equipItemByItemLink(hunterWeaponLink,18)
+		nextClassCall = nil
+	elseif nextClassCall- unequipTime <= t then
+		unequipItemBySlotId(18)
+	elseif nextClassCall - 25 + reequipTime <= t then
+		equipItemByItemLink(hunterWeaponLink, 18)
 	end
 end

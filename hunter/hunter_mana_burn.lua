@@ -1,18 +1,18 @@
 -- /script hunter_mana_burn_skull()
 function hunter_mana_burn_skull()
     if casting_or_channeling() then return end
-    if is_target_skull() then
-        cast_debuff("Ability_Hunter_AimedShot", "Viper Sting")
-    else
-        target_skull()
+    if azs.targetSkull() then
+        hunterManaDrain()
     end
 end
 
 function hunter_mana_burn_cross()
     if casting_or_channeling() then return end
-    if is_target_cross() then
-        cast_debuff("Ability_Hunter_AimedShot", "Viper Sting")
-    else
-        target_cross()
+    if azs.targetCross() then
+        hunterManaDrain()
     end
+end
+
+function hunterManaDrain()
+  cast_debuff("Ability_Hunter_AimedShot", "Viper Sting")
 end
