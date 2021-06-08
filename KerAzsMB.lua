@@ -24,6 +24,7 @@ function addonLoadedEventListener()
 	if (event == "ADDON_LOADED") and arg1 == "KerAzsMB" then
 		KerAzsMB_EventsFrame:UnregisterEvent("ADDON_LOADED")
 		azs.debug("KerazsMB loaded")
+		azs.avaliableMacroIcons = getAvaliableMacroIcons()
 	end
 end
 
@@ -160,8 +161,6 @@ function initActionBar()
 	end
 	if UnitClass("player") == "Warrior" then
 		initActionBarForWarrior()
-	elseif UnitClass("player") == "Rogue" then
-		placeSpellByName("Attack", autoAttackActionSlot)
 	elseif UnitClass("player") == "Paladin" then
 		placeSpellByName("Divine Shield", divineShieldActionSlot)
 		placeSpellByName("Attack", autoAttackActionSlot)
@@ -209,29 +208,36 @@ function initMacros()
 end
 
 function initMacro(macroEntry)
-	local name, iconName, script, slots = unpack(macroEntry)
-	local numIcons = GetNumMacroIcons()
-	for icon = 1,numIcons do
-	 if string.find(GetMacroIconInfo(icon), iconName) then
-		 local macroId = CreateMacro(name, icon, script, 1, 1);
-		 if slots then
-			 for i,slot in pairs(slots) do
-				 PickupMacro(macroId)
-				 PlaceAction(slot)
-				 ClearCursor()
-			 end
-			 return
-		 end
-	 end
+	local name, iconName, script, slots, superMacro = unpack(macroEntry)
+	local macroId = CreateMacro(name, azs.avaliableMacroIcons["Interface\\Icons\\" .. iconName], script, 1, 1);
+	if slots then
+		for i,slot in pairs(slots) do
+			PickupMacro(macroId)
+			PlaceAction(slot)
+			ClearCursor()
+			SM_EXTEND[name] = superMacro
+		end
+		return
 	end
 end
 
 function clearCharacterMacros()
 	for i = 36, 19, -1 do
-		if GetMacroInfo(i) then
+		local name = GetMacroInfo(i)
+		if name then
 			DeleteMacro(i)
+			SM_EXTEND[name] = nil
 		end
 	end
+end
+
+function getAvaliableMacroIcons()
+	local icon={};
+	for i=1,GetNumMacroIcons() do
+		local texture=GetMacroIconInfo(i);
+		icon[texture]=i;
+	end
+	return icon;
 end
 
 function performCDproffs()

@@ -10,6 +10,19 @@ function mountUp()
 	useItemFromList(slowMounts)
 end
 
+function applyWizardOil()
+	applyEnchantsToWeapon(wizardOils)
+end
+
+function applyManaOil()
+	applyEnchantsToWeapon(manaOils)
+end
+
+function applyManaPoisons()
+	applyEnchantsToWeapon(poisons, 16)
+		applyEnchantsToWeapon(poisons, 17)
+end
+
 function applyEnchantToWeapon(name, weaponSlot)
 	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
 	if not hasWeaponEnchant(weaponSlot) then
@@ -24,7 +37,6 @@ function applyEnchantsToWeapon(names, weaponSlot)
 	if not hasWeaponEnchant(weaponSlot) then
 		useItemFromList(name)
 		PickupInventoryItem(weaponSlot)
-		ReplaceEnchant()
 		ClearCursor()
 	end
 end

@@ -1,9 +1,9 @@
 if UnitClass("player") == "Warlock" then
-  azs.debug("I am mage")
+  azs.debug("I am warlock")
   azs.class.element = "Shadow" -- Could be "Shadow" or "Fire"
   azs.class.curse = "CoE" -- Could be "CoE", "CoT", "CoR", "CoW" or "Cos"
   azs.class.summon = "Imp" -- Could be "Imp" or "DS"
-  azs.class.drain = "Soul" -- Could be "Soul" or "Mana"
+  azs.class.drain = "Mana" -- Could be "Soul" or "Mana"
   azs.class.dps = function() warlockAttack() end
   azs.class.cc = function(icon) banishByIcon(icon) end
   azs.class.special = function() warlockSpecial() end
@@ -21,12 +21,13 @@ if UnitClass("player") == "Warlock" then
   	{"Summon Felsteed", 9}
   }
   azs.class.initMacros = {
-    {"Attack skull", "Spell_Shadow_DeathCoil", "/script azs.dps(\"skull\")", {1}},
-    {"Attack cross", "Spell_Shadow_ShadowBolt", "/script azs.dps(\"cross\")", {2}},
+    {"Attack skull", "Spell_Shadow_DeathCoil", "/script azs.dps(\"skull\")", {1}, "azs.class.element = \"" .. azs.class.element .. "\"" .. string.char(10) .. "azs.class.curse = \"" .. azs.class.curse .. "\""},
+    {"Attack cross", "Spell_Shadow_ShadowBolt", "/script azs.dps(\"cross\")", {2}, "azs.class.element = \"" .. azs.class.element .. "\"" .. string.char(10) .. "azs.class.curse = \"" .. azs.class.curse .. "\""},
     {"Banish Star", "Spell_Shadow_Cripple", "/script azs.cc(1)", {3}},
-    {"Drain mana", "Spell_Holy_DispelMagic", "/script azs.special()", {4}},
+    {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special()", {4}, "azs.class.drain = \"Mana\""},
+    {"Drain soul", "Spell_Shadow_Haunting", "/script azs.special()", {64}, "azs.class.drain = \"Soul\""},
     {"AoE", "Spell_Shadow_RainOfFire", "/script azs.aoe()", {5}},
-    {"Buff", "Spell_Shadow_SummonImp", "/script azs.buff()", {8}}
+    {"Buff", "Spell_Shadow_SummonImp", "/script azs.buff()", {8}, "azs.class.summon = " .. azs.class.summon}
   }
   azs.class.help = function()
     azs.debug("Warlock ranged dps rotation can be choosen by element,which can be set via the 'azs.class.element' set to either of \"Shadow\" or \"Fire\".")

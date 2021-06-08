@@ -32,7 +32,7 @@ function warlockAttack(curse, element)
 			CastSpellByName("Immolation")
 		else
 			corruption()
-			warlock_curse(curse)
+			warlockCurse(curse)
 			CastSpellByName("Shadow Bolt")
 		end
 	elseif (is_player_hp_over(0.3)) then
@@ -42,7 +42,7 @@ function warlockAttack(curse, element)
 	end
 end
 
-function warlock_curse(curse)
+function warlockCurse(curse)
 	if curse == "CoS" then
 		cast_debuff("Spell_Shadow_CurseOfAchimonde", "Curse of Shadow")
 	elseif curse == "CoE" then

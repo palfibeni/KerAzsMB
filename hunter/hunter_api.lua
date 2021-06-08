@@ -1,12 +1,17 @@
 if UnitClass("player") == "Hunter" then
   azs.debug("I am hunter")
+  azs.class.multiShotEnabled = false
+  azs.class.shouldHunterBuffPet = false
   azs.class.dps = function() hunterDps() end
   azs.class.cc = function(icon)
     hunterFeignDeath()
     removeBuff("Ability_Rogue_FeignDeath")
     CastSpellByName("Freezing Trap")
   end
-  azs.class.special = function() hunterManaDrain() end
+  azs.class.special = function()
+    hunterManaDrain()
+    hunterDps()
+  end
   azs.class.buff = function()
     hunterBuff()
     askMageWater()
@@ -26,11 +31,11 @@ if UnitClass("player") == "Hunter" then
   	{"Mongoose Bite", mongooseBiteActionSlot}
   }
   azs.class.initMacros = {
-    {"Attack skull", "Ability_Hunter_CriticalShot", "/script azs.dps(\"skull\")", {1,5}},
-    {"Attack cross", "Ability_Marksmanship", "/script azs.dps(\"cross\")", {2}},
+    {"Attack skull", "Ability_Hunter_CriticalShot", "/script azs.dps(\"skull\")", {1,5}, "azs.class.multiShotEnabled = true"},
+    {"Attack cross", "Ability_Marksmanship", "/script azs.dps(\"cross\")", {2}, "azs.class.multiShotEnabled = true"},
     {"Trap", "Spell_Frost_ChainsOfIce", "/script azs.cc()", {3}},
-    {"Drain mana", "Spell_Holy_ElunesGrace", "/script azs.special()", {4}},
-    {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}},
+    {"Drain mana", "Spell_Holy_ElunesGrace", "/script azs.special()", {4}, "azs.class.multiShotEnabled = true"},
+    {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}, "azs.class.shouldHunterBuffPet = " .. azs.class.shouldHunterBuffPet},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }
   azs.class.help = function()

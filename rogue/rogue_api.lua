@@ -1,7 +1,15 @@
+function getRogueTalent()
+  local _, _, pointsSpentInSubtelity = GetTalentTabInfo(3)
+  if pointsSpentInSubtelity > 0 then
+    return "Dagger"
+  else
+    return "Sword"
+  end
+end
+
 if UnitClass("player") == "Rogue" then
   azs.debug("I am rogue")
-  local _, _, pointsSpentInSubtelity = GetTalentTabInfo(3)
-  azs.class.weapon = pointsSpentInSubtelity > 0 and "Dagger" or "Sword" -- Could be "Sword" or "Dagger"
+  azs.class.weapon = getRogueTalent() -- Could be "Sword" or "Dagger"
   azs.class.dps = function() rogueAttack() end
   azs.class.stopDps = function()
     stop_autoattack()

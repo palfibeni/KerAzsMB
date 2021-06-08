@@ -1,5 +1,4 @@
 -- Settings
-multiShotEnabled = false
 aimedShotWindow = 1 -- low value, with 3.0+ ranged attack speed (full/auto shot rotation), or a higher value with 2.9- ranged attack speed (clipped/aimed shot rotation)
 multiShotWindow = 1.9 -- should be around ranged attack speed minus 1
 
@@ -82,7 +81,7 @@ function hunterMeleeDps()
 end
 
 -- Hunter ranged dps rotation (Aspect, Hunter's Mark, Auto Shot, Aimed Shot, Multi Shot)
--- Multishot will be only used if 'multiShotEnabled' is set to true.
+-- Multishot will be only used if 'azs.multiShotEnabled' is set to true.
 function hunterRangedDps()
   stop_autoattack()
 	if not has_buff("player", "Spell_Nature_ProtectionformNature") then
@@ -99,7 +98,7 @@ function hunterRangedDps()
 		if aimedShotExpire >= GetTime() and IsActionReady(aimedShotActionSlot) then
       CastSpellByName("Aimed Shot")
       ignoreNext = true
-    elseif multiShotEnabled and multiShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
+    elseif azs.multiShotEnabled and multiShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
       CastSpellByName("Multi-Shot")
       ignoreNext = true
     end
