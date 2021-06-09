@@ -1,15 +1,6 @@
-function getMageTalent()
-  local _, _, pointsSpentInFrost = GetTalentTabInfo(3)
-  if pointsSpentInFrost > 3 then
-    return "Frost"
-  else
-    return "Fire"
-  end
-end
-
 if UnitClass("player") == "Mage" then
   azs.debug("I am mage")
-  azs.class.element =  getMageTalent() -- Could be "Frost", "Fire" or "Arcane"
+  azs.class.element =  "Frost" -- Could be "Frost", "Fire" or "Arcane"
   azs.class.dps = function() mageAttack() end
   azs.class.dispel = function() mageDispel() end
   azs.class.cc = function(icon) polymorphByIcon(icon) end
@@ -30,10 +21,11 @@ if UnitClass("player") == "Mage" then
   azs.class.initMacros = {
     {"Attack skull", "Spell_Frost_FrostArmor", "/script azs.dps(\"skull\")", {1,4}, "azs.class.element = \"" .. azs.class.element .. "\""},
     {"Attack cross", "Spell_Frost_FrostBolt02", "/script azs.dps(\"cross\")", {2}, "azs.class.element = \"" .. azs.class.element .. "\""},
+    {"Attack Fire skull", "Spell_Fire_Fireball02", "/script azs.dps(\"skull\")", {64}, "azs.class.element = \"Fire\""},
     {"Poly Star", "Ability_Seal", "/script azs.cc(1)", {3}, ""},
     {"AoE", "Spell_Frost_FrostNova", "/script azs.aoe()", {5}, ""},
     {"Buff", "Spell_Holy_MagicalSentry", "/script azs.buff()", {8}, ""},
-    {"Dispel", "Spell_Holy_DispelMagic", "/script azs.dispel()", {64}, ""},
+    {"Dispel", "Spell_Holy_DispelMagic", "/script azs.dispel()", {65}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
   }
   azs.class.help = function()

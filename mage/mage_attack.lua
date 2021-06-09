@@ -2,17 +2,17 @@ evocationActionSlot = 61
 
 -- DEPRECTED
 -- /script mage_attack_skull()
-function mage_attack_skull()
+function mage_attack_skull(mageElement)
 	if azs.targetSkull() then
-      mageAttack()
+      mageAttack(mageElement)
 	end
 end
 
 -- DEPRECTED
 -- /script mage_attack_cross()
-function mage_attack_cross()
+function mage_attack_cross(mageElement)
 	if azs.targetCross() then
-      mageAttack()
+      mageAttack(mageElement)
 	end
 end
 
@@ -28,9 +28,7 @@ function mageAttack(mageElement)
     stop_wand()
 		if is_target_hp_under(0.7) then
 			cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
-			SpellStopCasting()
 			cast_buff_player("Spell_Nature_EnchantArmor", "Presence of Mind")
-			SpellStopCasting()
 			-- Useable trinkets
 		  UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
 			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
