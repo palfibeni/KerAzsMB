@@ -1,7 +1,7 @@
 -- Group Management
 nameList={
 	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber",
-	"Llanewrynn","Nyavalyás","Bendegúz","Pinky"},
+	"Llanewrynn","Nyavalyás","Bendegúz","Pinky", "Obier"},
 	heal={},
 	multitank={"Stardancer","Cooperbeard", "Peacebringer"},
 	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat",

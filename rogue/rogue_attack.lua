@@ -7,7 +7,7 @@ function rogueAttack(weaponType)
   if (GetComboPoints("target") == 5) then
     CastSpellByName("Eviscerate")
   else
-    if azs.class.weapon == "Dagger" then
+    if azs.class.weapon == "Sword" then
       CastSpellByName("Sinister Strike")
     else
       CastSpellByName("Backstab")

@@ -9,7 +9,7 @@ end
 
 if UnitClass("player") == "Rogue" then
   azs.debug("I am rogue")
-  azs.class.weapon = getRogueTalent() -- Could be "Sword" or "Dagger"
+  azs.class.weapon = "Sword" -- Could be "Sword" or "Dagger"
   azs.class.dps = function() rogueAttack() end
   azs.class.stopDps = function()
     stop_autoattack()
