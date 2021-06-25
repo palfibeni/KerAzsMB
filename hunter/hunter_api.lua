@@ -35,7 +35,7 @@ if UnitClass("player") == "Hunter" then
     {"Attack cross", "Ability_Marksmanship", "/script azs.dps(\"cross\")", {2}, "azs.class.multiShotEnabled = true"},
     {"Trap", "Spell_Frost_ChainsOfIce", "/script azs.cc()", {3}},
     {"Drain mana", "Spell_Holy_ElunesGrace", "/script azs.special()", {4}, "azs.class.multiShotEnabled = true"},
-    {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}, "azs.class.shouldHunterBuffPet = " .. azs.class.shouldHunterBuffPet},
+    {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}, "azs.class.shouldHunterBuffPet = false"},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }
   azs.class.help = function()

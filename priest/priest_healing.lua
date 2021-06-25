@@ -47,6 +47,7 @@ function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispe
 	end
 end
 
+-- /script PriestHeal(azs.targetList.all, "instantOnly")
 function PriestHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
 	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.5) then

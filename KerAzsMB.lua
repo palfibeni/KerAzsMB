@@ -3,7 +3,8 @@ azs.assistMe = "Cooperbeard"
 azs.targetingMode = "skull" -- "skull", "cross", "assist", "solo"
 azs.class={}
 
-azs.tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn", "Dobzse", "Harklen", "Bendegúz"}
+azs.tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn",
+	"Dobzse", "Harklen", "Bendegúz", "Pinky", "Obier"}
 
 local timer = CreateFrame("FRAME");
 --"duration" is in seconds and "func" is the function that will be executed in the end
@@ -77,7 +78,7 @@ azs.getTarget = function(targetingMode)
 	end
 end
 
-azs.dps = function(targetingMode)
+azs.dps = function(targetingMode, param)
 	if not azs.class.dps then
 		azs.debug("This class is not supported yet or it doesnt have a dps option, please use old methods mage_attack_skull(), etc...")
 		return
@@ -85,7 +86,7 @@ azs.dps = function(targetingMode)
 	-- handleJindoMark
 	if azs.getTarget(targetingMode) then
 		if azs.class.handleNefaCall then azs.class.handleNefaCall() end
-		azs.class.dps()
+		azs.class.dps(param)
 	else
 		azs.class.stopDps()
 	end
@@ -126,13 +127,13 @@ azs.cc = function(icon)
 	azs.class.cc(icon)
 end
 
-azs.special = function(targetingMode)
+azs.special = function(targetingMode, param)
 	if not azs.class.special then
 		azs.debug("This class is not supported yet or it doesnt have a special option, please use old methods warlock_drain_soul_skull(), etc...")
 		return
 	end
 	if azs.getTarget(targetingMode) then
-		azs.class.special(targetingMode)
+		azs.class.special(param)
 	end
 end
 

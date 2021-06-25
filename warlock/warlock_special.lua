@@ -1,4 +1,5 @@
-function warlockSpecial()
+function warlockSpecial(drain)
+  drain = drain or azs.class.drain
   if azs.class.drain == "Soul" then
     warlockDrainSoul()
   else

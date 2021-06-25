@@ -7,7 +7,7 @@ function rogueAttack(weaponType)
   if (GetComboPoints("target") == 5) then
     CastSpellByName("Eviscerate")
   else
-    if azs.class.weapon == "Dagger" then
+    if azs.class.weapon == "Sword" then
       CastSpellByName("Sinister Strike")
     else
       CastSpellByName("Backstab")
@@ -35,7 +35,7 @@ end
 
 function rouge_attack_cross()
     if azs.targetCross() then
-        rouge_attack("Sword")
+        rogueAttack("Sword")
     else
         stop_autoattack()
     end
@@ -43,7 +43,7 @@ end
 
 function rouge_attack_dagger_skull()
     if azs.targetSkull() then
-        rouge_dagger_attack("Dagger")
+        rogueAttack("Dagger")
     else
         stop_autoattack()
     end
@@ -51,7 +51,7 @@ end
 
 function rouge_attack_dagger_cross()
     if azs.targetSkull() then
-        rouge_dagger_attack("Dagger")
+        rogueAttack("Dagger")
     else
         stop_autoattack()
     end
