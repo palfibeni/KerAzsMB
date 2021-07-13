@@ -84,8 +84,8 @@ azs.dps = function(targetingMode, param)
 		return
 	end
 	-- handleJindoMark
+	if azs.class.handleNefaCall then azs.class.handleNefaCall() end
 	if azs.getTarget(targetingMode) then
-		if azs.class.handleNefaCall then azs.class.handleNefaCall() end
 		azs.class.dps(param)
 	else
 		azs.class.stopDps()
@@ -297,9 +297,11 @@ function takeTaxi(destination)
 	end
 end
 
+-- /script inviteMultiBoxToRaid()
 function inviteMultiBoxToRaid()
 	for i,name in ipairs(nameList.multitank) do
 		InviteByName(name)
+		PromoteToAssistant(name)
 	end
 	ConvertToRaid()
 	for i,name in ipairs(nameList.multiheal) do
@@ -311,6 +313,7 @@ function inviteMultiBoxToRaid()
 	SetLootMethod("freeforall")
 end
 
+-- /script kickEveryone()
 function kickEveryone()
 	for i = 1,40 do
 		name = GetRaidRosterInfo(i)
@@ -319,19 +322,6 @@ function kickEveryone()
 		end
 	end
 end
-
---  function createTankWarriorMacro()
---  	local index=CreateMacro("Tank Attack",16777218,"/script warrior_tank_attack()",1)
---		PickupMacro(index)
---		PlaceAction(1)
---		PickupMacro(index)
---		PlaceAction(2)
---		PickupMacro(index)
---		PlaceAction(3)
---      index=CreateMacro("Tank Aoe",16777219,"/script warrior_aoe()",0)
---		PickupMacro(index)
---		PlaceAction(5)
---  end
 
 --  function initKeyBindings()
 --	SetBinding("SHIFT-1","MULTIACTIONBAR1BUTTON1")

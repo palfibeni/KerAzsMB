@@ -10,6 +10,7 @@ if UnitClass("player") == "Warlock" then
   azs.class.buff = function()
     warlockBuff()
     askMageWater()
+    if isInBWL() then applyWizardOil() end
   end
   azs.class.aoe = function() warlockAoe() end
   -- azs.class.handleNefaCall = function() end

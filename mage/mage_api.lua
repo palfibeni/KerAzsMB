@@ -8,6 +8,7 @@ if UnitClass("player") == "Mage" then
     mageBuff()
     mageWater()
     offerMageWater()
+    if isInBWL() then applyWizardOil() end
   end
   azs.class.aoe = function() mageAoe() end
   -- azs.class.handleNefaCall = function() end
