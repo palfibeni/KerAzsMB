@@ -32,6 +32,9 @@ function initTankWarrior()
     {"Attack", autoAttackActionSlot},
     {"Taunt", 87},
     {"Concussion Blow", 64},
+    {"Disarm", 90},
+    {"Shield Bash", 91},
+    {"Shield Block", 92},
     {"Heroic Strike", heroicStrikeActionSlot},
     {"Bloodrage", bloodrageActionSlot},
     {"Revenge", revengeActionSlot},
@@ -74,7 +77,7 @@ function initFuryWarrior()
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}}
   }
   azs.class.help = function()
-    azs.debug("Wheter a Warrior is tank or not, is determined by azs.tank_list.")
+    azs.debug("Wheter a Warrior is tank or not, is determined by talent point put into defensive tree.")
     azs.debug("Fury Warriors use bloodthrist, whirlwind, and under 30% hp, they will start piling up rage for execute.")
   end
 end
