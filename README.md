@@ -16,7 +16,7 @@ This will target the enemy with the skull (ID = 8) raidTargetIcon, and start dps
 ## How to setup
 ### Wiring in the addon:
 1. Download the scripts and place them inside you Interface/Addons/ folder.
-2. Edit the tank_list according to the tanks you and your team is using in raids in the KerAzs_mb.lua.
+2. Edit the azs.tank_list according to the tanks you and your team is using in raids in the KerAzs_mb.lua.
 3. Now you can access the functions in the game with macros like this:
 ```
 /script mage_attack_skull()

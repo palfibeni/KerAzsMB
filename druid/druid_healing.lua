@@ -26,11 +26,16 @@ end
 
 -- /script  DruidHealOrDispel(azs.targetList.all, false)
 function DruidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	healProfile=healProfile or getDefaultHealingProfile()
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
+	UseHealTrinket()
+	if (UnitMana("player") < 500) then
+		innervate()
+	end
 	if SpellCastReady(druidHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,druidHealRange,buffRegrowth,druidDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -46,6 +51,7 @@ end
 
 -- /script DruidHeal(azs.targetList.all, false)
 function DruidHeal(lTargetList,healProfile)
+	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	UseHealTrinket()
 	if (UnitMana("player") < 500) then
@@ -68,16 +74,16 @@ function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 			local mana=UnitMana("player")
 			if mana>=manaCost and (not withCdOnly or has_buff("player",druidNatureSwiftness)) and GetSpellCooldownByName(spellName)==0 then
 				if (not healMode or healMode==1) and target and hp<hpThreshold and (not lTargetList or lTargetList[target]) then
-					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					azs.targetList.all[target].blacklist = nil
 					currentHealTarget = target
 					CastSpellByName(spellName)
 					SpellTargetUnit(target)
 					break
 				elseif healMode==2 then
-					if is_target_skull() or is_target_skull() or target_skull() or target_cross() then
+					if azs.targetSkull() or azs.targetCross() then
 						if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
-							--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+							--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 							currentHealTarget = "targettarget"
 							currentHealFinish = GetTime() + (GetSpellCastTimeByName(spellName) or 1.5)
 							precastHpThreshold = hpThreshold
@@ -87,7 +93,7 @@ function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 					end
 					break
 				elseif healMode==3 and hotTarget and hotHp<hpThreshold and (not lTargetList or lTargetList[hotTarget]) then
-					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					azs.targetList.all[target].blacklist = nil
 					currentHealTarget = hotTarget
 					CastSpellByName(spellName)
@@ -100,9 +106,14 @@ function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 end
 
 function DruidDispel(lTargetList,dispelTypes,dispelByHp)
+	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
+	UseHealTrinket()
+	if (UnitMana("player") < 500) then
+		innervate()
+	end
 	if SpellCastReady(druidDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,druidDispelRange,druidDispelAll,false)
 		DruidDispelTarget(target,debuffType)
@@ -137,6 +148,16 @@ function innervate()
       lastInner = GetTime()
     end
   end
+end
+
+function leaveShapeShiftForm()
+	for i=1, GetNumShapeshiftForms() do
+		local _, name, active = GetShapeshiftFormInfo(i)
+		if( active ~= nil ) then
+			CastShapeshiftForm(i)
+			break
+		end
+	end
 end
 
 function initDruidHealProfiles()

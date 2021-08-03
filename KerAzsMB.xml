@@ -7,16 +7,17 @@
 	<Include file="priest\priest.xml"/>
 	<Include file="mage\mage.xml"/>
 	<Include file="pala\pala.xml"/>
-	<Include file="rouge\rouge.xml"/>
+	<Include file="rogue\rogue.xml"/>
 	<Include file="druid\druid.xml"/>
 	<Include file="hunter\hunter.xml"/>
 	<Frame name="KerAzsMB_EventsFrame">
 		<Scripts>
 			<OnLoad>
 				this:RegisterEvent("ADDON_LOADED")
+				this:RegisterEvent("PLAYER_ENTERING_WORLD")
 			</OnLoad>
 			<OnEvent>
-				AddonLoadedEventListener();
+				addonLoadedEventListener();
 			</OnEvent>
 		</Scripts>
 	</Frame>

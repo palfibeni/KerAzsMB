@@ -1,42 +1,66 @@
--- /script pala_raid_might()
-function pala_raid_might()
-  setDefaultAura()
+function paladinBuff(buff, aura)
+  buff = buff or determinePaladinBuff()
+  setDefaultAura(aura)
+  if buff == "Sanc/Salva" then
+    return palaRaidSancSalva()
+  elseif buff == "Kings" then
+    return palaRaidKings()
+  elseif buff == "Might/Wisdom" then
+    return palaRaidMightWisdom()
+  elseif buff == "Light" then
+    return palaRaidLight()
+  elseif buff == "Small" then
+    return palaSmallMightWisdom()
+  end
+end
+
+function determinePaladinBuff()
+  if UnitLevel("player") < 60 then return "Small" end
+  local _, _, pointsSpentInProtection = GetTalentTabInfo(2)
+  local _, _, pointsSpentInRetribution = GetTalentTabInfo(3)
+  if pointsSpentInProtection > 20 then
+    return "Sanc/Salva"
+  elseif pointsSpentInProtection > 10 then
+    return "Kings"
+  elseif pointsSpentInRetribution == 5 then
+    return "Might/Wisdom"
+  else
+    return "Light"
+  end
+end
+
+-- /script palaRaidMight()
+function palaRaidMight()
   buffTargetList("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might")
 end
 
--- /script pala_raid_wisdom()
-function pala_raid_wisdom()
-  setDefaultAura()
+-- /script palaRaidWisdom()
+function palaRaidWisdom()
   buffTargetList("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom")
 end
 
--- /script pala_raid_kings()
-function pala_raid_kings()
-  setDefaultAura()
+-- /script palaRaidKings()
+function palaRaidKings()
   buffTargetList("Spell_Magic_GreaterBlessingofKings", "Greater Blessing of Kings")
 end
 
--- /script pala_raid_light()
-function pala_raid_light()
-  setDefaultAura()
+-- /script palaRaidLight()
+function palaRaidLight()
   buffTargetList("Spell_Holy_GreaterBlessingofLight", "Greater Blessing of Light")
 end
 
--- /script pala_raid_salva()
-function pala_raid_salva()
-  setDefaultAura()
+-- /script palaRaidSalva()
+function palaRaidSalva()
   buffTargetList("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation")
 end
 
--- /script pala_raid_sanc()
-function pala_raid_sanc()
-  setDefaultAura()
+-- /script palaRaidSanc()
+function palaRaidSanc()
   buffTargetList("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
 end
 
--- /script buff_raid_pala_sanc_salva()
-function buff_raid_pala_sanc_salva(ltargetList)
-  setDefaultAura()
+-- /script palaRaidSancSalva()
+function palaRaidSancSalva(ltargetList)
 	ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "DRUID" then
@@ -47,9 +71,8 @@ function buff_raid_pala_sanc_salva(ltargetList)
 	end
 end
 
--- /script buff_raid_pala_might_wisdom()
-function buff_raid_pala_might_wisdom(ltargetList)
-  setDefaultAura()
+-- /script palaRaidMightWisdom()
+function palaRaidMightWisdom(ltargetList)
 	ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "ROGUE" then
@@ -60,9 +83,8 @@ function buff_raid_pala_might_wisdom(ltargetList)
 	end
 end
 
--- /script buff_pala_small_might_wisdom()
-function buff_pala_small_might_wisdom(ltargetList)
-  setDefaultAura()
+-- /script palaSmallMightWisdom()
+function palaSmallMightWisdom(ltargetList)
 	ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "ROGUE" then

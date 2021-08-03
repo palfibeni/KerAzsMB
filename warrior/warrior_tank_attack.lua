@@ -9,40 +9,31 @@ shieldSlamActionSlot = 17
 lastSunder = 0
 
 function warrior_tank_attack_skull()
-	if is_target_skull() then
-		warrior_tank_attack()
-	else
-		target_skull()
+	if azs.targetSkull() then
+		warriorTankAttack()
 	end
 end
 
 function warrior_tank_attack_cross()
-	if is_target_cross() then
-		warrior_tank_attack()
-	else
-		target_cross()
+	if azs.targetCross() then
+		warriorTankAttack()
 	end
 end
 
-function warrior_tank_attack()
+function warriorTankAttack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		stop_autoattack()
 		return
 	end
-	warrior_defense_stance()
+	warriorDefenseStance()
 	bloodrage()
-	warrior_taunt()
+	warriorTaunt()
 	if IsActionReady(shieldSlamActionSlot) and UnitMana("player") >= 20 then
 		CastSpellByName("Shield Slam")
   end
-	warrior_demo_shout()
-	if IsActionReady(sunderArmorActionSlot) and UnitMana("player") >= 12 then
-			if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
-					CastSpellByName("Sunder Armor")
-					lastSunder = GetTime()
-			end
-	end
+	warriorDemoShout()
+	sunderArmor()
 	if IsActionReady(revengeActionSlot) then
 		CastSpellByName("Revenge")
   end
@@ -52,14 +43,14 @@ function warrior_tank_attack()
 	use_autoattack()
 end
 
-function warrior_defense_stance()
+function warriorDefenseStance()
 	local icon, name, active, castable = GetShapeshiftFormInfo(2);
 	if not active then
 		CastSpellByName("Defensive Stance")
 	end
 end
 
-function warrior_taunt()
+function warriorTaunt()
 	if not warriorTauntEnabled then return end
 	if UnitName("targettarget") == nil then return end
 	if UnitName("targettarget") == UnitName("player") then return end
@@ -73,4 +64,13 @@ function bloodrage()
   if IsActionReady(bloodrageActionSlot) then
 		CastSpellByName("Bloodrage")
   end
+end
+
+function sunderArmor()
+	if IsActionReady(sunderArmorActionSlot) and UnitMana("player") >= 12 then
+			if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
+					CastSpellByName("Sunder Armor")
+					lastSunder = GetTime()
+			end
+	end
 end

@@ -1,12 +1,15 @@
 -- Group Management
 nameList={
-	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber","Llanewrynn","Nyavalyás","Bendegúz","Lothbrok"},
+	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber",
+	"Llanewrynn","Nyavalyás","Bendegúz","Pinky", "Obier"},
 	heal={},
-	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat", "Fordragon", "Moonflower", "Ligtweight"},
+	multitank={"Stardancer","Cooperbeard", "Peacebringer", "Obier"},
+	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat",
+	"Fordragon", "Moonflower", "Lightweight", "Greenshadow", "Brunhilde"},
 	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",
 	"Fabregas", "Windou", "Oakheart", "Cromwell", "Leilena", "Featherfire",
 	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud",
-	"Barbariana", "Lemonjuice", "Thinarms", "Toxica"}
+	"Barbariana", "Lemonjuice", "Thinarms", "Toxica", "Zara", "Sylvia", "Xenophia"}
 }
 
 -- Initialize bias list structure
@@ -58,15 +61,7 @@ function SetBias(bias,list,groupNum)
 			end
 		end
 	end
-	--Debug("New bias value set.")
-end
-
-function Debug(message)
-	if message==nil then
-		DEFAULT_CHAT_FRAME:AddMessage("nil")
-	else
-		DEFAULT_CHAT_FRAME:AddMessage(message)
-	end
+	--azs.debug("New bias value set.")
 end
 
 function GetGroupId(uid)
@@ -97,7 +92,7 @@ function BuildTargetList()
 		partyToRaidCheck=true
 		for i=1,40 do
 			if UnitName("raid"..i)=="Unknown" then
-				--Debug("Couldn't build target list. raid"..i.."'s name is unknown.")
+				--azs.debug("Couldn't build target list. raid"..i.."'s name is unknown.")
 				azs.targetList=nil
 				return
 			end
@@ -107,14 +102,14 @@ function BuildTargetList()
 		partyToRaidCheck=false
 		RegisterUnit(false,"player")
 		if UnitName("player")=="Unknown" then
-			--Debug("Couldn't build target list. player's name is unknown.")
+			--azs.debug("Couldn't build target list. player's name is unknown.")
 			azs.targetList=nil
 			return
 		end
 		for i=1,GetNumPartyMembers() do
 			RegisterUnit(false,"party"..i)
 			if UnitName("party"..i)=="Unknown" then
-				--Debug("Couldn't build target list. party"..i.."'s name is unknown.")
+				--azs.debug("Couldn't build target list. party"..i.."'s name is unknown.")
 				azs.targetList=nil
 				return
 			end
@@ -123,7 +118,7 @@ function BuildTargetList()
 	targetListReady = true
 	initHealProfiles()
 	BuildSpellData()
-	--Debug("Target list built")
+	--azs.debug("Target list built")
 end
 
 function RegisterUnit(isRaid,raidOrUnitId)
@@ -196,7 +191,7 @@ function UpdateTargetList()
 				if UnitIsConnected(uid) then
 					currentTargetInfo=azs.targetList.all[uid]
 					if UnitName(uid)=="Unknown" then
-						--Debug("Couldn't update target list. raid"..i.."'s name is unknown.")
+						--azs.debug("Couldn't update target list. raid"..i.."'s name is unknown.")
 						return
 					end
 					if not currentTargetInfo then
@@ -205,21 +200,21 @@ function UpdateTargetList()
 						local unitName,_,unitGroup,_,_,unitClass=GetRaidRosterInfo(i)
 						if unitName~=currentTargetInfo.name then
 							UpdatePlayer(uid,currentTargetInfo,unitName,unitClass)
-							--Debug("Updated player info")
+							--azs.debug("Updated player info")
 						end
 						if unitGroup~=currentTargetInfo.group then
 							UpdateGroup(uid,currentTargetInfo,unitGroup)
-							--Debug("Updated player group")
+							--azs.debug("Updated player group")
 						end
 					end
 				else
 					if azs.targetList.all[uid] then
 						RemoveUid(uid)
-						--Debug("Removed unused uid")
+						--azs.debug("Removed unused uid")
 					end
 				end
 			end
-			--Debug("Target list updated")
+			--azs.debug("Target list updated")
 		end
 	else
 		if partyToRaidCheck then
@@ -229,29 +224,29 @@ function UpdateTargetList()
 				local uid="party"..i
 				if UnitIsConnected(uid) then
 					if UnitName(uid)=="Unknown" then
-						--Debug("Couldn't update target list. party"..i.."'s name is unknown.")
+						--azs.debug("Couldn't update target list. party"..i.."'s name is unknown.")
 						return
 					end
 					currentTargetInfo=azs.targetList.all[uid]
 					if not currentTargetInfo then
 						RegisterUnit(false,uid)
-						--Debug("Added new uid")
+						--azs.debug("Added new uid")
 					else
 						local unitName=UnitName(uid)
 						local _,unitClass=UnitClass(uid)
 						if unitName~=currentTargetInfo.name then
 							UpdatePlayer(uid,currentTargetInfo,unitName,unitClass)
-							--Debug("Updated player info")
+							--azs.debug("Updated player info")
 						end
 					end
 				else
 					if azs.targetList.all[uid] then
 						RemoveUid(uid)
-						--Debug("Removed unused uid")
+						--azs.debug("Removed unused uid")
 					end
 				end
 			end
-			--Debug("Target list updated")
+			--azs.debug("Target list updated")
 		end
 	end
 end
@@ -372,6 +367,6 @@ end
 
 function PrintTargetLists()
 	for uid,info in pairs(azs.targetList.all) do
-		DEFAULT_CHAT_FRAME:AddMessage(uid.." | "..info.name.." | "..info.role.." | "..info.class.." | group"..info.group.." | "..info.bias)
+		DEFAULT_CHAT_FRAME:AddMessage(uid.." | "..info.name.." | "..info.role.." | "..info.azs.class.." | group"..info.group.." | "..info.bias)
 	end
 end

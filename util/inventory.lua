@@ -1,5 +1,63 @@
+slowMounts = {"Pinto Bridle", "Brown Horse Bridle", "Chestnut Mare Bridle",
+	"Brown Ram", "Gray Ram", "White Ram",
+	"Reins of the Spotted Frostsaber","Reins of the Striped Frostsaber","Reins of the Striped Nightsaber",
+	"Blue Mechanostrider", "Green Mechanostrider", "Red Mechanostrider", "Unpainted Mechanostrider"}
+wizardOils = {"Brilliant Wizard Oil", "Wizard Oil", "Lesser Wizard Oil"}
+manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
+poisons = {"Instant Poison", "Deadly Poison"}
+
+function mountUp()
+	useItemFromList(slowMounts)
+end
+
+function applyWizardOil()
+	applyEnchantsToWeapon(wizardOils)
+end
+
+function applyManaOil()
+	applyEnchantsToWeapon(manaOils)
+end
+
+function applyPoisons()
+	applyEnchantsToWeapon(poisons, 16)
+	applyEnchantsToWeapon(poisons, 17)
+end
+
+function applyEnchantToWeapon(name, weaponSlot)
+	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
+	if not hasWeaponEnchant(weaponSlot) then
+		useItem(name)
+		PickupInventoryItem(weaponSlot)
+		ClearCursor()
+	end
+end
+
+function applyEnchantsToWeapon(names, weaponSlot)
+	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
+	if not hasWeaponEnchant(weaponSlot) then
+		useItemFromList(names)
+		PickupInventoryItem(weaponSlot)
+		ClearCursor()
+	end
+end
+
+
+function hasWeaponEnchant(weaponSlot)
+	hasMainHandEnchant, mainHandExpiration, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo()
+	return (weaponSlot == 16 and hasMainHandEnchant) or (weaponSlot == 17 and hasOffHandEnchant)
+end
+
+-- Returns name, link, rarity, level, type, subType
+-- slot example: "MainHandSlot"
+function getWeaponAttributes(slot)
+	local mainHandLink = GetInventoryItemLink("player", GetInventorySlotInfo(slot))
+	local _, _, id  = strfind(mainHandLink, "item:(%d+):")
+	local name, link, rarity, level, type, subType = GetItemInfo(id)
+	return name, link, rarity, level, type, subType;
+end
+
 -- pick up an item to use by name
-function pick_up_item(name)
+function pickUpItem(name)
 	if CursorHasItem() then return end
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
@@ -14,7 +72,7 @@ function pick_up_item(name)
 end
 
 -- pick up any item to use from a list of names
-function pick_up_item_from_list(name_list)
+function pickUpItemFromList(name_list)
 	if CursorHasItem() then return end
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
@@ -31,7 +89,7 @@ function pick_up_item_from_list(name_list)
 end
 
 -- use an item from the inventory to use by name
-function use_item(name)
+function useItem(name)
 	if CursorHasItem() then return end
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
@@ -45,9 +103,26 @@ function use_item(name)
 	ResetCursor()
 end
 
+-- pick up any item to use from a list of names
+function useItemFromList(name_list)
+	if CursorHasItem() then return end
+	for bag=0,4 do
+		for slot = 1,GetContainerNumSlots(bag) do
+			local texture = GetContainerItemInfo(bag,slot)
+			if texture then
+				local link = GetContainerItemLink(bag,slot)
+				for k,name in pairs(name_list) do
+					if string.find(link, name) then UseContainerItem(bag,slot) return end
+				end
+			end
+		end
+	end
+	ResetCursor()
+end
+
 -- use an item from the inventory to use by name
--- /script Debug(count_item("Conjured Crystal Water"))
-function count_item(name)
+-- /script azs.debug(countItem("Conjured Crystal Water"))
+function countItem(name)
 	count = 0;
 	if CursorHasItem() then return end
 	for bag=0,4 do

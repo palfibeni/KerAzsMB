@@ -1,22 +1,20 @@
 function warrior_arms_skull()
-	if is_target_skull() then
-		warrior_arms_attack()
+	if azs.targetSkull() then
+		warriorArmsAttack()
 	else
     stop_autoattack()
-		target_skull()
 	end
 end
 
 function warrior_arms_cross()
-	if is_target_cross() then
-		warrior_arms_attack()
+	if azs.targetCross() then
+		warriorArmsAttack()
 	else
     stop_autoattack()
-		target_cross()
 	end
 end
 
-function warrior_arms_attack()
+function warriorArmsAttack()
 	use_autoattack()
 	warriorBattleStance()
 	if charge() then return end

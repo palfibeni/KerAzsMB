@@ -1,10 +1,10 @@
-function priest_raid_buff()
+function priestRaidBuff()
   holyFire()
   buffTargetList("Spell_Holy_PrayerofSpirit", "Prayer of Spirit")
   buffTargetList("Spell_Holy_PrayerOfFortitude", "Prayer of Fortitude")
 end
 
-function priest_small_buff()
+function priestSmallBuff()
   holyFire()
 	buffTargetList("Spell_Holy_WordFortitude", "Power Word: Fortitude")
 end

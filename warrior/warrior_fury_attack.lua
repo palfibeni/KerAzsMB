@@ -6,24 +6,22 @@ whirlwindActionSlot = 15
 bloodThirstActionSlot = 17
 
 function warrior_fury_skull()
-	if is_target_skull() then
-		warrior_fury_attack()
+	if azs.targetSkull() then
+		warriorFuryAttack()
 	else
-        stop_autoattack()
-		target_skull()
+    stop_autoattack()
 	end
 end
 
 function warrior_fury_cross()
-	if is_target_cross() then
-		warrior_fury_attack()
+	if azs.targetCross() then
+		warriorFuryAttack()
 	else
-        stop_autoattack()
-		target_cross()
+    stop_autoattack()
 	end
 end
 
-function warrior_fury_attack()
+function warriorFuryAttack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		stop_autoattack()

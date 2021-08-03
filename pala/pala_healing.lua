@@ -29,6 +29,7 @@ function PalaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelH
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
+	UseHealTrinket()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,_,_,action=GetHealOrDispelTarget(lTargetList,palaHealRange,nil,palaDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -65,16 +66,16 @@ function PalaHealTarget(healProfile,target,hp)
 			local mana=UnitMana("player")
 			if mana>=manaCost and (not withCdOnly or has_buff("player",buffDivineFavor)) and GetSpellCooldownByName(spellName)==0 then
 				if (not healMode or healMode==1) and target and hp<hpThreshold and (not lTargetList or lTargetList[target]) then
-					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					azs.targetList.all[target].blacklist = nil
 					currentHealTarget = target
 					CastSpellByName(spellName)
 					SpellTargetUnit(target)
 					break
 				elseif healMode==2 then
-					if is_target_skull() or is_target_skull() or target_skull() or target_cross() then
+					if azs.targetSkull() or azs.targetCross() then
 						if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
-							--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+							--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 							currentHealTarget = "targettarget"
 							currentHealFinish = GetTime()+(GetSpellCastTimeByName(spellName) or 1.5)
 							precastHpThreshold = hpThreshold
@@ -101,6 +102,7 @@ function PalaDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
+	UseHealTrinket()
 	if SpellCastReady(palaDispelRange) then
 		local target=GetDispelTarget(lTargetList,palaDispelRange,dispelTypes,dispelByHp)
 		PalaDispelTarget(target)

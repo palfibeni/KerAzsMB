@@ -3,27 +3,19 @@ moonkinFaerieFireEnabled = false
 
 -- /script druid_balance_skull()
 function druid_balance_skull(element)
-	element = element or "Arcane"
-	if is_target_skull() then
-        druid_balance_attack()
-	else
-		target_skull()
+	if azs.targetSkull() then
+		druidBalanceAttack()
 	end
 end
 
--- /script druid_balance_skull("Nature")
 -- /script druid_balance_cross()
 function druid_balance_cross(element)
-	element = element or "Arcane"
-	if is_target_cross() then
-        druid_balance_attack(element)
-	else
-		target_cross()
+	if azs.targetCross() then
+		druidBalanceAttack(element)
 	end
 end
 
--- /script druid_balance_attack("Nature")
-function druid_balance_attack(element)
+function druidBalanceAttack(element)
 	element = element or "Arcane"
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()

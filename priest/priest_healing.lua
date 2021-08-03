@@ -34,6 +34,7 @@ function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispe
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
+	UseHealTrinket()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,priestHealRange,buffRenew,priestDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -47,6 +48,7 @@ function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispe
 	end
 end
 
+-- /script PriestHeal(azs.targetList.all, "instantOnly")
 function PriestHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
 	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.5) then
@@ -87,16 +89,16 @@ function PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 			local mana=UnitMana("player")
 			if mana>=manaCost and (not withCdOnly or has_buff("player",buffInnerFocus)) and GetSpellCooldownByName(spellName)==0 then
 				if (not healMode or healMode==1) and target and hp<hpThreshold and (not lTargetList or lTargetList[target]) then
-					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					azs.targetList.all[target].blacklist=nil
 					currentHealTarget=target
 					CastSpellByName(spellName)
 					SpellTargetUnit(target)
 					break
 				elseif healMode==2 then
-					if is_target_skull() or is_target_skull() or target_skull() or target_cross() then
+					if azs.targetSkull() or azs.targetCross() then
 						if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
-							--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+							--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 							currentHealTarget="targettarget"
 							currentHealFinish=GetTime()+(GetSpellCastTimeByName(spellName) or 1.5)
 							precastHpThreshold=hpThreshold
@@ -106,14 +108,14 @@ function PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 					end
 					break
 				elseif healMode==3 and hotTarget and hotHp<hpThreshold and (not lTargetList or lTargetList[hotTarget]) then
-					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					azs.targetList.all[target].blacklist=nil
 					currentHealTarget=hotTarget
 					CastSpellByName(spellName)
 					SpellTargetUnit(hotTarget)
 					break
 				--elseif healMode==4 and aoeInfo[aoeHealMinPlayers] and aoeInfo[aoeHealMinPlayers].hpRatio<hpThreshold then
-					--Debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					--currentHealTarget=nil
 					--CastSpellByName(spellName)
 					--break
@@ -127,6 +129,7 @@ function PriestDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
+	UseHealTrinket()
 	if SpellCastReady(priestDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,priestDispelRange,priestDispelAll,false)
 		PriestDispelTarget(target,debuffType)

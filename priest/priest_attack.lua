@@ -1,24 +1,20 @@
 -- /script priest_skull()
 function priest_skull()
     if casting_or_channeling() then return end
-    if is_target_skull() then
-        priest_attack()
-    else
-        target_skull()
+    if azs.targetSkull() then
+        priestAttack()
     end
 end
 
 -- /script priest_cross()
 function priest_cross()
     if casting_or_channeling() then return end
-    if is_target_cross() then
-        priest_attack()
-    else
-        target_cross()
+    if azs.targetCross() then
+        priestAttack()
     end
 end
 
-function priest_attack()
+function priestAttack()
     if (UnitMana("player")>=221) then
 		stop_wand()
         shadow_word_pain()
