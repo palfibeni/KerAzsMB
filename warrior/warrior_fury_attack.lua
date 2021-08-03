@@ -7,7 +7,7 @@ bloodThirstActionSlot = 17
 
 function warrior_fury_skull()
 	if azs.targetSkull() then
-		warrior_fury_attack()
+		warriorFuryAttack()
 	else
     stop_autoattack()
 	end
@@ -15,13 +15,13 @@ end
 
 function warrior_fury_cross()
 	if azs.targetCross() then
-		warrior_fury_attack()
+		warriorFuryAttack()
 	else
     stop_autoattack()
 	end
 end
 
-function warrior_fury_attack()
+function warriorFuryAttack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		stop_autoattack()

@@ -2,7 +2,7 @@
 function priest_skull()
     if casting_or_channeling() then return end
     if azs.targetSkull() then
-        priest_attack()
+        priestAttack()
     end
 end
 
@@ -10,11 +10,11 @@ end
 function priest_cross()
     if casting_or_channeling() then return end
     if azs.targetCross() then
-        priest_attack()
+        priestAttack()
     end
 end
 
-function priest_attack()
+function priestAttack()
     if (UnitMana("player")>=221) then
 		stop_wand()
         shadow_word_pain()

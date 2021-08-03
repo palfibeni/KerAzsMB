@@ -1,11 +1,12 @@
-lastEnrage = 0;
-lastFeralFaerieFire = 0;
-
 druidTauntEnabled = true
+maulActionSlot = 13
+enrageActionSlot = 14
+
+lastFeralFaerieFire = 0;
 
 function druid_bear_skull()
 	if azs.targetSkull() then
-		druid_bear_attack()
+		druidBearAttack()
 	else
 		stop_autoattack()
 	end
@@ -13,13 +14,13 @@ end
 
 function druid_bear_cross()
 	if azs.targetCross() then
-		druid_bear_attack()
+		druidBearAttack()
 	else
 		stop_autoattack()
 	end
 end
 
-function druid_bear_attack()
+function druidBearAttack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		return
@@ -31,7 +32,7 @@ function druid_bear_attack()
 		cast_debuff("Ability_Druid_DemoralizingRoar", "Demoralizing Roar");
 	end
 	enrage()
-	if (UnitMana("player")>=7) then
+	if not IsCurrentAction(maulActionSlot) and UnitMana("player") >= 7 then
 		CastSpellByName("Maul")
 	end
 	if (UnitMana("player")>=50) then
@@ -66,8 +67,7 @@ function feralFaerieFire()
 end
 
 function enrage()
-  if lastEnrage + 60 < GetTime() then
+  if IsActionReady(enrageActionSlot) then
 		CastSpellByName("Enrage")
-    lastEnrage = GetTime()
   end
 end

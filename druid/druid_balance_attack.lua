@@ -4,18 +4,18 @@ moonkinFaerieFireEnabled = false
 -- /script druid_balance_skull()
 function druid_balance_skull(element)
 	if azs.targetSkull() then
-		druid_balance_attack()
+		druidBalanceAttack()
 	end
 end
 
 -- /script druid_balance_cross()
 function druid_balance_cross(element)
 	if azs.targetCross() then
-		druid_balance_attack(element)
+		druidBalanceAttack(element)
 	end
 end
 
-function druid_balance_attack(element)
+function druidBalanceAttack(element)
 	element = element or "Arcane"
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()

@@ -26,11 +26,16 @@ end
 
 -- /script  DruidHealOrDispel(azs.targetList.all, false)
 function DruidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	healProfile=healProfile or getDefaultHealingProfile()
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
+	UseHealTrinket()
+	if (UnitMana("player") < 500) then
+		innervate()
+	end
 	if SpellCastReady(druidHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,druidHealRange,buffRegrowth,druidDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -46,6 +51,7 @@ end
 
 -- /script DruidHeal(azs.targetList.all, false)
 function DruidHeal(lTargetList,healProfile)
+	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	UseHealTrinket()
 	if (UnitMana("player") < 500) then
@@ -100,9 +106,14 @@ function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 end
 
 function DruidDispel(lTargetList,dispelTypes,dispelByHp)
+	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
+	UseHealTrinket()
+	if (UnitMana("player") < 500) then
+		innervate()
+	end
 	if SpellCastReady(druidDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,druidDispelRange,druidDispelAll,false)
 		DruidDispelTarget(target,debuffType)
@@ -137,6 +148,16 @@ function innervate()
       lastInner = GetTime()
     end
   end
+end
+
+function leaveShapeShiftForm()
+	for i=1, GetNumShapeshiftForms() do
+		local _, name, active = GetShapeshiftFormInfo(i)
+		if( active ~= nil ) then
+			CastShapeshiftForm(i)
+			break
+		end
+	end
 end
 
 function initDruidHealProfiles()

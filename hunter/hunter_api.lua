@@ -1,4 +1,4 @@
-if UnitClass("player") == "Hunter" then
+function initHunterData()
   azs.debug("I am hunter")
   azs.class.multiShotEnabled = false
   azs.class.shouldHunterBuffPet = false

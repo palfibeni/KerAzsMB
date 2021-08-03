@@ -7,7 +7,7 @@ lastVampiric = 0
 function sh_priest_skull()
     if casting_or_channeling() then return end
     if azs.targetSkull() then
-        sh_priest_attack()
+        shPriestAttack()
     else
       azs.targetSkull()
       lastShadowWord = 0
@@ -18,7 +18,7 @@ end
 function sh_priest_cross()
     if casting_or_channeling() then return end
     if azs.targetCross() then
-        sh_priest_attack()
+        shPriestAttack()
     else
         azs.targetCross()
         lastShadowWord = 0
@@ -26,7 +26,7 @@ function sh_priest_cross()
     end
 end
 
-function sh_priest_attack()
+function shPriestAttack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
 		return

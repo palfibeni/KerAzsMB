@@ -34,6 +34,7 @@ function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispe
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
+	UseHealTrinket()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,priestHealRange,buffRenew,priestDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -128,6 +129,7 @@ function PriestDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
+	UseHealTrinket()
 	if SpellCastReady(priestDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,priestDispelRange,priestDispelAll,false)
 		PriestDispelTarget(target,debuffType)

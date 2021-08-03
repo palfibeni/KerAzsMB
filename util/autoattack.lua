@@ -10,6 +10,10 @@ end
 
 -- mellee should have autoattack in slot 62, and slot 63 should be empty
 function use_autoattack()
+	if not UnitExists("target") or UnitIsFriend("player", "target") then
+		stop_autoattack()
+		return
+	end
 	if not IsCurrentAction(autoAttackActionSlot) and not IsCurrentAction(autoAttackOnActionSlot) then
 		UseAction(autoAttackActionSlot)
 		PickupAction(autoAttackActionSlot)
@@ -39,7 +43,7 @@ end
 
 -- casters should have wand in slot 62, and slot 63 should be empty
 function use_wand()
-	if not IsCurrentAction(autoAttackActionSlot) and not IsCurrentAction(autoAttackOnActionSlot) then
+	if UnitExists("target") and not IsCurrentAction(autoAttackActionSlot) and not IsCurrentAction(autoAttackOnActionSlot) then
 		UseAction(autoAttackActionSlot)
 		PickupAction(autoAttackActionSlot)
 		PlaceAction(autoAttackOnActionSlot)

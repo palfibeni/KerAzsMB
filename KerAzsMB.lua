@@ -22,10 +22,33 @@ end
 
 -- create the OnEvent function
 function addonLoadedEventListener()
-	if (event == "ADDON_LOADED") and arg1 == "KerAzsMB" then
+	if event == "ADDON_LOADED" and arg1 == "KerAzsMB" then
 		KerAzsMB_EventsFrame:UnregisterEvent("ADDON_LOADED")
 		azs.debug("KerazsMB loaded")
 		azs.avaliableMacroIcons = getAvaliableMacroIcons()
+	end
+	if event == "PLAYER_ENTERING_WORLD" then
+		setTimer(0.5, azs.initClassData)
+	end
+end
+
+azs.initClassData = function()
+	if UnitClass("player") == "Warrior" then
+		initWarriorData()
+	elseif UnitClass("player") == "Mage" then
+		initMageData()
+	elseif UnitClass("player") == "Warlock" then
+		initWarlockData()
+	elseif UnitClass("player") == "Rogue" then
+		initRogueData()
+	elseif UnitClass("player") == "Hunter" then
+		initHunterData()
+	elseif UnitClass("player") == "Paladin" then
+		initPaladinData()
+	elseif UnitClass("player") == "Priest" then
+		initPriestData()
+	elseif UnitClass("player") == "Druid" then
+		initDruidData()
 	end
 end
 
@@ -35,10 +58,6 @@ azs.debug = function(message)
 	else
 		DEFAULT_CHAT_FRAME:AddMessage(message)
 	end
-end
-
-azs.deprectedWarning = function()
-	azs.debug("The method you are using is deprecated, please check the github page for more info.")
 end
 
 SLASH_INIT1="/init"
@@ -51,6 +70,7 @@ SLASH_DEEPINIT1="/deepInit"
 SLASH_DEEPINIT2="/deepinit"
 SLASH_DEEPINIT3="/DeepInit"
 SlashCmdList["DEEPINIT"]=function()
+	initActionBar()
 	initMacros()
 end
 
@@ -211,6 +231,7 @@ end
 function initMacro(macroEntry)
 	local name, iconName, script, slots, superMacro = unpack(macroEntry)
 	local macroId = CreateMacro(name, azs.avaliableMacroIcons["Interface\\Icons\\" .. iconName], script, 1, 1);
+	azs.debug(slots)
 	if slots then
 		for i,slot in pairs(slots) do
 			PickupMacro(macroId)

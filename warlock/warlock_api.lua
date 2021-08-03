@@ -1,4 +1,4 @@
-if UnitClass("player") == "Warlock" then
+function initWarlockData()
   azs.debug("I am warlock")
   azs.class.element = "Shadow" -- Could be "Shadow" or "Fire"
   azs.class.curse = "CoE" -- Could be "CoE", "CoT", "CoR", "CoW" or "Cos"

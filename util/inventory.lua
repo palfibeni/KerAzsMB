@@ -18,9 +18,9 @@ function applyManaOil()
 	applyEnchantsToWeapon(manaOils)
 end
 
-function applyManaPoisons()
+function applyPoisons()
 	applyEnchantsToWeapon(poisons, 16)
-		applyEnchantsToWeapon(poisons, 17)
+	applyEnchantsToWeapon(poisons, 17)
 end
 
 function applyEnchantToWeapon(name, weaponSlot)
@@ -35,7 +35,7 @@ end
 function applyEnchantsToWeapon(names, weaponSlot)
 	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
 	if not hasWeaponEnchant(weaponSlot) then
-		useItemFromList(name)
+		useItemFromList(names)
 		PickupInventoryItem(weaponSlot)
 		ClearCursor()
 	end
@@ -45,6 +45,15 @@ end
 function hasWeaponEnchant(weaponSlot)
 	hasMainHandEnchant, mainHandExpiration, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo()
 	return (weaponSlot == 16 and hasMainHandEnchant) or (weaponSlot == 17 and hasOffHandEnchant)
+end
+
+-- Returns name, link, rarity, level, type, subType
+-- slot example: "MainHandSlot"
+function getWeaponAttributes(slot)
+	local mainHandLink = GetInventoryItemLink("player", GetInventorySlotInfo(slot))
+	local _, _, id  = strfind(mainHandLink, "item:(%d+):")
+	local name, link, rarity, level, type, subType = GetItemInfo(id)
+	return name, link, rarity, level, type, subType;
 end
 
 -- pick up an item to use by name

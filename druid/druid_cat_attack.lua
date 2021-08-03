@@ -1,6 +1,6 @@
 function cat_attack_skull()
     if azs.targetCross() then
-      cat_attack()
+      catAttack()
     else
       stop_autoattack()
     end
@@ -8,13 +8,13 @@ end
 
 function cat_attack_cross()
     if azs.targetCross() then
-      cat_attack()
+      catAttack()
     else
       stop_autoattack()
     end
 end
 
-function cat_attack()
+function catAttack()
 	if (GetRaidTargetIndex("player") == 8 ) then
 		SpellStopCasting()
     stop_autoattack()
