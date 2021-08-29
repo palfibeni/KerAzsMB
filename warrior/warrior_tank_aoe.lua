@@ -15,7 +15,7 @@ function warrior_aoe_cross()
 end
 
 function warriorTankAoe()
-	warrior_defense_stance()
+	warriorDefenseStance()
 	bloodrage()
 	warriorTaunt()
 	warriorDemoShout()

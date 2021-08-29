@@ -25,7 +25,7 @@ end
 
 function applyEnchantToWeapon(name, weaponSlot)
 	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
-	if not hasWeaponEnchant(weaponSlot) then
+	if not hasWeaponEnchant(weaponSlot) and not TradeFrame:IsShown() then
 		useItem(name)
 		PickupInventoryItem(weaponSlot)
 		ClearCursor()
@@ -34,7 +34,7 @@ end
 
 function applyEnchantsToWeapon(names, weaponSlot)
 	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
-	if not hasWeaponEnchant(weaponSlot) then
+	if not hasWeaponEnchant(weaponSlot) and not TradeFrame:IsShown() then
 		useItemFromList(names)
 		PickupInventoryItem(weaponSlot)
 		ClearCursor()

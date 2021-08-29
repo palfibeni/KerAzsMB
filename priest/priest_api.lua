@@ -43,7 +43,7 @@ end
 function initShadowPriestData()
   azs.debug("I am shadow priest")
   azs.class.dps = function()
-    if UnitLevel > 20 then
+    if UnitLevel("player") > 20 then
       shPriestAttack()
     else
       priestAttack()
