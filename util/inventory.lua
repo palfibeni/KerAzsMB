@@ -2,12 +2,26 @@ slowMounts = {"Pinto Bridle", "Brown Horse Bridle", "Chestnut Mare Bridle",
 	"Brown Ram", "Gray Ram", "White Ram",
 	"Reins of the Spotted Frostsaber","Reins of the Striped Frostsaber","Reins of the Striped Nightsaber",
 	"Blue Mechanostrider", "Green Mechanostrider", "Red Mechanostrider", "Unpainted Mechanostrider"}
+fastMounts = {"Black War Ram", "Black Battlestrider", "Reins of the Black War Tiger", "Black War Steed Bridle",
+	"Swift Razzashi Raptor", "Swift Brown Steed", "Swift Palomino", "Swift White Steed",
+	"Swift Brown Ram", "Swift Gray Ram", "Swift White Ram",
+	"Reins of the Swift Frostsaber", "Reins of the Swift Mistsaber", "Reins of the Swift Stormsaber",
+	"Swift Green Mechanostrider", "Swift White Mechanostrider", "Swift Yellow Mechanostrider"
+}
 wizardOils = {"Brilliant Wizard Oil", "Wizard Oil", "Lesser Wizard Oil"}
 manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
 poisons = {"Instant Poison", "Deadly Poison"}
 
 function mountUp()
-	useItemFromList(slowMounts)
+	if UnitLevel("player") == 60 then
+		useItemFromList(fastMounts)
+	elseif UnitClass == "Paladin" then
+		CastSpellByName("Summon Warhorse")
+	elseif UnitClass == "Warlock" then
+		CastSpellByName("Summon Felsteed")
+	else
+		useItemFromList(slowMounts)
+	end
 end
 
 function applyWizardOil()

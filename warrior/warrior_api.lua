@@ -44,7 +44,7 @@ function initTankWarrior()
   azs.class.initMacros = {
     {"Tank attack", "Ability_Warrior_DefensiveStance", "/script azs.dps(\"solo\")", {73,74,76,85,86,88}, "warriorTauntEnabled = true"},
     {"AoE tank attack", "Ability_Warrior_Cleave", "/script azs.aoe(\"solo\")", {77,89}, "warriorTauntEnabled = true"},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}}
   }
   azs.class.help = function()
     azs.debug("Wheter a Warrior is tank or not, is determined by talent point put into defensive tree.")

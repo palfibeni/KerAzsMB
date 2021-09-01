@@ -19,7 +19,6 @@ function initWarlockData()
   end
   azs.class.initActionBar = {
 		{"Shoot", autoAttackActionSlot},
-  	{"Summon Felsteed", 9}
   }
   azs.class.initMacros = {
     {"Attack skull", "Spell_Shadow_DeathCoil", "/script azs.dps(\"skull\")", {1}, "azs.class.element = \"" .. azs.class.element .. "\"" .. string.char(10) .. "azs.class.curse = \"" .. azs.class.curse .. "\""},
@@ -28,7 +27,8 @@ function initWarlockData()
     {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special(\"skull\", \"Mana\")", {4}, ""},
     {"Drain soul", "Spell_Shadow_Haunting", "/script azs.special(\"skull\", \"Soul\")", {64}, ""},
     {"AoE", "Spell_Shadow_RainOfFire", "/script azs.aoe()", {5}},
-    {"Buff", "Spell_Shadow_SummonImp", "/script azs.buff()", {8}, "azs.class.summon = " .. azs.class.summon}
+    {"Buff", "Spell_Shadow_SummonImp", "/script azs.buff()", {8}, "azs.class.summon = " .. azs.class.summon},
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
   }
   azs.class.help = function()
     azs.debug("Warlock ranged dps rotation can be choosen by element,which can be set via the 'azs.class.element' set to either of \"Shadow\" or \"Fire\".")
