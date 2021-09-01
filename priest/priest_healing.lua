@@ -217,6 +217,7 @@ function initPriestHealProfiles()
 end
 
 function getPriestDefaultHealingProfile()
+	-- Nefarian related logic
 	if priestClassCallExpire and priestClassCallExpire >= GetTime() then
 		 return "instantOnly"
 	  else

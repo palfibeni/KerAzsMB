@@ -4,6 +4,7 @@ function initMageData()
   azs.class.dps = function(element) mageAttack(element) end
   azs.class.dispel = function() mageDispel() end
   azs.class.cc = function(icon) polymorphByIcon(icon) end
+
   azs.class.buff = function()
     mageBuff()
     mageWater()
@@ -15,6 +16,13 @@ function initMageData()
   azs.class.stopDps = function()
     SpellStopCasting()
   end
+
+  if azs.mages[playerName] and azs.mages[playerName].ccTarget then
+    azs.class.ccTarget = azs.mages[playerName].ccTarget
+  else
+    azs.class.ccTarget = 1
+  end
+
   azs.class.initActionBar = {
     {"Evocation", evocationActionSlot},
     {"Shoot", autoAttackActionSlot}
@@ -23,7 +31,7 @@ function initMageData()
     {"Attack skull", "Spell_Frost_FrostArmor", "/script azs.dps(\"skull\", \"Frost\")", {1,4}, ""},
     {"Attack cross", "Spell_Frost_FrostBolt02", "/script azs.dps(\"cross\", \"Frost\")", {2}, ""},
     {"Attack Fire skull", "Spell_Fire_Fireball02", "/script azs.dps(\"skull\", \"Fire\")", {64}, ""},
-    {"Poly Star", "Ability_Seal", "/script azs.cc(1)", {3}, ""},
+    {"Poly " .. azs.class.ccTarget, "Ability_Seal", "/script azs.cc(" .. azs.class.ccTarget .. ")", {3}, ""},
     {"AoE", "Spell_Frost_FrostNova", "/script azs.aoe()", {5}, ""},
     {"Buff", "Spell_Holy_MagicalSentry", "/script azs.buff()", {8}, ""},
     {"Dispel", "Spell_Holy_DispelMagic", "/script azs.dispel()", {65}, ""},

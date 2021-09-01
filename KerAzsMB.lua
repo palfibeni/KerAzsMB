@@ -2,6 +2,22 @@ azs = {}
 azs.assistMe = "Cooperbeard"
 azs.targetingMode = "skull" -- "skull", "cross", "assist", "solo"
 azs.class={}
+azs.mages = {
+  Carla = { ccTarget = 1 },
+  Fabregas = { ccTarget = 2 },
+  Jaliana = { ccTarget = 3 },
+  MiracleMike = { ccTarget = 4 },
+  Pompedous = { ccTarget = 5 },
+  Zara = { ccTarget = 6 },
+  Xenophia = { ccTarget = 2 }
+}
+azs.warlocks = {
+  Daemona = {curse = "CoE", summon = "DS", ccTarget = 1},
+  PinkyPie = {curse = "CoS", summon = "DS", ccTarget = 2},
+  Morbent = {curse = "CoE", summon = "Imp", ccTarget = 3},
+  Maleficus = {curse = "CoW", summon = "Imp", ccTarget = 4},
+  Sylvia = {curse = "CoS", summon = "Imp", ccTarget = 5},
+}
 
 azs.tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn",
 	"Dobzse", "Harklen", "Bendegúz", "Pinky", "Obier"}
@@ -55,6 +71,10 @@ end
 azs.debug = function(message)
 	if message==nil then
 		DEFAULT_CHAT_FRAME:AddMessage("nil")
+	elseif message==true then
+			DEFAULT_CHAT_FRAME:AddMessage("true")
+	elseif message==false then
+			DEFAULT_CHAT_FRAME:AddMessage("false")
 	else
 		DEFAULT_CHAT_FRAME:AddMessage(message)
 	end
@@ -165,12 +185,12 @@ azs.aoe = function(targetingMode)
 	azs.class.aoe()
 end
 
-azs.buff = function()
+azs.buff = function(param)
 	if not azs.class.buff then
 		azs.debug("This class is not supported yet, or it doesnt have a buff option, please use old methods mage_buff_raid(), etc...")
 		return
 	end
-	azs.class.buff()
+	azs.class.buff(param)
 end
 
 function initActionBar()
@@ -316,6 +336,20 @@ function takeTaxi(destination)
 			TakeTaxiNode(node)
 		end
 	end
+end
+
+-- /script azs.debug(isMyMultibox("Cooperbeard"))
+function isMyMultibox(targetName)
+	for i,name in ipairs(nameList.multitank) do
+		if targetName == name then return true end
+	end
+	for i,name in ipairs(nameList.multiheal) do
+		if targetName == name then return true end
+	end
+	for i,name in ipairs(nameList.multidps) do
+		if targetName == name then return true end
+	end
+	return false
 end
 
 -- /script inviteMultiBoxToRaid()

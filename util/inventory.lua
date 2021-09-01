@@ -13,8 +13,14 @@ manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
 poisons = {"Instant Poison", "Deadly Poison"}
 
 function mountUp()
+	local bag,slot
 	if UnitLevel("player") == 60 then
-		useItemFromList(fastMounts)
+		bag,slot = findItemFromListInInventory(fastMounts)
+	end
+	if bag ~= nil and slot ~= nil then
+		if CursorHasItem() then return end
+		UseContainerItem(bag,slot)
+		ResetCursor()
 	elseif UnitClass == "Paladin" then
 		CastSpellByName("Summon Warhorse")
 	elseif UnitClass == "Warlock" then
@@ -102,36 +108,58 @@ function pickUpItemFromList(name_list)
 	ResetCursor()
 end
 
--- use an item from the inventory to use by name
+-- use an item from the inventory by name
 function useItem(name)
 	if CursorHasItem() then return end
+	local bag,slot = findItemInInventory(name)
+	if bag ~= nil and slot ~= nil then
+		UseContainerItem(bag,slot)
+	end
+	ResetCursor()
+end
+
+-- find an item in the inventory by name
+function findItemInInventory(name)
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
 			local texture = GetContainerItemInfo(bag,slot)
 			if texture then
 				local link = GetContainerItemLink(bag,slot)
-				if string.find(link, name) then UseContainerItem(bag,slot) return end
+				if string.find(link, name) then
+					return bag,slot
+				end
 			end
 		end
 	end
-	ResetCursor()
+	return nil
 end
 
 -- pick up any item to use from a list of names
 function useItemFromList(name_list)
 	if CursorHasItem() then return end
+	local bag,slot = findItemFromListInInventory(name_list)
+	if bag ~= nil and slot ~= nil then
+		UseContainerItem(bag,slot)
+	end
+	ResetCursor()
+end
+
+-- find an item in the inventory from a list of names
+function findItemFromListInInventory(name_list)
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
 			local texture = GetContainerItemInfo(bag,slot)
 			if texture then
 				local link = GetContainerItemLink(bag,slot)
 				for k,name in pairs(name_list) do
-					if string.find(link, name) then UseContainerItem(bag,slot) return end
+					if string.find(link, name) then
+						return bag,slot
+					end
 				end
 			end
 		end
 	end
-	ResetCursor()
+	return nil
 end
 
 -- use an item from the inventory to use by name

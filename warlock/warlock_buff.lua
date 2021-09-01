@@ -10,9 +10,9 @@ function warlock_buffs_imp()
   summonImp()
 end
 
-function warlockBuff()
+function warlockBuff(summon)
   warlockArmor()
-  warlockSummon()
+  warlockSummon(summon)
 end
 
 function warlockArmor()
