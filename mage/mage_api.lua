@@ -28,9 +28,9 @@ function initMageData()
     {"Shoot", autoAttackActionSlot}
   }
   azs.class.initMacros = {
-    {"Attack skull", "Spell_Frost_FrostArmor", "/script azs.dps(\"skull\", \"Frost\")", {1,4}, ""},
+    {"Attack skull", "Spell_Frost_FrostArmor", "/script azs.dps(nil, \"Frost\")", {1,4}, ""},
     {"Attack cross", "Spell_Frost_FrostBolt02", "/script azs.dps(\"cross\", \"Frost\")", {2}, ""},
-    {"Attack Fire skull", "Spell_Fire_Fireball02", "/script azs.dps(\"skull\", \"Fire\")", {64}, ""},
+    {"Attack Fire skull", "Spell_Fire_Fireball02", "/script azs.dps(nil, \"Fire\")", {64}, ""},
     {"Poly " .. azs.class.ccTarget, "Ability_Seal", "/script azs.cc(" .. azs.class.ccTarget .. ")", {3}, ""},
     {"AoE", "Spell_Frost_FrostNova", "/script azs.aoe()", {5}, ""},
     {"Buff", "Spell_Holy_MagicalSentry", "/script azs.buff()", {8}, ""},

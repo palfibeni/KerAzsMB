@@ -36,7 +36,7 @@ function initWarlockData()
 		{"Shoot", autoAttackActionSlot},
   }
   azs.class.initMacros = {
-    {"Attack skull", "Spell_Shadow_DeathCoil", "/script azs.dps(\"skull\", \"" .. azs.class.curse .. "\")", {1}, "azs.class.element = \"" .. azs.class.element .. "\""},
+    {"Attack skull", "Spell_Shadow_DeathCoil", "/script azs.dps(nil, \"" .. azs.class.curse .. "\")", {1}, "azs.class.element = \"" .. azs.class.element .. "\""},
     {"Attack cross", "Spell_Shadow_ShadowBolt", "/script azs.dps(\"cross\", \"" .. azs.class.curse .. "\")", {2}, "azs.class.element = \"" .. azs.class.element .. "\""},
     {"Banish " .. azs.class.ccTarget, "Spell_Shadow_Cripple", "/script azs.cc(" .. azs.class.ccTarget .. ")", {3}},
     {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special(\"skull\", \"Mana\")", {4}, ""},

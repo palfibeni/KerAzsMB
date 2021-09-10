@@ -77,9 +77,9 @@ function initBalanceDruidData()
     {"Attack", autoAttackActionSlot}
   }
   azs.class.initMacros = {
-    {"Attack skull", "Spell_Nature_Lightning", "/script azs.dps(\"skull\", \"Arcane\")", {1,4,5,109,112,113}, ""},
+    {"Attack skull", "Spell_Nature_Lightning", "/script azs.dps(nil, \"Arcane\")", {1,4,5,109,112,113}, ""},
     {"Attack cross", "Spell_Nature_StarFall", "/script azs.dps(\"cross\", \"Arcane\")", {2,110}, ""},
-    {"Attack Nature skull", "Ability_Creature_Poison_03", "/script azs.dps(\"skull\", \"Nature\")", {64}, ""},
+    {"Attack Nature skull", "Ability_Creature_Poison_03", "/script azs.dps(nil, \"Nature\")", {64}, ""},
     {"Entangle Star", "Ability_Seal", "/script azs.cc(1)", {3,111}, ""},
     {"Buff", "Spell_Holy_MagicalSentry", "/script azs.buff()", {8,116}, ""},
     {"Dispel", "Spell_Holy_DispelMagic", "/script azs.dispel()", {65}, ""},

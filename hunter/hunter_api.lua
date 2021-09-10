@@ -31,7 +31,7 @@ function initHunterData()
   	{"Mongoose Bite", mongooseBiteActionSlot}
   }
   azs.class.initMacros = {
-    {"Attack skull", "Ability_Hunter_CriticalShot", "/script azs.dps(\"skull\")", {1,5}, "azs.class.multiShotEnabled = true"},
+    {"Attack skull", "Ability_Hunter_CriticalShot", "/script azs.dps()", {1,5}, "azs.class.multiShotEnabled = true"},
     {"Attack cross", "Ability_Marksmanship", "/script azs.dps(\"cross\")", {2}, "azs.class.multiShotEnabled = true"},
     {"Trap", "Spell_Frost_ChainsOfIce", "/script azs.cc()", {3}},
     {"Drain mana", "Spell_Holy_ElunesGrace", "/script azs.special()", {4}, "azs.class.multiShotEnabled = true"},

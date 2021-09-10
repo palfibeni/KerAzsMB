@@ -72,7 +72,7 @@ function initFuryWarrior()
     {"Bloodthirst", bloodThirstActionSlot}
   }
   azs.class.initMacros = {
-    {"Attack skull", "Ability_DualWield", "/script azs.dps(\"skull\")", {73,77,97,100,101}},
+    {"Attack skull", "Ability_DualWield", "/script azs.dps()", {73,77,97,100,101}},
     {"Attack cross", "Ability_SteelMelee", "/script azs.dps(\"cross\")", {74,98}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}}
   }

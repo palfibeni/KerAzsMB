@@ -1,5 +1,5 @@
 -- azs.targetingMode = "skull" -- "skull", "cross", "assist", "solo"
--- azs.assistMe = "Cooperbeard" -- assist targeting mode will
+-- azs.assistMe = "Cooperbeard" -- assist targeting mode will use the following name, who should they assist before attack
 
 -- Group Management
 azs.nameList={
@@ -15,6 +15,12 @@ azs.nameList={
 	"Barbariana", "Lemonjuice", "Thinarms", "Toxica", "Zara", "Sylvia", "Xenophia"}
 }
 
+
+-- Defaults for the /deepinit command:
+
+-- Setup your mage's defaults:
+-- Mages will use polymorph as thier main CC, but its important,
+-- if you have multiple mages they poly different enemies, that's why I have setup this array.
 -- ccTarget to setup polymorph target, options: 1: star, 2: orange, 3: purple, 4: green, 5: moon, 6: blue, 7: x, 8: skull
 azs.mages = {
   Carla = { ccTarget = 1 },
@@ -27,6 +33,8 @@ azs.mages = {
 }
 
 -- Setup your warlock's defaults:
+-- Warlocks will use banish and same with Mages, they should banish different targets.
+-- Warlocks also has a really powerful debuff group called curses, its important to have multiple curse up at once.
 -- curse options: "CoE", "CoT", "CoR", "CoW" or "Cos"
 -- summon option: "Imp" or "DS" (for Demonic Sacrifice  Succubus)
 -- ccTarget to setup banish target, options: 1: star, 2: orange, 3: purple, 4: green, 5: moon, 6: blue, 7: x, 8: skull

@@ -13,7 +13,7 @@ function initRogueData()
     {"Kick", 3}
   }
   azs.class.initMacros = {
-    {"Attack skull", "Ability_DualWield", "/script azs.dps(\"skull\", \"".. azs.class.weapon .. "\")", {1,4,5}},
+    {"Attack skull", "Ability_DualWield", "/script azs.dps(nil, \"".. azs.class.weapon .. "\")", {1,4,5}},
     {"Attack cross", "Ability_SteelMelee", "/script azs.dps(\"cross\", \"".. azs.class.weapon .. "\")", {2}},
     {"Poison up", "Ability_Creature_Poison_03", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}

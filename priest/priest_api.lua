@@ -79,7 +79,7 @@ function initShadowPriestData()
     {"Prayer of Healing", 67},
   }
   azs.class.initMacros = {
-    {"Attack skull", "Spell_Holy_HolySmite", "/script azs.dps(\"skull\")", {1,5}},
+    {"Attack skull", "Spell_Holy_HolySmite", "/script azs.dps()", {1,5}},
     {"Attack cross", "Spell_Shadow_PsychicScream", "/script azs.dps(\"cross\")", {2}},
     {"Shackle Star", "Spell_Shadow_Cripple", "/script azs.cc(1)", {3}},
     {"Drai  n mana", "Spell_Shadow_SiphonMana", "/script azs.special()", {4}, ""},

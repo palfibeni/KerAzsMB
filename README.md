@@ -13,24 +13,16 @@ For example if you setup your mage with this addon, if you press the button 1, w
 /script azs.dps("skull")
 ```
 the following will happen:
-This will find the target enemy with the skull (ID = 8) raid target icon on it, and start dps-ing with frostbolt, using burst trinkets, arcane power if available, and when out of mana use Evocation, if it's on CD, just start wanding.
+This will find the target enemy with the skull (ID = 8) raid target icon on it, and start dps-ing with frostbolt, using burst trinkets, arcane power if available, and when out of mana use Evocation, if it's on CD, just start wanding, til you can afford a frostbolt again.
 
 ## How to setup
 ### Wiring in the addon:
 1. Download the scripts and place them inside you Interface/Addons/ folder.
-2. Edit the azs.nameList.tank according to the tanks you and your team is using in raids in the KerAzs_mb.lua.
-3. Now you can access to this powerful multiboxing framework.
-4. enjoy :)
-
-### How to setup healing:
-To create healer class with only one button, you need to edit some files in the addon.
-1. In the util\healing\ you will find a group_management.lua file, open it in a text editor, I advice to download notepad++ or Atom for this purpose.
-2. Edit the azs.nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multidps. This is just a bit of help for your healer, on who should they focus on.
-Optional: If you have multiple healers, after setting up their healing macro, add into the supermacro LUA extension the following, to further improve the targeting:
-```
-SetBias(-0.15,"group",1)
-```
-The last number 1 here refer to the first group, the healer will prioritize the first group with this line added to supermacro extension.
+2. Make a copy of the data.lua.sample file, with the name data.lua.
+3. Edit the azs.nameList according to the tanks you and your team is using in raids, in the newly created data.lua.
+Optional: edit the remaining arrays in data.lua, according to the comments
+3. Login to your character and run the command: /deepinit
+4. Now you can access to this powerful multiboxing framework. Enjoy :)
 
 ### Hotkey.net
 To use this framework in its full potential I use Hotkey.net for a keydown broadcasting tool.
@@ -48,6 +40,7 @@ You can add further key logic, like separate movement for mellee, and casters, o
 
 ### My keybindings
 
+This is your hammer, which works in most cases against those nasty nails.
 /deepinit will setup something similar like this, except for the drink/follow.
 
 | Slot | Dps | Heal | Tank |
@@ -68,9 +61,6 @@ You can add further key logic, like separate movement for mellee, and casters, o
 | H | ranged move backward 	| ranged move backward 	| ranged move backward |
 
 There is also a /help command which gives you a few tips for each class.
-
-### Example
-
 To setup each character according to the above setup just write /deepinit in the chat with each character.
 It is advised to level each character to around lvl 10 indivually, before you can start leveling them together,
 because the talent allocation is a big part of how the roles are set.
@@ -78,6 +68,15 @@ To set skull on the target you can use the following macro:
 ```
 /script SetRaidTarget("target",8)
 ```
+
+### How to setup healing:
+1. Edit the azs.nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multidps. This is just a bit of help for your healer, on who should they focus on.
+Optional: If you have multiple healers, consider modifying the data.lua file to setup thier preffered groups, to heal more likely in case there is aoe damage.
+After you did this, the /deepinit will also add the following line to your macro's supermacro part, the "1" here
+```
+SetBias(-0.15,"group",1)
+```
+The last number 1 here refer to the first group, the healer will prioritize the first group with this line added to supermacro extension.
 
 ## Special Thanks
 #### Ryonn/Alaniel
