@@ -10,15 +10,6 @@ aoeHealMinPlayers=3
 
 desperatePrayerActionSlot = 61
 
--- /script priest_heal_mandokir()
-function priest_heal_mandokir()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
- PriestHeal(azs.targetList.all, false)
-end
-
 function fearWard(playerName)
 		playerName = playerName or UnitName("target")
 		if not azs.targetList[playerName] then return end

@@ -1,28 +1,8 @@
 evocationActionSlot = 61
 
--- DEPRECTED
--- /script mage_attack_skull()
-function mage_attack_skull(mageElement)
-	if azs.targetSkull() then
-      mageAttack(mageElement)
-	end
-end
-
--- DEPRECTED
--- /script mage_attack_cross()
-function mage_attack_cross(mageElement)
-	if azs.targetCross() then
-      mageAttack(mageElement)
-	end
-end
-
 -- element can be Fire, Frost, Arcane
 function mageAttack(mageElement)
 	mageElement = mageElement or azs.class.element
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
   if casting_or_channeling() then return end
   if (UnitMana("player") >= (UnitLevel("player") * 6)) then
     stop_wand()

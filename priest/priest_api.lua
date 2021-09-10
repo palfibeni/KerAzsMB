@@ -54,7 +54,9 @@ function initHolyPriestData()
 end
 
 function initShadowPriestData()
-  azs.debug("I am shadow priest")
+  azs.debug("I am shadow priest")\
+  azs.class.vampiricEnabled = false
+  azs.class.shPainEnabled = false
   azs.class.dps = function()
     if UnitLevel("player") > 20 then
       shPriestAttack()
@@ -82,7 +84,7 @@ function initShadowPriestData()
     {"Attack skull", "Spell_Holy_HolySmite", "/script azs.dps()", {1,5}},
     {"Attack cross", "Spell_Shadow_PsychicScream", "/script azs.dps(\"cross\")", {2}},
     {"Shackle Star", "Spell_Shadow_Cripple", "/script azs.cc(1)", {3}},
-    {"Drai  n mana", "Spell_Shadow_SiphonMana", "/script azs.special()", {4}, ""},
+    {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special()", {4}, ""},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }

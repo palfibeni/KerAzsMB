@@ -21,11 +21,6 @@ function warrior_tank_attack_cross()
 end
 
 function warriorTankAttack()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		stop_autoattack()
-		return
-	end
 	warriorDefenseStance()
 	bloodrage()
 	warriorTaunt()

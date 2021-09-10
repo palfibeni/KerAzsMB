@@ -16,11 +16,7 @@ function druid_balance_cross(element)
 end
 
 function druidBalanceAttack(element)
-	element = element or "Arcane"
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
+	element = element or azs.class.element
 	if casting_or_channeling() then return end
 	if (UnitMana("player") >= 340) then
 		druid_moonkin_form()

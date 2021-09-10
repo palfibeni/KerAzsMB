@@ -15,11 +15,6 @@ function cat_attack_cross()
 end
 
 function catAttack()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-    stop_autoattack()
-		return
-	end
   druid_cat_form()
 	feralFaerieFire()
   if (UnitMana("player") >= 35 and GetComboPoints("target") == 5) then

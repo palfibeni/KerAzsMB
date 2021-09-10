@@ -12,15 +12,6 @@ palaDispelNoPoison={Magic=true,Disease=true}
 
 divineShieldActionSlot = 61
 
--- /script pala_heal_mandokir()
-function pala_heal_mandokir()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
-	PalaHealOrDispel(azs.targetList.all, false)
-end
-
 -- /script PalaHeal(azs.targetList.all, false)
 -- /script PalaHealOrDispel(azs.targetList.all, false)
 function PalaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)

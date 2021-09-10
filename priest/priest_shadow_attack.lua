@@ -1,6 +1,3 @@
-vampiricEnabled = false
-shPainEnabled = false
-
 lastShadowWord = 0
 lastVampiric = 0
 
@@ -27,10 +24,6 @@ function sh_priest_cross()
 end
 
 function shPriestAttack()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
 	if casting_or_channeling() then return end
   if (UnitMana("player")>=221) then
     stop_wand()
@@ -45,14 +38,14 @@ function shPriestAttack()
 end
 
 function shadowWordPain()
-  if shPainEnabled and lastShadowWord + 24 < GetTime() then
+  if azs.class.shPainEnabled and lastShadowWord + 24 < GetTime() then
     cast_debuff("Spell_Shadow_ShadowWordPain", "Shadow Word: Pain")
     lastShadowWord = GetTime()
   end
 end
 
 function shadowVampiricEmbrace()
-  if vampiricEnabled and lastVampiric + 60 < GetTime() then
+  if azs.class.vampiricEnabled and lastVampiric + 60 < GetTime() then
     cast_debuff("Spell_Shadow_UnsummonBuilding", "Vampiric Embrace")
     lastVampiric = GetTime()
   end

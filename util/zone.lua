@@ -25,3 +25,7 @@ function isInZG()
   -- GetMinimapZoneText() Bloodfire Pit (Jin'do the Hexxer, Brain Wash Totem, Powerful Healing Ward, Shade of Jin'do)
   -- GetMinimapZoneText() Altar of the Blood God (Hakkar the Soulflayer)
 end
+
+function hasMandokirGaze()
+	return has_debuff("player", "Spell_Shadow_Charm")
+end

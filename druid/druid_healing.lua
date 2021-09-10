@@ -15,15 +15,6 @@ druidDispelRange="Remove Curse"
 lastInner = 0;
 innervateActionSlot = 61;
 
--- /script dudu_heal_mandokir()
-function dudu_heal_mandokir()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
-	DruidHealOrDispel(azs.targetList.all, false)
-end
-
 -- /script  DruidHealOrDispel(azs.targetList.all, false)
 function DruidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	leaveShapeShiftForm()

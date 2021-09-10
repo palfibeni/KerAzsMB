@@ -102,9 +102,8 @@ azs.dps = function(targetingMode, param)
 		azs.debug("This class is not supported yet or it doesnt have a dps option, please use old methods mage_attack_skull(), etc...")
 		return
 	end
-	-- handleJindoMark
 	if azs.class.handleNefaCall then azs.class.handleNefaCall() end
-	if azs.getTarget(targetingMode) then
+	if not hasMandokirGaze() and azs.getTarget(targetingMode) then
 		azs.class.dps(param)
 	else
 		azs.class.stopDps()
@@ -116,7 +115,10 @@ azs.heal = function(icon)
 		azs.debug("This class is not supported yet or it doesnt have a heal option, please use old methods PriestHeal(), etc...")
 		return
 	end
-	-- handleJindoMark
+	if hasMandokirGaze() then
+		azs.class.stopDps()
+		return
+	end
 	azs.class.heal()
 end
 
@@ -125,7 +127,10 @@ azs.dispel = function(icon)
 		azs.debug("This class is not supported yet or it doesnt have a dispel option, please use old methods mage_decuse_raid(), etc...")
 		return
 	end
-	-- handleJindoMark
+	if hasMandokirGaze() then
+		azs.class.stopDps()
+		return
+	end
 	azs.class.dispel()
 end
 
@@ -134,7 +139,10 @@ azs.healOrDispel = function(icon)
 		azs.debug("This class is not supported yet or it doesnt have a healOrDispel option, please use old methods PriestHealOrDispel(), etc...")
 		return
 	end
-	-- handleJindoMark
+	if hasMandokirGaze() then
+		azs.class.stopDps()
+		return
+	end
 	azs.class.healOrDispel()
 end
 
@@ -169,6 +177,7 @@ azs.buff = function(param)
 		azs.debug("This class is not supported yet, or it doesnt have a buff option, please use old methods mage_buff_raid(), etc...")
 		return
 	end
+	if hasMandokirGaze() then return end
 	azs.class.buff(param)
 end
 

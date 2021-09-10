@@ -52,12 +52,6 @@ function hunter_attack_cross()
 end
 
 function hunterDps()
-  if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		stop_autoattack()
-  	stop_ranged_attack()
-		return
-	end
   handleNefaCallHunter()
   if is_in_melee_range() then
 		hunterMeleeDps()

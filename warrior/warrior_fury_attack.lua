@@ -1,5 +1,3 @@
-chargeEnabled = false
-
 heroicStrikeActionSlot = 13
 berserkerRageActionSlot = 14
 whirlwindActionSlot = 15
@@ -22,11 +20,6 @@ function warrior_fury_cross()
 end
 
 function warriorFuryAttack()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		stop_autoattack()
-		return
-	end
 	if charge() then return end
 	warriorBerserkerStance()
 	berserkerRage()
@@ -51,7 +44,7 @@ function warriorFuryAttack()
 end
 
 function charge()
-	if chargeEnabled and not is_in_melee_range() and UnitAffectingCombat("player") == nil then
+	if azs.class.chargeEnabled and not is_in_melee_range() and UnitAffectingCombat("player") == nil then
 		warriorBattleStance()
 		CastSpellByName("Charge")
 		return true

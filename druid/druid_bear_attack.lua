@@ -21,10 +21,6 @@ function druid_bear_cross()
 end
 
 function druidBearAttack()
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
 	druid_bear_form()
 	druid_bear_taunt()
 	cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire (Feral)()");

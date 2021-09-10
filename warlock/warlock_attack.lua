@@ -16,10 +16,6 @@ end
 function warlockAttack(curse, element)
 	curse = curse or azs.class.curse
 	element = element or azs.class.element
-	if (GetRaidTargetIndex("player") == 8 ) then
-		SpellStopCasting()
-		return
-	end
 	if casting_or_channeling() then return end
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
