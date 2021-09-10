@@ -54,7 +54,7 @@ end
 
 function initFuryWarrior()
   azs.debug("I am fury warrior")
-  if UnitLevel("player") > 31 then
+  if UnitLevel("player") < 31 then
     azs.class.dps = function() warriorArmsAttack() end
   else
     azs.class.dps = function() warriorFuryAttack() end

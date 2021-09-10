@@ -21,6 +21,19 @@ function initHolyPriestData()
     askMageWater()
     if isInBWL() then applyManaOil() end
   end
+
+  if azs.healers[playerName] and azs.healers[playerName].group then
+    azs.class.prioGroup = azs.healers[playerName].group
+  else
+    azs.class.prioGroup = 1
+  end
+
+  if azs.healers[playerName] and azs.healers[playerName].fearWard then
+    azs.class.fearWard = azs.healers[playerName].fearWard
+  else
+    azs.class.fearWard = "Cooperbeard"
+  end
+
   azs.class.stopDps = function()
     SpellStopCasting()
   end
@@ -29,8 +42,8 @@ function initHolyPriestData()
     {"Prayer of Healing", 67},
   }
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", "/script azs.dispel()", {64,65} },
-    {"HealOnly", "Spell_Holy_HolyBolt", "/script azs.heal()", {1,2,3,4,5,6}},
+    {"HealOrDispel", "Spell_ChargePositive", "/script fearWard(".. azs.class.fearWard ..")/n/script azs.dispel()", {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Holy_HolyBolt", "/script fearWard(".. azs.class.fearWard ..")/n/script azs.heal()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Mana Drain", "Spell_Shadow_SiphonMana", "/script azs.special()", {66}},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}

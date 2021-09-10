@@ -1,17 +1,3 @@
--- Group Management
-nameList={
-	tank={"Stardancer","Cooperbeard", "Peacebringer","Dobzse","Harklen","Gaelber",
-	"Llanewrynn","Nyavalyás","Bendegúz","Pinky", "Obier"},
-	heal={},
-	multitank={"Stardancer","Cooperbeard", "Peacebringer", "Obier"},
-	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat",
-	"Fordragon", "Moonflower", "Lightweight", "Greenshadow", "Brunhilde"},
-	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",
-	"Fabregas", "Windou", "Oakheart", "Cromwell", "Leilena", "Featherfire",
-	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud",
-	"Barbariana", "Lemonjuice", "Thinarms", "Toxica", "Zara", "Sylvia", "Xenophia"}
-}
-
 -- Initialize bias list structure
 biasList={group={}}
 
@@ -23,7 +9,7 @@ biasList.multidps=-0.05
 
 local function InitTargetList()
 	azs.targetList = {all = {}, group = {}, party = {}, master = {},self = {}}
-	for role,names in pairs(nameList) do
+	for role,names in pairs(azs.nameList) do
 		azs.targetList[role]={}
 	end
 	azs.targetList.dps = {}
@@ -355,7 +341,7 @@ function RemoveBias(targetInfo,value)
 end
 
 function GetRole(name)
-	for role,names in pairs(nameList) do
+	for role,names in pairs(azs.nameList) do
 		for i,currentName in ipairs(names) do
 			if currentName==name then
 				return role

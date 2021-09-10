@@ -1,4 +1,5 @@
 function initPaladinData()
+  SetBias(-0.15,"group",1)
   azs.debug("I am paladin")
   azs.class.heal = function() PalaHeal() end
   azs.class.dispel = function() pala_heal_mandokir() end
@@ -7,12 +8,19 @@ function initPaladinData()
     askMageWater()
     if isInBWL() then applyManaOil() end
   end
+
+  if azs.healers[playerName] and azs.healers[playerName].group then
+    azs.class.prioGroup = azs.healers[playerName].group
+  else
+    azs.class.prioGroup = 1
+  end
+
   azs.class.stopDps = function()
     SpellStopCasting()
   end
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", "/script azs.dispel()", {1,2,3,4,5,6}},
-    {"HealOnly", "Spell_Holy_HolyBolt", "/script azs.heal()", {64,65}, ""},
+    {"HealOrDispel", "Spell_ChargePositive", "/script azs.dispel()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Holy_HolyBolt", "/script azs.heal()", {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Buff", "Spell_Holy_GreaterBlessingofWisdom", "/script azs.buff()", {8}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
   }

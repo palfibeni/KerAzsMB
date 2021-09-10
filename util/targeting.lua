@@ -1,5 +1,5 @@
 function is_tank_by_name(name)
-	for i,tank in pairs(azs.tank_list) do
+	for i,tank in pairs(azs.nameList.tank) do
 		if tank == name then return true end
 	end
 	return nil
@@ -33,6 +33,16 @@ function exact_target_by_name(name)
 	TargetByName(name, true)
 end
 
+azs.markSkull = function()
+	return azs.markIcon(8)
+end
+
+azs.markIcon = function(icon)
+	if not IsPartyLeader() and not IsRaidLeader() and not IsRaidOfficer() then return end
+	if azs.checkRaidTargetIcon("target", icon) then return end
+	SetRaidTarget("target", icon)
+end
+
 azs.targetSkull = function()
 	return azs.targetByIcon(8)
 end
@@ -43,7 +53,7 @@ end
 
 azs.targetByIcon = function(icon)
 	if azs.checkRaidTargetIcon("target", icon) then return true end
-	for k,tank in pairs(azs.tank_list) do
+	for k,tank in pairs(azs.nameList.tank) do
 		AssistByName(tank)
 		if azs.checkRaidTargetIcon("target", icon) then
 			return true

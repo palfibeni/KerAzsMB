@@ -18,14 +18,14 @@ This will find the target enemy with the skull (ID = 8) raid target icon on it, 
 ## How to setup
 ### Wiring in the addon:
 1. Download the scripts and place them inside you Interface/Addons/ folder.
-2. Edit the azs.tank_list according to the tanks you and your team is using in raids in the KerAzs_mb.lua.
+2. Edit the azs.nameList.tank according to the tanks you and your team is using in raids in the KerAzs_mb.lua.
 3. Now you can access to this powerful multiboxing framework.
 4. enjoy :)
 
 ### How to setup healing:
 To create healer class with only one button, you need to edit some files in the addon.
 1. In the util\healing\ you will find a group_management.lua file, open it in a text editor, I advice to download notepad++ or Atom for this purpose.
-2. Edit the nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multidps. This is just a bit of help for your healer, on who should they focus on.
+2. Edit the azs.nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multidps. This is just a bit of help for your healer, on who should they focus on.
 Optional: If you have multiple healers, after setting up their healing macro, add into the supermacro LUA extension the following, to further improve the targeting:
 ```
 SetBias(-0.15,"group",1)

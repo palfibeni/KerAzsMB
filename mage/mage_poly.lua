@@ -38,7 +38,7 @@ function polymorphByIcon(icon)
     end
 end
 
-function polymorphFriendTargets(icon, spell_name, ltargetList)
+function polymorphFriendTargets(ltargetList)
 	ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if not UnitIsFriend("player",target) and not has_debuff(target, "Spell_Nature_Polymorph") and (lastFriendlyPoly + 10 < GetTime() or lastFriendlyPolyTarget == target) then

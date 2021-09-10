@@ -1,26 +1,5 @@
 azs = {}
-azs.assistMe = "Cooperbeard"
-azs.targetingMode = "skull" -- "skull", "cross", "assist", "solo"
 azs.class={}
-azs.mages = {
-  Carla = { ccTarget = 1 },
-  Fabregas = { ccTarget = 2 },
-  Jaliana = { ccTarget = 3 },
-  MiracleMike = { ccTarget = 4 },
-  Pompedous = { ccTarget = 5 },
-  Zara = { ccTarget = 6 },
-  Xenophia = { ccTarget = 2 }
-}
-azs.warlocks = {
-  Daemona = {curse = "CoE", summon = "DS", ccTarget = 1},
-  PinkyPie = {curse = "CoS", summon = "DS", ccTarget = 2},
-  Morbent = {curse = "CoE", summon = "Imp", ccTarget = 3},
-  Maleficus = {curse = "CoW", summon = "Imp", ccTarget = 4},
-  Sylvia = {curse = "CoS", summon = "Imp", ccTarget = 5},
-}
-
-azs.tank_list = {"Cooperbeard", "Stardancer", "Peacebringer", "Gaelber", "Llanewrynn",
-	"Dobzse", "Harklen", "Bendegúz", "Pinky", "Obier"}
 
 local timer = CreateFrame("FRAME");
 --"duration" is in seconds and "func" is the function that will be executed in the end
@@ -340,13 +319,13 @@ end
 
 -- /script azs.debug(isMyMultibox("Cooperbeard"))
 function isMyMultibox(targetName)
-	for i,name in ipairs(nameList.multitank) do
+	for i,name in ipairs(azs.nameList.multitank) do
 		if targetName == name then return true end
 	end
-	for i,name in ipairs(nameList.multiheal) do
+	for i,name in ipairs(azs.nameList.multiheal) do
 		if targetName == name then return true end
 	end
-	for i,name in ipairs(nameList.multidps) do
+	for i,name in ipairs(azs.nameList.multidps) do
 		if targetName == name then return true end
 	end
 	return false
@@ -354,15 +333,15 @@ end
 
 -- /script inviteMultiBoxToRaid()
 function inviteMultiBoxToRaid()
-	for i,name in ipairs(nameList.multitank) do
+	for i,name in ipairs(azs.nameList.multitank) do
 		InviteByName(name)
 		PromoteToAssistant(name)
 	end
 	ConvertToRaid()
-	for i,name in ipairs(nameList.multiheal) do
+	for i,name in ipairs(azs.nameList.multiheal) do
 		InviteByName(name)
 	end
-	for i,name in ipairs(nameList.multidps) do
+	for i,name in ipairs(azs.nameList.multidps) do
 		InviteByName(name)
 	end
 	SetLootMethod("freeforall")

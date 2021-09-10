@@ -19,7 +19,7 @@ function priest_heal_mandokir()
  PriestHeal(azs.targetList.all, false)
 end
 
-function fear_ward(playerName)
+function fearWard(playerName)
 		playerName = playerName or UnitName("target")
 		if not azs.targetList[playerName] then return end
 		for target,info in pairs(azs.targetList[playerName]) do
