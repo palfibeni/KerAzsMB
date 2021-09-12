@@ -1,5 +1,5 @@
--- azs.targetingMode = "skull" -- "skull", "cross", "assist", "solo"
--- azs.assistMe = "Cooperbeard" -- assist targeting mode will use the following name, who should they assist before attack
+azs.targetingMode = "skull" -- "skull", "cross", "assist", "solo"
+azs.assistMe = "Cooperbeard" -- assist targeting mode will use the following name, who should they assist before attack
 
 -- Group Management
 azs.nameList={

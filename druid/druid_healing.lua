@@ -15,8 +15,8 @@ druidDispelRange="Remove Curse"
 lastInner = 0;
 innervateActionSlot = 61;
 
--- /script  DruidHealOrDispel(azs.targetList.all, false)
-function DruidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+-- /script  druidHealOrDispel(azs.targetList.all, false)
+function druidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	healProfile=healProfile or getDefaultHealingProfile()
@@ -31,17 +31,17 @@ function DruidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispel
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,druidHealRange,buffRegrowth,druidDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
 		if action=="heal" then
-			DruidHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp)
+			druidHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp)
 		else
-			DruidDispelTarget(target,hpOrDebuffType)
+			druidDispelTarget(target,hpOrDebuffType)
 		end
 	else
 		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
 end
 
--- /script DruidHeal(azs.targetList.all, false)
-function DruidHeal(lTargetList,healProfile)
+-- /script druidHeal(azs.targetList.all, false)
+function druidHeal(lTargetList,healProfile)
 	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	UseHealTrinket()
@@ -52,13 +52,13 @@ function DruidHeal(lTargetList,healProfile)
 	if SpellCastReady(druidHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp,hotTarget,hotHp=GetHealTarget(lTargetList,druidHealRange,buffRegrowth)
-		DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
+		druidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 	else
 		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
 end
 
-function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
+function druidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 	if druidHealProfiles[healProfile] then
 		for i,healProfileEntry in ipairs(druidHealProfiles[healProfile]) do
 			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly=unpack(healProfileEntry)
@@ -96,7 +96,7 @@ function DruidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 	end
 end
 
-function DruidDispel(lTargetList,dispelTypes,dispelByHp)
+function druidDispel(lTargetList,dispelTypes,dispelByHp)
 	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or druidDispelAll
@@ -107,11 +107,11 @@ function DruidDispel(lTargetList,dispelTypes,dispelByHp)
 	end
 	if SpellCastReady(druidDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,druidDispelRange,druidDispelAll,false)
-		DruidDispelTarget(target,debuffType)
+		druidDispelTarget(target,debuffType)
 	end
 end
 
-function DruidDispelTarget(target,debuffType)
+function druidDispelTarget(target,debuffType)
 	if target then
 		azs.targetList.all[target].blacklist = nil
 		currentHealTarget = target

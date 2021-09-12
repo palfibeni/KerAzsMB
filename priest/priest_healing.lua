@@ -18,8 +18,8 @@ function fearWard(playerName)
 		end
 end
 
--- /script  PriestHealOrDispel(azs.targetList.all, false)
-function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+-- /script  priestHealOrDispel(azs.targetList.all, false)
+function priestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	lTargetList = lTargetList or azs.targetList.all
 	healProfile=healProfile or getPriestDefaultHealingProfile()
 	dispelTypes=dispelTypes or priestDispelAll
@@ -30,17 +30,17 @@ function PriestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispe
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,priestHealRange,buffRenew,priestDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
 		if action=="heal" then
-			PriestHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp)
+			priestHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp)
 		else
-			PriestDispelTarget(target,hpOrDebuffType)
+			priestDispelTarget(target,hpOrDebuffType)
 		end
 	else
 		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
 end
 
--- /script PriestHeal(azs.targetList.all, "instantOnly")
-function PriestHeal(lTargetList,healProfile)
+-- /script priestHeal(azs.targetList.all, "instantOnly")
+function priestHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
 	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.5) then
 			CastSpellByName("Desperate Prayer")
@@ -51,7 +51,7 @@ function PriestHeal(lTargetList,healProfile)
 		stopCastingDelayExpire=nil
 		local target,hp,hotTarget,hotHp=GetHealTarget(lTargetList,priestHealRange,buffRenew)
 		local aoeInfo=PriestAoeInfo()
-		PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
+		priestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	else
 		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
@@ -73,7 +73,7 @@ function PriestAoeInfo()
 	return playerHps
 end
 
-function PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
+function priestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	if priestHealProfiles[healProfile] then
 		for i,healProfileEntry in ipairs(priestHealProfiles[healProfile]) do
 			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly=unpack(healProfileEntry)
@@ -116,14 +116,14 @@ function PriestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	end
 end
 
-function PriestDispel(lTargetList,dispelTypes,dispelByHp)
+function priestDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	UseHealTrinket()
 	if SpellCastReady(priestDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,priestDispelRange,priestDispelAll,false)
-		PriestDispelTarget(target,debuffType)
+		priestDispelTarget(target,debuffType)
 	end
 end
 
@@ -131,7 +131,7 @@ priestDispelAll={Magic=true,Disease=true}
 priestDispelMagic={Magic=true}
 priestDispelDisease={Disease=true}
 
-function PriestDispelTarget(target,debuffType)
+function priestDispelTarget(target,debuffType)
 	if target then
 		azs.targetList.all[target].blacklist=nil
 		currentHealTarget=target

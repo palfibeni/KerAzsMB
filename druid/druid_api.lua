@@ -62,7 +62,7 @@ function initBalanceDruidData()
   azs.debug("I am balance druid")
   azs.class.element = "Arcane" -- Could be "Arcane" or "Nature"
   azs.class.dps = function(element) druidBalanceAttack(element) end
-  azs.class.dispel = function() DruidDispel() end
+  azs.class.dispel = function() druidDispel() end
   azs.class.cc = function(icon) entangleByIcon(icon) end
   azs.class.buff = function()
     druidBuff()
@@ -92,8 +92,8 @@ end
 
 function initRestoDruidData()
   azs.debug("I am resto druid")
-  azs.class.heal = function() DruidHeal() end
-  azs.class.dispel = function() dudu_heal_mandokir() end
+  azs.class.heal = function() druidHeal() end
+  azs.class.dispel = function() druidHealOrDispel() end
   azs.class.buff = function()
     druidBuff()
     askMageWater()

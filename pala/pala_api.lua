@@ -1,8 +1,8 @@
 function initPaladinData()
   SetBias(-0.15,"group",1)
   azs.debug("I am paladin")
-  azs.class.heal = function() PalaHeal() end
-  azs.class.dispel = function() pala_heal_mandokir() end
+  azs.class.heal = function() palaHeal() end
+  azs.class.dispel = function() palaHealOrDispel() end
   azs.class.buff = function(buff, aura)
     paladinBuff(buff, aura)
     askMageWater()

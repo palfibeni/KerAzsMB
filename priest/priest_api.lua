@@ -13,8 +13,8 @@ end
 
 function initHolyPriestData()
   azs.debug("I am holy priest")
-  azs.class.heal = function() priest_heal_mandokir() end
-  azs.class.dispel = function() PriestHealOrDispel() end
+  azs.class.heal = function() priestHeal() end
+  azs.class.dispel = function() priestHealOrDispel() end
   azs.class.special = function() priestManaDrain() end
   azs.class.buff = function(aura)
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
@@ -42,8 +42,8 @@ function initHolyPriestData()
     {"Prayer of Healing", 67},
   }
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", "/script fearWard(".. azs.class.fearWard ..")/n/script azs.dispel()", {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"HealOnly", "Spell_Holy_HolyBolt", "/script fearWard(".. azs.class.fearWard ..")/n/script azs.heal()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOrDispel", "Spell_ChargePositive", "/script fearWard(\"".. azs.class.fearWard .."\")"..string.char(10).."/script azs.dispel()", {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Holy_HolyBolt", "/script fearWard(\"".. azs.class.fearWard .."\")"..string.char(10).."/script azs.heal()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Mana Drain", "Spell_Shadow_SiphonMana", "/script azs.special()", {66}},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
@@ -54,7 +54,7 @@ function initHolyPriestData()
 end
 
 function initShadowPriestData()
-  azs.debug("I am shadow priest")\
+  azs.debug("I am shadow priest")
   azs.class.vampiricEnabled = false
   azs.class.shPainEnabled = false
   azs.class.dps = function()

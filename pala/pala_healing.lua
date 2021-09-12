@@ -12,9 +12,9 @@ palaDispelNoPoison={Magic=true,Disease=true}
 
 divineShieldActionSlot = 61
 
--- /script PalaHeal(azs.targetList.all, false)
--- /script PalaHealOrDispel(azs.targetList.all, false)
-function PalaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
+-- /script palaHeal(azs.targetList.all, false)
+-- /script palaHealOrDispel(azs.targetList.all, false)
+function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	lTargetList = lTargetList or azs.targetList.all
 	healProfile=healProfile or getDefaultHealingProfile()
 	dispelTypes=dispelTypes or palaDispelAll
@@ -25,16 +25,16 @@ function PalaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelH
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,_,_,action=GetHealOrDispelTarget(lTargetList,palaHealRange,nil,palaDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
 		if action=="heal" then
-			PalaHealTarget(healProfile,target,hpOrDebuffType)
+			palaHealTarget(healProfile,target,hpOrDebuffType)
 		else
-			PalaDispelTarget(target,hpOrDebuffType)
+			palaDispelTarget(target,hpOrDebuffType)
 		end
 	else
 		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
 end
 
-function PalaHeal(lTargetList,healProfile)
+function palaHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
 	if IsActionReady(divineShieldActionSlot) and is_player_hp_under(0.5) then
 			CastSpellByName("Divine Shield")
@@ -44,13 +44,13 @@ function PalaHeal(lTargetList,healProfile)
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp=GetHealTarget(lTargetList,palaHealRange)
-		PalaHealTarget(healProfile,target,hp)
+		palaHealTarget(healProfile,target,hp)
 	else
 		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
 	end
 end
 
-function PalaHealTarget(healProfile,target,hp)
+function palaHealTarget(healProfile,target,hp)
 	if palaHealProfiles[healProfile] then
 		for i,healProfileEntry in ipairs(palaHealProfiles[healProfile]) do
 			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly=unpack(healProfileEntry)
@@ -89,19 +89,19 @@ palaDispelNoMagic={Disease=true,Poison=true}
 palaDispelNoDisease={Magic=true,Poison=true}
 palaDispelNoPoison={Magic=true,Disease=true}
 
-function PalaDispel(lTargetList,dispelTypes,dispelByHp)
+function palaDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	UseHealTrinket()
 	if SpellCastReady(palaDispelRange) then
 		local target=GetDispelTarget(lTargetList,palaDispelRange,dispelTypes,dispelByHp)
-		PalaDispelTarget(target)
+		palaDispelTarget(target)
 	end
 end
 
 
-function PalaDispelTarget(target)
+function palaDispelTarget(target)
 	if target then
 		azs.targetList.all[target].blacklist = nil
 		currentHealTarget = target

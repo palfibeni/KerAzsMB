@@ -112,7 +112,7 @@ end
 
 azs.heal = function(icon)
 	if not azs.class.heal then
-		azs.debug("This class is not supported yet or it doesnt have a heal option, please use old methods PriestHeal(), etc...")
+		azs.debug("This class is not supported yet or it doesnt have a heal option, please use old methods priestHeal(), etc...")
 		return
 	end
 	if hasMandokirGaze() then
@@ -136,7 +136,7 @@ end
 
 azs.healOrDispel = function(icon)
 	if not azs.class.healOrDispel then
-		azs.debug("This class is not supported yet or it doesnt have a healOrDispel option, please use old methods PriestHealOrDispel(), etc...")
+		azs.debug("This class is not supported yet or it doesnt have a healOrDispel option, please use old methods priestHealOrDispel(), etc...")
 		return
 	end
 	if hasMandokirGaze() then
