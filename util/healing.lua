@@ -7,29 +7,29 @@ function channeling()
 end
 
 -- Returns whether the player is casting or channeling a spell
-function casting_or_channeling()
+function castingOrChanneling()
     return casting() or channeling()
 end
 
-function is_target_hp_over(percent)
+function isTargetHpOver(percent)
 	return not UnitIsDead("target") and UnitHealth("target") / UnitHealthMax("target") > percent
 end
 
-function is_target_hp_under(percent)
+function isTargetHpUnder(percent)
 	return not UnitIsDead("target") and UnitHealth("target") / UnitHealthMax("target") < percent
 end
 
-function is_player_hp_over(percent)
+function isPlayerHpOver(percent)
 	return UnitHealth("player") / UnitHealthMax("player") > percent
 end
 
-function is_player_hp_under(percent)
+function isPlayerHpUnder(percent)
 	return UnitHealth("player") / UnitHealthMax("player") < percent
 end
 
 function heal_under_percent(percent, spell)
 	if UnitIsDead("target") then return end
-	if is_target_hp_under(percent) then
+	if isTargetHpUnder(percent) then
 		CastSpellByName(spell)
 	end
 end

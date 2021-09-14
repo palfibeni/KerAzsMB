@@ -1,5 +1,5 @@
 function initWarlockData()
-  azs.debug("I am warlock")
+  azs.debug("I am Warlock")
   local playerName = UnitName("player")
 
   -- Setting default element:

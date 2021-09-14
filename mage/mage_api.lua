@@ -1,6 +1,7 @@
 function initMageData()
-  azs.debug("I am mage")
   azs.class.element =  getMageElement() -- Could be "Frost", "Fire" or "Arcane"
+  azs.debug("I am " .. azs.class.element .. " Mage")
+  local playerName = UnitName("player")
   azs.class.dps = function(element) mageAttack(element) end
   azs.class.dispel = function() mageDispel() end
   azs.class.cc = function(icon) polymorphByIcon(icon) end

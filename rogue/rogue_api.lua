@@ -1,6 +1,6 @@
 function initRogueData()
-  azs.debug("I am rogue")
   azs.class.weapon = getRogueWeapon() -- Could be "Sword" or "Dagger"
+  azs.debug("I am " .. azs.class.weapon .. " Rogue")
   azs.class.dps = function() rogueAttack() end
   azs.class.buff = function()
     if isInBWL() then applyPoisons() end

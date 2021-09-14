@@ -20,7 +20,7 @@ function warriorArmsAttack()
 	if charge() then return end
 	bloodrage()
 	battleShout()
-	if is_target_hp_under(0.3) then
+	if isTargetHpUnder(0.3) then
 		CastSpellByName("Execute")
 	else
 		CastSpellByName("Overpower")

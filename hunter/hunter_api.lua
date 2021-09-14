@@ -1,5 +1,5 @@
 function initHunterData()
-  azs.debug("I am hunter")
+  azs.debug("I am Hunter")
   azs.class.multiShotEnabled = false
   azs.class.shouldHunterBuffPet = false
   azs.class.dps = function() hunterDps() end
@@ -30,9 +30,13 @@ function initHunterData()
   	{"Raptor Strike", raptorStrikeActionSlot},
   	{"Mongoose Bite", mongooseBiteActionSlot}
   }
+
+  local mainDpsMacro = "/script hunterTranqShot()"..string.char(10).."/script azs.dps()"
+  local crossDpsMacro = "/script hunterTranqShot()"..string.char(10).."/script azs.dps(\"cross\")"
+
   azs.class.initMacros = {
-    {"Attack skull", "Ability_Hunter_CriticalShot", "/script azs.dps()", {1,5}, "azs.class.multiShotEnabled = true"},
-    {"Attack cross", "Ability_Marksmanship", "/script azs.dps(\"cross\")", {2}, "azs.class.multiShotEnabled = true"},
+    {"Attack skull", "Ability_Hunter_CriticalShot", mainDpsMacro, {1,5}, "azs.class.multiShotEnabled = true"},
+    {"Attack cross", "Ability_Marksmanship", crossDpsMacro, {2}, "azs.class.multiShotEnabled = true"},
     {"Trap", "Spell_Frost_ChainsOfIce", "/script azs.cc()", {3}},
     {"Drain mana", "Spell_Holy_ElunesGrace", "/script azs.special()", {4}, "azs.class.multiShotEnabled = true"},
     {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}, "azs.class.shouldHunterBuffPet = false"},

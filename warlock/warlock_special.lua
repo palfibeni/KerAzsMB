@@ -20,7 +20,7 @@ function warlock_drain_mana_cross()
 end
 
 function warlockDrainMana()
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   if (UnitMana("player") >= (UnitLevel("player") * 5)) then
     CastSpellByName("Drain Mana")
   else
@@ -42,7 +42,7 @@ function warlock_drain_soul_cross()
 end
 
 function warlockDrainSoul()
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   if (UnitMana("player")>=290) then
     CastSpellByName("Drain Soul")
   else

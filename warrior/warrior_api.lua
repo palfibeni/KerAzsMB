@@ -16,7 +16,7 @@ function isTankWarrior()
 end
 
 function initTankWarrior()
-  azs.debug("I am Tank warrior")
+  azs.debug("I am Tank Warrior")
   if UnitLevel("player") < 11 then
     azs.class.dps = function() warriorArmsAttack() end
   else
@@ -39,7 +39,9 @@ function initTankWarrior()
     {"Bloodrage", bloodrageActionSlot},
     {"Revenge", revengeActionSlot},
     {"Sunder Armor", sunderArmorActionSlot},
-    {"Shield Slam", shieldSlamActionSlot}
+    {"Shield Slam", shieldSlamActionSlot},
+    {"Last Stand", lastStandActionSlot},
+    {"Shield Wall", shieldWallActionSlot}
   }
   azs.class.initMacros = {
     {"Tank attack", "Ability_Warrior_DefensiveStance", "/script azs.dps(\"solo\")", {73,74,76,85,86,88}, "warriorTauntEnabled = true"},
@@ -53,7 +55,7 @@ function initTankWarrior()
 end
 
 function initFuryWarrior()
-  azs.debug("I am fury warrior")
+  azs.debug("I am Fury Warrior")
   azs.class.chargeEnabled = false
   if UnitLevel("player") < 31 then
     azs.class.dps = function() warriorArmsAttack() end
@@ -78,7 +80,7 @@ function initFuryWarrior()
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}}
   }
   azs.class.help = function()
-    azs.debug("Wheter a Warrior is tank or not, is determined by talent point put into defensive tree.")
+    azs.debug("Whether a Warrior is tank or not, is determined by talent point put into defensive tree.")
     azs.debug("Fury Warriors use bloodthrist, whirlwind, and under 30% hp, they will start piling up rage for execute.")
   end
 end

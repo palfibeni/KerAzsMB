@@ -17,7 +17,7 @@ end
 
 function druidBalanceAttack(element)
 	element = element or azs.class.element
-	if casting_or_channeling() then return end
+	if castingOrChanneling() then return end
 	if (UnitMana("player") >= 340) then
 		druid_moonkin_form()
 		if (element == "Nature") then

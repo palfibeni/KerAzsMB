@@ -1,4 +1,4 @@
 function priestManaDrain()
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   CastSpellByName("Mana Burn")
 end

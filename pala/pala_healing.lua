@@ -36,7 +36,7 @@ end
 
 function palaHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
-	if IsActionReady(divineShieldActionSlot) and is_player_hp_under(0.5) then
+	if IsActionReady(divineShieldActionSlot) and isPlayerHpUnder(0.5) then
 			CastSpellByName("Divine Shield")
 	end
 	UseHealTrinket()

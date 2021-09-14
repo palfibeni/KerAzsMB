@@ -5,8 +5,11 @@ revengeActionSlot = 14
 sunderArmorActionSlot = 15
 bloodrageActionSlot = 16
 shieldSlamActionSlot = 17
+lastStandActionSlot = 18
+shieldWallActionSlot = 19
 
 lastSunder = 0
+lastDoDefCooldown = 0
 
 function warrior_tank_attack_skull()
 	if azs.targetSkull() then
@@ -35,6 +38,10 @@ function warriorTankAttack()
 	if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 30 then
 		CastSpellByName("Heroic Strike")
 	end
+	if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 40 then
+		CastSpellByName("Shield Block")
+	end
+	doDefCooldown()
 	use_autoattack()
 end
 
@@ -68,4 +75,28 @@ function sunderArmor()
 					lastSunder = GetTime()
 			end
 	end
+end
+
+function doDefCooldown()
+	if lastDoDefCooldown + 10 > GetTime() then return end
+	if isPlayerHpUnder(0.2) and IsActionReady(lastStandActionSlot) then
+		lastStand()
+	elseif isPlayerHpUnder(0.15) and IsActionReady(shieldWallActionSlot) then
+		shieldWall()
+	elseif isPlayerHpUnder(0.15) then
+		useItem("Major Healing Potion")
+		lastDoDefCooldown = GetTime()
+	end
+end
+
+function lastStand()
+	CastSpellByName("Last Stand")
+	SendChatMessage(UnitName("player") .. " is below 20% health, using Last Stand!", "YELL")
+	lastDoDefCooldown = GetTime()
+end
+
+function shieldWall()
+	CastSpellByName("Shield Wall")
+	SendChatMessage(UnitName("player") .. " is below 15% health, using Shield Wall!", "YELL")
+	lastDoDefCooldown = GetTime()
 end

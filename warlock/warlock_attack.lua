@@ -16,10 +16,10 @@ end
 function warlockAttack(curse, element)
 	curse = curse or azs.class.curse
 	element = element or azs.class.element
-	if casting_or_channeling() then return end
+	if castingOrChanneling() then return end
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
-		if is_target_hp_under(0.7) then
+		if isTargetHpUnder(0.7) then
 			-- Useable trinkets
 			UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
 			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
@@ -31,7 +31,7 @@ function warlockAttack(curse, element)
 			warlockCurse(curse)
 			CastSpellByName("Shadow Bolt")
 		end
-	elseif (is_player_hp_over(0.3)) then
+	elseif (isPlayerHpOver(0.3)) then
 		CastSpellByName("Life Tap")
 	else
 		use_wand()

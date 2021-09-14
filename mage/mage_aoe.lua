@@ -4,7 +4,7 @@ function mage_aoe()
 end
 
 function mageAoe()
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   if (UnitMana("player") >= UnitLevel("player") * 5) then
       CastSpellByName("Frost Nova(Rank 1)")
       CastSpellByName("Cone of Cold")

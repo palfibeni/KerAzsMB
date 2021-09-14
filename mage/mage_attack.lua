@@ -3,10 +3,10 @@ evocationActionSlot = 61
 -- element can be Fire, Frost, Arcane
 function mageAttack(mageElement)
 	mageElement = mageElement or azs.class.element
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   if (UnitMana("player") >= (UnitLevel("player") * 6)) then
     stop_wand()
-		if is_target_hp_under(0.7) then
+		if isTargetHpUnder(0.7) then
 			cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
 			cast_buff_player("Spell_Nature_EnchantArmor", "Presence of Mind")
 			-- Useable trinkets

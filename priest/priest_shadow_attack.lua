@@ -2,7 +2,7 @@ lastShadowWord = 0
 lastVampiric = 0
 
 function sh_priest_skull()
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   if azs.targetSkull() then
     shPriestAttack()
   else
@@ -13,7 +13,7 @@ function sh_priest_skull()
 end
 
 function sh_priest_cross()
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   if azs.targetCross() then
     shPriestAttack()
   else
@@ -24,7 +24,7 @@ function sh_priest_cross()
 end
 
 function shPriestAttack()
-	if casting_or_channeling() then return end
+	if castingOrChanneling() then return end
   if (UnitMana("player")>=221) then
     stop_wand()
     cast_buff_player("Spell_Shadow_Shadowform", "Shadowform")

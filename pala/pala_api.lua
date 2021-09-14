@@ -1,6 +1,7 @@
 function initPaladinData()
-  SetBias(-0.15,"group",1)
-  azs.debug("I am paladin")
+  azs.debug("I am Paladin")
+  local playerName = UnitName("player")
+
   azs.class.heal = function() palaHeal() end
   azs.class.dispel = function() palaHealOrDispel() end
   azs.class.buff = function(buff, aura)

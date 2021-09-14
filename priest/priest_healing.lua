@@ -42,7 +42,7 @@ end
 -- /script priestHeal(azs.targetList.all, "instantOnly")
 function priestHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
-	if IsActionReady(desperatePrayerActionSlot) and is_player_hp_under(0.5) then
+	if IsActionReady(desperatePrayerActionSlot) and isPlayerHpUnder(0.5) then
 			CastSpellByName("Desperate Prayer")
 	end
 	UseHealTrinket()

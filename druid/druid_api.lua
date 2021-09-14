@@ -59,7 +59,7 @@ function initTankDruidData()
 end
 
 function initBalanceDruidData()
-  azs.debug("I am balance druid")
+  azs.debug("I am Balance Druid")
   azs.class.element = "Arcane" -- Could be "Arcane" or "Nature"
   azs.class.dps = function(element) druidBalanceAttack(element) end
   azs.class.dispel = function() druidDispel() end
@@ -91,7 +91,9 @@ function initBalanceDruidData()
 end
 
 function initRestoDruidData()
-  azs.debug("I am resto druid")
+  azs.debug("I am Resto Druid")
+  local playerName = UnitName("player")
+
   azs.class.heal = function() druidHeal() end
   azs.class.dispel = function() druidHealOrDispel() end
   azs.class.buff = function()

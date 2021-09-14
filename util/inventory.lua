@@ -112,7 +112,7 @@ end
 function useItem(name)
 	if CursorHasItem() then return end
 	local bag,slot = findItemInInventory(name)
-	if bag ~= nil and slot ~= nil then
+	if bag ~= nil and slot ~= nil and GetContainerItemCooldown(bag,slot) == 0 then
 		UseContainerItem(bag,slot)
 	end
 	ResetCursor()

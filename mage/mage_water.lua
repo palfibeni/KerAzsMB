@@ -2,7 +2,7 @@ blacklistedMages = {}
 
 -- /script mageWater()
 function mageWater(minimumAmount, waterType)
-  if casting_or_channeling() then return end
+  if castingOrChanneling() then return end
   minimumAmount = minimumAmount or 20
   waterType = waterType or deduceWaterType()
   if countItem(waterType) < minimumAmount then

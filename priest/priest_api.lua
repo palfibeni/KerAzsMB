@@ -12,7 +12,9 @@ function isShadowPriest()
 end
 
 function initHolyPriestData()
-  azs.debug("I am holy priest")
+  azs.debug("I am Holy Priest")
+  local playerName = UnitName("player")
+
   azs.class.heal = function() priestHeal() end
   azs.class.dispel = function() priestHealOrDispel() end
   azs.class.special = function() priestManaDrain() end
@@ -28,12 +30,6 @@ function initHolyPriestData()
     azs.class.prioGroup = 1
   end
 
-  if azs.healers[playerName] and azs.healers[playerName].fearWard then
-    azs.class.fearWard = azs.healers[playerName].fearWard
-  else
-    azs.class.fearWard = "Cooperbeard"
-  end
-
   azs.class.stopDps = function()
     SpellStopCasting()
   end
@@ -41,9 +37,13 @@ function initHolyPriestData()
 		{"Shoot", autoAttackActionSlot},
     {"Prayer of Healing", 67},
   }
+
+  local mainHealMacro = getFearWardLogicIfDwarf(playerName) .. "/script azs.dispel()"
+  local healOnlyMacro = getFearWardLogicIfDwarf(playerName) .. "/script azs.heal()"
+
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", "/script fearWard(\"".. azs.class.fearWard .."\")"..string.char(10).."/script azs.dispel()", {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"HealOnly", "Spell_Holy_HolyBolt", "/script fearWard(\"".. azs.class.fearWard .."\")"..string.char(10).."/script azs.heal()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Holy_HolyBolt", healOnlyMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Mana Drain", "Spell_Shadow_SiphonMana", "/script azs.special()", {66}},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
@@ -54,7 +54,7 @@ function initHolyPriestData()
 end
 
 function initShadowPriestData()
-  azs.debug("I am shadow priest")
+  azs.debug("I am Shadow Priest")
   azs.class.vampiricEnabled = false
   azs.class.shPainEnabled = false
   azs.class.dps = function()
@@ -94,4 +94,18 @@ function initShadowPriestData()
     azs.debug("'vampiricEnabled = true' to enable Vampiric Emrace in the rotation")
     azs.debug("'shPainEnabled = true' to enable Shadow Word: Pain in the rotation")
   end
+end
+
+function getFearWardLogicIfDwarf(playerName)
+  if UnitRace("player") == "Dwarf" then
+    return "/script fearWard(\"" .. getFearWardTarget(playerName) .. "\")" .. string.char(10)
+  end
+  return ""
+end
+
+function getFearWardTarget(playerName)
+  if azs.healers[playerName] and azs.healers[playerName].fearWard then
+    return azs.healers[playerName].fearWard
+  end
+  return azs.assistMe
 end

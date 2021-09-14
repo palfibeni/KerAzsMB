@@ -25,7 +25,7 @@ function warriorFuryAttack()
 	berserkerRage()
 	bloodrage()
 	battleShout()
-	if is_target_hp_under(0.3) then
+	if isTargetHpUnder(0.3) then
 		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"))
 		UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"))
 		cast_buff_player("Ability_Racial_DeathPact", "Death Wish")

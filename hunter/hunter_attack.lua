@@ -13,6 +13,9 @@ mongooseBiteActionSlot = 13
 aimedShotActionSlot = 15
 multiShotActionSlot = 16
 
+tranqables = {"Magmadar", "Flamegor", "Chromaggus", "Maws", "Princess Huhuran",
+  "Hakkar the Soulflayer", "Gluth", "Death Talon Seether", "Qiraji Slayer"}
+
 local f = CreateFrame("FRAME", "HunterFrame")
 f:RegisterEvent("BAG_UPDATE")
 
@@ -82,7 +85,7 @@ function hunterRangedDps()
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	end
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
-	if is_target_hp_under(0.7) then
+	if isTargetHpUnder(0.7) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
 		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
 		UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
@@ -103,4 +106,20 @@ function hunterFeignDeath()
   if UnitAffectingCombat("player") and IsActionReady(feignDeathActionSlot) then
     CastSpellByName("Feign Death")
   end
+end
+
+-- /script hunterTranqShot()
+function hunterTranqShot()
+  if isTargetTranqable() then
+    CastSpellByName("Tranquilizing Shot")
+  end
+end
+
+function isTargetTranqable()
+  for k,tranqable in pairs(tranqables) do
+		if UnitName("target") == tranqable then
+			return true
+		end
+	end
+  return false
 end
