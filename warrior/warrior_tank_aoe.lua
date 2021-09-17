@@ -26,7 +26,7 @@ function warriorTankAoe()
 	if UnitMana("player") >= 35 then
 		sunderArmor()
 	end
-	ohShit()
+	doDefCooldown()
 	use_autoattack()
 end
 
