@@ -1,4 +1,9 @@
 evocationActionSlot = 61
+scorchActionSlot = 13
+fireblastActionSlot = 14
+fireballActionSlot = 15
+
+lastScorch = 0
 
 -- element can be Fire, Frost, Arcane
 function mageAttack(mageElement)
@@ -14,9 +19,8 @@ function mageAttack(mageElement)
 		  UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
 			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		end
-		if mageElement == "Fire" then
-			CastSpellByName("Fire Blast")
-			CastSpellByName("Fireball")
+		if mageElement == "Fire" and not isTargetInMobList(FIRE_IMMUNE_MOBS) then
+			fireRotation()
 		elseif mageElement == "Arcane" then
 			CastSpellByName("Arcane Missiles")
 		else
@@ -27,4 +31,33 @@ function mageAttack(mageElement)
   else
       use_wand()
   end
+end
+
+function fireRotation()
+	if azs.class.talent == MAGE_FIRE then
+		stackScorch()
+	end
+	fireblast()
+	fireball()
+end
+
+function stackScorch()
+	if IsActionReady(scorchActionSlot) then
+			if get_debuff_count("target", "Spell_Fire_SoulBurn") < 5 or lastScorch + 25 < GetTime() then
+					CastSpellByName("Scorch")
+					lastScorch = GetTime()
+			end
+	end
+
+function fireblast()
+	if IsActionReady(fireblastActionSlot) then
+		CastSpellByName("Fire Blast")
+	end
+end
+
+function fireball()
+	if IsActionReady(fireballActionSlot) then
+		CastSpellByName("Fireball")
+	end
+end
 end

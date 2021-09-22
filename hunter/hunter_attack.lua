@@ -1,9 +1,9 @@
 -- Settings
 aimedShotWindow = 1 -- low value, with 3.0+ ranged attack speed (full/auto shot rotation), or a higher value with 2.9- ranged attack speed (clipped/aimed shot rotation)
-multiShotWindow = 1.9 -- should be around ranged attack speed minus 1
+instantShotWindow = 1.9 -- should be around ranged attack speed minus 1
 
 aimedShotExpire = 0
-multiShotExpire = 0
+instantShotExpire = 0
 arrowCount = GetInventoryItemCount("player", 0)
 ignoreNext = false
 
@@ -12,9 +12,7 @@ raptorStrikeActionSlot = 14
 mongooseBiteActionSlot = 13
 aimedShotActionSlot = 15
 multiShotActionSlot = 16
-
-tranqables = {"Magmadar", "Flamegor", "Chromaggus", "Maws", "Princess Huhuran",
-  "Hakkar the Soulflayer", "Gluth", "Death Talon Seether", "Qiraji Slayer"}
+tranqShotActionSlot = 17
 
 local f = CreateFrame("FRAME", "HunterFrame")
 f:RegisterEvent("BAG_UPDATE")
@@ -29,7 +27,7 @@ function HunterEventHandler()
     else
       --azs.debug("Auto Shot!")
       aimedShotExpire = GetTime() + aimedShotWindow
-      multiShotExpire = GetTime() + multiShotWindow
+      instantShotExpire = GetTime() + instantShotWindow
     end
   end
 end
@@ -92,10 +90,13 @@ function hunterRangedDps()
 	end
 	use_ranged_attack()
 	if not IsCurrentAction(aimedShotActionSlot) and not IsCurrentAction(multiShotActionSlot) then
-		if aimedShotExpire >= GetTime() and IsActionReady(aimedShotActionSlot) then
+    if instantShotExpire >= GetTime() and isTargetInMobList(TRANQABLE_MOBS) and IsActionReady(tranqShotActionSlot) then
+      CastSpellByName("Tranquilizing Shot")
+      ignoreNext = true
+    elseif aimedShotExpire >= GetTime() and IsActionReady(aimedShotActionSlot) then
       CastSpellByName("Aimed Shot")
       ignoreNext = true
-    elseif azs.class.multiShotEnabled and multiShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
+    elseif azs.class.multiShotEnabled and instantShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
       CastSpellByName("Multi-Shot")
       ignoreNext = true
     end
@@ -106,20 +107,4 @@ function hunterFeignDeath()
   if UnitAffectingCombat("player") and IsActionReady(feignDeathActionSlot) then
     CastSpellByName("Feign Death")
   end
-end
-
--- /script hunterTranqShot()
-function hunterTranqShot()
-  if isTargetTranqable() then
-    CastSpellByName("Tranquilizing Shot")
-  end
-end
-
-function isTargetTranqable()
-  for k,tranqable in pairs(tranqables) do
-		if UnitName("target") == tranqable then
-			return true
-		end
-	end
-  return false
 end

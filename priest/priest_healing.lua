@@ -9,6 +9,8 @@ priestDispelRange="Cure Disease"
 aoeHealMinPlayers=3
 
 desperatePrayerActionSlot = 61
+fadeActionSlot = 15
+powerInfusionActionSlot = 16
 
 function fearWard(playerName)
 		playerName = playerName or UnitName("target")
@@ -42,9 +44,13 @@ end
 -- /script priestHeal(azs.targetList.all, "instantOnly")
 function priestHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
-	if IsActionReady(desperatePrayerActionSlot) and isPlayerHpUnder(0.5) then
+	if IsActionReady(fadeActionSlot) and isPlayerHpUnder(0.5) then
+			CastSpellByName("Fade")
+	end
+	if IsActionReady(desperatePrayerActionSlot) and isPlayerHpUnder(0.4) then
 			CastSpellByName("Desperate Prayer")
 	end
+	powerInfusion()
 	UseHealTrinket()
 	healProfile=healProfile or getPriestDefaultHealingProfile()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
@@ -105,11 +111,11 @@ function priestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 					CastSpellByName(spellName)
 					SpellTargetUnit(hotTarget)
 					break
-				--elseif healMode==4 and aoeInfo[aoeHealMinPlayers] and aoeInfo[aoeHealMinPlayers].hpRatio<hpThreshold then
-					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
-					--currentHealTarget=nil
-					--CastSpellByName(spellName)
-					--break
+				elseif healMode==4 and aoeInfo[aoeHealMinPlayers] and aoeInfo[aoeHealMinPlayers].hpRatio<hpThreshold then
+					-- azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
+					currentHealTarget=nil
+					CastSpellByName(spellName)
+					break
 				end
 			end
 		end
@@ -148,13 +154,37 @@ function priestDispelTarget(target,debuffType)
 	end
 end
 
+function powerInfusion()
+	if not IsActionReady(powerInfusionActionSlot) then return end
+	if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
+		if isTargetHpUnder(0.7) then
+			azs.debug("cast pi")
+			for target,info in pairs(azs.targetList.dps) do
+				if info.class == "MAGE" then
+					if castPowerInfusion(info.name) then return end
+				end
+			end
+		end
+	end
+end
+
+function castPowerInfusion(playerName)
+	playerName = playerName or UnitName("target")
+	if not azs.targetList[playerName] then return end
+	for target,info in pairs(azs.targetList[playerName]) do
+		castBuff("Spell_Holy_PowerInfusion", "Power Infusion", target)
+		return true
+	end
+	return false
+end
+
 function initPriestHealProfiles()
 	priestHealProfiles={
 		regular={
 			{0.4 , 380, "Flash Heal",1,azs.targetList.tank},
-			--{0.5 , 0  , "Inner Focus",4},
-			--{0.5 , 0  , "Prayer of Healing",4,azs.targetList.party,true},
-			--{0.8 , 410, "Prayer of Healing(Rank 1)",4},
+			{0.5 , 0  , "Inner Focus",4},
+			{0.5 , 0  , "Prayer of Healing",4,azs.targetList.party,true},
+			{0.8 , 410, "Prayer of Healing(Rank 1)",4},
 			{0.3 , 380, "Flash Heal"},
 			{0.5 , 215, "Flash Heal(Rank 4)"},
 			{0.6 , 259, "Heal(Rank 4)"},
@@ -165,9 +195,9 @@ function initPriestHealProfiles()
 		},
 		renewSpam={
 			{0.4 , 380, "Flash Heal",1,azs.targetList.tank},
-			--{0.5 , 0  , "Inner Focus",4},
-			--{0.5 , 0  , "Prayer of Healing",4,false,true},
-			--{0.8 , 410, "Prayer of Healing(Rank 1)",4},
+			{0.5 , 0  , "Inner Focus",4},
+			{0.5 , 0  , "Prayer of Healing",4,false,true},
+			{0.8 , 410, "Prayer of Healing(Rank 1)",4},
 			{0.4 , 259, "Heal(Rank 4)"},
 			{0.6 , 184, "Renew(Rank 6)",3},
 			{0.9 , 94 , "Renew(Rank 3)",3},
@@ -185,7 +215,7 @@ function initPriestHealProfiles()
 			{0.9 , 94 , "Renew(Rank 3)",3}
 		},
 		UNLIMITEDPOWER={
-			--{0.9 , 0  , "Prayer of Healing",4},
+			{0.9 , 0  , "Prayer of Healing",4},
 			{0.99, 0  , "Flash Heal"},
 			{0.9 , 131, "Heal(Rank 1)",2}
 		},

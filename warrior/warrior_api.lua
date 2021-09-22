@@ -3,20 +3,28 @@
 -- ActionBar page 1 Berserker Stance: slots 97 to 108
 
 function initWarriorData()
-  if isTankWarrior() then
+  azs.class.talent = determineWarriorTalent()
+  azs.debug("Talent: " .. azs.class.talent)
+  if azs.class.talent == WARRIOR_DEEP_PROT or azs.class.talent == WARRIOR_FURY_PROT then
     initTankWarrior()
   else
     initFuryWarrior()
   end
 end
 
-function isTankWarrior()
+function determineWarriorTalent()
   local _, _, pointsInDefensive = GetTalentTabInfo(3)
-  return pointsInDefensive > 0
+  local _, _, pointsInFury = GetTalentTabInfo(2)
+  if pointsInDefensive == 0 then
+    return WARRIOR_FURY
+  elseif pointsInFury > 5 then
+    return WARRIOR_FURY_PROT
+  else
+    return WARRIOR_DEEP_PROT
+  end
 end
 
 function initTankWarrior()
-  azs.debug("I am Tank Warrior")
   if UnitLevel("player") < 11 then
     azs.class.dps = function() warriorArmsAttack() end
   else
@@ -39,10 +47,14 @@ function initTankWarrior()
     {"Bloodrage", bloodrageActionSlot},
     {"Revenge", revengeActionSlot},
     {"Sunder Armor", sunderArmorActionSlot},
-    {"Shield Slam", shieldSlamActionSlot},
     {"Last Stand", lastStandActionSlot},
     {"Shield Wall", shieldWallActionSlot}
   }
+  if azs.class.talent == WARRIOR_FURY_PROT then
+    table.insert(azs.class.initActionBar, {"Bloodthirst", bloodThirstActionSlot})
+  else
+    table.insert(azs.class.initActionBar, {"Shield Slam", shieldSlamActionSlot})
+  end
   azs.class.initMacros = {
     {"Tank attack", "Ability_Warrior_DefensiveStance", "/script azs.dps(\"solo\")", {73,74,76,85,86,88}, "warriorTauntEnabled = true"},
     {"AoE tank attack", "Ability_Warrior_Cleave", "/script azs.aoe(\"solo\")", {77,89}, "warriorTauntEnabled = true"},
@@ -55,7 +67,6 @@ function initTankWarrior()
 end
 
 function initFuryWarrior()
-  azs.debug("I am Fury Warrior")
   azs.class.chargeEnabled = false
   if UnitLevel("player") < 31 then
     azs.class.dps = function() warriorArmsAttack() end

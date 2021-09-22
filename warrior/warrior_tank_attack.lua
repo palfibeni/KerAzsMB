@@ -27,9 +27,7 @@ function warriorTankAttack()
 	warriorDefenseStance()
 	bloodrage()
 	warriorTaunt()
-	if IsActionReady(shieldSlamActionSlot) and UnitMana("player") >= 20 then
-		CastSpellByName("Shield Slam")
-  end
+	highThreatAttack()
 	warriorDemoShout()
 	sunderArmor()
 	if IsActionReady(revengeActionSlot) then
@@ -49,6 +47,18 @@ function warriorDefenseStance()
 	local icon, name, active, castable = GetShapeshiftFormInfo(2);
 	if not active then
 		CastSpellByName("Defensive Stance")
+	end
+end
+
+function highThreatAttack()
+	if azs.class.talent == WARRIOR_FURY_PROT then
+		if IsActionReady(bloodThirstActionSlot) and  UnitMana("player") >= 30 then
+			CastSpellByName("Bloodthirst")
+		end
+	else
+		if IsActionReady(shieldSlamActionSlot) and UnitMana("player") >= 20 then
+			CastSpellByName("Shield Slam")
+	  end
 	end
 end
 

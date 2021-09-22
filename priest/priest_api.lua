@@ -35,6 +35,8 @@ function initHolyPriestData()
   end
   azs.class.initActionBar = {
 		{"Shoot", autoAttackActionSlot},
+    {"Fade", fadeActionSlot},
+    {"Power Infusion", powerInfusionActionSlot},
     {"Prayer of Healing", 67},
   }
 

@@ -26,7 +26,7 @@ function initPaladinData()
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
   }
   azs.class.help = function()
-    azs.debug("Paladin is mainly heal, what buff he will use is determined by its talents.")
+    azs.debug("Paladin is mainly heal, what buff he will use is determined by its ")
     azs.debug("1. If has santuary, will use it on tanks the rest will get salvation. - \"Sanc/Salva\"")
     azs.debug("2. If has Kings, will use it on everyone. \"Kings\"")
     azs.debug("3. If has Might talented, will use it on mellee, and Wisdom on the rest. \"Might/Wisdom\"")

@@ -4,12 +4,24 @@
 -- ActionBar page 1 Moonkin Form: slots 109 to 120
 
 function initDruidData()
-  if isTankDruid() then
+  azs.class.talent = determineDruidTalent()
+  azs.debug("I am " .. azs.class.talent)
+  if azs.class.talent == DRUID_TANK then
     initTankDruidData()
-  elseif isBalanceDruid() then
+  elseif azs.class.talent == DRUID_BALANCE then
     initBalanceDruidData()
   else
     initRestoDruidData()
+  end
+end
+
+function determineDruidTalent()
+  if isBalanceDruid() then
+    return DRUID_BALANCE
+  elseif isTankDruid() then
+    return DRUID_TANK
+  else
+    return DRUID_RESTO
   end
 end
 
@@ -24,7 +36,6 @@ function isBalanceDruid()
 end
 
 function initTankDruidData()
-  azs.debug("I am Tank Druid")
   azs.class.dps = function(form)
     if form == "Bear" then
       druidBearAttack()
@@ -59,7 +70,6 @@ function initTankDruidData()
 end
 
 function initBalanceDruidData()
-  azs.debug("I am Balance Druid")
   azs.class.element = "Arcane" -- Could be "Arcane" or "Nature"
   azs.class.dps = function(element) druidBalanceAttack(element) end
   azs.class.dispel = function() druidDispel() end
@@ -91,7 +101,6 @@ function initBalanceDruidData()
 end
 
 function initRestoDruidData()
-  azs.debug("I am Resto Druid")
   local playerName = UnitName("player")
 
   azs.class.heal = function() druidHeal() end
