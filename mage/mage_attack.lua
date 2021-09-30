@@ -47,7 +47,8 @@ function stackScorch()
 					CastSpellByName("Scorch")
 					lastScorch = GetTime()
 			end
-	end
+		end
+end
 
 function fireblast()
 	if IsActionReady(fireblastActionSlot) then
@@ -59,5 +60,4 @@ function fireball()
 	if IsActionReady(fireballActionSlot) then
 		CastSpellByName("Fireball")
 	end
-end
 end

@@ -33,6 +33,7 @@ function exact_target_by_name(name)
 	TargetByName(name, true)
 end
 
+-- /script azs.markSkull()
 azs.markSkull = function()
 	return azs.markIcon(8)
 end

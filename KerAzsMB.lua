@@ -188,33 +188,6 @@ function initActionBar()
 			placeSpellByName(spellName, slot)
 		end
 	end
-	if UnitClass("player") == "Warrior" then
-		initActionBarForWarrior()
-	elseif UnitClass("player") == "Paladin" then
-		placeSpellByName("Divine Shield", divineShieldActionSlot)
-		placeSpellByName("Attack", autoAttackActionSlot)
-	elseif UnitClass("player") == "Priest" then
-		placeSpellByName("Desperate Prayer", desperatePrayerActionSlot)
-		placeSpellByName("Shoot", autoAttackActionSlot)
-	elseif UnitClass("player") == "Druid" then
-		placeSpellByName("Innervate", innervateActionSlot)
-		placeSpellByName("Attack", autoAttackActionSlot)
-	end
-end
-
-function initActionBarForWarrior()
-	placeSpellByName("Attack", autoAttackActionSlot)
-	placeSpellByName("Heroic Strike", heroicStrikeActionSlot)
-	placeSpellByName("Bloodrage", bloodrageActionSlot)
-	if is_tank_by_name(UnitName("player")) then
-		placeSpellByName("Revenge", revengeActionSlot)
-		placeSpellByName("Sunder Armor", sunderArmorActionSlot)
-		placeSpellByName("Shield Slam", shieldSlamActionSlot)
-	else
-		placeSpellByName("Berserker Rage", berserkerRageActionSlot)
-		placeSpellByName("Whirlwind", whirlwindActionSlot)
-		placeSpellByName("Bloodthirst", bloodThirstActionSlot)
-	end
 end
 
 function placeSpellByName(spellName, slot)
