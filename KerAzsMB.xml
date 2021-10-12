@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 	<Script file="KerAzsMB.lua"/>
+	<Script file="functions.lua"/>
 	<Script file="data.lua"/>
 	<Include file="constants\constants.xml"/>
 	<Include file="util\util.xml"/>

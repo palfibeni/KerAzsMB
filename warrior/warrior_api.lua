@@ -73,7 +73,7 @@ function initFuryWarrior()
   else
     azs.class.dps = function() warriorFuryAttack() end
   end
-  azs.class.stopDps = function()
+  azs.class.stop = function()
     stop_autoattack()
   end
   azs.class.initActionBar = {

@@ -11,11 +11,11 @@ function initMageData()
     mageBuff()
     mageWater()
     offerMageWater()
-    if isInBWL() then applyWizardOil() end
+    if isInAQ40() then applyWizardOil() end
   end
   azs.class.aoe = function() mageAoe() end
   -- azs.class.handleNefaCall = function() end
-  azs.class.stopDps = function()
+  azs.class.stop = function()
     SpellStopCasting()
   end
 
@@ -27,7 +27,8 @@ function initMageData()
 
   azs.class.initActionBar = {
     {"Evocation", evocationActionSlot},
-    {"Shoot", autoAttackActionSlot}
+    {"Shoot", autoAttackActionSlot},
+    {"Polymorph", polymorphActionSlot}
   }
   azs.class.initMacros = {
     {"Poly " .. azs.class.ccTarget, "Ability_Seal", "/script azs.cc(" .. azs.class.ccTarget .. ")", {3}, ""},

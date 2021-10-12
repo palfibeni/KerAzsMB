@@ -18,26 +18,31 @@ function initWarlockData()
   -- Could be "Soul" or "Mana"
   azs.class.drain = "Mana"
 
-  azs.class.dps = function(curse) warlockAttack(curse) end
+  azs.class.dps = function(params) warlockAttack(params) end
   azs.class.cc = function(icon) banishByIcon(icon) end
   azs.class.special = function(drain) warlockSpecial(drain) end
   azs.class.buff = function(summon)
     warlockBuff(summon)
     askMageWater()
-    if isInBWL() then applyWizardOil() end
+    if isInAQ40() then applyWizardOil() end
   end
   azs.class.aoe = function() warlockAoe() end
   -- azs.class.handleNefaCall = function() end
-  azs.class.stopDps = function()
+  azs.class.stop = function()
     SpellStopCasting()
   end
   azs.class.ccTarget = getDefaultWarlockValue("ccTarget", 1)
+
+  local params = "{curse = \"" .. azs.class.curse .. "\", element = \"" .. azs.class.element .. "\"}"
+  local mainAttackMacro = "/script azs.dps(nil, ".. params..")"
+  local secondaryAttackMacro = "/script azs.dps(\"cross\", ".. params..")"
+
   azs.class.initActionBar = {
 		{"Shoot", autoAttackActionSlot},
   }
   azs.class.initMacros = {
-    {"Attack skull", "Spell_Shadow_DeathCoil", "/script azs.dps(nil, \"" .. azs.class.curse .. "\")", {1}, "azs.class.element = \"" .. azs.class.element .. "\""},
-    {"Attack cross", "Spell_Shadow_ShadowBolt", "/script azs.dps(\"cross\", \"" .. azs.class.curse .. "\")", {2}, "azs.class.element = \"" .. azs.class.element .. "\""},
+    {"Attack skull", "Spell_Shadow_DeathCoil", mainAttackMacro, {1}},
+    {"Attack cross", "Spell_Shadow_ShadowBolt", secondaryAttackMacro, {2}},
     {"Banish " .. azs.class.ccTarget, "Spell_Shadow_Cripple", "/script azs.cc(" .. azs.class.ccTarget .. ")", {3}},
     {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special(\"skull\", \"Mana\")", {4}, ""},
     {"Drain soul", "Spell_Shadow_Haunting", "/script azs.special(\"skull\", \"Soul\")", {64}, ""},

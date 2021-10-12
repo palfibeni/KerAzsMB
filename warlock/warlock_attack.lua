@@ -13,9 +13,9 @@ function warlock_cross(curse, element)
 end
 
 -- ATTACK
-function warlockAttack(curse, element)
-	curse = curse or azs.class.curse
-	element = element or azs.class.element
+function warlockAttack(params)
+	curse = params.curse or azs.class.curse
+	element = params.element or azs.class.element
 	if castingOrChanneling() then return end
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
@@ -25,7 +25,7 @@ function warlockAttack(curse, element)
 			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		end
 		if element == "Fire" then
-			CastSpellByName("Immolation")
+			CastSpellByName("Immolate")
 		else
 			corruption()
 			warlockCurse(curse)

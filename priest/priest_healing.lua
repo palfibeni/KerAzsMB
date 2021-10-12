@@ -1,12 +1,10 @@
--- TODO Fix AOE, add Fade
+buffAbolishDisease = "Spell_Nature_NullifyDisease"
+buffRenew = "Spell_Holy_Renew"
+buffInnerFocus = "Spell_Frost_WindWalkOn"
 
-buffAbolishDisease="Spell_Nature_NullifyDisease"
-buffRenew="Spell_Holy_Renew"
-buffInnerFocus="Spell_Frost_WindWalkOn"
-
-priestHealRange="Lesser Heal"
-priestDispelRange="Cure Disease"
-aoeHealMinPlayers=3
+priestHealRange = "Lesser Heal"
+priestDispelRange = "Cure Disease"
+aoeHealMinPlayers = 3
 
 desperatePrayerActionSlot = 61
 fadeActionSlot = 15
@@ -27,12 +25,13 @@ function priestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispe
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
-	UseHealTrinket()
+	priestCooldown()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,priestHealRange,buffRenew,priestDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
 		if action=="heal" then
-			priestHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp)
+			local aoeInfo = PriestAoeInfo()
+			priestHealTarget(healProfile,target,hpOrDebuffType,hotTarget,hotHp,aoeInfo)
 		else
 			priestDispelTarget(target,hpOrDebuffType)
 		end
@@ -44,19 +43,12 @@ end
 -- /script priestHeal(azs.targetList.all, "instantOnly")
 function priestHeal(lTargetList,healProfile)
 	lTargetList = lTargetList or azs.targetList.all
-	if IsActionReady(fadeActionSlot) and isPlayerHpUnder(0.5) then
-			CastSpellByName("Fade")
-	end
-	if IsActionReady(desperatePrayerActionSlot) and isPlayerHpUnder(0.4) then
-			CastSpellByName("Desperate Prayer")
-	end
-	powerInfusion()
-	UseHealTrinket()
+	priestCooldown()
 	healProfile=healProfile or getPriestDefaultHealingProfile()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp,hotTarget,hotHp=GetHealTarget(lTargetList,priestHealRange,buffRenew)
-		local aoeInfo=PriestAoeInfo()
+		local aoeInfo = PriestAoeInfo()
 		priestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	else
 		HealInterrupt(currentHealTarget,currentHealFinish,precastHpThreshold)
@@ -65,13 +57,13 @@ end
 
 function PriestAoeInfo()
 	ClearFriendlyTarget()
-	CastSpellByName("Cure Disease")
+	CastSpellByName(priestDispelRange)
 	local playerCount,playerHps=0,{}
 	for target,info in pairs(azs.targetList.party) do
-		local hp=UnitHealth(target)/UnitHealthMax(target)
+		local hp = UnitHealth(target)/UnitHealthMax(target)
 		if IsValidSpellTarget(target) then
-			playerCount=playerCount+1
-			playerHps[playerCount]={uid=target,hpRatio=hp}
+			playerCount = playerCount + 1
+			playerHps[playerCount] = {uid = target, hpRatio = hp}
 		end
 	end
 	SpellStopTargeting()
@@ -126,7 +118,7 @@ function priestDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or priestDispelAll
 	dispelByHp=dispelByHp or false
-	UseHealTrinket()
+	priestCooldown()
 	if SpellCastReady(priestDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,priestDispelRange,priestDispelAll,false)
 		priestDispelTarget(target,debuffType)
@@ -154,15 +146,33 @@ function priestDispelTarget(target,debuffType)
 	end
 end
 
+function priestCooldown()
+	azs.debug("priestCooldown")
+	if IsActionReady(fadeActionSlot) and isPlayerHpUnder(0.5) then
+			CastSpellByName("Fade")
+	end
+	if IsActionReady(desperatePrayerActionSlot) and isPlayerHpUnder(0.4) then
+			CastSpellByName("Desperate Prayer")
+	end
+	if powerInfusion() then return end
+	UseHealTrinket()
+end
+
 function powerInfusion()
 	if not IsActionReady(powerInfusionActionSlot) then return end
 	if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
-		if isTargetHpUnder(0.7) then
-			azs.debug("cast pi")
-			for target,info in pairs(azs.targetList.dps) do
-				if info.class == "MAGE" then
-					if castPowerInfusion(info.name) then return end
-				end
+	  if isTargetHpOver(0.7) then return end
+		if castPowerInfusionOnMageInList(azs.targetList.dps) then return true end
+		if castPowerInfusionOnMageInList(azs.targetList.multidps) then return true end
+	end
+	return false
+end
+
+function castPowerInfusionOnMageInList(targetList)
+	for target,info in pairs(targetList) do
+		if info.class == "MAGE" then
+			if castPowerInfusion(info.name) then
+				return true
 			end
 		end
 	end
@@ -172,8 +182,12 @@ function castPowerInfusion(playerName)
 	playerName = playerName or UnitName("target")
 	if not azs.targetList[playerName] then return end
 	for target,info in pairs(azs.targetList[playerName]) do
-		castBuff("Spell_Holy_PowerInfusion", "Power Infusion", target)
-		return true
+		CastSpellByName("Power Infusion")
+		if IsValidSpellTarget(target) then
+			SendChatMessage("Power infusion on " .. playerName .. "!", "YELL")
+			SpellTargetUnit(target)
+			return true
+		end
 	end
 	return false
 end
@@ -217,7 +231,7 @@ function initPriestHealProfiles()
 		UNLIMITEDPOWER={
 			{0.9 , 0  , "Prayer of Healing",4},
 			{0.99, 0  , "Flash Heal"},
-			{0.9 , 131, "Heal(Rank 1)",2}
+			{0.9 , 131, "Heal",2}
 		},
     midLevel={
 			{0.4 , 265, "Flash Heal",1,azs.targetList.tank},
@@ -238,10 +252,14 @@ function initPriestHealProfiles()
 end
 
 function getPriestDefaultHealingProfile()
-	-- Nefarian related logic
-	if priestClassCallExpire and priestClassCallExpire >= GetTime() then
+	if UnitName("target") == "Shazzrah" or isPriestNefarianCall() then
 		 return "instantOnly"
 	  else
 			return getDefaultHealingProfile()
 		end
+end
+
+-- Nefarian related logic
+function isPriestNefarianCall()
+	return priestClassCallExpire and priestClassCallExpire >= GetTime()
 end

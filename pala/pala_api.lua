@@ -7,7 +7,7 @@ function initPaladinData()
   azs.class.buff = function(buff, aura)
     paladinBuff(buff, aura)
     askMageWater()
-    if isInBWL() then applyManaOil() end
+    if isInAQ40() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -16,7 +16,7 @@ function initPaladinData()
     azs.class.prioGroup = 1
   end
 
-  azs.class.stopDps = function()
+  azs.class.stop = function()
     SpellStopCasting()
   end
   azs.class.initMacros = {

@@ -1,11 +1,9 @@
-function rogueAttack(weaponType)
-  weaponType = weaponType or azs.class.weapon
+function rogueAttack(params)
+  weaponType = params.weapon or azs.class.weapon
+  mainRole = params.mainRole or azs.class.mainRole
   burstDmg()
   if (GetComboPoints("target") > 1 ) then
-    cast_buff_player("Ability_Rogue_SliceDice", "Slice and Dice")
-  end
-  if (GetComboPoints("target") == 5) then
-    CastSpellByName("Eviscerate")
+    spendComboPoints(mainRole)
   else
     if weaponType == "Sword" then
       CastSpellByName("Sinister Strike")
@@ -16,8 +14,20 @@ function rogueAttack(weaponType)
   use_autoattack()
 end
 
+function spendComboPoints(mainRole)
+  mainRole = mainRole or "Damage"
+  if mainRole == "Damage" then
+    cast_buff_player("Ability_Rogue_SliceDice", "Slice and Dice")
+    if (GetComboPoints("target") == 5) then
+      CastSpellByName("Eviscerate")
+    end
+  else
+    CastSpellByName("Kidney Shot")
+  end
+end
+
 function burstDmg()
-  if (GetComboPoints("target") >= 1) then
+  if GetComboPoints("target") >= 1 and isTargetHpUnder(0.7) then
     CastSpellByName("Blade Flurry")
     CastSpellByName("Adrenaline Rush")
     UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));

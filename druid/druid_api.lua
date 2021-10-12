@@ -45,7 +45,7 @@ function initTankDruidData()
   end
   azs.class.aoe = function() druidBearAoe() end
   azs.class.buff = function() druidBuff() end
-  azs.class.stopDps = function()
+  azs.class.stop = function()
     stop_autoattack()
   end
 
@@ -70,16 +70,16 @@ function initTankDruidData()
 end
 
 function initBalanceDruidData()
-  azs.class.element = "Arcane" -- Could be "Arcane" or "Nature"
+  azs.class.element = azs.class.element or "Arcane" -- Could be "Arcane" or "Nature"
   azs.class.dps = function(element) druidBalanceAttack(element) end
   azs.class.dispel = function() druidDispel() end
   azs.class.cc = function(icon) entangleByIcon(icon) end
   azs.class.buff = function()
     druidBuff()
     askMageWater()
-    if isInBWL() then applyWizardOil() end
+    if isInAQ40() then applyWizardOil() end
   end
-  azs.class.stopDps = function()
+  azs.class.stop = function()
     SpellStopCasting()
     stop_autoattack()
   end
@@ -108,7 +108,7 @@ function initRestoDruidData()
   azs.class.buff = function()
     druidBuff()
     askMageWater()
-    if isInBWL() then applyManaOil() end
+    if isInAQ40() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -117,7 +117,7 @@ function initRestoDruidData()
     azs.class.prioGroup = 1
   end
 
-  azs.class.stopDps = function()
+  azs.class.stop = function()
     SpellStopCasting()
   end
   azs.class.initMacros = {

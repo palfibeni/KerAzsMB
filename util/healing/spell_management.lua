@@ -1,6 +1,4 @@
 -- Spell management
--- TODO: Action slot mapping and pet abilities
-
 -- spellName -> {spellID,bookType,castTime,actionSlot}
 spellData={}
 

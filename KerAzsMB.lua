@@ -47,17 +47,28 @@ azs.initClassData = function()
 	end
 end
 
-azs.debug = function(message)
-	if message==nil then
-		DEFAULT_CHAT_FRAME:AddMessage("nil")
-	elseif message==true then
-			DEFAULT_CHAT_FRAME:AddMessage("true")
-	elseif message==false then
-			DEFAULT_CHAT_FRAME:AddMessage("false")
+azs.debug = function(message,carry)
+	local t,s = type(message), ""
+	if message == nil then
+		s = s .. "nil"
+	elseif t == "boolean" then
+		if message then s = s .. "true" else s = s .. "false" end
+	elseif t == "string" or t == "number" then
+		s = s .. message
+	elseif t == "table" and not carry then
+		for key,val in message do
+			s = s .. azs.debug(key,true) .. " -> ".. azs.debug(val,true)
+			DEFAULT_CHAT_FRAME:AddMessage(s)
+			s = ""
+		end
+		return
 	else
-		DEFAULT_CHAT_FRAME:AddMessage(message)
+		s = s .. t
 	end
+	if carry then return s
+	else DEFAULT_CHAT_FRAME:AddMessage(s) end
 end
+
 
 SLASH_INIT1="/init"
 SLASH_INIT2="/azs.init"
@@ -77,7 +88,7 @@ SLASH_AZSHELP1="/azs.help"
 SLASH_AZSHELP2="/azshelp"
 SLASH_AZSHELP3="/azsh"
 SlashCmdList["AZSHELP"]=function()
-	azs.debug("To setup actionbars please write /init")
+	azs.debug("To setup actionbars please write /deepinit")
 	if azs.class.help then
 		azs.class.help()
 	end
@@ -95,90 +106,6 @@ azs.getTarget = function(targetingMode)
 	elseif targetingMode == "solo" then
 		return true
 	end
-end
-
-azs.dps = function(targetingMode, param)
-	if not azs.class.dps then
-		azs.debug("This class is not supported yet or it doesnt have a dps option, please use old methods mage_attack_skull(), etc...")
-		return
-	end
-	if azs.class.handleNefaCall then azs.class.handleNefaCall() end
-	if not hasMandokirGaze() and azs.getTarget(targetingMode) then
-		azs.class.dps(param)
-	else
-		azs.class.stopDps()
-	end
-end
-
-azs.heal = function(icon)
-	if not azs.class.heal then
-		azs.debug("This class is not supported yet or it doesnt have a heal option, please use old methods priestHeal(), etc...")
-		return
-	end
-	if hasMandokirGaze() then
-		azs.class.stopDps()
-		return
-	end
-	azs.class.heal()
-end
-
-azs.dispel = function(icon)
-	if not azs.class.dispel then
-		azs.debug("This class is not supported yet or it doesnt have a dispel option, please use old methods mage_decuse_raid(), etc...")
-		return
-	end
-	if hasMandokirGaze() then
-		azs.class.stopDps()
-		return
-	end
-	azs.class.dispel()
-end
-
-azs.healOrDispel = function(icon)
-	if not azs.class.healOrDispel then
-		azs.debug("This class is not supported yet or it doesnt have a healOrDispel option, please use old methods priestHealOrDispel(), etc...")
-		return
-	end
-	if hasMandokirGaze() then
-		azs.class.stopDps()
-		return
-	end
-	azs.class.healOrDispel()
-end
-
-azs.cc = function(icon)
-	if not azs.class.cc then
-		azs.debug("This class is not supported yet or it doesnt have a cc option, please use old methods mage_poly_star(), etc...")
-		return
-	end
-	azs.class.cc(icon)
-end
-
-azs.special = function(targetingMode, param)
-	if not azs.class.special then
-		azs.debug("This class is not supported yet or it doesnt have a special option, please use old methods warlock_drain_soul_skull(), etc...")
-		return
-	end
-	if azs.getTarget(targetingMode) then
-		azs.class.special(param)
-	end
-end
-
-azs.aoe = function(targetingMode)
-	if not azs.class.aoe then
-		azs.debug("This class is not supported yet or it doesnt have an aoe option, please use old methods mage_aoe(), etc...")
-		return
-	end
-	azs.class.aoe()
-end
-
-azs.buff = function(param)
-	if not azs.class.buff then
-		azs.debug("This class is not supported yet, or it doesnt have a buff option, please use old methods mage_buff_raid(), etc...")
-		return
-	end
-	if hasMandokirGaze() then return end
-	azs.class.buff(param)
 end
 
 function initActionBar()
@@ -278,23 +205,6 @@ function performTradeSkill(tradeSkillName)
 			CloseTradeSkill()
 			DoTradeSkill(i)
 			break
-		end
-	end
-end
-
-function taxiToSentinelHill()
-	takeTaxi("Sentinel Hill")
-end
-
-function taxiToSilithus()
-	takeTaxi("Cenarion Hold")
-end
-
-function takeTaxi(destination)
-	if not UnitExists("target") then return end
-	for node = 1, NumTaxiNodes() do
-		if string.find(TaxiNodeName(node), destination) then
-			TakeTaxiNode(node)
 		end
 	end
 end

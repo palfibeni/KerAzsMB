@@ -1,5 +1,13 @@
+function isInAQ40()
+  return GetRealZoneText() == AQ40
+end
+
+function isInAQ20()
+  return GetRealZoneText() == AQ20
+end
+
 function isInBWL()
-  return GetRealZoneText() == "Blackwing Lair"
+  return GetRealZoneText() == BWL
   -- GetMinimapZoneText() Dragonmaw Garrison (Razorgore the Untamed)
   -- GetMinimapZoneText() Shadow Wing Lair (Vaelastrasz the Corrupt)
   -- GetMinimapZoneText() Halls of Strife (Broodlord Lashlayer)
@@ -8,12 +16,12 @@ function isInBWL()
 end
 
 function isInMC()
-  return GetRealZoneText() == "Molten Core"
+  return GetRealZoneText() == MC
 end
 
 
 function isInZG()
-  return GetRealZoneText() == "Zul'Gurub"
+  return GetRealZoneText() == ZG
   -- GetMinimapZoneText() Altar of Hir'eek (High Priestess Jeklik)
   -- GetMinimapZoneText() Coil (High Priest Venoxis)
   -- GetMinimapZoneText() Shadra'zaar (High Priestess Mar'li)
@@ -27,5 +35,5 @@ function isInZG()
 end
 
 function hasMandokirGaze()
-	return has_debuff("player", "Spell_Shadow_Charm")
+	return isInZG() and has_debuff("player", "Spell_Shadow_Charm")
 end
