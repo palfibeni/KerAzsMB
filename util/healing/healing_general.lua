@@ -67,7 +67,7 @@ function GetHealTarget(lTargetList,healSpell,healIcon)
 				if not minHp or biasedHp<minBiasedHp then
 					minHp,minBiasedHp,currentTarget=hp,biasedHp,target
 				end
-				if healIcon and (not minHotHp or biasedHp<minBiasedHotHp) and not has_buff(target,healIcon) then
+				if healIcon and (not minHotHp or biasedHp<minBiasedHotHp) and not hasBuff(target,healIcon) then
 					minHotHp,minBiasedHotHp,currentHotTarget=hp,biasedHp,target
 				end
 			elseif blacklistFlag then
@@ -75,7 +75,7 @@ function GetHealTarget(lTargetList,healSpell,healIcon)
 					minBlacklistTime = info.blacklist
 					currentTarget = target
 					minHp = hp
-					if healIcon and not has_buff(target,healIcon) then
+					if healIcon and not hasBuff(target,healIcon) then
 						currentHotTarget=target
 						minHotHp=hp
 					end
@@ -85,11 +85,6 @@ function GetHealTarget(lTargetList,healSpell,healIcon)
 	end
 	SpellStopTargeting()
 	return currentTarget,minHp,currentHotTarget,minHotHp
-end
-
-function ManaLower(target,manaThreshold)
-	local manaCurrent=UnitMana(target)/UnitManaMax(target)
-	return manaCurrent<manaThreshold
 end
 
 function HpLower(target,hpThreshold)
@@ -190,8 +185,7 @@ end
 
 function UseHealTrinket()
 	if UnitMana("player") / UnitManaMax("player") < 0.8 then
-			UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+		useTrinkets()
 	end
 end
 

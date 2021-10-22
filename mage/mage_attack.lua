@@ -12,12 +12,10 @@ function mageAttack(mageElement)
   if (UnitMana("player") >= (UnitLevel("player") * 6)) then
     stop_wand()
 		if isTargetHpUnder(0.7) then
+			if useTrinkets() then return end
 			cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
 			cast_buff_player("Spell_Nature_EnchantArmor", "Presence of Mind")
 			cast_buff_player("Spell_Fire_SealOfFire", "Combustion")
-			-- Useable trinkets
-		  UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
 		end
 		if mageElement == "Fire" and not isTargetInMobList(FIRE_IMMUNE_MOBS) then
 			fireRotation()

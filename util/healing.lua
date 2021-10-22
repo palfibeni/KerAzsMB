@@ -26,10 +26,3 @@ end
 function isPlayerHpUnder(percent)
 	return UnitHealth("player") / UnitHealthMax("player") < percent
 end
-
-function heal_under_percent(percent, spell)
-	if UnitIsDead("target") then return end
-	if isTargetHpUnder(percent) then
-		CastSpellByName(spell)
-	end
-end

@@ -63,7 +63,7 @@ function druidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 		for i,healProfileEntry in ipairs(druidHealProfiles[healProfile]) do
 			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly=unpack(healProfileEntry)
 			local mana=UnitMana("player")
-			if mana>=manaCost and (not withCdOnly or has_buff("player",druidNatureSwiftness)) and GetSpellCooldownByName(spellName)==0 then
+			if mana>=manaCost and (not withCdOnly or hasBuff("player",druidNatureSwiftness)) and GetSpellCooldownByName(spellName)==0 then
 				if (not healMode or healMode==1) and target and hp<hpThreshold and (not lTargetList or lTargetList[target]) then
 					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					azs.targetList.all[target].blacklist = nil
@@ -119,7 +119,7 @@ function druidDispelTarget(target,debuffType)
 		if debuffType=="Curse" then
 			CastSpellByName("Remove Curse")
 			SpellTargetUnit(target)
-		elseif not has_buff(target,buffAbolishPoison) then
+		elseif not hasBuff(target,buffAbolishPoison) then
 			CastSpellByName("Abolish Poison")
 			SpellTargetUnit(target)
 		end

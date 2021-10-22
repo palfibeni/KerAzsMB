@@ -1,7 +1,7 @@
 function initHunterData()
   azs.debug("I am Hunter")
   azs.class.multiShotEnabled = azs.class.multiShotEnabled or false
-  azs.class.shouldHunterBuffPet = azs.class.multiShotEnabled or false
+  azs.class.shouldHunterBuffPet = azs.class.shouldHunterBuffPet or false
   azs.class.dps = function() hunterDps() end
   azs.class.cc = function(icon)
     hunterFeignDeath()
@@ -12,8 +12,8 @@ function initHunterData()
     hunterManaDrain()
     hunterDps()
   end
-  azs.class.buff = function()
-    hunterBuff()
+  azs.class.buff = function(shouldHunterBuffPet)
+    hunterBuff(shouldHunterBuffPet)
     askMageWater()
   end
   azs.class.handleNefaCall = function() handleNefaCallHunter() end

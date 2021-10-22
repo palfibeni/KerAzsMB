@@ -10,14 +10,6 @@ desperatePrayerActionSlot = 61
 fadeActionSlot = 15
 powerInfusionActionSlot = 16
 
-function fearWard(playerName)
-		playerName = playerName or UnitName("target")
-		if not azs.targetList[playerName] then return end
-		for target,info in pairs(azs.targetList[playerName]) do
-			castBuff("Spell_Holy_Excorcism", "Fear Ward", target)
-		end
-end
-
 -- /script  priestHealOrDispel(azs.targetList.all, false)
 function priestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	lTargetList = lTargetList or azs.targetList.all
@@ -76,7 +68,7 @@ function priestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 		for i,healProfileEntry in ipairs(priestHealProfiles[healProfile]) do
 			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly=unpack(healProfileEntry)
 			local mana=UnitMana("player")
-			if mana>=manaCost and (not withCdOnly or has_buff("player",buffInnerFocus)) and GetSpellCooldownByName(spellName)==0 then
+			if mana>=manaCost and (not withCdOnly or hasBuff("player",buffInnerFocus)) and GetSpellCooldownByName(spellName)==0 then
 				if (not healMode or healMode==1) and target and hp<hpThreshold and (not lTargetList or lTargetList[target]) then
 					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
 					azs.targetList.all[target].blacklist=nil
@@ -137,7 +129,7 @@ function priestDispelTarget(target,debuffType)
 		if debuffType=="Magic" then
 			ClearTarget()
 			CastSpellByName("Dispel Magic")
-		elseif not has_buff(target,buffAbolishDisease) then
+		elseif not hasBuff(target,buffAbolishDisease) then
 			CastSpellByName("Abolish Disease")
 		else
 			CastSpellByName("Cure Disease")
@@ -147,7 +139,6 @@ function priestDispelTarget(target,debuffType)
 end
 
 function priestCooldown()
-	azs.debug("priestCooldown")
 	if IsActionReady(fadeActionSlot) and isPlayerHpUnder(0.5) then
 			CastSpellByName("Fade")
 	end
@@ -156,40 +147,6 @@ function priestCooldown()
 	end
 	if powerInfusion() then return end
 	UseHealTrinket()
-end
-
-function powerInfusion()
-	if not IsActionReady(powerInfusionActionSlot) then return end
-	if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
-	  if isTargetHpOver(0.7) then return end
-		if castPowerInfusionOnMageInList(azs.targetList.dps) then return true end
-		if castPowerInfusionOnMageInList(azs.targetList.multidps) then return true end
-	end
-	return false
-end
-
-function castPowerInfusionOnMageInList(targetList)
-	for target,info in pairs(targetList) do
-		if info.class == "MAGE" then
-			if castPowerInfusion(info.name) then
-				return true
-			end
-		end
-	end
-end
-
-function castPowerInfusion(playerName)
-	playerName = playerName or UnitName("target")
-	if not azs.targetList[playerName] then return end
-	for target,info in pairs(azs.targetList[playerName]) do
-		CastSpellByName("Power Infusion")
-		if IsValidSpellTarget(target) then
-			SendChatMessage("Power infusion on " .. playerName .. "!", "YELL")
-			SpellTargetUnit(target)
-			return true
-		end
-	end
-	return false
 end
 
 function initPriestHealProfiles()

@@ -20,9 +20,7 @@ function warlockAttack(params)
 	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
 		stop_wand()
 		if isTargetHpUnder(0.7) then
-			-- Useable trinkets
-			UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-			UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+			if useTrinkets() then return end
 		end
 		if element == "Fire" then
 			CastSpellByName("Immolate")

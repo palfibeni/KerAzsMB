@@ -26,8 +26,7 @@ function warriorFuryAttack()
 	bloodrage()
 	battleShout()
 	if isTargetHpUnder(0.3) then
-		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"))
-		UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"))
+		useTrinkets()
 		cast_buff_player("Ability_Racial_DeathPact", "Death Wish")
 		cast_buff_player("Ability_Racial_CriticalStrike", "Recklessness")
 		CastSpellByName("Execute")
@@ -79,7 +78,7 @@ function whirlwind()
 end
 
 function battleShout()
-	if not player_has_buff("Ability_Warrior_BattleShout") then
+	if not player_hasBuff("Ability_Warrior_BattleShout") then
 		CastSpellByName("Battle Shout")
 	end
 end

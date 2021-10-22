@@ -37,11 +37,12 @@ function warlockSummon(summon)
 end
 
 function demonicSacrifice()
-  if player_has_buff("Spell_Shadow_PsychicScream") then
+  if player_hasBuff("Spell_Shadow_PsychicScream") then
     return
   end
-  CastSpellByName("Demonic Sacrifice")
-  if (UnitMana("player") >= (UnitLevel("player") * 22)) then
+  if UnitExists("pet") then
+    CastSpellByName("Demonic Sacrifice")
+  elseif (UnitMana("player") >= (UnitLevel("player") * 22)) then
     CastSpellByName("Fel Domination")
     CastSpellByName("Summon Succubus")
   else
@@ -50,7 +51,7 @@ function demonicSacrifice()
 end
 
 function summonImp()
-  if player_has_buff("Spell_Shadow_BloodBoil") then
+  if player_hasBuff("Spell_Shadow_BloodBoil") then
     return
   end
   if (UnitMana("player") >= (UnitLevel("player") * 16)) then

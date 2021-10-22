@@ -30,6 +30,20 @@ function mountUp()
 	end
 end
 
+function useTrinkets()
+	local trinket0CD, _, trinket0Usable = GetInventoryItemCooldown("player", 13)
+	if trinket0Usable == 1 and trinket0CD == 0 then
+		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
+		return true;
+	end
+	local trinket1CD, _, trinket1Usable = GetInventoryItemCooldown("player", 14)
+  if trinket1Usable == 1 and trinket1CD == 0 then
+		UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+		return true;
+	end
+	return false;
+end
+
 function applyWizardOil()
 	applyEnchantsToWeapon(wizardOils)
 end

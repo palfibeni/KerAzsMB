@@ -64,7 +64,7 @@ end
 
 function hunterMeleeDps()
 	stop_ranged_attack()
-	if not has_buff("player", "Spell_Nature_ProtectionformNature") then
+	if not hasBuff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Ability_Hunter_AspectOfTheMonkey", "Aspect of the Monkey")
 	end
     if IsActionReady(mongooseBiteActionSlot) then
@@ -79,14 +79,13 @@ end
 -- Multishot will be only used if 'azs.class.multiShotEnabled' is set to true.
 function hunterRangedDps()
   stop_autoattack()
-	if not has_buff("player", "Spell_Nature_ProtectionformNature") then
+	if not hasBuff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
 	end
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
 	if isTargetHpUnder(0.7) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
-		UseInventoryItem(GetInventorySlotInfo("Trinket0Slot"));
-		UseInventoryItem(GetInventorySlotInfo("Trinket1Slot"));
+		if useTrinkets() then return end
 	end
 	use_ranged_attack()
 	if not IsCurrentAction(aimedShotActionSlot) and not IsCurrentAction(multiShotActionSlot) then
