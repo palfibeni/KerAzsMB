@@ -102,7 +102,8 @@ azs.getTarget = function(targetingMode)
 	elseif targetingMode == "cross" then
 		return azs.targetCross()
 	elseif targetingMode == "assist" then
-		return AssistByName(azs.assistMe)
+		AssistByName(azs.assistMe)
+		return true
 	elseif targetingMode == "solo" then
 		return true
 	end
