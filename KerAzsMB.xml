@@ -13,6 +13,7 @@
 	<Include file="rogue\rogue.xml"/>
 	<Include file="druid\druid.xml"/>
 	<Include file="hunter\hunter.xml"/>
+	<Include file="shaman\shaman.xml"/>
 	<Frame name="KerAzsMB_EventsFrame">
 		<Scripts>
 			<OnLoad>

@@ -4,7 +4,7 @@ azs.assistMe = "Cooperbeard" -- assist targeting mode will use the following nam
 -- Group Management
 azs.nameList={
 	tank={"Cooperbeard", "Stardancer", "Peacebringer", "Obier", "Dobzse",
-  "Bendegúz", "Harklen", "Gaelber", "Llanewrynn", "Nyavalyás", "Pinky"},
+  "Bendegúz", "Harklen", "Gaelber", "Llanewrynn", "Nyavalyás", "Pinky", "Torosar", "Fierileya"},
 	heal={},
 	multitank={"Stardancer","Cooperbeard", "Peacebringer", "Obier"},
 	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat",
@@ -52,10 +52,10 @@ azs.warlocks = {
 azs.healers = {
   Lightbeard = {group = 8, fearWard = "Baleog"},
   Baleog = {group = 7, fearWard = "Cooperbeard"},
-  Lionel = {group = 3},
-  Nobleforged = {group = 4},
+  Lionel = {group = 3, buff = "Might/Wisdom", freedom = "Peacebringer"},
+  Nobleforged = {group = 4, buff = "Sanc/Salva", freedom = "Cooperbeard"},
   Bronzecoat = {group = 5, fearWard = "Peacebringer"},
-	Fordragon = {group = 6},
+	Fordragon = {group = 6, buff = "Kings", freedom = "Cooperbeard"},
   Moonflower = {group = 7},
   Lightweight = {group = 2, fearWard = "Stardancer"},
   Greenshadow = {group = 1},

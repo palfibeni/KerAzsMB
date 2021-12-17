@@ -19,10 +19,14 @@ function initPaladinData()
   azs.class.stop = function()
     SpellStopCasting()
   end
+
+  local mainHealMacro = getFreedomLogic() .. "/script azs.dispel()"
+  local healOnlyMacro = getFreedomLogic() .. "/script azs.heal()"
+  local buffType = getDefaultPaladinValue("buff",determinePaladinBuff())
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", "/script azs.dispel()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"HealOnly", "Spell_Holy_HolyBolt", "/script azs.heal()", {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"Buff", "Spell_Holy_GreaterBlessingofWisdom", "/script azs.buff()", {8}, ""},
+    {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Holy_HolyBolt", healOnlyMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"Buff", "Spell_Holy_GreaterBlessingofWisdom", "/script azs.buff(\""..buffType.."\")", {8}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
   }
   azs.class.help = function()
@@ -33,5 +37,18 @@ function initPaladinData()
     azs.debug("4. If none, then will use Light. \"Light\"")
     azs.debug("5. If low level, will cast small might/wisdom. \"Small\"")
     azs.debug("The behaviour can be overwritten by passing the wanted param to the buff function.")
+  end
+end
+
+function getFreedomLogic()
+  return "/script blessingOfFreedom(\"" .. getDefaultPaladinValue("freedom", azs.assistMe) .. "\")" .. string.char(10)
+end
+
+function getDefaultPaladinValue(field, defaultValue)
+  local playerName = UnitName("player")
+  if azs.healers[playerName] and azs.healers[playerName][field] then
+    return azs.healers[playerName][field]
+  else
+    return defaultValue
   end
 end

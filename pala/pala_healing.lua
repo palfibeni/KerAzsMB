@@ -81,14 +81,6 @@ function palaHealTarget(healProfile,target,hp)
 	end
 end
 
-palaDispelAll={Magic=true,Disease=true,Poison=true}
-palaDispelMagic={Magic=true}
-palaDispelDisease={Disease=true}
-palaDispelPoison={Poison=true}
-palaDispelNoMagic={Disease=true,Poison=true}
-palaDispelNoDisease={Magic=true,Poison=true}
-palaDispelNoPoison={Magic=true,Disease=true}
-
 function palaDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or palaDispelAll
@@ -149,9 +141,9 @@ function initPalaHealProfiles()
 			{0.8 , 35 , "Flash of Light"}
 		},
 		lesser={
-			{0.3 , 35 , "Holy Light"},
-			{0.4 , 35, "Holy Light",1,azs.targetList.tank,true},
-			{0.6 , 35 , "Holy Light(Rank 1)"}
+			{0.4 , 35 , "Holy Light"},
+			{0.6 , 35, "Holy Light",1,azs.targetList.tank,true},
+			{0.8 , 35 , "Holy Light(Rank 1)"}
 		},
 	}
 end

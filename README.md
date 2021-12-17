@@ -64,9 +64,13 @@ There is also a /help command which gives you a few tips for each class.
 To setup each character according to the above setup just write /deepinit in the chat with each character.
 It is advised to level each character to around lvl 10 indivually, before you can start leveling them together,
 because the talent allocation is a big part of how the roles are set.
-To set skull on the target you can use the following macro:
+To toggle skull raid icon on the target you can use the following macro:
 ```
 /script SetRaidTarget("target",8)
+```
+or use my own function, which only sets the skull mark, and does not remove it.
+```
+/script azs.markSkull()
 ```
 
 ### How to setup healing:
@@ -90,3 +94,4 @@ He is my guildmaster, and without him, I wouldn't even know multiboxing exists.
 - [Inventory slot names](https://wowwiki.fandom.com/wiki/InventorySlotName)
 - [All actionbar slot](https://wowwiki-archive.fandom.com/wiki/ActionSlot)
 - [WoW addon designer tool](https://www.wowinterface.com/downloads/info4222-WoWUIDesigner.html)
+- [Debuffs applied by type](https://www.wowhead.com/spells/npc-abilities/mechanic:7?filter=16:109;1:6;0:0)

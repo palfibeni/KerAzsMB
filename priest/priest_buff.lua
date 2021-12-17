@@ -15,11 +15,11 @@ end
 
 function fearWard(playerName)
   if GetSpellCooldownByName("Fear Ward") ~= 0 then return end
-		playerName = playerName or UnitName("target")
-		if not azs.targetList[playerName] then return end
-		for target,info in pairs(azs.targetList[playerName]) do
-			castBuff("Spell_Holy_Excorcism", "Fear Ward", target)
-		end
+	playerName = playerName or UnitName("target")
+	if not azs.targetList[playerName] then return end
+	for target,info in pairs(azs.targetList[playerName]) do
+		castBuff("Spell_Holy_Excorcism", "Fear Ward", target)
+	end
 end
 
 function powerInfusion()

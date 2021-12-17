@@ -1,3 +1,16 @@
+-- /script blessingOfFreedom("Cooperbeard")
+function blessingOfFreedom(playerName)
+  if GetSpellCooldownByName("Blessing of Freedom") ~= 0 then return end
+	playerName = playerName or UnitName("target")
+	if not azs.targetList[playerName] then return end
+	for target,info in pairs(azs.targetList[playerName]) do
+    azs.debug(hasDebuffs(target, {"Spell_Nature_Earthbind", "Spell_Nature_StrangleVines", "Spell_Nature_Web", "Ability_Ensnare"}))
+		if (hasDebuffs(target, {"Spell_Nature_Earthbind", "Spell_Nature_StrangleVines", "Spell_Nature_Web", "Ability_Ensnare"})) then
+			castBuff("Spell_Holy_SealOfValor", "Blessing of Freedom", target)
+		end
+	end
+end
+
 function paladinBuff(buff, aura)
   buff = buff or determinePaladinBuff()
   setDefaultAura(aura)

@@ -193,6 +193,7 @@ function initHealProfiles()
 	initPalaHealProfiles()
 	initPriestHealProfiles()
 	initDruidHealProfiles()
+	initshamanHealProfiles()
 end
 
 function getDefaultHealingProfile()

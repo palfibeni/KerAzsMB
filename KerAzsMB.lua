@@ -44,6 +44,8 @@ azs.initClassData = function()
 		initPriestData()
 	elseif UnitClass("player") == "Druid" then
 		initDruidData()
+	elseif UnitClass("player") == "Shaman" then
+		initShamanData()
 	end
 end
 
