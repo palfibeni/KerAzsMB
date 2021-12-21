@@ -15,9 +15,9 @@ function warrior_aoe_cross()
 end
 
 function warriorTankAoe()
-	warriorDefenseStance()
 	bloodrage()
-	warriorTaunt()
+	if warriorAutoTaunt() then return end
+	warriorDefenseStance()
 	warriorDemoShout()
 	battleShout()
 	if UnitMana("player") >= 20 then

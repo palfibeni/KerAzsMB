@@ -12,6 +12,10 @@ palaDispelNoPoison={Magic=true,Disease=true}
 
 divineShieldActionSlot = 61
 
+function palaRess()
+	resurrectAll("Redemption")
+end
+
 -- /script palaHeal(azs.targetList.all, false)
 -- /script palaHealOrDispel(azs.targetList.all, false)
 function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)

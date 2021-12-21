@@ -102,9 +102,8 @@ end
 
 function initRestoDruidData()
   local playerName = UnitName("player")
-
-  azs.class.heal = function() druidHeal() end
-  azs.class.dispel = function() druidHealOrDispel() end
+  azs.class.heal = function(healingProfile) druidHeal(azs.targetList.all, healingProfile) end
+  azs.class.dispel = function(healingProfile) druidHealOrDispel(azs.targetList.all, healingProfile) end
   azs.class.buff = function()
     druidBuff()
     askMageWater()

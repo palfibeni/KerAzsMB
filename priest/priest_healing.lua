@@ -10,6 +10,10 @@ desperatePrayerActionSlot = 61
 fadeActionSlot = 15
 powerInfusionActionSlot = 16
 
+function priestRess()
+	resurrectAll("Resurrection")
+end
+
 -- /script  priestHealOrDispel(azs.targetList.all, false)
 function priestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	lTargetList = lTargetList or azs.targetList.all

@@ -19,7 +19,6 @@ function isInMC()
   return GetRealZoneText() == MC
 end
 
-
 function isInZG()
   return GetRealZoneText() == ZG
   -- GetMinimapZoneText() Altar of Hir'eek (High Priestess Jeklik)

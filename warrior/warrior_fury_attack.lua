@@ -31,7 +31,7 @@ function warriorFuryAttack()
 		cast_buff_player("Ability_Racial_CriticalStrike", "Recklessness")
 		CastSpellByName("Execute")
 	else
-		if IsActionReady(bloodThirstActionSlot) and  UnitMana("player") >= 30 then
+		if IsActionReady(bloodThirstActionSlot) and UnitMana("player") >= 30 then
 			CastSpellByName("Bloodthirst")
 		end
 		whirlwind()
@@ -43,10 +43,16 @@ function warriorFuryAttack()
 end
 
 function charge()
-	if azs.class.chargeEnabled and not is_in_melee_range() and UnitAffectingCombat("player") == nil then
-		warriorBattleStance()
-		CastSpellByName("Charge")
-		return true
+	if azs.class.chargeEnabled and not is_in_melee_range() then
+		if UnitAffectingCombat("player") == nil then
+			warriorBattleStance()
+			CastSpellByName("Charge")
+			return true
+		elseif UnitMana("player") >= 10 then
+			warriorBerserkerStance()
+			CastSpellByName("Intercept")
+			return true
+		end
 	end
 	return false
 end

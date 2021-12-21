@@ -17,8 +17,8 @@ function initHolyPriestData()
   azs.debug("I am Holy Priest")
   local playerName = UnitName("player")
 
-  azs.class.heal = function() priestHeal() end
-  azs.class.dispel = function() priestHealOrDispel() end
+  azs.class.heal = function(healingProfile) priestHeal(azs.targetList.all, healingProfile) end
+  azs.class.dispel = function(healingProfile) priestHealOrDispel(azs.targetList.all, healingProfile) end
   azs.class.special = function() priestManaDrain() end
   azs.class.buff = function(aura)
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
@@ -42,8 +42,8 @@ function initHolyPriestData()
     {"Prayer of Healing", 67},
   }
 
-  local mainHealMacro = getFearWardLogicIfDwarf(playerName) .. "/script azs.dispel()"
-  local healOnlyMacro = getFearWardLogicIfDwarf(playerName) .. "/script azs.heal()"
+  local mainHealMacro = getFearWardLogicIfDwarf(playerName) .. "/script priestRess()" .. string.char(10) .. "/script azs.dispel()"
+  local healOnlyMacro = getFearWardLogicIfDwarf(playerName) .. "/script priestRess()" .. string.char(10) .. "/script azs.heal()"
 
   azs.class.initMacros = {
     {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},

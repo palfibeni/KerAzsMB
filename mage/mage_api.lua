@@ -39,10 +39,10 @@ function initMageData()
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
   }
 
+  table.insert(azs.class.initActionBar, {"Scorch", scorchActionSlot})
+  table.insert(azs.class.initActionBar, {"Fire Blast", fireblastActionSlot})
+  table.insert(azs.class.initActionBar, {"Fireball", fireballActionSlot})
   if azs.class.talent == MAGE_FIRE then
-    table.insert(azs.class.initActionBar, {"Scorch", scorchActionSlot})
-    table.insert(azs.class.initActionBar, {"Fire Blast", fireblastActionSlot})
-    table.insert(azs.class.initActionBar, {"FireBall", fireballActionSlot})
     table.insert(azs.class.initMacros, {"Attack skull", "Spell_Fire_Fireball02", "/script azs.dps()", {1,4}, ""})
     table.insert(azs.class.initMacros, {"Attack cross", "Spell_Fire_Fire", "/script azs.dps(\"cross\")", {2}, ""})
     table.insert(azs.class.initMacros, {"Attack Fire skull", "Spell_Frost_FrostArmor", "/script azs.dps(nil, \"Frost\")", {64}, ""})

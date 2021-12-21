@@ -25,6 +25,7 @@ function determineWarriorTalent()
 end
 
 function initTankWarrior()
+  azs.warriorTauntEnabled = azs.warriorTauntEnabled or false
   if UnitLevel("player") < 11 then
     azs.class.dps = function() warriorArmsAttack() end
   else
@@ -38,7 +39,6 @@ function initTankWarrior()
   end
   azs.class.initActionBar = {
     {"Attack", autoAttackActionSlot},
-    {"Taunt", 87},
     {"Concussion Blow", 64},
     {"Disarm", 90},
     {"Shield Bash", 91},
@@ -48,7 +48,8 @@ function initTankWarrior()
     {"Revenge", revengeActionSlot},
     {"Sunder Armor", sunderArmorActionSlot},
     {"Last Stand", lastStandActionSlot},
-    {"Shield Wall", shieldWallActionSlot}
+    {"Shield Wall", shieldWallActionSlot},
+    {"Mocking Blow", mockingBlowActionSlot}
   }
   if azs.class.talent == WARRIOR_FURY_PROT then
     table.insert(azs.class.initActionBar, {"Bloodthirst", bloodThirstActionSlot})
@@ -56,8 +57,9 @@ function initTankWarrior()
     table.insert(azs.class.initActionBar, {"Shield Slam", shieldSlamActionSlot})
   end
   azs.class.initMacros = {
-    {"Tank attack", "Ability_Warrior_DefensiveStance", "/script azs.dps(\"solo\")", {73,74,76,85,86,88}, "warriorTauntEnabled = true"},
-    {"AoE tank attack", "Ability_Warrior_Cleave", "/script azs.aoe(\"solo\")", {77,89}, "warriorTauntEnabled = true"},
+    {"Tank attack", "Ability_Warrior_DefensiveStance", "/script azs.dps(\"solo\")", {73,74,76,85,86,88}, "azs.warriorTauntEnabled = true"},
+    {"AoE tank attack", "Ability_Warrior_Cleave", "/script azs.aoe(\"solo\")", {77,89}, "azs.warriorTauntEnabled = true"},
+    {"WTaunt", "Spell_Nature_Reincarnation", "/script warriorTaunt()", {75,87}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}}
   }
   azs.class.help = function()
@@ -67,7 +69,7 @@ function initTankWarrior()
 end
 
 function initFuryWarrior()
-  azs.class.chargeEnabled = false
+  azs.class.chargeEnabled = azs.class.chargeEnabled or false
   if UnitLevel("player") < 31 then
     azs.class.dps = function() warriorArmsAttack() end
   else

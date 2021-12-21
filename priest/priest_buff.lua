@@ -49,7 +49,7 @@ function castPowerInfusion(playerName)
 	if not azs.targetList[playerName] then return end
 	for target,info in pairs(azs.targetList[playerName]) do
     CastSpellByName("Power Infusion")
-		if IsValidSpellTarget(target) then
+		if IsValidSpellTarget(target) and not hasBuff(target, "Spell_Holy_PowerInfusion") then
       SpellStopTargeting()
       SendChatMessage("Power infusion on " .. playerName .. "!", "YELL")
       castBuff("Spell_Holy_PowerInfusion", "Power Infusion", target)

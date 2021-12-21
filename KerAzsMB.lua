@@ -252,6 +252,47 @@ function kickEveryone()
 	end
 end
 
+-- /script checkSS()
+function checkSS(targetList)
+	targetList=targetList or azs.targetList.all
+	local chatType=nil
+	local nameString=""
+	local buffCount=0
+	if UnitInRaid("player") then
+		chatType="RAID"
+	else
+		chatType="PARTY"
+	end
+	for target,info in pairs(targetList) do
+		if hasBuff(target,"Spell_Shadow_SoulGem") then
+			buffCount = buffCount + 1
+			nameString= nameString .. info.name .. " "
+		end
+	end
+	SendChatMessage("SS check: "..buffCount.." player(s) have SS.",chatType)
+	if buffCount > 0 then
+		SendChatMessage(nameString,chatType)
+	end
+end
+
+-- /script azs.debug(getThreat("Cooperbeard"))
+function getThreat(playerName)
+  return klhtm["table"]["raiddata"][playerName]
+end
+
+-- /script azs.debug(isTankInFrontOfMe())
+function isTankInFrontOfMe()
+	local myThreat = getThreat(UnitName("player"))
+	for i,tank in pairs(azs.nameList.tank) do
+		if getThreat(tank) > myThreat then
+			azs.debug(tank .. " is in front of me in agro.")
+			return true
+		end
+	end
+	azs.debug("Nobody is in front of me in agro.")
+	return false
+end
+
 --  function initKeyBindings()
 --	SetBinding("SHIFT-1","MULTIACTIONBAR1BUTTON1")
 --	SetBinding("SHIFT-2","MULTIACTIONBAR1BUTTON2")

@@ -4,7 +4,6 @@ function blessingOfFreedom(playerName)
 	playerName = playerName or UnitName("target")
 	if not azs.targetList[playerName] then return end
 	for target,info in pairs(azs.targetList[playerName]) do
-    azs.debug(hasDebuffs(target, {"Spell_Nature_Earthbind", "Spell_Nature_StrangleVines", "Spell_Nature_Web", "Ability_Ensnare"}))
 		if (hasDebuffs(target, {"Spell_Nature_Earthbind", "Spell_Nature_StrangleVines", "Spell_Nature_Web", "Ability_Ensnare"})) then
 			castBuff("Spell_Holy_SealOfValor", "Blessing of Freedom", target)
 		end

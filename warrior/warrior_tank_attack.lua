@@ -1,5 +1,3 @@
-warriorTauntEnabled = false
-
 heroicStrikeActionSlot = 13
 revengeActionSlot = 14
 sunderArmorActionSlot = 15
@@ -7,6 +5,7 @@ bloodrageActionSlot = 16
 shieldSlamActionSlot = 17
 lastStandActionSlot = 18
 shieldWallActionSlot = 19
+mockingBlowActionSlot = 20
 
 lastSunder = 0
 lastDoDefCooldown = 0
@@ -24,9 +23,9 @@ function warrior_tank_attack_cross()
 end
 
 function warriorTankAttack()
-	warriorDefenseStance()
 	bloodrage()
-	warriorTaunt()
+	if warriorAutoTaunt() then return end
+	warriorDefenseStance()
 	highThreatAttack()
 	warriorDemoShout()
 	sunderArmor()
@@ -62,14 +61,28 @@ function highThreatAttack()
 	end
 end
 
-function warriorTaunt()
-	if not warriorTauntEnabled then return end
+function warriorAutoTaunt()
+	if not azs.warriorTauntEnabled then return end
 	if UnitName("targettarget") == nil then return end
 	if UnitName("targettarget") == UnitName("player") then return end
 	if is_tank_by_name(UnitName("targettarget")) then return end
 	if UnitIsEnemy("target","player") then
-		CastSpellByName("Taunt")
+		return warriorTaunt()
 	end
+	return false
+end
+
+function warriorTaunt()
+	if GetSpellCooldownByName("Taunt") < 1 then
+		warriorDefenseStance()
+		CastSpellByName("Taunt")
+		return true
+	elseif GetSpellCooldownByName("Mocking Blow") < 1 then
+		warriorBattleStance()
+		CastSpellByName("Mocking Blow")
+		return true
+	end
+	return false
 end
 
 function bloodrage()

@@ -1,10 +1,10 @@
-consumables = {"Roasted Quail", "Tender Wolf Meat", "Red Wolf Meat", "Mystery Meat",
+consumables = {"Roasted Quail", "Homemade Cherry Pie", "Tender Wolf Meat", "Red Wolf Meat", "Mystery Meat",
   "Raptor Flesh", "Tiger Meat", "Lean Wolf Flank", "Boar Ribs", "Goretusk Liver",
   "Chunk of Boar Meat", "Stringy Wolf Meat"}
 
 function hunterBuff(shouldHunterBuffPet)
   shouldHunterBuffPet = shouldHunterBuffPet or azs.class.shouldHunterBuffPet
-  if shouldHunterBuffPet then
+  if UnitExists("pet") or shouldHunterBuffPet then
     hunterBuffPet()
   end
   cast_buff_player("Ability_TrueShot", "Trueshot Aura")

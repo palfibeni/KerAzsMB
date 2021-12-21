@@ -2,8 +2,8 @@ function initPaladinData()
   azs.debug("I am Paladin")
   local playerName = UnitName("player")
 
-  azs.class.heal = function() palaHeal() end
-  azs.class.dispel = function() palaHealOrDispel() end
+  azs.class.heal = function(healingProfile) palaHeal(azs.targetList.all, healingProfile) end
+  azs.class.dispel = function(healingProfile) palaHealOrDispel(azs.targetList.all, healingProfile) end
   azs.class.buff = function(buff, aura)
     paladinBuff(buff, aura)
     askMageWater()
@@ -20,9 +20,9 @@ function initPaladinData()
     SpellStopCasting()
   end
 
-  local mainHealMacro = getFreedomLogic() .. "/script azs.dispel()"
-  local healOnlyMacro = getFreedomLogic() .. "/script azs.heal()"
-  local buffType = getDefaultPaladinValue("buff",determinePaladinBuff())
+  local mainHealMacro = getFreedomLogic() .. "/script palaRess()" .. string.char(10) .. "/script azs.dispel(\"hlTankOnly\")"
+  local healOnlyMacro = getFreedomLogic() .. "/script palaRess()" .. string.char(10) .. "/script azs.heal(\"hlTankOnly\")"
+  local buffType = getDefaultPaladinValue("buff", determinePaladinBuff())
   azs.class.initMacros = {
     {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"HealOnly", "Spell_Holy_HolyBolt", healOnlyMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},

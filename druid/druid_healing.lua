@@ -154,6 +154,8 @@ end
 function initDruidHealProfiles()
 	druidHealProfiles={
 		regular={
+			{0.2 , 540 , "Nature's Swiftness",1,azs.targetList.tank},
+			{0.2 , 540 , "Healing Touch(Rank 9)",1,azs.targetList.tank, true},
 			{0.4 , 350 , "Regrowth(Rank 4)",3},
 			{0.4 , 248, "Swiftmend",1,azs.targetList.tank},
 			{0.5 , 166, "Healing Touch(Rank 4)"},
@@ -164,13 +166,13 @@ function initDruidHealProfiles()
 		},
 		midLevel={
 			{0.4 , 150 , "Healing Touch(Rank 3)"},
-			{0.5 , 150, "Healing Touch(Rank 3)",1,azs.targetList.tank,true},
+			{0.5 , 150, "Healing Touch(Rank 3)",1,azs.targetList.tank},
 			{0.7 , 120 , "Regrowth(Rank 2)",3},
 			{0.8 , 35 , "Healing Touch(Rank 1)", 2}
 		},
 		lesser={
 			{0.3 , 35 , "Healing Touch"},
-			{0.4 , 35, "Healing Touch",1,azs.targetList.tank,true},
+			{0.4 , 35, "Healing Touch",1,azs.targetList.tank},
 			{0.6 , 35 , "Healing Touch(Rank 1)"},
 			{0.7 , 120 , "Regrowth",3}
 		},
