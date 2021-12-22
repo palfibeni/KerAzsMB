@@ -21,9 +21,9 @@ function mountUp()
 		if CursorHasItem() then return end
 		UseContainerItem(bag,slot)
 		ResetCursor()
-	elseif UnitClass == "Paladin" then
+	elseif UnitClass("player") == "Paladin" then
 		CastSpellByName("Summon Warhorse")
-	elseif UnitClass == "Warlock" then
+	elseif UnitClass("player") == "Warlock" then
 		CastSpellByName("Summon Felsteed")
 	else
 		useItemFromList(slowMounts)
