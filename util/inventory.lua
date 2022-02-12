@@ -8,6 +8,16 @@ fastMounts = {"Black War Ram", "Black Battlestrider", "Reins of the Black War Ti
 	"Reins of the Swift Frostsaber", "Reins of the Swift Mistsaber", "Reins of the Swift Stormsaber",
 	"Swift Green Mechanostrider", "Swift White Mechanostrider", "Swift Yellow Mechanostrider"
 }
+hslowMounts = {"Horn of the Brown Wolf", "Horn of the Dire Wolf", "Horn of the Timber Wolf",
+	"Blue Skeletal Horse", "Brown Skeletal Horse", "Red Skeletal Horse",
+	"Brown Kodo", "Gray Kodo",
+	"Whistle of the Emerald Raptor", "Whistle of the Turquoise Raptor", "Whistle of the Violet Raptor"}
+hfastMounts = {"Horn of the Black War Wolf", "Red Skeletal Warhorse", "Black War Kodo", "Whistle of the Black War Raptor",
+	"Swift Razzashi Raptor", "Horn of the Swift Brown Wolf", "Horn of the Swift Gray Wolf", "Horn of the Swift Timber Wolf",
+	"Green Skeletal Warhorse", "Purple Skeletal Warhorse",
+	"Great Brown Kodo", "Great Gray Kodo", "Great White Kodo",
+	"Swift Blue Raptor", "Swift Olive Raptor", "Swift Orange Raptor"
+}
 wizardOils = {"Brilliant Wizard Oil", "Wizard Oil", "Lesser Wizard Oil"}
 manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
 poisons = {"Instant Poison", "Deadly Poison"}
@@ -15,7 +25,11 @@ poisons = {"Instant Poison", "Deadly Poison"}
 function mountUp()
 	local bag,slot
 	if UnitLevel("player") == 60 then
-		bag,slot = findItemFromListInInventory(fastMounts)
+		if UnitFactionGroup("player") == "Alliance" then
+			bag,slot = findItemFromListInInventory(fastMounts)
+		else
+			bag,slot = findItemFromListInInventory(hfastMounts)
+		end
 	end
 	if bag ~= nil and slot ~= nil then
 		if CursorHasItem() then return end
@@ -26,7 +40,11 @@ function mountUp()
 	elseif UnitClass("player") == "Warlock" then
 		CastSpellByName("Summon Felsteed")
 	else
-		useItemFromList(slowMounts)
+		if UnitFactionGroup("player") == "Alliance" then
+			useItemFromList(slowMounts)
+		else
+			useItemFromList(hslowMounts)
+		end
 	end
 end
 

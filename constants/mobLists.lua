@@ -10,6 +10,10 @@ FIRE_IMMUNE_MOBS = {"Nefarian", "Onyxia", "Firemaw", "Ebonroc", "Flamegore",
   "Lord Incendius", "Blazing Elemental", "Inferno Elemental",
   "Scorching Elemental", "Living Blaze", "Blazerunner"}
 
+FEARING_MOBS = {"Soulflayer", "Hakkari Priest", "High Priestess Jeklik",
+  "Gurubashi Berserker", "Hakkari Blood Priest", "Nefarian", "Onyxia",
+  "Postmaster Malown", "Sothos",  "Gordok Captain"}
+
 function isTargetFireImmune()
   return isTargetInMobList(FIRE_IMMUNE_MOBS)
 end

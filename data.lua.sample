@@ -3,6 +3,7 @@ azs.assistMe = "Cooperbeard" -- assist targeting mode will use the following nam
 
 -- Group Management
 azs.nameList={
+	mainTank = {"Cooperbeard", "Gaelber", "Dobzse"},
 	tank={"Cooperbeard", "Stardancer", "Peacebringer", "Obier", "Dobzse",
   "Bendegúz", "Harklen", "Gaelber", "Llanewrynn", "Nyavalyás", "Pinky", "Torosar", "Fierileya"},
 	heal={},
@@ -60,4 +61,16 @@ azs.healers = {
   Lightweight = {group = 2, fearWard = "Stardancer"},
   Greenshadow = {group = 1},
   Brunhilde = {group = 1, fearWard = "Bronzecoat"}
+}
+
+-- Setting Earth Totem:
+-- Could be strength, stoneskin, stoneclaw, tremor, none
+-- Setting Fire Totem:
+-- Could be searing, nova, magma, frostRes, none
+-- Setting Water Totem:
+-- Could be disease, poison, healing, manaSpring, manaTide, fireRes, none
+-- Setting Air Totem:
+-- Could be windfury, natureRes, windfall, none
+azs.shamans = {
+	Zanza = {earth = "strength", fire = "none", water = "manaSpring", air = "windfury"}
 }

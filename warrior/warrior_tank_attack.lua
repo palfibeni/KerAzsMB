@@ -23,19 +23,22 @@ function warrior_tank_attack_cross()
 end
 
 function warriorTankAttack()
+	local isMainTank = isMainTankByName(UnitName("player"))
 	bloodrage()
 	if warriorAutoTaunt() then return end
 	warriorDefenseStance()
+	if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 50 then
+		CastSpellByName("Heroic Strike")
+	end
 	highThreatAttack()
-	warriorDemoShout()
-	sunderArmor()
 	if IsActionReady(revengeActionSlot) then
 		CastSpellByName("Revenge")
   end
-	if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 30 then
-		CastSpellByName("Heroic Strike")
+	sunderArmor(isMainTank)
+	if not isMainTank then
+		warriorDemoShout()
 	end
-	if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 40 then
+	if UnitMana("player") >= 40 then
 		CastSpellByName("Shield Block")
 	end
 	doDefCooldown()
@@ -62,10 +65,9 @@ function highThreatAttack()
 end
 
 function warriorAutoTaunt()
-	if not azs.warriorTauntEnabled then return end
-	if UnitName("targettarget") == nil then return end
-	if UnitName("targettarget") == UnitName("player") then return end
-	if is_tank_by_name(UnitName("targettarget")) then return end
+	if not azs.warriorTauntEnabled then return false end
+	if UnitName("targettarget") == nil then return false end
+	if isTankByName(UnitName("targettarget")) then return false end
 	if UnitIsEnemy("target","player") then
 		return warriorTaunt()
 	end
@@ -73,6 +75,7 @@ function warriorAutoTaunt()
 end
 
 function warriorTaunt()
+	if UnitName("targettarget") == UnitName("player") then return false end
 	if GetSpellCooldownByName("Taunt") < 1 then
 		warriorDefenseStance()
 		CastSpellByName("Taunt")
@@ -91,12 +94,16 @@ function bloodrage()
   end
 end
 
-function sunderArmor()
+function sunderArmor(isMainTank)
+	if isMainTank and UnitMana("player") >= 62 then
+		CastSpellByName("Sunder Armor")
+		return
+	end
 	if IsActionReady(sunderArmorActionSlot) and UnitMana("player") >= 12 then
-			if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
-					CastSpellByName("Sunder Armor")
-					lastSunder = GetTime()
-			end
+		if get_debuff_count("target", "Ability_Warrior_Sunder") < 5 or lastSunder + 20 < GetTime() then
+			CastSpellByName("Sunder Armor")
+			lastSunder = GetTime()
+		end
 	end
 end
 

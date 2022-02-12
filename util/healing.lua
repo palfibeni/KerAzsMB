@@ -29,6 +29,22 @@ function isPlayerHpUnder(percent)
 	return UnitHealth("player") / UnitHealthMax("player") < percent
 end
 
+function isTargetManaOver(percent)
+	return not UnitIsDead("target") and UnitMana("target") / UnitHealthMana("target") > percent
+end
+
+function isTargetManaUnder(percent)
+	return not UnitIsDead("target") and UnitMana("target") / UnitHealthMana("target") < percent
+end
+
+function isPlayerManaOver(percent)
+	return UnitMana("player") / UnitHealthMana("player") > percent
+end
+
+function isPlayerManaUnder(percent)
+	return UnitMana("player") / UnitHealthMana("player") < percent
+end
+
 function resurrectAll(spell, targetList)
   targetList = targetList or azs.targetList.all
   if UnitAffectingCombat("player") or castingOrChanneling() then return end
@@ -42,15 +58,16 @@ end
 function resurrectTargetList(spell, targetList)
   targetList = targetList or azs.targetList.all
   for target,info in pairs(targetList) do
-    if UnitIsDead(target) and not isBlacklistedDead(info.name) then
+    CastSpellByName(spell)
+    if UnitIsDead(target) and not isBlacklistedDead(info.name) and IsValidSpellTarget(target) then
       SendChatMessage("Ressing " .. info.name .. "!", "YELL")
       blacklistedDeadPlayers[info.name] = GetTime()
       currentHealTarget = target
-      CastSpellByName(spell)
   		SpellTargetUnit(target)
       return true
     end
   end
+	SpellStopTargeting()
   return false
 end
 

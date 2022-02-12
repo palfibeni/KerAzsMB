@@ -11,7 +11,7 @@ azs.dps = function(targetingMode, param)
 	end
 end
 
-azs.heal = function(healingProfile)
+azs.heal = function(healingProfile, param)
 	if not azs.class.heal then
 		azs.debug("This class is not supported yet or it doesnt have a heal option, please use old methods priestHeal(), etc...")
 		return
@@ -20,10 +20,10 @@ azs.heal = function(healingProfile)
 		azs.class.stop()
 		return
 	end
-	azs.class.heal(healingProfile)
+	azs.class.heal(healingProfile, param)
 end
 
-azs.dispel = function(healingProfile)
+azs.dispel = function(healingProfile, param)
 	if not azs.class.dispel then
 		azs.debug("This class is not supported yet or it doesnt have a dispel option, please use old methods mage_decuse_raid(), etc...")
 		return
@@ -32,10 +32,10 @@ azs.dispel = function(healingProfile)
 		azs.class.stop()
 		return
 	end
-	azs.class.dispel(healingProfile)
+	azs.class.dispel(healingProfile, param)
 end
 
-azs.healOrDispel = function(healingProfile)
+azs.healOrDispel = function(healingProfile, param)
 	if not azs.class.healOrDispel then
 		azs.debug("This class is not supported yet or it doesnt have a healOrDispel option, please use old methods priestHealOrDispel(), etc...")
 		return
@@ -44,7 +44,7 @@ azs.healOrDispel = function(healingProfile)
 		azs.class.stop()
 		return
 	end
-	azs.class.healOrDispel(healingProfile)
+	azs.class.healOrDispel(healingProfile, param)
 end
 
 azs.cc = function(icon)

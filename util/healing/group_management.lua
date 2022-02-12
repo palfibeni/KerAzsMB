@@ -3,6 +3,7 @@ biasList={group={}}
 
 -- Set default global bias values
 biasList.tank=-0.1
+biasList.mainTank=-0.12
 biasList.heal=0
 biasList.multiheal=-0.08
 biasList.multidps=-0.05
@@ -349,6 +350,14 @@ function GetRole(name)
 		end
 	end
 	return "dps"
+end
+
+function isTargetInList(target, list)
+  for _,name in list do
+    if UnitName(target) == name then
+      return true
+    end
+  end
 end
 
 function PrintTargetLists()

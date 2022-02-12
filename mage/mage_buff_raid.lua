@@ -19,12 +19,14 @@ end
 function mageBuff()
   if UnitLevel("player") == 60 then
     buffTargetList("Spell_Holy_ArcaneIntellect", "Arcane Brilliance")
-    cast_buff_player("Spell_MageArmor", "Mage Armor")
+    mageArmor()
   else
     buffTargetList("Spell_Holy_MagicalSentry", "Arcane Intellect")
+    mageArmor()
   end
 end
 
+-- /script mageArmor()
 function mageArmor()
   if UnitLevel("player") >= 34 then
     cast_buff_player("Spell_MageArmor", "Mage Armor")

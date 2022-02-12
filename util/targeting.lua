@@ -1,8 +1,16 @@
-function is_tank_by_name(name)
+function isTankByName(name)
 	for i,tank in pairs(azs.nameList.tank) do
 		if tank == name then return true end
 	end
-	return nil
+	return false
+end
+
+function isMainTankByName(name)
+	if azs.nameList.mainTank == nil then return false end
+	for i,tank in pairs(azs.nameList.mainTank) do
+		if tank == name then return true end
+	end
+	return false
 end
 
 -- 1 = Inspect, 9.9 yards

@@ -33,6 +33,10 @@ function isInZG()
   -- GetMinimapZoneText() Altar of the Blood God (Hakkar the Soulflayer)
 end
 
+function isInSubZone(subZone)
+  return GetMinimapZoneText() == subZone
+end
+
 function hasMandokirGaze()
 	return isInZG() and has_debuff("player", "Spell_Shadow_Charm")
 end

@@ -1,6 +1,6 @@
 blacklistedMages = {}
 
--- /script mageWater()
+-- /script mageWater(20, "Conjured Sparkling Water")
 function mageWater(minimumAmount, waterType)
   if castingOrChanneling() then return end
   minimumAmount = minimumAmount or 20
@@ -16,7 +16,7 @@ function mageWater(minimumAmount, waterType)
   end
 end
 
-
+-- /script offerMageWater("Conjured Sparkling Water")
 function offerMageWater(waterType)
   if not TradeFrame:IsShown() then return end
   waterType = waterType or deduceWaterType()
@@ -24,6 +24,7 @@ function offerMageWater(waterType)
   AcceptTrade()
 end
 
+-- /script askMageWater(10, "Conjured Sparkling Water")
 function askMageWater(minimumAmount, waterType)
   minimumAmount = minimumAmount or 10
   waterType = waterType or deduceWaterType()

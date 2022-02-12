@@ -1,8 +1,33 @@
 function initShamanData()
+  initTotems()
   if isHealShaman() then
     initHealShamanData()
   else
     initElemShamanData()
+  end
+end
+
+function initTotems()
+  -- Setting Earth Totem:
+  -- Could be strength, stoneskin, stoneclaw, tremor, none
+  azs.class.earth = getDefaultShamanValue("earth", "strength")
+  -- Setting Fire Totem:
+  -- Could be searing, nova, magma, frostRes, none
+  azs.class.fire = getDefaultShamanValue("fire", "none")
+  -- Setting Water Totem:
+  -- Could be disease, poison, healing, manaSpring, manaTide, fireRes, none
+  azs.class.water = getDefaultShamanValue("water", "manaSpring")
+  -- Setting summon companion:
+  -- Could be windfury, natureRes, windfall, none
+  azs.class.air = getDefaultShamanValue("air", "windfury")
+end
+
+function getDefaultShamanValue(field, defaultValue)
+  local playerName = UnitName("player")
+  if azs.shamans[playerName] and azs.shamans[playerName][field] then
+    return azs.shamans[playerName][field]
+  else
+    return defaultValue
   end
 end
 
@@ -14,10 +39,20 @@ end
 function initHealShamanData()
   azs.debug("I am heal Shaman")
   local playerName = UnitName("player")
-  azs.class.dps = function() shamanAttack() end
-  azs.class.heal = function() shamanHeal() end
-  azs.class.buff = function()
-    shamanBuff()
+  azs.class.dps = function(param)
+    castShamanTotems(param)
+    shamanAttack()
+  end
+  azs.class.heal = function(healingProfile, param)
+    castShamanTotems(param)
+    shamanHeal(azs.targetList.all, healingProfile)
+  end
+  azs.class.healOrdispel = function(healingProfile, param)
+    castShamanTotems(param)
+    shamanHealOrDispel(azs.targetList.all, healingProfile)
+  end
+  azs.class.buff = function(param)
+    shamanBuff(param)
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -31,10 +66,20 @@ function initHealShamanData()
     stop_autoattack()
   end
 
+  local params = "{earth = \"" .. azs.class.earth .. "\", fire = \"" .. azs.class.fire
+  params = params .. "\", water = \"" .. azs.class.water .. "\", air = \"" .. azs.class.air .. "\"}"
+
+  azs.debug(params)
+  local mainAttackMacro = "/script azs.dps(nil, ".. params..")"
+  local healOrDispelMacro = "/script azs.heal(nil, ".. params..")"
+  local healOnlyMacro = "/script azs.healOrdispel(nil, ".. params..")"
+  local buffMacro = "/script azs.buff(".. params..")"
+
   azs.class.initMacros = {
-    {"HealOnly", "Spell_Nature_MagicImmunity", "/script azs.heal()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"Mana Drain", "Spell_Shadow_SiphonMana", "/script azs.special()", {66}},
-    {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
+    {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Nature_MagicImmunity", healOnlyMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"Attack skull", "Spell_Lightning_LightningBolt01", mainAttackMacro, {66}},
+    {"Buff", "Spell_Nature_LightningShield", buffMacro, {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }
   azs.class.help = function()
@@ -45,12 +90,20 @@ end
 function initElemShamanData()
   azs.debug("I am elem Shaman")
   local playerName = UnitName("player")
-  azs.class.dps = function()
-      shamanAttack()
+  azs.class.dps = function(param)
+    castShamanTotems(param)
+    shamanAttack()
   end
-  azs.class.heal = function() shamanHeal() end
-  azs.class.buff = function()
-    shamanBuff()
+  azs.class.heal = function(healingProfile, param)
+    castShamanTotems(param)
+    shamanHeal(azs.targetList.all, healingProfile)
+  end
+  azs.class.healOrdispel = function(healingProfile, param)
+    castShamanTotems(param)
+    shamanHealOrDispel(azs.targetList.all, healingProfile)
+  end
+  azs.class.buff = function(param)
+    shamanBuff(param)
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -64,11 +117,21 @@ function initElemShamanData()
     stop_autoattack()
   end
 
+  local params = "{earth = \"" .. azs.class.earth .. "\", fire = \"" .. azs.class.fire
+  params = params .. "\", water = \"" .. azs.class.water .. "\", air = \"" .. azs.class.air .. "\"}"
+
+  local mainAttackMacro = "/script azs.dps(nil, ".. params..")"
+  local secondaryAttackMacro = "/script azs.dps(\"cross\", ".. params..")"
+  local healOrDispelMacro = "/script azs.heal(nil, ".. params..")"
+  local healOnlyMacro = "/script azs.healOrdispel(nil, ".. params..")"
+  local buffMacro = "/script azs.buff(".. params..")"
+
   azs.class.initMacros = {
-    {"Attack skull", "Spell_Lightning_LightningBolt01", "/script azs.dps()", {1,5}},
-    {"Attack cross", "Spell_Fire_FlameShock", "/script azs.dps(\"cross\")", {2}},
-    {"HealOnly", "Spell_Nature_MagicImmunity", "/script azs.heal()", {66}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
+    {"Attack skull", "Spell_Lightning_LightningBolt01", mainAttackMacro, {1,5}},
+    {"Attack cross", "Spell_Fire_FlameShock", secondaryAttackMacro, {2}},
+    {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Nature_MagicImmunity", healOnlyMacro, {66}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"Buff", "Spell_Nature_LightningShield", buffMacro, {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }
   azs.class.help = function()

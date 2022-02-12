@@ -70,6 +70,8 @@ function initShadowPriestData()
   end
   azs.class.cc = function(icon) shackleByIcon(icon) end
   azs.class.special = function() priestManaDrain() end
+  azs.class.heal = function(healingProfile) priestHeal(azs.targetList.all, healingProfile) end
+  azs.class.dispel = function(healingProfile) priestHealOrDispel(azs.targetList.all, healingProfile) end
   azs.class.buff = function()
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
     askMageWater()
@@ -89,6 +91,8 @@ function initShadowPriestData()
     {"Attack cross", "Spell_Shadow_PsychicScream", "/script azs.dps(\"cross\")", {2, 74}},
     {"Shackle Star", "Spell_Shadow_Cripple", "/script azs.cc(1)", {3, 75}},
     {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special()", {4, 76}, ""},
+    {"HealOnly", "Spell_Holy_HolyBolt", "/script azs.heal()", {64}, ""},
+    {"HealOrDispel", "Spell_ChargePositive", "/script azs.dispel()", {65}, ""},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8, 79}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9, 80}}
   }
