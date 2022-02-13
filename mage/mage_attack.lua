@@ -11,24 +11,34 @@ function mageAttack(mageElement)
   if castingOrChanneling() then return end
   if (UnitMana("player") >= (UnitLevel("player") * 6)) then
     stop_wand()
-		if isTargetHpUnder(0.7) then
-			if useTrinkets() then return end
-			cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
-			cast_buff_player("Spell_Nature_EnchantArmor", "Presence of Mind")
-			cast_buff_player("Spell_Fire_SealOfFire", "Combustion")
-		end
-		if mageElement == "Fire" and not isTargetInMobList(FIRE_IMMUNE_MOBS) then
-			fireRotation()
-		elseif mageElement == "Arcane" then
-			CastSpellByName("Arcane Missiles")
-		else
-			CastSpellByName("Frostbolt")
-		end
+		mageCooldown()
+		mageMainDamageSource()
+	elseif hasManaGem() then
+		useManaGem()
   elseif IsActionReady(evocationActionSlot) then
-      CastSpellByName("Evocation")
+    CastSpellByName("Evocation")
   else
-      use_wand()
+    use_wand()
   end
+end
+
+function mageCooldown()
+	if isTargetHpUnder(0.7) then
+		if useTrinkets() then return end
+		cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
+		cast_buff_player("Spell_Nature_EnchantArmor", "Presence of Mind")
+		cast_buff_player("Spell_Fire_SealOfFire", "Combustion")
+	end
+end
+
+function mageMainDamageSource()
+	if mageElement == "Fire" and not isTargetInMobList(FIRE_IMMUNE_MOBS) then
+		fireRotation()
+	elseif mageElement == "Arcane" then
+		CastSpellByName("Arcane Missiles")
+	else
+		CastSpellByName("Frostbolt")
+	end
 end
 
 function fireRotation()

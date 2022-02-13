@@ -4,7 +4,7 @@
 	<Script file="mage_attack.lua"/>
 	<Script file="mage_aoe.lua"/>
 	<Script file="mage_poly.lua"/>
-	<Script file="mage_buff_raid.lua"/>
+	<Script file="mage_buff.lua"/>
 	<Script file="mage_decurse.lua"/>
 	<Script file="mage_water.lua"/>
 	<Script file="mage_api.lua"/>

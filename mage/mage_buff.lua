@@ -1,3 +1,5 @@
+manaGems = {"Mana Ruby", "Mana Citrine", "Mana Jade", "Mana Agate"}
+
 -- /script mage_raid_buff()
 function mage_raid_buff()
   buffTargetList("Spell_Holy_ArcaneIntellect", "Arcane Brilliance")
@@ -20,9 +22,11 @@ function mageBuff()
   if UnitLevel("player") == 60 then
     buffTargetList("Spell_Holy_ArcaneIntellect", "Arcane Brilliance")
     mageArmor()
+    craftManaGem()
   else
     buffTargetList("Spell_Holy_MagicalSentry", "Arcane Intellect")
     mageArmor()
+    craftManaGem()
   end
 end
 
@@ -35,4 +39,32 @@ function mageArmor()
   else
     cast_buff_player("Spell_Frost_FrostArmor02", "Frost Armor")
   end
+end
+
+function hasManaGem(manaGem)
+  manaGem = manaGem or deduceManaGem()
+  return manaGem ~= nil and findItemInInventory(manaGem) ~= nil
+end
+
+function craftManaGem(manaGem)
+  manaGem = manaGem or deduceManaGem()
+  if hasManaGem() then return end
+  if manaGem ~= nil then
+    CastSpellByName("Conjure " .. manaGem)
+  end
+end
+
+function useManaGem(manaGem)
+  manaGem = manaGem or deduceManaGem()
+  if hasManaGem() then
+    useItem(manaGem)
+  end
+end
+
+function deduceManaGem()
+  if UnitLevel("player") == 60 then return "Mana Ruby" end
+  if UnitLevel("player") < 28 then return nil end
+  if UnitLevel("player") < 30 then return "Mana Agate" end
+  if UnitLevel("player") < 40 then return "Mana Jade" end
+  if UnitLevel("player") < 60 then return "Mana Citrine" end
 end
