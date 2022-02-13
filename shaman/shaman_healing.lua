@@ -6,6 +6,10 @@ shamanDispelAll={Disease=true,Poison=true}
 shamanDispelDisease={Disease=true}
 shamanDispelPoison={Poison=true}
 
+function shamanRess()
+	resurrectAll("Ancestral Spirit")
+end
+
 -- /script shamanHeal(azs.targetList.all, false)
 -- /script shamanHealOrDispel(azs.targetList.all, false)
 function shamanHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)

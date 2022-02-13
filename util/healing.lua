@@ -49,8 +49,9 @@ function resurrectAll(spell, targetList)
   targetList = targetList or azs.targetList.all
   if UnitAffectingCombat("player") or castingOrChanneling() then return end
   if resurrectTargetList(spell, azs.targetList.party) then return end
+  playerName = UnitName("player")
   if UnitInRaid("player") then
-    if resurrectTargetList(spell, azs.targetList.group[azs.healers[UnitName("player")].group]) then return end
+    if azs.healers[playerName] and resurrectTargetList(spell, azs.targetList.group[ azs.healers[playerName].group ]) then return end
   end
   resurrectTargetList(spell, targetList)
 end

@@ -53,6 +53,7 @@ function initHealShamanData()
   end
   azs.class.buff = function(param)
     shamanBuff(param)
+    askMageWater()
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -69,10 +70,9 @@ function initHealShamanData()
   local params = "{earth = \"" .. azs.class.earth .. "\", fire = \"" .. azs.class.fire
   params = params .. "\", water = \"" .. azs.class.water .. "\", air = \"" .. azs.class.air .. "\"}"
 
-  azs.debug(params)
   local mainAttackMacro = "/script azs.dps(nil, ".. params..")"
-  local healOrDispelMacro = "/script azs.heal(nil, ".. params..")"
-  local healOnlyMacro = "/script azs.healOrdispel(nil, ".. params..")"
+  local healOrDispelMacro = "/script shamanRess()" .. string.char(10) .. "/script azs.heal(nil, ".. params..")"
+  local healOnlyMacro = "/script shamanRess()" .. string.char(10) .. "/script azs.healOrdispel(nil, ".. params..")"
   local buffMacro = "/script azs.buff(".. params..")"
 
   azs.class.initMacros = {
