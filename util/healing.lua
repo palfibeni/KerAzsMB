@@ -50,8 +50,9 @@ function resurrectAll(spell, targetList)
   if UnitAffectingCombat("player") or castingOrChanneling() then return end
   if resurrectTargetList(spell, azs.targetList.party) then return end
   playerName = UnitName("player")
-  if UnitInRaid("player") then
-    if azs.healers[playerName] and resurrectTargetList(spell, azs.targetList.group[ azs.healers[playerName].group ]) then return end
+  azs.debug(azs.healers[playerName])
+  if UnitInRaid("player") and azs.healers[playerName] then
+    if resurrectTargetList(spell, azs.targetList.group[ azs.healers[playerName].group ]) then return end
   end
   resurrectTargetList(spell, targetList)
 end
@@ -59,11 +60,11 @@ end
 function resurrectTargetList(spell, targetList)
   targetList = targetList or azs.targetList.all
   for target,info in pairs(targetList) do
-    CastSpellByName(spell)
-    if UnitIsDead(target) and not isBlacklistedDead(info.name) and IsValidSpellTarget(target) then
+    if UnitIsDead(target) and not isBlacklistedDead(info.name) then
       SendChatMessage("Ressing " .. info.name .. "!", "YELL")
       blacklistedDeadPlayers[info.name] = GetTime()
       currentHealTarget = target
+      CastSpellByName(spell)
   		SpellTargetUnit(target)
       return true
     end

@@ -1,5 +1,4 @@
 moonfireEnabled = false
-moonkinFaerieFireEnabled = false
 
 -- /script druid_balance_skull()
 function druid_balance_skull(element)
@@ -26,15 +25,19 @@ function druidBalanceAttack(element)
 			if moonfireEnabled then
 				cast_debuff("Spell_Nature_StarFall", "Moonfire")
 			end
-			if moonkinFaerieFireEnabled then
-				cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire")
-			end
+			cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire")
 			CastSpellByName("Starfire")
 		end
 		stop_autoattack()
 	else
 		innervate()
   end
+end
+
+function faireFire()
+	if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
+		cast_debuff("Spell_Nature_FaerieFire", "Faerie Fire")
+	end
 end
 
 function druid_moonkin_form()

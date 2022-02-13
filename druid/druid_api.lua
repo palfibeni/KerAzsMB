@@ -119,9 +119,13 @@ function initRestoDruidData()
   azs.class.stop = function()
     SpellStopCasting()
   end
+
+  local mainHealMacro = "/script faireFire()" .. string.char(10) .. "/script azs.dispel()"
+  local onlyHealMacro = "/script faireFire()" .. string.char(10) .. "/script azs.heal()"
+
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", "/script azs.dispel()", {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"HealOnly", "Spell_Holy_HolyBolt", "/script azs.heal()", {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOnly", "Spell_Holy_HolyBolt", onlyHealMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }
