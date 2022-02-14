@@ -12,7 +12,7 @@ function mageAttack(mageElement)
   if (UnitMana("player") >= (UnitLevel("player") * 6)) then
     stop_wand()
 		mageCooldown()
-		mageMainDamageSource()
+		mageMainDamageSource(mageElement)
 	elseif hasManaGem() then
 		useManaGem()
   elseif IsActionReady(evocationActionSlot) then
@@ -31,7 +31,7 @@ function mageCooldown()
 	end
 end
 
-function mageMainDamageSource()
+function mageMainDamageSource(mageElement)
 	if mageElement == "Fire" and not isTargetInMobList(FIRE_IMMUNE_MOBS) then
 		fireRotation()
 	elseif mageElement == "Arcane" then
