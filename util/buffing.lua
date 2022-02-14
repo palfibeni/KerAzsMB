@@ -26,13 +26,11 @@ end
 -- Returns the index of given buff, if the target has it, otherwise -1
 function getIndexOfBuff(target, icon)
 	local i=1
-	local buff = UnitBuff("player", i);
-	while buff do
-		if "Interface\\Icons\\" .. icon == buff then
+	while UnitBuff(target,i) ~= nil do
+		if "Interface\\Icons\\" .. icon == UnitBuff(target,i) then
 			return i
 		end
 		i=i+1
-	  buff = UnitBuff("player", i);
 	end
 	return -1
 end
