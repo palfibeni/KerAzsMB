@@ -77,7 +77,7 @@ function initBalanceDruidData()
   azs.class.buff = function()
     druidBuff()
     askMageWater()
-    if isInAQ40() then applyWizardOil() end
+    if isInAQ40() or isInNaxx() then applyWizardOil() end
   end
   azs.class.stop = function()
     SpellStopCasting()
@@ -107,7 +107,7 @@ function initRestoDruidData()
   azs.class.buff = function()
     druidBuff()
     askMageWater()
-    if isInAQ40() then applyManaOil() end
+    if isInAQ40() or isInNaxx() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then

@@ -11,7 +11,7 @@ function initMageData()
     mageBuff()
     mageWater()
     offerMageWater()
-    if isInAQ40() then applyWizardOil() end
+    if isInAQ40() or isInNaxx() then applyWizardOil() end
   end
   azs.class.aoe = function() mageAoe() end
   -- azs.class.handleNefaCall = function() end

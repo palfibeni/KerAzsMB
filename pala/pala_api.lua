@@ -7,7 +7,7 @@ function initPaladinData()
   azs.class.buff = function(buff, aura)
     paladinBuff(buff, aura)
     askMageWater()
-    if isInAQ40() then applyManaOil() end
+    if isInAQ40() or isInNaxx() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then

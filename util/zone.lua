@@ -33,6 +33,10 @@ function isInZG()
   -- GetMinimapZoneText() Altar of the Blood God (Hakkar the Soulflayer)
 end
 
+function isInNaxx()
+  return GetRealZoneText() == NAXX
+end
+
 function isInSubZone(subZone)
   return GetMinimapZoneText() == subZone
 end

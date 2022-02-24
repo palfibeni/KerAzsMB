@@ -23,7 +23,7 @@ function druidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispel
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
-	UseHealTrinket()
+	handleLowMana()
 	if (UnitMana("player") < 500) then
 		innervate()
 	end
@@ -44,7 +44,7 @@ end
 function druidHeal(lTargetList,healProfile)
 	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
-	UseHealTrinket()
+	handleLowMana()
 	if (UnitMana("player") < 500) then
 		innervate()
 	end
@@ -96,12 +96,13 @@ function druidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 	end
 end
 
+-- /script druidDispel()
 function druidDispel(lTargetList,dispelTypes,dispelByHp)
 	leaveShapeShiftForm()
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or druidDispelAll
 	dispelByHp=dispelByHp or false
-	UseHealTrinket()
+	handleLowMana()
 	if (UnitMana("player") < 500) then
 		innervate()
 	end

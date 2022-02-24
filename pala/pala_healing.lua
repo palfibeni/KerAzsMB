@@ -16,6 +16,21 @@ function palaRess()
 	resurrectAll("Redemption")
 end
 
+function reTargetAdd()
+	exact_target_by_name("Instructor Razuvious")
+	TargetUnit("targettarget")
+end
+
+-- /script healOnRazovious()
+function healOnRazoviousPala()
+	if UnitName("target") == "Death Knight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	  CastSpellByName("Flash of Light")
+	  return
+	end
+	exact_target_by_name("Instructor Razuvious")
+	TargetUnit("targettarget")
+end
+
 -- /script palaHeal(azs.targetList.all, false)
 -- /script palaHealOrDispel(azs.targetList.all, false)
 function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -24,7 +39,7 @@ function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelH
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
-	UseHealTrinket()
+	handleLowMana()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,_,_,action=GetHealOrDispelTarget(lTargetList,palaHealRange,nil,palaDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -43,7 +58,7 @@ function palaHeal(lTargetList,healProfile)
 	if IsActionReady(divineShieldActionSlot) and isPlayerHpUnder(0.5) then
 			CastSpellByName("Divine Shield")
 	end
-	UseHealTrinket()
+	handleLowMana()
 	healProfile=healProfile or getDefaultHealingProfile()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
@@ -89,7 +104,7 @@ function palaDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
-	UseHealTrinket()
+	handleLowMana()
 	if SpellCastReady(palaDispelRange) then
 		local target=GetDispelTarget(lTargetList,palaDispelRange,dispelTypes,dispelByHp)
 		palaDispelTarget(target)

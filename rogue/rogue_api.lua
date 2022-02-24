@@ -6,7 +6,7 @@ function initRogueData()
   azs.debug("I am " .. azs.class.weapon .. " Rogue")
   azs.class.dps = function(params) rogueAttack(params) end
   azs.class.buff = function()
-    if isInAQ40() then applyPoisons() end
+    if isInAQ40() or isInNaxx() then applyPoisons() end
   end
   azs.class.stop = function()
     stop_autoattack()

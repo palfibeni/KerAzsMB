@@ -21,6 +21,8 @@ hfastMounts = {"Horn of the Black War Wolf", "Red Skeletal Warhorse", "Black War
 wizardOils = {"Brilliant Wizard Oil", "Wizard Oil", "Lesser Wizard Oil"}
 manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
 poisons = {"Instant Poison", "Deadly Poison"}
+manaPotions = {"Superior Mana Potion", "Major Mana Potion"}
+manaRunes = {"Demonic Rune", "Dark Rune"}
 
 function mountUp()
 	local bag,slot

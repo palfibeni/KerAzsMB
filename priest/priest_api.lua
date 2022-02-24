@@ -23,7 +23,7 @@ function initHolyPriestData()
   azs.class.buff = function(aura)
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
     askMageWater()
-    if isInAQ40() then applyManaOil() end
+    if isInAQ40() or isInNaxx() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -75,7 +75,7 @@ function initShadowPriestData()
   azs.class.buff = function()
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
     askMageWater()
-    if isInAQ40() then applyWizardOil() end
+    if isInAQ40() or isInNaxx() then applyWizardOil() end
   end
   azs.class.stop = function()
     SpellStopCasting()

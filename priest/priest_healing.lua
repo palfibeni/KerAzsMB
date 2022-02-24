@@ -14,6 +14,16 @@ function priestRess()
 	resurrectAll("Resurrection")
 end
 
+-- /script healOnRazoviousPriest()
+function healOnRazoviousPriest()
+	if UnitName("target") == "Death Knight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	  CastSpellByName("Greater Heal(Rank 1")
+	  return
+	end
+	exact_target_by_name("Instructor Razuvious")
+	TargetUnit("targettarget")
+end
+
 -- /script  priestHealOrDispel(azs.targetList.all, false)
 function priestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	lTargetList = lTargetList or azs.targetList.all

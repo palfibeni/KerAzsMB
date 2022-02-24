@@ -24,7 +24,7 @@ function initWarlockData()
   azs.class.buff = function(summon)
     warlockBuff(summon)
     askMageWater()
-    if isInAQ40() then applyWizardOil() end
+    if isInAQ40() or isInNaxx() then applyWizardOil() end
   end
   azs.class.aoe = function() warlockAoe() end
   -- azs.class.handleNefaCall = function() end
