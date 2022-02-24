@@ -3,6 +3,7 @@ AQ20 = "Ruins of Ahn'Qiraj"
 BWL = "Blackwing Lair"
 MC = "Molten Core"
 ZG = "Zul'Gurub"
+NAXX = "Naxxramas"
 
 -- ZG subzones:
 ZG_JEKLIK = "Altar of Hir'eek"

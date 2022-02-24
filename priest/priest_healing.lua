@@ -120,6 +120,7 @@ function priestHealTarget(healProfile,target,hp,hotTarget,hotHp,aoeInfo)
 	end
 end
 
+-- /script priestDispel()
 function priestDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or priestDispelAll
