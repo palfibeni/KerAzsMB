@@ -183,7 +183,7 @@ function SpellCastReady(spell,delay)
 	return not IsCastingOrChanelling() and GetSpellCooldownByName(spell)==0 and (not delay or delay<GetTime())
 end
 
-function useHealingTrinket()
+function handleLowMana()
 	if isInProgressRaid() and UnitMana("player") / UnitManaMax("player") < 0.4 then
 		useItemFromList(manaPotions)
 		return
