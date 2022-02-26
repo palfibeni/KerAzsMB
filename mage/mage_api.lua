@@ -3,7 +3,10 @@ function initMageData()
   azs.debug("Talent: " .. azs.class.talent)
   azs.class.element =  getMageElement() -- Could be "Frost", "Fire" or "Arcane"
   local playerName = UnitName("player")
-  azs.class.dps = function(element) mageAttack(element) end
+  azs.class.dps = function(element)
+    handleLowMana()
+    mageAttack(element)
+  end
   azs.class.dispel = function() mageDispel() end
   azs.class.cc = function(icon) polymorphByIcon(icon) end
 
@@ -11,7 +14,7 @@ function initMageData()
     mageBuff()
     mageWater()
     offerMageWater()
-    if isInAQ40() or isInNaxx() then applyWizardOil() end
+    if isInProgressRaid() then applyWizardOil() end
   end
   azs.class.aoe = function() mageAoe() end
   -- azs.class.handleNefaCall = function() end

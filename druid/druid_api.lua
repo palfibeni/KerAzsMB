@@ -71,13 +71,16 @@ end
 
 function initBalanceDruidData()
   azs.class.element = azs.class.element or "Arcane" -- Could be "Arcane" or "Nature"
-  azs.class.dps = function(element) druidBalanceAttack(element) end
+  azs.class.dps = function(element)
+    handleLowMana()
+    druidBalanceAttack(element)
+  end
   azs.class.dispel = function() druidDispel() end
   azs.class.cc = function(icon) entangleByIcon(icon) end
   azs.class.buff = function()
     druidBuff()
     askMageWater()
-    if isInAQ40() or isInNaxx() then applyWizardOil() end
+    if isInProgressRaid() then applyWizardOil() end
   end
   azs.class.stop = function()
     SpellStopCasting()
@@ -102,12 +105,22 @@ end
 
 function initRestoDruidData()
   local playerName = UnitName("player")
-  azs.class.heal = function(healingProfile) druidHeal(azs.targetList.all, healingProfile) end
-  azs.class.dispel = function(healingProfile) druidHealOrDispel(azs.targetList.all, healingProfile) end
+  azs.class.heal = function(healingProfile)
+    handleLowMana()
+    druidHeal(azs.targetList.all, healingProfile)
+  end
+  azs.class.healOrDispel = function(healingProfile)
+    handleLowMana()
+    druidHealOrDispel(azs.targetList.all, healingProfile)
+  end
+  azs.class.dispel = function(healingProfile)
+    handleLowMana()
+    druidDispel(azs.targetList.all, healingProfile)
+  end
   azs.class.buff = function()
     druidBuff()
     askMageWater()
-    if isInAQ40() or isInNaxx() then applyManaOil() end
+    if isInProgressRaid() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -120,12 +133,14 @@ function initRestoDruidData()
     SpellStopCasting()
   end
 
-  local mainHealMacro = "/script faireFire()" .. string.char(10) .. "/script azs.dispel()"
+  local healOrDispelMacro = "/script faireFire()" .. string.char(10) .. "/script azs.healOrDispel()"
   local onlyHealMacro = "/script faireFire()" .. string.char(10) .. "/script azs.heal()"
+  local onlyDispelMacro = "/script faireFire()" .. string.char(10) .. "/script azs.dispel()"
 
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"HealOnly", "Spell_Holy_HolyBolt", onlyHealMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"DispelOnly", "Spell_Nature_NullifyPoison_02", onlyDispelMacro, {66,67}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }

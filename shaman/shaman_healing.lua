@@ -18,7 +18,7 @@ function shamanHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispe
 	dispelTypes=dispelTypes or shamanDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
-	handleLowMana()
+	useHealingTrinket()
 	if SpellCastReady(shamanHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,_,_,action=GetHealOrDispelTarget(lTargetList,shamanHealRange,nil,shamanDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -37,7 +37,7 @@ function shamanHeal(lTargetList,healProfile)
 	if IsActionReady(divineShieldActionSlot) and isPlayerHpUnder(0.5) then
 			CastSpellByName("Divine Shield")
 	end
-	handleLowMana()
+	useHealingTrinket()
 	healProfile=healProfile or getDefaultHealingProfile()
 	if SpellCastReady(shamanHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
@@ -83,7 +83,7 @@ function shamanDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or shamanDispelAll
 	dispelByHp=dispelByHp or false
-	handleLowMana()
+	useHealingTrinket()
 	if SpellCastReady(shamanDispelRange) then
 		local target=GetDispelTarget(lTargetList,shamanDispelRange,dispelTypes,dispelByHp)
 		shamanDispelTarget(target)

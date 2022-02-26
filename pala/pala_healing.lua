@@ -39,7 +39,7 @@ function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelH
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
-	handleLowMana()
+	useHealingTrinket()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,_,_,action=GetHealOrDispelTarget(lTargetList,palaHealRange,nil,palaDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -58,7 +58,7 @@ function palaHeal(lTargetList,healProfile)
 	if IsActionReady(divineShieldActionSlot) and isPlayerHpUnder(0.5) then
 			CastSpellByName("Divine Shield")
 	end
-	handleLowMana()
+	useHealingTrinket()
 	healProfile=healProfile or getDefaultHealingProfile()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
@@ -104,7 +104,7 @@ function palaDispel(lTargetList,dispelTypes,dispelByHp)
 	lTargetList = lTargetList or azs.targetList.all
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
-	handleLowMana()
+	useHealingTrinket()
 	if SpellCastReady(palaDispelRange) then
 		local target=GetDispelTarget(lTargetList,palaDispelRange,dispelTypes,dispelByHp)
 		palaDispelTarget(target)

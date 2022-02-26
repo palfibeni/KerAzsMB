@@ -161,7 +161,7 @@ function priestCooldown()
 			CastSpellByName("Desperate Prayer")
 	end
 	if powerInfusion() then return end
-	handleLowMana()
+	useHealingTrinket()
 end
 
 function initPriestHealProfiles()

@@ -17,13 +17,23 @@ function initHolyPriestData()
   azs.debug("I am Holy Priest")
   local playerName = UnitName("player")
 
-  azs.class.heal = function(healingProfile) priestHeal(azs.targetList.all, healingProfile) end
-  azs.class.dispel = function(healingProfile) priestHealOrDispel(azs.targetList.all, healingProfile) end
+  azs.class.heal = function(healingProfile)
+    handleLowMana()
+    priestHeal(azs.targetList.all, healingProfile)
+  end
+  azs.class.dispel = function(healingProfile)
+    handleLowMana()
+    priestDispel(azs.targetList.all, healingProfile)
+  end
+  azs.class.healOrDispel = function(healingProfile)
+    handleLowMana()
+    priestHealOrDispel(azs.targetList.all, healingProfile)
+  end
   azs.class.special = function() priestManaDrain() end
   azs.class.buff = function(aura)
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
     askMageWater()
-    if isInAQ40() or isInNaxx() then applyManaOil() end
+    if isInProgressRaid() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -42,13 +52,15 @@ function initHolyPriestData()
     {"Prayer of Healing", 67},
   }
 
-  local mainHealMacro = getFearWardLogicIfDwarf(playerName) .. "/script priestRess()" .. string.char(10) .. "/script azs.dispel()"
+  local healOrDispelMacro = getFearWardLogicIfDwarf(playerName) .. "/script priestRess()" .. string.char(10) .. "/script azs.healOrDispel()"
   local healOnlyMacro = getFearWardLogicIfDwarf(playerName) .. "/script priestRess()" .. string.char(10) .. "/script azs.heal()"
+  local dispelOnlyMacro = getFearWardLogicIfDwarf(playerName) .. "/script priestRess()" .. string.char(10) .. "/script azs.dispel()"
 
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"HealOnly", "Spell_Holy_HolyBolt", healOnlyMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"Mana Drain", "Spell_Shadow_SiphonMana", "/script azs.special()", {66}},
+    {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {65,66}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"DispelOnly", "Spell_Holy_DispelMagic", dispelOnlyMacro, {67,68}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"Mana Drain", "Spell_Shadow_SiphonMana", "/script azs.special()", {64}},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }
@@ -75,7 +87,7 @@ function initShadowPriestData()
   azs.class.buff = function()
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
     askMageWater()
-    if isInAQ40() or isInNaxx() then applyWizardOil() end
+    if isInProgressRaid() then applyWizardOil() end
   end
   azs.class.stop = function()
     SpellStopCasting()

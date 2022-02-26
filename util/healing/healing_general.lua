@@ -183,15 +183,18 @@ function SpellCastReady(spell,delay)
 	return not IsCastingOrChanelling() and GetSpellCooldownByName(spell)==0 and (not delay or delay<GetTime())
 end
 
-function handleLowMana()
-	if (isInAQ40() or isInNaxx()) and UnitMana("player") / UnitManaMax("player") < 0.4 then
+function useHealingTrinket()
+	if isInProgressRaid() and UnitMana("player") / UnitManaMax("player") < 0.4 then
 		useItemFromList(manaPotions)
 		return
 	end
-	if (isInAQ40() or isInNaxx()) and UnitMana("player") / UnitManaMax("player") < 0.6 then
+	if isInProgressRaid() and UnitMana("player") / UnitManaMax("player") < 0.6 then
 		useItemFromList(manaRunes)
 		return
 	end
+end
+
+function useHealingTrinket()
 	if UnitMana("player") / UnitManaMax("player") < 0.8 then
 		useTrinkets()
 		return

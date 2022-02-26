@@ -2,8 +2,8 @@
 ..\FrameXML\UI.xsd">
 	<Script file="KerAzsMB.lua"/>
 	<Script file="functions.lua"/>
-	<Script file="data.lua"/>
 	<Include file="constants\constants.xml"/>
+	<Script file="data.lua"/>
 	<Include file="util\util.xml"/>
 	<Include file="warrior\warrior.xml"/>
 	<Include file="warlock\warlock.xml"/>

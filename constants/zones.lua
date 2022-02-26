@@ -1,4 +1,4 @@
-AQ40 = "Temple of Ahn'Qiraj"
+AQ40 = "Ahn'Qiraj"
 AQ20 = "Ruins of Ahn'Qiraj"
 BWL = "Blackwing Lair"
 MC = "Molten Core"

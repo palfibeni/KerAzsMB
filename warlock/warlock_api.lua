@@ -18,13 +18,16 @@ function initWarlockData()
   -- Could be "Soul" or "Mana"
   azs.class.drain = "Mana"
 
-  azs.class.dps = function(params) warlockAttack(params) end
+  azs.class.dps = function(params)
+    handleLowMana()
+    warlockAttack(params)
+  end
   azs.class.cc = function(icon) banishByIcon(icon) end
   azs.class.special = function(drain) warlockSpecial(drain) end
   azs.class.buff = function(summon)
     warlockBuff(summon)
     askMageWater()
-    if isInAQ40() or isInNaxx() then applyWizardOil() end
+    if isInProgressRaid() then applyWizardOil() end
   end
   azs.class.aoe = function() warlockAoe() end
   -- azs.class.handleNefaCall = function() end

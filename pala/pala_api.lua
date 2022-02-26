@@ -2,12 +2,22 @@ function initPaladinData()
   azs.debug("I am Paladin")
   local playerName = UnitName("player")
 
-  azs.class.heal = function(healingProfile) palaHeal(azs.targetList.all, healingProfile) end
-  azs.class.dispel = function(healingProfile) palaHealOrDispel(azs.targetList.all, healingProfile) end
+  azs.class.heal = function(healingProfile)
+    handleLowMana()
+    palaHeal(azs.targetList.all, healingProfile)
+  end
+  azs.class.dispel = function(healingProfile)
+    handleLowMana()
+    palaDispel(azs.targetList.all, healingProfile)
+  end
+  azs.class.healOrDispel = function(healingProfile)
+    handleLowMana()
+    palaHealOrDispel(azs.targetList.all, healingProfile)
+  end
   azs.class.buff = function(buff, aura)
     paladinBuff(buff, aura)
     askMageWater()
-    if isInAQ40() or isInNaxx() then applyManaOil() end
+    if isInProgressRaid() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -20,12 +30,14 @@ function initPaladinData()
     SpellStopCasting()
   end
 
-  local mainHealMacro = getFreedomLogic() .. "/script palaRess()" .. string.char(10) .. "/script azs.dispel(\"hlTankOnly\")"
+  local healOrDispelMacro = getFreedomLogic() .. "/script palaRess()" .. string.char(10) .. "/script azs.healOrDispel(\"hlTankOnly\")"
+  local dispelOnlyMacro = getFreedomLogic() .. "/script palaRess()" .. string.char(10) .. "/script azs.dispel(\"hlTankOnly\")"
   local healOnlyMacro = getFreedomLogic() .. "/script palaRess()" .. string.char(10) .. "/script azs.heal(\"hlTankOnly\")"
   local buffType = getDefaultPaladinValue("buff", determinePaladinBuff())
   azs.class.initMacros = {
-    {"HealOrDispel", "Spell_ChargePositive", mainHealMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"HealOnly", "Spell_Holy_HolyBolt", healOnlyMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
+    {"DispelOnly", "Spell_Holy_Renew", dispelOnlyMacro, {66,67}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Buff", "Spell_Holy_GreaterBlessingofWisdom", "/script azs.buff(\""..buffType.."\")", {8}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
   }

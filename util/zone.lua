@@ -1,3 +1,18 @@
+azs.progressRaidTree = {
+  [ZG] = function () return azs.progressRaidTree[AQ20]() or isInZG() end,
+  [AQ20] = function () return azs.progressRaidTree[MC]() or isInAQ20() end,
+  [MC] = function () return azs.progressRaidTree[BWL]() or isInMC() end,
+  [BWL] = function () return azs.progressRaidTree[AQ40]() or isInBWL() end,
+  [AQ40] = function () return azs.progressRaidTree[NAXX]() or isInAQ40() end,
+  [NAXX] = function () return isInNaxx() end,
+}
+
+function isInProgressRaid()
+  if UnitLevel("player") < 60 then return true end
+  progressRaid = azs.progressRaid or NAXX
+  return azs.progressRaidTree[progressRaid]()
+end
+
 function isInAQ40()
   return GetRealZoneText() == AQ40
 end
