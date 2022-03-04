@@ -8,7 +8,7 @@ function initPaladinData()
   end
   azs.class.dispel = function(healingProfile)
     handleLowMana()
-    palaDispel(azs.targetList.all, healingProfile)
+    palaDispel(azs.targetList.all)
   end
   azs.class.healOrDispel = function(healingProfile)
     handleLowMana()

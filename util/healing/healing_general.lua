@@ -184,6 +184,10 @@ function SpellCastReady(spell,delay)
 end
 
 function handleLowMana()
+	if not UnitAffectingCombat("player") and UnitMana("player") / UnitManaMax("player") < 0.5 then
+		useItem(deduceWaterType())
+		return
+	end
 	if isInProgressRaid() and UnitMana("player") / UnitManaMax("player") < 0.4 then
 		useItemFromList(manaPotions)
 		return

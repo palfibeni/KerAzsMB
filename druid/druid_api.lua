@@ -115,7 +115,7 @@ function initRestoDruidData()
   end
   azs.class.dispel = function(healingProfile)
     handleLowMana()
-    druidDispel(azs.targetList.all, healingProfile)
+    druidDispel(azs.targetList.all)
   end
   azs.class.buff = function()
     druidBuff()

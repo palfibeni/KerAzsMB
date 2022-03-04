@@ -23,7 +23,7 @@ function initHolyPriestData()
   end
   azs.class.dispel = function(healingProfile)
     handleLowMana()
-    priestDispel(azs.targetList.all, healingProfile)
+    priestDispel(azs.targetList.all)
   end
   azs.class.healOrDispel = function(healingProfile)
     handleLowMana()
