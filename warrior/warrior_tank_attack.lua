@@ -108,6 +108,7 @@ function sunderArmor(isMainTank)
 end
 
 function doDefCooldown()
+	if not UnitAffectingCombat("player") then return end
 	if lastDoDefCooldown + 10 > GetTime() then return end
 	if isPlayerHpUnder(0.2) and IsActionReady(lastStandActionSlot) then
 		lastStand()

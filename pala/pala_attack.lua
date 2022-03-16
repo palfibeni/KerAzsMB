@@ -2,40 +2,29 @@ holyStrikeActionSlot = 13
 lastPalaDefCooldown = 0
 antiInvuDebuff = "Spell_Holy_RemoveCurse"
 
-function pala_attack()
+function palaAttack()
   if player_hasBuff("Spell_Holy_Restoration") or player_hasBuff("Spell_Holy_SealOfProtection") or player_hasBuff("Spell_Holy_DivineIntervention") then
-    palaHeal()
+    palaHeal(azs.targetList.all, "hlTankOnly")
     return
   end
   doPalaDefCooldown()
-  --paladinBuff()
-  --castBuff("Spell_Nature_LightningShield", "Blessing of Sanctuary", "player")
-  --castBuff("Spell_Magic_MageArmor", "Blessing of Kings", "player")
-  castBuff("Spell_Holy_SealOfWisdom", "Blessing of Wisdom", "player")
-  buffPlayer("Spell_Holy_SealOfWisdom", "Blessing of Wisdom", "Neiva")
-  buffPlayer("Spell_Holy_SealOfWisdom", "Blessing of Wisdom", "Medikit")
-  --buffTargetListExceptList("Spell_Holy_SealOfSalvation", "Blessing of Salvation", {"Thinarms", "Neiva", "Medikit"})
-   --buffTargetList("Spell_Magic_MageArmor", "Blessing of Kings")
---  castBuff("Spell_Holy_FistOfJustice", "Blessing of Might", "player")
+  paladinBuff()
   if castingOrChanneling() then return end
-  if GetSpellCooldownByName("Hammer of Justice") == 0 then
+  if shouldPaladinStun() then
     CastSpellByName("Hammer of Justice")
   end
-  if not has_debuff("target", "Spell_Holy_HealingAura") and not has_debuff("target", "Spell_Holy_RighteousnessAura")
-  and not has_debuff("target", "Spell_Holy_HolySmite") and not player_hasBuff("Ability_ThunderBolt") then
-    cast_buff_player("Spell_Holy_HolySmite", "Seal of the Crusader")
-  else
-    -- cast_buff_player("Ability_Warrior_InnerRage", "Seal of Command")
-    cast_buff_player("Ability_ThunderBolt", "Seal of Righteousness")
-  end
-  if GetSpellCooldownByName("Holy Strike") == 0 and not IsCurrentAction(heroicStrikeActionSlot) then
+  castSeal()
+  if GetSpellCooldownByName("Holy Strike") == 0 and not IsCurrentAction(holyStrikeActionSlot) then
       CastSpellByName("Holy Strike(Rank 1)")
   end
-  if UnitCreatureType("target") == "Undead" or UnitCreatureType("target") == "Demon" and GetSpellCooldownByName("Exorcism") == 0 then
-      CastSpellByName("Exorcism")
+  if UnitCreatureType("target") == "Humanoid" and not has_debuff("target", "Spell_Holy_SealOfMight") and GetSpellCooldownByName("Repentance") == 0 and GetSpellCooldownByName("Judgement") == 0 and player_hasBuff("Ability_Warrior_InnerRage") then
+      CastSpellByName("Repentance")
   end
   if GetSpellCooldownByName("Judgement") == 0 then
       CastSpellByName("Judgement")
+  end
+  if UnitCreatureType("target") == "Undead" or UnitCreatureType("target") == "Demon" and GetSpellCooldownByName("Exorcism") == 0 then
+      CastSpellByName("Exorcism")
   end
   use_autoattack()
 end
@@ -67,12 +56,30 @@ function getDefaultPaladinInvu()
   return "Divine Protection"
 end
 
-function buffPlayerWithBless(icon, spell, playerName)
-	playerName = playerName or UnitName("target")
-	if not azs.targetList[playerName] then return end
-	for target,info in pairs(azs.targetList[playerName]) do
-		if not hasBuff(target, "Spell_Holy_SealOfProtection") then
-			castBuff(icon, spell, target)
-		end
-	end
+function shouldPaladinStun()
+  if getSpellId("Seal of Command") ~= -1 then
+    return GetSpellCooldownByName("Judgement") == 0 and player_hasBuff("Ability_Warrior_InnerRage") and GetSpellCooldownByName("Hammer of Justice") == 0
+  end
+  return GetSpellCooldownByName("Hammer of Justice") == 0
+end
+
+function castSeal()
+  if not hasJudgementApplied() and not hasSealApplied() then
+    cast_buff_player("Spell_Holy_HolySmite", "Seal of the Crusader")
+  elseif getSpellId("Seal of Command") ~= -1 then
+    cast_buff_player("Ability_Warrior_InnerRage", "Seal of Command")
+  else
+    cast_buff_player("Ability_ThunderBolt", "Seal of Righteousness")
+  end
+end
+
+function hasJudgementApplied()
+  return has_debuff("target", "Spell_Holy_HealingAura")
+    or has_debuff("target", "Spell_Holy_RighteousnessAura")
+    or has_debuff("target", "Spell_Holy_HolySmite")
+end
+
+function hasSealApplied()
+  return player_hasBuff("Ability_ThunderBolt")
+    or player_hasBuff("Ability_Warrior_InnerRage")
 end

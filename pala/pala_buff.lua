@@ -43,32 +43,32 @@ end
 
 -- /script palaRaidMight()
 function palaRaidMight()
-  buffTargetList("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might")
+  buffTargetListWithBless("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might")
 end
 
 -- /script palaRaidWisdom()
 function palaRaidWisdom()
-  buffTargetList("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom")
+  buffTargetListWithBless("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom")
 end
 
 -- /script palaRaidKings()
 function palaRaidKings()
-  buffTargetList("Spell_Magic_GreaterBlessingofKings", "Greater Blessing of Kings")
+  buffTargetListWithBless("Spell_Magic_GreaterBlessingofKings", "Greater Blessing of Kings")
 end
 
 -- /script palaRaidLight()
 function palaRaidLight()
-  buffTargetList("Spell_Holy_GreaterBlessingofLight", "Greater Blessing of Light")
+  buffTargetListWithBless("Spell_Holy_GreaterBlessingofLight", "Greater Blessing of Light")
 end
 
 -- /script palaRaidSalva()
 function palaRaidSalva()
-  buffTargetList("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation")
+  buffTargetListWithBless("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation")
 end
 
 -- /script palaRaidSanc()
 function palaRaidSanc()
-  buffTargetList("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
+  buffTargetListWithBless("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary")
 end
 
 -- /script palaRaidSancSalva()
@@ -76,9 +76,9 @@ function palaRaidSancSalva(ltargetList)
 	ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "DRUID" then
-			castBuff("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary", target)
+			buffTargetWithBless("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary", target)
     else
-			castBuff("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation", target)
+			buffTargetWithBless("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation", target)
     end
 	end
 end
@@ -88,9 +88,9 @@ function palaRaidMightWisdom(ltargetList)
 	ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "ROGUE" then
-			castBuff("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might", target)
+			buffTargetWithBless("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might", target)
     else
-			castBuff("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom", target)
+			buffTargetWithBless("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom", target)
     end
 	end
 end
@@ -100,9 +100,9 @@ function palaSmallMightWisdom(ltargetList)
 	ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "ROGUE" then
-			castBuff("Spell_Holy_FistOfJustice", "Blessing of Might", target)
+			buffTargetWithBless("Spell_Holy_FistOfJustice", "Blessing of Might", target)
     else
-			castBuff("Spell_Holy_SealOfWisdom", "Blessing of Wisdom", target)
+			buffTargetWithBless("Spell_Holy_SealOfWisdom", "Blessing of Wisdom", target)
     end
 	end
 end
@@ -118,5 +118,27 @@ function setDefaultAura(defaultAura)
 	end
 	if not active then
 		CastSpellByName(defaultAura)
+	end
+end
+
+-- Buffs azs.targetList with spell
+function buffTargetListWithBless(icon, spellName, ltargetList)
+	ltargetList=ltargetList or azs.targetList.all
+	for target,info in pairs(ltargetList) do
+		buffTargetWithBless(icon, spellName, target)
+	end
+end
+
+function buffPlayerWithBless(icon, spell, playerName)
+	playerName = playerName or UnitName("target")
+	if not azs.targetList[playerName] then return end
+	for target,info in pairs(azs.targetList[playerName]) do
+		buffTargetWithBless(icon, spell, target)
+	end
+end
+
+function buffTargetWithBless(icon, spell, target)
+	if not hasBuff(target, "Spell_Holy_SealOfProtection") then
+		castBuff(icon, spell, target)
 	end
 end

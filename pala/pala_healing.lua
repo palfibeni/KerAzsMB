@@ -35,7 +35,7 @@ end
 -- /script palaHealOrDispel(azs.targetList.all, false)
 function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	lTargetList = lTargetList or azs.targetList.all
-	healProfile=healProfile or getDefaultHealingProfile()
+	healProfile=healProfile or getPaladinDefaultHealingProfile()
 	dispelTypes=dispelTypes or palaDispelAll
 	dispelByHp=dispelByHp or false
 	dispelHpThreshold=dispelHpThreshold or 0.4
@@ -59,7 +59,7 @@ function palaHeal(lTargetList,healProfile)
 			CastSpellByName("Divine Shield")
 	end
 	useHealingTrinket()
-	healProfile=healProfile or getDefaultHealingProfile()
+	healProfile=healProfile or getPaladinDefaultHealingProfile()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp=GetHealTarget(lTargetList,palaHealRange)
@@ -164,5 +164,17 @@ function initPalaHealProfiles()
 			{0.6 , 35, "Holy Light",1,azs.targetList.tank,true},
 			{0.8 , 35 , "Holy Light(Rank 1)"}
 		},
+		retriDangerZone={
+			{0.1 , 0 , "Lay on Hands"},
+			{0.2 , 35, "Holy Light"},
+			{0.3 , 35 , "Blessing of Protection"}
+		},
 	}
+end
+
+function getPaladinDefaultHealingProfile()
+	if azs.class.talent == PALADIN_RETRI then
+		 return "retriDangerZone"
+  end
+	return getDefaultHealingProfile()
 end
