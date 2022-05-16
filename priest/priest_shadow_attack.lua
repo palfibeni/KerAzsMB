@@ -1,28 +1,6 @@
 lastShadowWord = 0
 lastVampiric = 0
 
-function sh_priest_skull()
-  if castingOrChanneling() then return end
-  if azs.targetSkull() then
-    shPriestAttack()
-  else
-    azs.targetSkull()
-    lastShadowWord = 0
-    lastVampiric = 0
-  end
-end
-
-function sh_priest_cross()
-  if castingOrChanneling() then return end
-  if azs.targetCross() then
-    shPriestAttack()
-  else
-    azs.targetCross()
-    lastShadowWord = 0
-    lastVampiric = 0
-  end
-end
-
 function shPriestAttack()
 	if castingOrChanneling() then return end
   if (UnitMana("player")>=221) then

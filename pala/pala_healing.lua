@@ -16,32 +16,27 @@ function palaRess()
 	resurrectAll("Redemption")
 end
 
-function reTargetAdd()
-	exact_target_by_name("Instructor Razuvious")
-	TargetUnit("targettarget")
-end
-
--- /script healOnRazovious()
+-- /script healOnRazoviousPala()
 function healOnRazoviousPala()
-	if UnitName("target") == "Death Knight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
 	  CastSpellByName("Flash of Light")
 	  return
 	end
-	exact_target_by_name("Instructor Razuvious")
+	exactTargetByName("Instructor Razuvious")
 	TargetUnit("targettarget")
 end
 
 -- /script palaHeal(azs.targetList.all, false)
 -- /script palaHealOrDispel(azs.targetList.all, false)
 function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
-	lTargetList = lTargetList or azs.targetList.all
-	healProfile=healProfile or getPaladinDefaultHealingProfile()
-	dispelTypes=dispelTypes or palaDispelAll
-	dispelByHp=dispelByHp or false
-	dispelHpThreshold=dispelHpThreshold or 0.4
-	useHealingTrinket()
+	local lTargetList = lTargetList or azs.targetList.all
+	local healProfile = healProfile or getPaladinDefaultHealingProfile()
+	local dispelTypes = dispelTypes or palaDispelAll
+	local dispelByHp = dispelByHp or false
+	local dispelHpThreshold = dispelHpThreshold or 0.4
+	palaCooldown()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
-		stopCastingDelayExpire=nil
+		stopCastingDelayExpire = nil
 		local target,hpOrDebuffType,_,_,action=GetHealOrDispelTarget(lTargetList,palaHealRange,nil,palaDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
 		if action=="heal" then
 			palaHealTarget(healProfile,target,hpOrDebuffType)
@@ -54,12 +49,9 @@ function palaHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelH
 end
 
 function palaHeal(lTargetList,healProfile)
-	lTargetList = lTargetList or azs.targetList.all
-	if IsActionReady(divineShieldActionSlot) and isPlayerHpUnder(0.5) then
-			CastSpellByName("Divine Shield")
-	end
-	useHealingTrinket()
-	healProfile=healProfile or getPaladinDefaultHealingProfile()
+	local lTargetList = lTargetList or azs.targetList.all
+	local healProfile = healProfile or getPaladinDefaultHealingProfile()
+	palaCooldown()
 	if SpellCastReady(palaHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp=GetHealTarget(lTargetList,palaHealRange)
@@ -101,10 +93,10 @@ function palaHealTarget(healProfile,target,hp)
 end
 
 function palaDispel(lTargetList,dispelTypes,dispelByHp)
-	lTargetList = lTargetList or azs.targetList.all
-	dispelTypes=dispelTypes or palaDispelAll
-	dispelByHp=dispelByHp or false
-	useHealingTrinket()
+	local lTargetList = lTargetList or azs.targetList.all
+	local dispelTypes = dispelTypes or palaDispelAll
+	local dispelByHp = dispelByHp or false
+	palaCooldown()
 	if SpellCastReady(palaDispelRange) then
 		local target=GetDispelTarget(lTargetList,palaDispelRange,dispelTypes,dispelByHp)
 		palaDispelTarget(target)
@@ -120,6 +112,14 @@ function palaDispelTarget(target)
 		CastSpellByName("Cleanse")
 		SpellTargetUnit(target)
 	end
+end
+
+function palaCooldown()
+	if not UnitAffectingCombat("player") then return end
+	if IsActionReady(divineShieldActionSlot) and isPlayerHpUnder(0.5) then
+ 		 CastSpellByName("Divine Shield")
+  end
+	useHealingTrinket()
 end
 
 function initPalaHealProfiles()
@@ -154,20 +154,28 @@ function initPalaHealProfiles()
 			{0.99, 0  , "Flash of Light"},
 			{0.9 , 35 , "Holy Light(Rank 1)", 2}
 		},
+		flashOfLightSpam={
+			{0.5, 140  , "Flash of Light"},
+			{0.99, 140  , "Flash of Light",1,azs.targetList.tank}
+		},
 		midLevel={
 			{0.4 , 150 , "Holy Light(Rank 3)"},
-			{0.5 , 150, "Holy Light(Rank 3)",1,azs.targetList.tank,true},
+			{0.5 , 150, "Holy Light(Rank 3)",1,azs.targetList.tank},
 			{0.8 , 35 , "Flash of Light"}
 		},
 		lesser={
 			{0.4 , 35 , "Holy Light"},
-			{0.6 , 35, "Holy Light",1,azs.targetList.tank,true},
+			{0.6 , 35, "Holy Light",1,azs.targetList.tank},
 			{0.8 , 35 , "Holy Light(Rank 1)"}
 		},
 		retriDangerZone={
 			{0.1 , 0 , "Lay on Hands"},
 			{0.2 , 35, "Holy Light"},
-			{0.3 , 35 , "Blessing of Protection"}
+			{0.3 , 35 , "Blessing of Protection",1,azs.targetList.multimelee},
+			{0.3 , 35 , "Blessing of Protection",1,azs.targetList.multicaster},
+			{0.3 , 35 , "Blessing of Protection",1,azs.targetList.multiheal},
+			{0.3 , 35 , "Blessing of Protection",1,azs.targetList.dps},
+			{0.3 , 35 , "Blessing of Protection",1,azs.targetList.heal}
 		},
 	}
 end

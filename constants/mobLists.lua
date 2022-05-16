@@ -10,6 +10,16 @@ FIRE_IMMUNE_MOBS = {"Nefarian", "Onyxia", "Firemaw", "Ebonroc", "Flamegore",
   "Lord Incendius", "Blazing Elemental", "Inferno Elemental",
   "Scorching Elemental", "Living Blaze", "Blazerunner"}
 
+-- High fire damage mobs:
+HIGH_FIRE_DAMAGE_MOBS = {"Nefarian", "Onyxia", "Firemaw", "Vaelastrasz",
+  "Baron Geddon", "Ragnaros", "Pyroguard Emberseer", "Firewalker", "Flameguard"}
+
+-- High frost damage mobs:
+HIGH_FROST_DAMAGE_MOBS = {"Azuregos", "Sapphiron"}
+
+-- High shadow damage mobs:
+HIGH_SHADOW_DAMAGE_MOBS = {"Kazzak"}
+
 FEARING_MOBS = {"Soulflayer", "Hakkari Priest", "High Priestess Jeklik",
   "Gurubashi Berserker", "Hakkari Blood Priest", "Nefarian", "Onyxia",
   "Postmaster Malown", "Sothos",  "Gordok Captain"}

@@ -3,7 +3,7 @@ consumables = {"Roasted Quail", "Homemade Cherry Pie", "Tender Wolf Meat", "Red 
   "Chunk of Boar Meat", "Stringy Wolf Meat"}
 
 function hunterBuff(shouldHunterBuffPet)
-  shouldHunterBuffPet = shouldHunterBuffPet or azs.class.shouldHunterBuffPet
+  local shouldHunterBuffPet = shouldHunterBuffPet or azs.class.shouldHunterBuffPet
   if UnitExists("pet") or shouldHunterBuffPet then
     hunterBuffPet()
   end

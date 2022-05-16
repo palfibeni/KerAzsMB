@@ -81,3 +81,13 @@ azs.buff = function(param)
 	if hasMandokirGaze() then return end
 	azs.class.buff(param)
 end
+
+azs.follow = function(param)
+	if hasMandokirGaze() then return end
+	local name = UnitName("player")
+	if IsShiftKeyDown() and not getPlayerRoleByName(name) == "multimelee" then return end
+	local followTarget = getFollowTarget()
+	if followTarget ~= nil and followTarget ~= name then
+		FollowByName(followTarget, true);
+	end
+end

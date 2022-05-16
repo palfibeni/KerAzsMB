@@ -1,21 +1,7 @@
 moonfireEnabled = false
 
--- /script druid_balance_skull()
-function druid_balance_skull(element)
-	if azs.targetSkull() then
-		druidBalanceAttack()
-	end
-end
-
--- /script druid_balance_cross()
-function druid_balance_cross(element)
-	if azs.targetCross() then
-		druidBalanceAttack(element)
-	end
-end
-
 function druidBalanceAttack(element)
-	element = element or azs.class.element
+	local element = element or azs.class.element
 	if castingOrChanneling() then return end
 	if (UnitMana("player") >= 340) then
 		druid_moonkin_form()

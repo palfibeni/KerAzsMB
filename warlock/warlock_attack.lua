@@ -14,10 +14,10 @@ end
 
 -- ATTACK
 function warlockAttack(params)
-	curse = params.curse or azs.class.curse
-	element = params.element or azs.class.element
+	local curse = params.curse or azs.class.curse
+	local element = params.element or azs.class.element
 	if castingOrChanneling() then return end
-	if (UnitMana("player") >= (UnitLevel("player") * 6)) then
+	if isPlayerRelativeManaAbove(6) then
 		stop_wand()
 		if isTargetHpUnder(0.7) then
 			if useTrinkets() then return end

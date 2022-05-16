@@ -1,22 +1,60 @@
 function isTankByName(name)
-	for i,tank in pairs(azs.nameList.tank) do
-		if tank == name then return true end
-	end
-	return false
+	return isRoleByName(name, "tank")
 end
 
 function isMainTankByName(name)
-	if azs.nameList.mainTank == nil then return false end
-	for i,tank in pairs(azs.nameList.mainTank) do
-		if tank == name then return true end
+	return isRoleByName(name, "mainTank")
+end
+
+function isRoleByName(name, role)
+	if azs.nameList[role] == nil then return false end
+	for i,toon in pairs(azs.nameList[role]) do
+		if toon == name then return true end
 	end
 	return false
 end
 
+-- multiheal is not considered an other role
+function getPlayerRoleByName(name)
+	local playerName = UnitName("player")
+	if isRoleByName(playerName, "multitank") then return "multitank" end
+	if isRoleByName(playerName, "multimelee") then return "multimelee" end
+	return "multicaster"
+end
+
+function getMainByRole(role)
+	for id,toon in pairs(azs.nameList[role]) do
+		if azs.targetList[toon] ~= nil then
+			for target,info in pairs(azs.targetList[toon]) do
+				if not UnitIsDeadOrGhost(target) or (UnitIsGhost(target) and UnitIsGhost("player")) then
+					return toon
+				end
+			end
+		end
+	end
+	return nil
+end
+
+-- maintank -
+-- offtank - maintank
+-- mainmelee - maintank
+-- offmelee - mainmelee
+-- maincaster - maintank / offtank / mainmelee
+-- offcaster - maincaster
+-- /script azs.debug(getFollowTarget())
+function getFollowTarget()
+	local playerName = UnitName("player")
+	local roleMain = getMainByRole(getPlayerRoleByName(playerName))
+	if playerName ~= roleMain and roleMain ~= nil then return roleMain end
+	local mainTank = getMainByRole("multitank")
+	if mainTank then return mainTank end
+	local mainMelee = getMainByRole("multimelee")
+	if mainMelee then return mainMelee end
+	local mainCaster = getMainByRole("multicaster")
+	if mainCaster then return mainCaster end
+end
+
 -- 1 = Inspect, 9.9 yards
--- 2 = Trade, 11.11 yards
--- 3 = Duel, 9.9 yards
--- 4 = Follow, 28 yards
 function is_in_trade_range()
 	return CheckInteractDistance("target",2)
 end
@@ -37,7 +75,7 @@ function is_in_buff_range()
 	return CheckInteractDistance("target",4)
 end
 
-function exact_target_by_name(name)
+function exactTargetByName(name)
 	TargetByName(name, true)
 end
 

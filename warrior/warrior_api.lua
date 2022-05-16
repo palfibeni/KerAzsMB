@@ -37,6 +37,9 @@ function initTankWarrior()
   else
     azs.class.aoe = function() warriorTankAoe() end
   end
+  azs.class.buff = function()
+    if isInProgressRaid() then applySharpeningStone() end
+  end
   azs.class.initActionBar = {
     {"Attack", autoAttackActionSlot},
     {"Concussion Blow", 64},
@@ -60,7 +63,9 @@ function initTankWarrior()
     {"Tank attack", "Ability_Warrior_DefensiveStance", "/script azs.dps(\"solo\")", {73,74,76,85,86,88}, "azs.warriorTauntEnabled = true"},
     {"AoE tank attack", "Ability_Warrior_Cleave", "/script azs.aoe(\"solo\")", {77,89}, "azs.warriorTauntEnabled = true"},
     {"WTaunt", "Spell_Nature_Reincarnation", "/script warriorTaunt()", {75,87}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}}
+    {"Buff", "Ability_Creature_Poison_03", "/script azs.buff()", {60, 92}},
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10, 82, 94, 106}, ""}
   }
   azs.class.help = function()
     azs.debug("Wheter a Warrior is tank or not, is determined by talent point put into defensive tree.")
@@ -78,6 +83,9 @@ function initFuryWarrior()
   azs.class.stop = function()
     stop_autoattack()
   end
+  azs.class.buff = function()
+    if isInProgressRaid() then applySharpeningStone() end
+  end
   azs.class.initActionBar = {
     {"Attack", autoAttackActionSlot},
     {"Pummel", 99},
@@ -90,7 +98,9 @@ function initFuryWarrior()
   azs.class.initMacros = {
     {"Attack skull", "Ability_DualWield", "/script azs.dps()", {73,77,97,100,101}},
     {"Attack cross", "Ability_SteelMelee", "/script azs.dps(\"cross\")", {74,98}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}}
+    {"Buff", "Ability_Creature_Poison_03", "/script azs.buff()", {60, 92, 104}},
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10, 82, 94, 106}, ""}
   }
   azs.class.help = function()
     azs.debug("Whether a Warrior is tank or not, is determined by talent point put into defensive tree.")

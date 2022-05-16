@@ -21,12 +21,15 @@ hfastMounts = {"Horn of the Black War Wolf", "Red Skeletal Warhorse", "Black War
 wizardOils = {"Brilliant Wizard Oil", "Wizard Oil", "Lesser Wizard Oil"}
 manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
 poisons = {"Instant Poison", "Deadly Poison"}
-manaPotions = {"Superior Mana Potion", "Major Mana Potion"}
+sharpeningStones = {"Sharpening Stone"}
+weightStones = {"Elemental Sharpening Stone", "Weightstone"}
+manaPotions = {"Major Mana Potion", "Superior Mana Potion", "Greater Mana Potion", "Mana Potion", "Lesser Mana Potion", "Minor Mana Potion"}
+healthPotions = {"Major Healing Potion", "Superior Healing Potion", "Greater Healing Potion", "Healing Potion", "Lesser Healing Potion", "Minor Healing Potion"}
 manaRunes = {"Demonic Rune", "Dark Rune"}
 
 function mountUp()
 	local bag,slot
-	if UnitLevel("player") == 60 then
+	if not IsShiftKeyDown() and UnitLevel("player") == 60 then
 		if UnitFactionGroup("player") == "Alliance" then
 			bag,slot = findItemFromListInInventory(fastMounts)
 		else
@@ -37,9 +40,9 @@ function mountUp()
 		if CursorHasItem() then return end
 		UseContainerItem(bag,slot)
 		ResetCursor()
-	elseif UnitClass("player") == "Paladin" then
+	elseif not IsShiftKeyDown() and UnitClass("player") == "Paladin" then
 		CastSpellByName("Summon Warhorse")
-	elseif UnitClass("player") == "Warlock" then
+	elseif not IsShiftKeyDown() and UnitClass("player") == "Warlock" then
 		CastSpellByName("Summon Felsteed")
 	else
 		if UnitFactionGroup("player") == "Alliance" then
@@ -48,6 +51,10 @@ function mountUp()
 			useItemFromList(hslowMounts)
 		end
 	end
+end
+
+function useHealthPotion()
+	useItemFromList(healthPotions)
 end
 
 function useTrinkets()
@@ -77,8 +84,17 @@ function applyPoisons()
 	applyEnchantsToWeapon(poisons, 17)
 end
 
+function applySharpeningStone()
+	if isWeaponBlunt("MainHandSlot") then
+		applyEnchantsToWeapon(weightStones, 16)
+	else applyEnchantsToWeapon(sharpeningStone, 16) end
+	if isWeaponBlunt("SecondaryHandSlot") then
+		applyEnchantsToWeapon(weightStones, 17)
+	else applyEnchantsToWeapon(sharpeningStone, 17) end
+end
+
 function applyEnchantToWeapon(name, weaponSlot)
-	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
+	local weaponSlot = weaponSlot or 16 -- can be 17 for offhand
 	if not hasWeaponEnchant(weaponSlot) and not TradeFrame:IsShown() then
 		useItem(name)
 		PickupInventoryItem(weaponSlot)
@@ -87,7 +103,7 @@ function applyEnchantToWeapon(name, weaponSlot)
 end
 
 function applyEnchantsToWeapon(names, weaponSlot)
-	weaponSlot = weaponSlot or 16 -- can be 17 for offhand
+	local weaponSlot = weaponSlot or 16 -- can be 17 for offhand
 	if not hasWeaponEnchant(weaponSlot) and not TradeFrame:IsShown() then
 		useItemFromList(names)
 		PickupInventoryItem(weaponSlot)
@@ -95,14 +111,21 @@ function applyEnchantsToWeapon(names, weaponSlot)
 	end
 end
 
-
 function hasWeaponEnchant(weaponSlot)
-	hasMainHandEnchant, mainHandExpiration, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo()
+	local hasMainHandEnchant, mainHandExpiration, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo()
 	return (weaponSlot == 16 and hasMainHandEnchant) or (weaponSlot == 17 and hasOffHandEnchant)
 end
 
+function isWeaponBlunt(slot)
+	local _, _, _, _, _, subType = getWeaponAttributes(slot)
+	if string.find(subType, "Mace") or string.find(subType, "Staff") then
+		return true
+	end
+	return false
+end
+
 -- Returns name, link, rarity, level, type, subType
--- slot example: "MainHandSlot"
+-- slot example: "MainHandSlot" "SecondaryHandSlot"
 function getWeaponAttributes(slot)
 	local mainHandLink = GetInventoryItemLink("player", GetInventorySlotInfo(slot))
 	local _, _, id  = strfind(mainHandLink, "item:(%d+):")
@@ -199,7 +222,7 @@ end
 -- use an item from the inventory to use by name
 -- /script azs.debug(countItem("Conjured Crystal Water"))
 function countItem(name)
-	count = 0;
+	local count = 0;
 	if CursorHasItem() then return end
 	for bag=0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do

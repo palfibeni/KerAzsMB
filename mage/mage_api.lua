@@ -11,8 +11,9 @@ function initMageData()
   azs.class.cc = function(icon) polymorphByIcon(icon) end
 
   azs.class.buff = function()
-    mageBuff()
     mageWater()
+    mageBuff()
+    drinkMageWater()
     offerMageWater()
     if isInProgressRaid() then applyWizardOil() end
   end
@@ -39,7 +40,8 @@ function initMageData()
     {"Buff", "Spell_Holy_MagicalSentry", "/script azs.buff()", {8}, ""},
     {"Attack Arcane skull", "Spell_Nature_StarFall", "/script azs.dps(nil, \"Arcane\")", {65}, ""},
     {"Dispel", "Spell_Holy_DispelMagic", "/script azs.dispel()", {66}, ""},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
   }
 
   table.insert(azs.class.initActionBar, {"Scorch", scorchActionSlot})

@@ -1,33 +1,46 @@
 blacklistedMages = {}
 
+mageWaters = {"Conjured Crystal Water", "Conjured Sparkling Water", "Conjured Mineral Water",
+  "Conjured Spring Water", "Conjured Purified Water", "Conjured Fresh Water", "Conjured Water" }
+mageWaterIcons = {"INV_Drink_18", "INV_Drink_11", "INV_Drink_09", "INV_Drink_10",
+  "INV_Drink_Milk_02", "INV_Drink_07", "INV_Drink_06"}
+
 -- /script mageWater(20, "Conjured Sparkling Water")
 function mageWater(minimumAmount, waterType)
   if castingOrChanneling() then return end
-  minimumAmount = minimumAmount or 20
-  waterType = waterType or deduceWaterType()
+  local minimumAmount = minimumAmount or 20
+  local waterType = waterType or deduceWaterType()
   if countItem(waterType) < minimumAmount then
-    if UnitMana("player") >= (UnitLevel("player") * 13) then
+    if isPlayerRelativeManaAbove(13) then
       CastSpellByName("Conjure Water")
-    elseif IsActionReady(evocationActionSlot) then
-      CastSpellByName("Evocation")
     else
-      useItem(deduceWaterType())
+      drinkMageWater()
     end
+  end
+end
+
+-- /script azs.debug(player_hasBuff("INV_Drink_18"))
+
+function drinkMageWater(amount)
+  if UnitAffectingCombat("player") then return end
+  local relativeManaAmount = amount or 50
+  if not isPlayerRelativeManaAbove(relativeManaAmount) and not hasBuffFromList("player", mageWaterIcons) then
+    useItemFromList(mageWaters)
   end
 end
 
 -- /script offerMageWater("Conjured Sparkling Water")
 function offerMageWater(waterType)
   if not TradeFrame:IsShown() then return end
-  waterType = waterType or deduceWaterType()
+  local waterType = waterType or deduceWaterType()
   useItem(waterType)
   AcceptTrade()
 end
 
 -- /script askMageWater(10, "Conjured Sparkling Water")
 function askMageWater(minimumAmount, waterType)
-  minimumAmount = minimumAmount or 10
-  waterType = waterType or deduceWaterType()
+  local minimumAmount = minimumAmount or 10
+  local waterType = waterType or deduceWaterType()
   if countItem(waterType) >= minimumAmount then return end
   if TradeFrame:IsShown() then
     AcceptTrade()
@@ -63,7 +76,7 @@ function askMageWaterGroup()
 end
 
 function tradeForWaterByName(name)
-  exact_target_by_name(name)
+  exactTargetByName(name)
   InitiateTrade("target")
   if TradeFrame:IsShown() then
     return

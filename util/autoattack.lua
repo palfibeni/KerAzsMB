@@ -2,13 +2,13 @@ autoAttackActionSlot = 62
 autoAttackOnActionSlot = 63
 autoShotActionSlot = 64
 
--- mellee should have autoattack in slot 62, and slot 63 should be empty
+-- melee should have autoattack in slot 62, and slot 63 should be empty
 function stop_autoattack()
 	PickupAction(autoAttackOnActionSlot)
 	PlaceAction(autoAttackActionSlot)
 end
 
--- mellee should have autoattack in slot 62, and slot 63 should be empty
+-- melee should have autoattack in slot 62, and slot 63 should be empty
 function use_autoattack()
 	if not UnitExists("target") or UnitIsFriend("player", "target") then
 		stop_autoattack()

@@ -23,7 +23,7 @@ function powerInfusion()
 	if UnitExists("targettarget") and UnitIsFriend("player","targettarget") then
 	  if isTargetHpOver(0.7) then return end
 		if castPowerInfusionOnMageInList(azs.targetList.dps) then return true end
-		if castPowerInfusionOnMageInList(azs.targetList.multidps) then return true end
+		if castPowerInfusionOnMageInList(azs.targetList.multicaster) then return true end
 	end
 	return false
 end
@@ -40,7 +40,7 @@ function castPowerInfusionOnMageInList(targetList)
 end
 
 function castPowerInfusion(playerName)
-	playerName = playerName or UnitName("target")
+	local playerName = playerName or UnitName("target")
 	if not azs.targetList[playerName] then return end
 	for target,info in pairs(azs.targetList[playerName]) do
     CastSpellByName("Power Infusion")

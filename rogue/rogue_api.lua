@@ -23,7 +23,8 @@ function initRogueData()
     {"Attack skull", "Ability_DualWield", mainAttackMacro, {1,4,5}},
     {"Attack cross", "Ability_SteelMelee", secondaryAttackMacro, {2}},
     {"Poison up", "Ability_Creature_Poison_03", "/script azs.buff()", {8}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
   }
   azs.class.help = function()
     azs.debug("Rogue dps rotation can be adjusted by setting the used weapon, which can be set via the 'azs.class.weapon' set to either of \"Sword\" or \"Dagger\".")

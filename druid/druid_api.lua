@@ -61,7 +61,8 @@ function initTankDruidData()
     {"AoE tank attack", "Ability_Warrior_Cleave", "/script azs.aoe(\"solo\")", {101}, "druidTauntEnabled = true"},
     {"Cat attack", "Ability_Druid_Rake", "/script azs.dps(\"solo\", \"Cat\")", {73,74,75,76,77,78,79}},
     {"Druid buff", "Spell_Nature_Regeneration", "/script azs.buff()", {8}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10, 82, 94, 106, 118}, ""}
   }
   azs.class.help = function()
     azs.debug("Wheter a Druid is tank or not, is determined by talentPoints put into feral tree.")
@@ -80,6 +81,7 @@ function initBalanceDruidData()
   azs.class.buff = function()
     druidBuff()
     askMageWater()
+    drinkMageWater()
     if isInProgressRaid() then applyWizardOil() end
   end
   azs.class.stop = function()
@@ -96,7 +98,8 @@ function initBalanceDruidData()
     {"Entangle Star", "Ability_Seal", "/script azs.cc(1)", {3,111}, ""},
     {"Buff", "Spell_Holy_MagicalSentry", "/script azs.buff()", {8,116}, ""},
     {"Dispel", "Spell_Holy_DispelMagic", "/script azs.dispel()", {65}, ""},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10, 82, 94, 106, 118}, ""}
   }
   azs.class.help = function()
     azs.debug("Druid ranged dps rotation can be choosen by element, which can be set via the 'azs.class.element' set to either of \"Arcane\" or \"Nature\".")
@@ -120,6 +123,7 @@ function initRestoDruidData()
   azs.class.buff = function()
     druidBuff()
     askMageWater()
+    drinkMageWater()
     if isInProgressRaid() then applyManaOil() end
   end
 
@@ -142,7 +146,9 @@ function initRestoDruidData()
     {"HealOnly", "Spell_Holy_HolyBolt", onlyHealMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"DispelOnly", "Spell_Nature_NullifyPoison_02", onlyDispelMacro, {66,67}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10, 82, 94, 106, 118}, ""},
+    {"DruidHealOnRazu", "Ability_Warrior_BattleShout", "/script /script healOnRazoviousDruid()", {}, ""}
   }
   azs.class.help = function()
     azs.debug("Druid is mainly heal.")

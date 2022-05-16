@@ -35,5 +35,6 @@ function burstDmg()
     if useTrinkets() then return end
     CastSpellByName("Blade Flurry")
     CastSpellByName("Adrenaline Rush")
+	  useRacials()
   end
 end

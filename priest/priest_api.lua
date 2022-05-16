@@ -33,6 +33,7 @@ function initHolyPriestData()
   azs.class.buff = function(aura)
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
     askMageWater()
+    drinkMageWater()
     if isInProgressRaid() then applyManaOil() end
   end
 
@@ -62,7 +63,9 @@ function initHolyPriestData()
     {"DispelOnly", "Spell_Holy_DispelMagic", dispelOnlyMacro, {67,68}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Mana Drain", "Spell_Shadow_SiphonMana", "/script azs.special()", {64}},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""},
+    {"PriestHealOnRazu", "Ability_Warrior_BattleShout", "/script /script healOnRazoviousPriest()", {}, ""}
   }
   azs.class.help = function()
     azs.debug("Priest is mainly heal,")
@@ -71,8 +74,8 @@ end
 
 function initShadowPriestData()
   azs.debug("I am Shadow Priest")
-  azs.class.vampiricEnabled = false
-  azs.class.shPainEnabled = false
+  azs.class.vampiricEnabled = azs.class.vampiricEnabled or false
+  azs.class.shPainEnabled = azs.class.vampiricEnabled or false
   azs.class.dps = function()
     if UnitLevel("player") > 20 then
       shPriestAttack()
@@ -106,13 +109,14 @@ function initShadowPriestData()
     {"HealOnly", "Spell_Holy_HolyBolt", "/script azs.heal()", {64}, ""},
     {"HealOrDispel", "Spell_ChargePositive", "/script azs.dispel()", {65}, ""},
     {"Buff", "Spell_Holy_WordFortitude", "/script azs.buff()", {8, 79}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9, 80}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9, 80}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
   }
   azs.class.help = function()
     azs.debug("Shadow priest is using Mind Blast, and Mind Flay, on low level it will also use Smite.")
     azs.debug("additional options in supermacro extensions:")
-    azs.debug("'vampiricEnabled = true' to enable Vampiric Emrace in the rotation")
-    azs.debug("'shPainEnabled = true' to enable Shadow Word: Pain in the rotation")
+    azs.debug("'azs.class.vampiricEnabled = true' to enable Vampiric Emrace in the rotation")
+    azs.debug("'azs.class.shPainEnabled = true' to enable Shadow Word: Pain in the rotation")
   end
 end
 

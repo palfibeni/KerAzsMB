@@ -7,9 +7,9 @@ lastScorch = 0
 
 -- element can be Fire, Frost, Arcane
 function mageAttack(mageElement)
-	mageElement = mageElement or azs.class.element
+	local mageElement = mageElement or azs.class.element
   if castingOrChanneling() then return end
-  if (UnitMana("player") >= (UnitLevel("player") * 6)) then
+  if isPlayerRelativeManaAbove(6) then
     stop_wand()
 		mageCooldown()
 		mageMainDamageSource(mageElement)
@@ -28,6 +28,7 @@ function mageCooldown()
 		cast_buff_player("Spell_Nature_Lightning", "Arcane Power")
 		cast_buff_player("Spell_Nature_EnchantArmor", "Presence of Mind")
 		cast_buff_player("Spell_Fire_SealOfFire", "Combustion")
+		useRacials()
 	end
 end
 
@@ -45,7 +46,7 @@ function fireRotation()
 	if azs.class.talent == MAGE_FIRE then
 		stackScorch()
 	end
-	fireblast()
+	-- fireblast()
 	fireball()
 end
 

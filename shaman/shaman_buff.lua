@@ -1,3 +1,8 @@
+azs.class.lastEarthTotem = 0
+azs.class.lastFireTotem = 0
+azs.class.lastWaterTotem = 0
+azs.class.lastAirTotem = 0
+
 function shamanBuff(param)
   cast_buff_player("Spell_Nature_LightningShield", "Lightning Shield")
   castShamanTotems(param)
@@ -26,19 +31,10 @@ function castTotem(totem, lastTotem)
   return false
 end
 
-lastEarthTotem = 0
-earthTotems = {
-  strength = {icon = "Spell_Nature_EarthBindTotem", spell = "Strength of Earth Totem"},
-  stoneskin = {icon = "Spell_Nature_StoneSkinTotem", spell = "Stoneskin Totem"},
-  stoneclaw = {icon = nil, spell = "Stoneclaw Totem"},
-  tremor = {icon = nil, spell = "Tremor Totem"},
-  none = {}
-}
-
 function earthTotemLogic(earthTotem)
-  earthTotem = overrideEarthTotem() or earthTotem or decideEarthTotem()
-  if castTotem(earthTotem, lastEarthTotem) then
-    lastEarthTotem = GetTime()
+  local earthTotem = overrideEarthTotem() or earthTotem or decideEarthTotem()
+  if castTotem(earthTotem, azs.class.lastEarthTotem) then
+    azs.class.lastEarthTotem = GetTime()
   end
 end
 
@@ -57,20 +53,19 @@ function decideEarthTotem()
   return earthTotems.stoneskin
 end
 
-lastFireTotem = 0
-fireTotems = {
-  searing = {icon = nil, spell = "Searing Totem"},
-  nova = {icon = nil, spell = "Fire Nova Totem"},
-  magma = {icon = nil, spell = "Magma Totem"},
-  frostRes = {icon = "Spell_FrostResistanceTotem_01", spell = "Frost Resistance Totem"},
-  none = {}
-}
 
 function fireTotemLogic(fireTotem)
-  fireTotem = fireTotem or decideFireTotem()
-  if castTotem(fireTotem, lastFireTotem) then
-    lastFireTotem = GetTime()
+  local fireTotem = overrideFireTotem() or fireTotem or decideFireTotem()
+  if castTotem(fireTotem, azs.class.lastFireTotem) then
+    azs.class.lastFireTotem = GetTime()
   end
+end
+
+function overrideFireTotem()
+  if isTargetInMobList(HIGH_FROST_DAMAGE_MOBS) then
+    return fireTotems.frostRes
+  end
+  return nil
 end
 
 function decideFireTotem()
@@ -81,26 +76,16 @@ function decideFireTotem()
   return fireTotems.searing
 end
 
-lastWaterTotem = 0
-waterTotems = {
-  disease = {icon = nil, spell = "Disease Cleansing Totem"},
-  poison = {icon = nil, spell = "Poison Cleansing Totem"},
-  healing = {icon = "INV_Spear_04", spell = "Healing Stream Totem"},
-  manaSpring = {icon = "Spell_Nature_ManaRegenTotem", spell = "Mana Spring Totem"},
-  manaTide = {icon = "Spell_Frost_SummonWaterElemental", spell = "Mana Tide Totem"},
-  fireRes = {icon = "Spell_FireResistanceTotem_01", spell = "Fire Resistance Totem"},
-  none = {}
-}
-
 function waterTotemLogic(waterTotem)
-  waterTotem = overrideWaterTotem() or waterTotem or decideWaterTotem()
-  if castTotem(waterTotem, lastWaterTotem) then
-    lastWaterTotem = GetTime()
+  local waterTotem = overrideWaterTotem() or waterTotem or decideWaterTotem()
+  if castTotem(waterTotem, azs.class.lastWaterTotem) then
+    azs.class.lastWaterTotem = GetTime()
   end
 end
 
 function overrideWaterTotem()
   if isInAQ20() or isInSubZone(ZG_MARLI) then return waterTotems.poison end
+  if isTargetInMobList(HIGH_FIRE_DAMAGE_MOBS) then return waterTotems.fireRes end
   return nil
 end
 
@@ -112,18 +97,10 @@ function decideWaterTotem()
   return waterTotems.healing
 end
 
-lastAirTotem = 0
-airTotems = {
-  windfury = {icon = nil, spell = "Windfury Totem"},
-  natureRes = {icon = "Spell_Nature_NatureResistanceTotem", spell = "Nature Resistance Totem"},
-  windfall = {icon = "Spell_Nature_EarthBind", spell = "Windfall Totem"},
-  none = {}
-}
-
 function airTotemLogic(airTotem)
-  airTotem = overrideAirTotem() or airTotem or decideAirTotem()
-  if castTotem(airTotem, lastAirTotem) then
-    lastAirTotem = GetTime()
+  local airTotem = overrideAirTotem() or airTotem or decideAirTotem()
+  if castTotem(airTotem, azs.class.lastAirTotem) then
+    azs.class.lastAirTotem = GetTime()
   end
 end
 

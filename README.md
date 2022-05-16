@@ -34,7 +34,7 @@ To start multiboxing load the script file into the Hotkey.net client, and after 
 CTRL+ALT+M will start your wow clients, while the process is ongoing, you cannot do anything else with mouse, keyboard.
 While the Scroll Lock is ON the numbers 0-9, will be redirected to each WoW client you have set up, and  only to them,.
 I have setup in this example an R, H keybind also, only for the sub clients, when pressed, you will send an ArrowUp, or ArrowDown to these, resulting in going forward, or backward with only on windows 2-5.
-You can add further key logic, like separate movement for mellee, and casters, or strafe for example with Numpad 4,6 keys.
+You can add further key logic, like separate movement for melee, and casters, or strafe for example with Numpad 4,6 keys.
 
 ## Tactic:
 
@@ -44,21 +44,22 @@ This is your hammer, which works in most cases against those nasty nails.
 /deepinit will setup something similar like this, except for the drink/follow.
 
 | Slot | Dps | Heal | Tank |
-| - | ----------------------------- | --------------------- | ------------------- |
-| 1 | dps skull 					| healing all groups 	| threat attack |
-| 2 | dps cross 					| healing all groups 	| threat attack |
-| 3 | cc 							    | healing all groups 	| cc |
-| 4 | manaDrain/soulDrain/dps skull | healing all groups 	| threat attack/taunt |
-| 5 | aoe dps 						| healing all groups 	| aoe threat attack |
-| 6 | - 							    | aoe heal 				    | aoe threat attack |
-| 7 | drink 						  | drink 				      | drink |
-| 8 | buff 							  | buff 					      | buff |
-| 9 | mount up 						| mount up 				    | mount up |
-| 0 | follow 						  | follow 				      | follow |
-| R | mellee move forward 	| mellee move backward 	| mellee move backward |
-| V | mellee move backward 	| mellee move backward 	| mellee move backward |
-| Z | ranged move backward 	| ranged move backward 	| ranged move backward |
-| H | ranged move backward 	| ranged move backward 	| ranged move backward |
+| ---- | ----------------------------- | --------------------- | ------------------- |
+| 1    | dps skull 					| healing all groups 	| threat attack |
+| 2    | dps cross 					| healing all groups 	| threat attack |
+| 3    | cc 							    | healing all groups 	| cc |
+| 4    | manaDrain/soulDrain/dps skull | healing all groups 	| threat attack/taunt |
+| 5    | aoe dps 						| healing all groups 	| aoe threat attack |
+| 6    | - 							    | aoe heal 				    | aoe threat attack |
+| 7    | drink 						  | drink 				      | drink |
+| 8    | buff 							  | buff 					      | buff |
+| 9    | mount up 						| mount up 				    | mount up |
+| 0    | follow 						  | follow 				      | follow |
+| Shift + 0 | melee follow| melee follow 				| melee follow |
+| R    | melee move forward 	| melee move backward 	| melee move backward |
+| V    | melee move backward 	| melee move backward 	| melee move backward |
+| Z    | ranged move backward 	| ranged move backward 	| ranged move backward |
+| H    | ranged move backward 	| ranged move backward 	| ranged move backward |
 
 There is also a /help command which gives you a few tips for each class.
 To setup each character according to the above setup just write /deepinit in the chat with each character.
@@ -68,13 +69,13 @@ To toggle skull raid icon on the target you can use the following macro:
 ```
 /script SetRaidTarget("target",8)
 ```
-or use my own function, which only sets the skull mark, and does not remove it.
+or use my own function, which only sets the skull mark, and does NOT remove it.
 ```
 /script azs.markSkull()
 ```
 
 ### How to setup healing:
-1. Edit the azs.nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multidps. This is just a bit of help for your healer, on who should they focus on.
+1. Edit the azs.nameList, setup all the main/off tanks, in the tank, who attend to raids/dungeons, and add you dps, heal to multiheal, multimelee, multicaster. This is important, because the following is also calculated by this, plus helps the healers.
 Optional: If you have multiple healers, consider modifying the data.lua file to setup thier preffered groups, to heal more likely in case there is aoe damage.
 After you did this, the /deepinit will also add the following line to your macro's supermacro part, the "1" here
 ```

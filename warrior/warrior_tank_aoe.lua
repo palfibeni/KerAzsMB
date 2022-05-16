@@ -1,19 +1,3 @@
-function warrior_aoe_skull()
-	if azs.targetSkull() then
-		warriorTankAoe()
-	else
-		stop_autoattack()
-	end
-end
-
-function warrior_aoe_cross()
-	if azs.targetCross() then
-		warriorTankAoe()
-	else
-		stop_autoattack()
-	end
-end
-
 function warriorTankAoe()
 	bloodrage()
 	if warriorAutoTaunt() then return end

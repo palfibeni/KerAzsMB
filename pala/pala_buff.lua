@@ -1,7 +1,7 @@
 -- /script blessingOfFreedom("Cooperbeard")
 function blessingOfFreedom(playerName)
   if GetSpellCooldownByName("Blessing of Freedom") ~= 0 then return end
-	playerName = playerName or UnitName("target")
+	local playerName = playerName or UnitName("target")
 	if not azs.targetList[playerName] then return end
 	for target,info in pairs(azs.targetList[playerName]) do
 		if (hasDebuffs(target, {"Spell_Nature_Earthbind", "Spell_Nature_StrangleVines", "Spell_Nature_Web", "Ability_Ensnare"})) then
@@ -11,7 +11,7 @@ function blessingOfFreedom(playerName)
 end
 
 function paladinBuff(buff, aura)
-  buff = buff or determinePaladinBuff()
+  local buff = buff or determinePaladinBuff()
   setDefaultAura(aura)
   if buff == "Sanc/Salva" then
     return palaRaidSancSalva()
@@ -22,6 +22,9 @@ function paladinBuff(buff, aura)
   elseif buff == "Light" then
     return palaRaidLight()
   elseif buff == "Small" then
+    if getSpellId("Blessing of Kings") ~= -1 then
+      return palaSmallKings()
+    end
     return palaSmallMightWisdom()
   end
 end
@@ -73,7 +76,7 @@ end
 
 -- /script palaRaidSancSalva()
 function palaRaidSancSalva(ltargetList)
-	ltargetList=ltargetList or azs.targetList.all
+	local ltargetList = ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if info.class == "WARRIOR" or info.class == "DRUID" then
 			buffTargetWithBless("Spell_Holy_GreaterBlessingofSanctuary", "Greater Blessing of Sanctuary", target)
@@ -85,9 +88,9 @@ end
 
 -- /script palaRaidMightWisdom()
 function palaRaidMightWisdom(ltargetList)
-	ltargetList=ltargetList or azs.targetList.all
+	local ltargetList = ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
-    if info.class == "WARRIOR" or info.class == "ROGUE" then
+    if info.class == "WARRIOR" or info.class == "ROGUE" or info.class == "DRUID" then
 			buffTargetWithBless("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might", target)
     else
 			buffTargetWithBless("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom", target)
@@ -95,11 +98,16 @@ function palaRaidMightWisdom(ltargetList)
 	end
 end
 
+-- /script palaSmallKings()
+function palaSmallKings(ltargetList)
+    buffTargetListWithBless("Spell_Magic_MageArmor", "Blessing of Kings", ltargetList)
+end
+
 -- /script palaSmallMightWisdom()
 function palaSmallMightWisdom(ltargetList)
-	ltargetList=ltargetList or azs.targetList.all
+	local ltargetList = ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
-    if info.class == "WARRIOR" or info.class == "ROGUE" then
+    if info.class == "WARRIOR" or info.class == "ROGUE" or info.class == "DRUID" or isSelfRetriPala(info) then
 			buffTargetWithBless("Spell_Holy_FistOfJustice", "Blessing of Might", target)
     else
 			buffTargetWithBless("Spell_Holy_SealOfWisdom", "Blessing of Wisdom", target)
@@ -108,7 +116,7 @@ function palaSmallMightWisdom(ltargetList)
 end
 
 function setDefaultAura(defaultAura)
-  defaultAura=defaultAura or "Devotion Aura"
+  local defaultAura = defaultAura or "Devotion Aura"
 	local active=0
 	for i=1,GetNumShapeshiftForms() do
     _,_,active=GetShapeshiftFormInfo(i)
@@ -121,16 +129,22 @@ function setDefaultAura(defaultAura)
 	end
 end
 
+function overrideResistAura()
+  if isTargetInMobList(HIGH_FIRE_DAMAGE_MOBS) then return "Fire Resist Aura" end
+  if isTargetInMobList(HIGH_FROST_DAMAGE_MOBS) then return "Frost Resist Aura"end
+  return "Devotion Aura"
+end
+
 -- Buffs azs.targetList with spell
 function buffTargetListWithBless(icon, spellName, ltargetList)
-	ltargetList=ltargetList or azs.targetList.all
+	local ltargetList = ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
 		buffTargetWithBless(icon, spellName, target)
 	end
 end
 
 function buffPlayerWithBless(icon, spell, playerName)
-	playerName = playerName or UnitName("target")
+	local playerName = playerName or UnitName("target")
 	if not azs.targetList[playerName] then return end
 	for target,info in pairs(azs.targetList[playerName]) do
 		buffTargetWithBless(icon, spell, target)
@@ -140,5 +154,22 @@ end
 function buffTargetWithBless(icon, spell, target)
 	if not hasBuff(target, "Spell_Holy_SealOfProtection") then
 		castBuff(icon, spell, target)
+	end
+end
+
+function isSelfRetriPala(info)
+  return info.name == UnitName("player") and azs.class.talent == PALADIN_RETRI
+end
+
+function buffRaid()
+  local ltargetList = ltargetList or azs.targetList.all
+	for target,info in pairs(ltargetList) do
+    if info.class == "HUNTER" then
+      buffTargetWithBless("Spell_Holy_SealOfSalvation", "Blessing of Salvation", target)
+    elseif info.class == "DRUID"  then
+			buffTargetWithBless("Spell_Holy_FistOfJustice", "Blessing of Might", target)
+    else
+			buffTargetWithBless("Spell_Holy_GreaterBlessingofLight", "Greater Blessing of Light", target)
+    end
 	end
 end

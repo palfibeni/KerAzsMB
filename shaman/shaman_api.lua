@@ -57,6 +57,7 @@ function initHealShamanData()
   azs.class.buff = function(param)
     shamanBuff(param)
     askMageWater()
+    drinkMageWater()
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -83,7 +84,8 @@ function initHealShamanData()
     {"HealOnly", "Spell_Nature_MagicImmunity", healOnlyMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Attack skull", "Spell_Lightning_LightningBolt01", mainAttackMacro, {66}},
     {"Buff", "Spell_Nature_LightningShield", buffMacro, {8}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
   }
   azs.class.help = function()
     azs.debug("Shaman's main function is either dps or heal.")
@@ -138,7 +140,8 @@ function initElemShamanData()
     {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"HealOnly", "Spell_Nature_MagicImmunity", healOnlyMacro, {66}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Buff", "Spell_Nature_LightningShield", buffMacro, {8}},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
   }
   azs.class.help = function()
     azs.debug("Shaman's main function is either dps or heal.")

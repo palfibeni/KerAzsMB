@@ -35,9 +35,29 @@ function getIndexOfBuff(target, icon)
 	return -1
 end
 
+-- Return whether given target has the given buff
+function hasBuffFromList(target, icons)
+	return getIndexOfBuffFromList(target, icons) ~= -1
+end
+
+-- Returns the index of given buff, if the target has it, otherwise -1
+function getIndexOfBuffFromList(target, icons)
+	local i=1
+	for _,icon in pairs(icons) do
+		while UnitBuff(target,i) ~= nil do
+			local buff = UnitBuff(target,i)
+			if "Interface\\Icons\\" .. icon == buff then
+				return i
+			end
+			i=i+1
+		end
+	end
+	return -1
+end
+
 -- Buffs azs.targetList with spell
 function buffTargetList(icon, spellName, ltargetList)
-	ltargetList=ltargetList or azs.targetList.all
+	local ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
 		castBuff(icon, spellName, target)
 	end
@@ -55,7 +75,7 @@ function castBuff(icon, spell, target)
 end
 
 function removeBuff(icon)
-	index = getIndexOfBuff("player", icon)
+	local index = getIndexOfBuff("player", icon)
 	if index ~= -1 then
 		CancelPlayerBuff(index)
 	end
@@ -63,7 +83,7 @@ end
 
 function buffPlayer(icon, spell, playerName)
   if GetSpellCooldownByName(spell) ~= 0 then return end
-	playerName = playerName or UnitName("target")
+	local playerName = playerName or UnitName("target")
 	if not azs.targetList[playerName] then return end
 	for target,info in pairs(azs.targetList[playerName]) do
 		castBuff(icon, spell, target)
@@ -72,7 +92,7 @@ end
 
 -- Buffs azs.targetList with spell
 function buffTargetListExceptList(icon, spellName, expectList, ltargetList)
-	ltargetList=ltargetList or azs.targetList.all
+	local ltargetList=ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
     if not isTargetInList(target, expectList) then
       castBuff(icon, spellName, target)

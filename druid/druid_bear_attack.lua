@@ -4,22 +4,6 @@ enrageActionSlot = 14
 
 lastFeralFaerieFire = 0;
 
-function druid_bear_skull()
-	if azs.targetSkull() then
-		druidBearAttack()
-	else
-		stop_autoattack()
-	end
-end
-
-function druid_bear_cross()
-	if azs.targetCross() then
-		druidBearAttack()
-	else
-		stop_autoattack()
-	end
-end
-
 function druidBearAttack()
 	druid_bear_form()
 	druid_bear_taunt()

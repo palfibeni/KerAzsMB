@@ -1,19 +1,3 @@
-function cat_attack_skull()
-    if azs.targetCross() then
-      catAttack()
-    else
-      stop_autoattack()
-    end
-end
-
-function cat_attack_cross()
-    if azs.targetCross() then
-      catAttack()
-    else
-      stop_autoattack()
-    end
-end
-
 function catAttack()
   druid_cat_form()
 	feralFaerieFire()

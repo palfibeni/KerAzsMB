@@ -5,9 +5,9 @@ buffRegrowth="Spell_Nature_ResistNature"
 buffRejuvenation="Spell_Nature_Rejuvenation"
 druidNatureSwiftness="Spell_Nature_RavenForm"
 
-druidDispelAll={Posion=true,Curse=true}
+druidDispelAll={Poison=true,Curse=true}
 druidDispelCurse={Curse=true}
-druidDispelPosion={Posion=true}
+druidDispelPoison={Poison=true}
 
 druidHealRange="Healing Touch"
 druidDispelRange="Remove Curse"
@@ -15,14 +15,24 @@ druidDispelRange="Remove Curse"
 lastInner = 0;
 innervateActionSlot = 61;
 
+-- /script healOnRazoviousDruid()
+function healOnRazoviousDruid()
+	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	  CastSpellByName("Healing Touch(Rank 4")
+	  return
+	end
+	exactTargetByName("Instructor Razuvious")
+	TargetUnit("targettarget")
+end
+
 -- /script  druidHealOrDispel(azs.targetList.all, false)
 function druidHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
 	leaveShapeShiftForm()
-	lTargetList = lTargetList or azs.targetList.all
-	healProfile=healProfile or getDefaultHealingProfile()
-	dispelTypes=dispelTypes or druidDispelAll
-	dispelByHp=dispelByHp or false
-	dispelHpThreshold=dispelHpThreshold or 0.4
+	local lTargetList = lTargetList or azs.targetList.all
+	local healProfile=healProfile or getDefaultHealingProfile()
+	local dispelTypes=dispelTypes or druidDispelAll
+	local dispelByHp=dispelByHp or true
+	local dispelHpThreshold=dispelHpThreshold or 0.4
 	useHealingTrinket()
 	if (UnitMana("player") < 500) then
 		innervate()
@@ -43,7 +53,7 @@ end
 -- /script druidHeal(azs.targetList.all, false)
 function druidHeal(lTargetList,healProfile)
 	leaveShapeShiftForm()
-	lTargetList = lTargetList or azs.targetList.all
+	local lTargetList = lTargetList or azs.targetList.all
 	useHealingTrinket()
 	if (UnitMana("player") < 500) then
 		innervate()
@@ -61,8 +71,8 @@ end
 function druidHealTarget(healProfile,target,hp,hotTarget,hotHp)
 	if druidHealProfiles[healProfile] then
 		for i,healProfileEntry in ipairs(druidHealProfiles[healProfile]) do
-			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly=unpack(healProfileEntry)
-			local mana=UnitMana("player")
+			local hpThreshold,manaCost,spellName,healMode,lTargetList,withCdOnly = unpack(healProfileEntry)
+			local mana = UnitMana("player")
 			if mana>=manaCost and (not withCdOnly or hasBuff("player",druidNatureSwiftness)) and GetSpellCooldownByName(spellName)==0 then
 				if (not healMode or healMode==1) and target and hp<hpThreshold and (not lTargetList or lTargetList[target]) then
 					--azs.debug("Executing heal profile \""..healProfile.."\", entry: "..i)
@@ -99,9 +109,9 @@ end
 -- /script druidDispel()
 function druidDispel(lTargetList,dispelTypes,dispelByHp)
 	leaveShapeShiftForm()
-	lTargetList = lTargetList or azs.targetList.all
-	dispelTypes=dispelTypes or druidDispelAll
-	dispelByHp=dispelByHp or false
+	local lTargetList = lTargetList or azs.targetList.all
+	local dispelTypes=dispelTypes or druidDispelAll
+	local dispelByHp=dispelByHp or false
 	useHealingTrinket()
 	if (UnitMana("player") < 500) then
 		innervate()

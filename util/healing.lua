@@ -13,6 +13,23 @@ function castingOrChanneling()
     return casting() or channeling()
 end
 
+function useRacials()
+  trollBerserking()
+  orcBerserking()
+end
+
+function trollBerserking()
+  if UnitRace("player") == "Troll" then
+    cast_buff_player("Racial_Troll_Berserk", "Berserking")
+  end
+end
+
+function orcBerserking()
+  if UnitRace("player") == "Orc" then
+    cast_buff_player("Racial_Orc_BerserkerStrength", "Blood Fury")
+  end
+end
+
 function isTargetHpOver(percent)
 	return not UnitIsDead("target") and UnitHealth("target") / UnitHealthMax("target") > percent
 end
@@ -37,6 +54,10 @@ function isTargetManaUnder(percent)
 	return not UnitIsDead("target") and UnitMana("target") / UnitHealthMana("target") < percent
 end
 
+function isPlayerRelativeManaAbove(amount)
+  return UnitMana("player") >= (UnitLevel("player") * amount)
+end
+
 function isPlayerManaOver(percent)
 	return UnitMana("player") / UnitHealthMana("player") > percent
 end
@@ -46,19 +67,18 @@ function isPlayerManaUnder(percent)
 end
 
 function resurrectAll(spell, targetList)
-  targetList = targetList or azs.targetList.all
+  local targetList = targetList or azs.targetList.all
   if UnitAffectingCombat("player") or castingOrChanneling() then return end
   if resurrectTargetList(spell, azs.targetList.party) then return end
-  playerName = UnitName("player")
-  azs.debug(azs.healers[playerName])
+  local playerName = UnitName("player")
   if UnitInRaid("player") and azs.healers[playerName] then
-    if resurrectTargetList(spell, azs.targetList.group[ azs.healers[playerName].group ]) then return end
+    if resurrectTargetList(spell, azs.targetList.group[ azs.healers[playerName].group]) then return end
   end
   resurrectTargetList(spell, targetList)
 end
 
 function resurrectTargetList(spell, targetList)
-  targetList = targetList or azs.targetList.all
+  local targetList = targetList or azs.targetList.all
   for target,info in pairs(targetList) do
     if UnitIsDead(target) and not isBlacklistedDead(info.name) then
       SendChatMessage("Ressing " .. info.name .. "!", "YELL")

@@ -142,7 +142,6 @@ end
 function initMacro(macroEntry)
 	local name, iconName, script, slots, superMacro = unpack(macroEntry)
 	local macroId = CreateMacro(name, azs.avaliableMacroIcons["Interface\\Icons\\" .. iconName], script, 1, 1);
-	azs.debug(slots)
 	if slots then
 		for i,slot in pairs(slots) do
 			PickupMacro(macroId)
@@ -220,7 +219,10 @@ function isMyMultibox(targetName)
 	for i,name in ipairs(azs.nameList.multiheal) do
 		if targetName == name then return true end
 	end
-	for i,name in ipairs(azs.nameList.multidps) do
+	for i,name in ipairs(azs.nameList.multicaster) do
+		if targetName == name then return true end
+	end
+	for i,name in ipairs(azs.nameList.multimelee) do
 		if targetName == name then return true end
 	end
 	return false
@@ -236,7 +238,10 @@ function inviteMultiBoxToRaid()
 	for i,name in ipairs(azs.nameList.multiheal) do
 		InviteByName(name)
 	end
-	for i,name in ipairs(azs.nameList.multidps) do
+	for i,name in ipairs(azs.nameList.multicaster) do
+		InviteByName(name)
+	end
+	for i,name in ipairs(azs.nameList.multimelee) do
 		InviteByName(name)
 	end
 	SetLootMethod("freeforall")
@@ -245,7 +250,7 @@ end
 -- /script kickEveryone()
 function kickEveryone()
 	for i = 1,40 do
-		name = GetRaidRosterInfo(i)
+		local name = GetRaidRosterInfo(i)
 		if name then
 			UninviteByName(name)
 		end
@@ -254,8 +259,8 @@ end
 
 -- /script checkSS()
 function checkSS(targetList)
-	targetList=targetList or azs.targetList.all
-	local chatType=nil
+	local targetList = targetList or azs.targetList.all
+	local chatType = nil
 	local nameString=""
 	local buffCount=0
 	if UnitInRaid("player") then

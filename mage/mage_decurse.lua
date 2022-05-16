@@ -8,7 +8,7 @@ end
 
 -- /script MageDispel(azs.targetList.all)
 function mageDispel(lTargetList)
-	lTargetList=lTargetList or azs.targetList.all
+	local lTargetList=lTargetList or azs.targetList.all
 	if SpellCastReady(mageDispelRange,false) then
 		local target,debufftype=GetDispelTarget(lTargetList,mageDispelRange,mageDecurse,false)
 		if target then

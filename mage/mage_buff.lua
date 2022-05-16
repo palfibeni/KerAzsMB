@@ -41,21 +41,21 @@ function mageArmor()
   end
 end
 
-function hasManaGem(manaGem)
-  manaGem = manaGem or deduceManaGem()
-  return manaGem ~= nil and findItemInInventory(manaGem) ~= nil
-end
-
 function craftManaGem(manaGem)
-  manaGem = manaGem or deduceManaGem()
-  if hasManaGem() then return end
+  local manaGem = manaGem or deduceManaGem()
+  if hasManaGem(manaGem) then return end
   if manaGem ~= nil then
     CastSpellByName("Conjure " .. manaGem)
   end
 end
 
+function hasManaGem(manaGem)
+  local manaGem = manaGem or deduceManaGem()
+  return manaGem ~= nil and findItemInInventory(manaGem) ~= nil
+end
+
 function useManaGem(manaGem)
-  manaGem = manaGem or deduceManaGem()
+  local manaGem = manaGem or deduceManaGem()
   if hasManaGem() then
     useItem(manaGem)
   end
@@ -64,7 +64,7 @@ end
 function deduceManaGem()
   if UnitLevel("player") == 60 then return "Mana Ruby" end
   if UnitLevel("player") < 28 then return nil end
-  if UnitLevel("player") < 30 then return "Mana Agate" end
-  if UnitLevel("player") < 40 then return "Mana Jade" end
+  if UnitLevel("player") < 38 then return "Mana Agate" end
+  if UnitLevel("player") < 48 then return "Mana Jade" end
   if UnitLevel("player") < 60 then return "Mana Citrine" end
 end

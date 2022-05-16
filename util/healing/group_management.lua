@@ -6,7 +6,8 @@ biasList.tank=-0.1
 biasList.mainTank=-0.12
 biasList.heal=0
 biasList.multiheal=-0.08
-biasList.multidps=-0.05
+biasList.multimelee=-0.06
+biasList.multicaster=-0.06
 
 local function InitTargetList()
 	azs.targetList = {all = {}, group = {}, party = {}, master = {},self = {}}
@@ -207,7 +208,7 @@ function UpdateTargetList()
 		if partyToRaidCheck then
 			BuildTargetList()
 		else
-			for i=1,GetNumPartyMembers() do
+			for i=1,5 do
 				local uid="party"..i
 				if UnitIsConnected(uid) then
 					if UnitName(uid)=="Unknown" then
@@ -264,7 +265,7 @@ function UpdatePlayer(uid,info,name,class)
 			azs.targetList[name]={}
 		end
 		azs.targetList[name][uid]=info
-		azs.targetList[oldName][uid]=nil
+		azs.targetList[oldName]=nil
 
 		AddBias(info,biasList[name])
 		RemoveBias(info,biasList[oldName])
@@ -316,7 +317,7 @@ function RemoveUid(uid)
 	local role=info.role
 
 	azs.targetList.all[uid]=nil
-	azs.targetList[name][uid]=nil
+	azs.targetList[name]=nil
 
 	if group==0 then
 		azs.targetList.party[uid]=nil

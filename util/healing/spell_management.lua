@@ -64,7 +64,6 @@ function GetSpellIdEntries(pSpellId)
 			if info.castTime then
 				s=s.." | Cast: "..info.castTime.."s"
 			end
-			azs.debug(s)
 		end
 	end
 end

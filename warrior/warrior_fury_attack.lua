@@ -3,22 +3,6 @@ berserkerRageActionSlot = 14
 whirlwindActionSlot = 15
 bloodThirstActionSlot = 17
 
-function warrior_fury_skull()
-	if azs.targetSkull() then
-		warriorFuryAttack()
-	else
-    stop_autoattack()
-	end
-end
-
-function warrior_fury_cross()
-	if azs.targetCross() then
-		warriorFuryAttack()
-	else
-    stop_autoattack()
-	end
-end
-
 function warriorFuryAttack()
 	if charge() then return end
 	warriorBerserkerStance()
@@ -26,7 +10,8 @@ function warriorFuryAttack()
 	bloodrage()
 	battleShout()
 	if isTargetHpUnder(0.3) then
-		useTrinkets()
+    if useTrinkets() then return end
+	  useRacials()
 		cast_buff_player("Ability_Racial_DeathPact", "Death Wish")
 		cast_buff_player("Ability_Racial_CriticalStrike", "Recklessness")
 		CastSpellByName("Execute")

@@ -11,10 +11,11 @@ azs.nameList={
 	multitank={"Stardancer","Cooperbeard", "Peacebringer", "Obier"},
 	multiheal={"Lightbeard", "Baleog", "Lionel", "Nobleforged", "Bronzecoat",
 	"Fordragon", "Moonflower", "Lightweight", "Greenshadow", "Brunhilde"},
-	multidps={"Azsgrof", "Daemona", "Jaliana", "Carla", "Liberton", "Pinkypie",
-	"Fabregas", "Windou", "Oakheart", "Cromwell", "Leilena", "Featherfire",
-	"Miraclemike", "Pompedous", "Morbent", "Maleficus", "Nightleaf", "Ravencloud",
-	"Barbariana", "Lemonjuice", "Thinarms", "Toxica", "Zara", "Sylvia", "Xenophia"}
+	multicaster = {"Carla", "Daemona", "Jaliana", "Pinkypie", "Fabregas", "Windou",
+	"Oakheart", "Featherfire", "Miraclemike", "Pompedous", "Morbent", "Maleficus",
+	"Nightleaf", "Ravencloud", "Zara", "Sylvia", "Xenophia"},
+	multimelee = {"Stardancer", "Peacebringer", "Azsgrof", "Liberton", "Cromwell", "Leilena", "Barbariana",
+	"Lemonjuice", "Thinarms", "Toxica"}
 }
 
 

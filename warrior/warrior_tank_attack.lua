@@ -10,18 +10,6 @@ mockingBlowActionSlot = 20
 lastSunder = 0
 lastDoDefCooldown = 0
 
-function warrior_tank_attack_skull()
-	if azs.targetSkull() then
-		warriorTankAttack()
-	end
-end
-
-function warrior_tank_attack_cross()
-	if azs.targetCross() then
-		warriorTankAttack()
-	end
-end
-
 function warriorTankAttack()
 	local isMainTank = isMainTankByName(UnitName("player"))
 	bloodrage()
@@ -108,14 +96,16 @@ function sunderArmor(isMainTank)
 end
 
 function doDefCooldown()
-	if not UnitAffectingCombat("player") then return end
+	if UnitName("targettarget") == nil then return false end
+	if not UnitIsEnemy("target","player") then return end
+	if UnitName("targettarget") ~= UnitName("player") then return end
 	if lastDoDefCooldown + 10 > GetTime() then return end
 	if isPlayerHpUnder(0.2) and IsActionReady(lastStandActionSlot) then
 		lastStand()
 	elseif isPlayerHpUnder(0.15) and IsActionReady(shieldWallActionSlot) then
 		shieldWall()
 	elseif isPlayerHpUnder(0.15) then
-		useItem("Major Healing Potion")
+		useHealthPotion()
 		lastDoDefCooldown = GetTime()
 	end
 end

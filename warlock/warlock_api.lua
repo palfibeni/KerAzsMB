@@ -27,6 +27,7 @@ function initWarlockData()
   azs.class.buff = function(summon)
     warlockBuff(summon)
     askMageWater()
+    drinkMageWater()
     if isInProgressRaid() then applyWizardOil() end
   end
   azs.class.aoe = function() warlockAoe() end
@@ -51,7 +52,8 @@ function initWarlockData()
     {"Drain soul", "Spell_Shadow_Haunting", "/script azs.special(\"skull\", \"Soul\")", {64}, ""},
     {"AoE", "Spell_Shadow_RainOfFire", "/script azs.aoe()", {5}},
     {"Buff", "Spell_Shadow_SummonImp", "/script azs.buff(\"" .. azs.class.summon .. "\")", {8}, ""},
-    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""}
+    {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""},
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
   }
   azs.class.help = function()
     azs.debug("Warlock ranged dps rotation can be choosen by element,which can be set via the 'azs.class.element' set to either of \"Shadow\" or \"Fire\".")

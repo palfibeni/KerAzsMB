@@ -10,28 +10,32 @@ desperatePrayerActionSlot = 61
 fadeActionSlot = 15
 powerInfusionActionSlot = 16
 
+priestDispelAll={Magic=true,Disease=true}
+priestDispelMagic={Magic=true}
+priestDispelDisease={Disease=true}
+
 function priestRess()
 	resurrectAll("Resurrection")
 end
 
 -- /script healOnRazoviousPriest()
 function healOnRazoviousPriest()
-	if UnitName("target") == "Death Knight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
 	  CastSpellByName("Greater Heal(Rank 1")
 	  return
 	end
-	exact_target_by_name("Instructor Razuvious")
+	exactTargetByName("Instructor Razuvious")
 	TargetUnit("targettarget")
 end
 
 -- /script  priestHealOrDispel(azs.targetList.all, false)
 function priestHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
-	lTargetList = lTargetList or azs.targetList.all
-	healProfile=healProfile or getPriestDefaultHealingProfile()
-	dispelTypes=dispelTypes or priestDispelAll
-	dispelByHp=dispelByHp or false
-	dispelHpThreshold=dispelHpThreshold or 0.4
 	priestCooldown()
+	local lTargetList = lTargetList or azs.targetList.all
+	local healProfile = healProfile or getPriestDefaultHealingProfile()
+	local dispelTypes = dispelTypes or priestDispelAll
+	local dispelByHp = dispelByHp or false
+	local dispelHpThreshold = dispelHpThreshold or 0.4
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hpOrDebuffType,hotTarget,hotHp,action=GetHealOrDispelTarget(lTargetList,priestHealRange,buffRenew,priestDispelRange,dispelTypes,dispelByHp,dispelHpThreshold)
@@ -48,9 +52,9 @@ end
 
 -- /script priestHeal(azs.targetList.all, "instantOnly")
 function priestHeal(lTargetList,healProfile)
-	lTargetList = lTargetList or azs.targetList.all
 	priestCooldown()
-	healProfile=healProfile or getPriestDefaultHealingProfile()
+	local lTargetList = lTargetList or azs.targetList.all
+	local healProfile = healProfile or getPriestDefaultHealingProfile()
 	if SpellCastReady(priestHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp,hotTarget,hotHp=GetHealTarget(lTargetList,priestHealRange,buffRenew)
@@ -122,19 +126,15 @@ end
 
 -- /script priestDispel()
 function priestDispel(lTargetList,dispelTypes,dispelByHp)
-	lTargetList = lTargetList or azs.targetList.all
-	dispelTypes=dispelTypes or priestDispelAll
-	dispelByHp=dispelByHp or false
+	local lTargetList = lTargetList or azs.targetList.all
+	local dispelTypes=dispelTypes or priestDispelAll
+	local dispelByHp=dispelByHp or false
 	priestCooldown()
 	if SpellCastReady(priestDispelRange) then
 		local target,debuffType=GetDispelTarget(lTargetList,priestDispelRange,priestDispelAll,false)
 		priestDispelTarget(target,debuffType)
 	end
 end
-
-priestDispelAll={Magic=true,Disease=true}
-priestDispelMagic={Magic=true}
-priestDispelDisease={Disease=true}
 
 function priestDispelTarget(target,debuffType)
 	if target then
@@ -154,6 +154,7 @@ function priestDispelTarget(target,debuffType)
 end
 
 function priestCooldown()
+	if not UnitAffectingCombat("player") then return end
 	if IsActionReady(fadeActionSlot) and isPlayerHpUnder(0.5) then
 			CastSpellByName("Fade")
 	end
@@ -161,6 +162,7 @@ function priestCooldown()
 			CastSpellByName("Desperate Prayer")
 	end
 	if powerInfusion() then return end
+	useRacials()
 	useHealingTrinket()
 end
 

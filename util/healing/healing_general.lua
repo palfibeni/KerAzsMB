@@ -50,28 +50,29 @@ function GetHealOrDispelTarget(lTargetList,healSpell,healIcon,dispelSpell,dispel
 	return dispelTarget,debuffType,nil,nil,action
 end
 
-function GetHealTarget(lTargetList,healSpell,healIcon)
+function GetHealTarget(targetList,healSpell,healIcon)
 	ClearFriendlyTarget()
 	CastSpellByName(healSpell)
-	local currentTarget, minHp, minBiasedHp
-	local currentHotTarget, minHotHp, minBiasedHotHp
-	local blacklistFlag, minBlacklistTime = retryBlacklist,nil
-	for target,info in pairs(lTargetList) do
+	local currentTarget,minHp,minBiasedHp
+	local currentHotTarget,minHotHp,minBiasedHotHp
+	local blacklistFlag,minBlacklistTime=retryBlacklist,nil
+	for target,info in pairs(targetList) do
 		local hp=UnitHealth(target)/UnitHealthMax(target)
 		if hp<healHpThreshold and IsValidSpellTarget(target) then
 			if not info.blacklist or info.blacklist<=GetTime() then
 				if blacklistFlag then
-					blacklistFlag,currentTarget,currentHotTarget,minHp,minHotHp=false,nil,nil,nil,nil
+					blacklistFlag,currentTarget,currentHotTarget,minHp,minHotHp = false,nil,nil,nil,nil
 				end
-				local biasedHp=hp+info.bias
+				info.blacklist=nil
+				local biasedHp = hp+info.bias
 				if not minHp or biasedHp<minBiasedHp then
-					minHp,minBiasedHp,currentTarget=hp,biasedHp,target
+					minHp,minBiasedHp,currentTarget = hp,biasedHp,target
 				end
 				if healIcon and (not minHotHp or biasedHp<minBiasedHotHp) and not hasBuff(target,healIcon) then
 					minHotHp,minBiasedHotHp,currentHotTarget=hp,biasedHp,target
 				end
 			elseif blacklistFlag then
-				if not minBlacklistTime or minBlacklistTime > info.blacklist then
+				if not minBlacklistTime or minBlacklistTime>info.blacklist then
 					minBlacklistTime = info.blacklist
 					currentTarget = target
 					minHp = hp
@@ -119,6 +120,7 @@ function GetDispelTarget(targetList,dispelSpell,dispelTypes,dispelByHp)
 	ClearFriendlyTarget()
 	CastSpellByName(dispelSpell)
 	local currentTarget,topPriority,debuffType,currentDebuffType
+	local blacklistFlag, minBlacklistTime = retryBlacklist,nil
 	for target,info in pairs(targetList) do
 		if IsValidSpellTarget(target) then
 			for i=1,16 do
@@ -128,14 +130,26 @@ function GetDispelTarget(targetList,dispelSpell,dispelTypes,dispelByHp)
 				end
 			end
 			if debuffType then
-				local priority=info.bias
-				if dispelByHp then
-					priority=priority+UnitHealth(target)/UnitHealthMax(target)
-				end
-				if not topPriority or priority<topPriority then
-					topPriority=priority
-					currentTarget=target
-					currentDebuffType=debuffType
+				if not info.blacklist or info.blacklist<=GetTime() then
+					if blacklistFlag then
+						blacklistFlag,currentTarget,currentDebuffType=false,nil,nil
+					end
+					info.blacklist=nil
+					local priority=info.bias
+					if dispelByHp then
+						priority = priority+UnitHealth(target)/UnitHealthMax(target)
+					end
+					if not topPriority or priority<topPriority then
+						topPriority = priority
+						currentTarget=target
+						currentDebuffType=debuffType
+					end
+				elseif blacklistFlag then
+					if not minBlacklistTime or minBlacklistTime>info.blacklist then
+						minBlacklistTime=info.blacklist
+						currentTarget=target
+						currentDebuffType=debuffType
+					end
 				end
 			end
 		end
@@ -184,10 +198,7 @@ function SpellCastReady(spell,delay)
 end
 
 function handleLowMana()
-	if not UnitAffectingCombat("player") and UnitMana("player") / UnitManaMax("player") < 0.5 then
-		useItem(deduceWaterType())
-		return
-	end
+	drinkMageWater(50)
 	if isInProgressRaid() and UnitMana("player") / UnitManaMax("player") < 0.4 then
 		useItemFromList(manaPotions)
 		return

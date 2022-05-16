@@ -4,5 +4,6 @@
 	<Script file="shaman_api.lua"/>
 	<Script file="shaman_attack.lua"/>
   <Script file="shaman_healing.lua"/>
+  <Script file="shaman_totem_data.lua"/>
   <Script file="shaman_buff.lua"/>
 </Ui>

@@ -13,11 +13,11 @@ end
 -- /script shamanHeal(azs.targetList.all, false)
 -- /script shamanHealOrDispel(azs.targetList.all, false)
 function shamanHealOrDispel(lTargetList,healProfile,dispelTypes,dispelByHp,dispelHpThreshold)
-	lTargetList = lTargetList or azs.targetList.all
-	healProfile=healProfile or getDefaultHealingProfile()
-	dispelTypes=dispelTypes or shamanDispelAll
-	dispelByHp=dispelByHp or false
-	dispelHpThreshold=dispelHpThreshold or 0.4
+	local lTargetList = lTargetList or azs.targetList.all
+	local healProfile = healProfile or getDefaultHealingProfile()
+	local dispelTypes = dispelTypes or shamanDispelAll
+	local dispelByHp = dispelByHp or false
+	local dispelHpThreshold = dispelHpThreshold or 0.4
 	useHealingTrinket()
 	if SpellCastReady(shamanHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
@@ -38,7 +38,7 @@ function shamanHeal(lTargetList,healProfile)
 			CastSpellByName("Divine Shield")
 	end
 	useHealingTrinket()
-	healProfile=healProfile or getDefaultHealingProfile()
+	local healProfile = healProfile or getDefaultHealingProfile()
 	if SpellCastReady(shamanHealRange,stopCastingDelayExpire) then
 		stopCastingDelayExpire=nil
 		local target,hp=GetHealTarget(lTargetList,shamanHealRange)
@@ -80,9 +80,9 @@ function shamanHealTarget(healProfile,target,hp)
 end
 
 function shamanDispel(lTargetList,dispelTypes,dispelByHp)
-	lTargetList = lTargetList or azs.targetList.all
-	dispelTypes=dispelTypes or shamanDispelAll
-	dispelByHp=dispelByHp or false
+	local lTargetList = lTargetList or azs.targetList.all
+	local dispelTypes=dispelTypes or shamanDispelAll
+	local dispelByHp=dispelByHp or false
 	useHealingTrinket()
 	if SpellCastReady(shamanDispelRange) then
 		local target=GetDispelTarget(lTargetList,shamanDispelRange,dispelTypes,dispelByHp)

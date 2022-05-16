@@ -34,30 +34,12 @@ end
 
 f:SetScript("OnEvent", HunterEventHandler)
 
-function hunter_attack_skull()
-	if azs.targetSkull() then
-    hunterDps()
-	else
-		stop_ranged_attack()
-		stop_autoattack()
-	end
-end
-
-function hunter_attack_cross()
-	if azs.targetCross() then
-    hunterDps()
-	else
-		stop_ranged_attack()
-		stop_autoattack()
-	end
-end
-
-function hunterDps()
+function hunterDps(params)
   handleNefaCallHunter()
   if is_in_melee_range() then
 		hunterMeleeDps()
 	else
-		hunterRangedDps()
+		hunterRangedDps(params)
   end
 	PetAttack("target")
 end
@@ -77,7 +59,8 @@ end
 
 -- Hunter ranged dps rotation (Aspect, Hunter's Mark, Auto Shot, Aimed Shot, Multi Shot)
 -- Multishot will be only used if 'azs.class.multiShotEnabled' is set to true.
-function hunterRangedDps()
+function hunterRangedDps(params)
+  local multiShotEnabled = params.multiShotEnabled or azs.class.multiShotEnabled
   stop_autoattack()
 	if not hasBuff("player", "Spell_Nature_ProtectionformNature") then
 		cast_buff_player("Spell_Nature_RavenForm", "Aspect of the Hawk")
@@ -85,6 +68,7 @@ function hunterRangedDps()
 	cast_debuff("Ability_Hunter_SniperShot", "Hunter's Mark")
 	if isTargetHpUnder(0.7) then
 		cast_buff_player("Ability_Hunter_RunningShot", "Rapid Fire")
+		useRacials()
 		if useTrinkets() then return end
 	end
 	use_ranged_attack()
@@ -95,7 +79,7 @@ function hunterRangedDps()
     elseif aimedShotExpire >= GetTime() and IsActionReady(aimedShotActionSlot) then
       CastSpellByName("Aimed Shot")
       ignoreNext = true
-    elseif azs.class.multiShotEnabled and instantShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
+    elseif multiShotEnabled and instantShotExpire >= GetTime() and IsActionReady(multiShotActionSlot) then
       CastSpellByName("Multi-Shot")
       ignoreNext = true
     end

@@ -17,7 +17,7 @@ end
 
 function warlockArmor()
   if UnitLevel("player") >= 20 then
-    if (UnitMana("player") >= (UnitLevel("player") * 26)) then
+    if (isPlayerRelativeManaAbove(26)) then
       cast_buff_player("Spell_Shadow_RagingScream", "Demon Armor")
     else
       CastSpellByName("Life Tap")
@@ -28,7 +28,7 @@ function warlockArmor()
 end
 
 function warlockSummon(summon)
-  summon = summon or azs.class.summon
+  local summon = summon or azs.class.summon
   if summon == "DS" then
     demonicSacrifice()
   else
@@ -42,7 +42,7 @@ function demonicSacrifice()
   end
   if UnitExists("pet") then
     CastSpellByName("Demonic Sacrifice")
-  elseif (UnitMana("player") >= (UnitLevel("player") * 22)) then
+  elseif (isPlayerRelativeManaAbove(22)) then
     CastSpellByName("Fel Domination")
     CastSpellByName("Summon Succubus")
   else
@@ -54,10 +54,18 @@ function summonImp()
   if player_hasBuff("Spell_Shadow_BloodBoil") then
     return
   end
-  if (UnitMana("player") >= (UnitLevel("player") * 16)) then
+  if isPlayerRelativeManaAbove(16) then
     CastSpellByName("Fel Domination")
     CastSpellByName("Summon Imp")
   else
     CastSpellByName("Life Tap")
   end
+end
+
+function unendingBreath()
+  buffTargetList("Spell_Shadow_DemonBreath", "Unending Breath")
+end
+
+function detectInvisibility()
+  buffTargetList("Spell_Shadow_DetectInvisibility", "Detect Invisibility")
 end

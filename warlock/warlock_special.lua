@@ -1,5 +1,5 @@
 function warlockSpecial(drain)
-  drain = drain or azs.class.drain
+  local drain = drain or azs.class.drain
   if drain == "Soul" then
     warlockDrainSoul()
   else
@@ -21,7 +21,7 @@ end
 
 function warlockDrainMana()
   if castingOrChanneling() then return end
-  if (UnitMana("player") >= (UnitLevel("player") * 5)) then
+  if isPlayerRelativeManaAbove(5) then
     CastSpellByName("Drain Mana")
   else
     CastSpellByName("Life Tap")
