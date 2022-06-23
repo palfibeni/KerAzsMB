@@ -87,10 +87,10 @@ end
 function applySharpeningStone()
 	if isWeaponBlunt("MainHandSlot") then
 		applyEnchantsToWeapon(weightStones, 16)
-	else applyEnchantsToWeapon(sharpeningStone, 16) end
+	else applyEnchantsToWeapon(sharpeningStones, 16) end
 	if isWeaponBlunt("SecondaryHandSlot") then
 		applyEnchantsToWeapon(weightStones, 17)
-	else applyEnchantsToWeapon(sharpeningStone, 17) end
+	else applyEnchantsToWeapon(sharpeningStones, 17) end
 end
 
 function applyEnchantToWeapon(name, weaponSlot)

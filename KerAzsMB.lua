@@ -28,23 +28,24 @@ function addonLoadedEventListener()
 end
 
 azs.initClassData = function()
-	if UnitClass("player") == "Warrior" then
+	local class = UnitClass("player")
+	if class == "Warrior" then
 		initWarriorData()
-	elseif UnitClass("player") == "Mage" then
+	elseif class == "Mage" then
 		initMageData()
-	elseif UnitClass("player") == "Warlock" then
+	elseif class == "Warlock" then
 		initWarlockData()
-	elseif UnitClass("player") == "Rogue" then
+	elseif class == "Rogue" then
 		initRogueData()
-	elseif UnitClass("player") == "Hunter" then
+	elseif class == "Hunter" then
 		initHunterData()
-	elseif UnitClass("player") == "Paladin" then
+	elseif class == "Paladin" then
 		initPaladinData()
-	elseif UnitClass("player") == "Priest" then
+	elseif class == "Priest" then
 		initPriestData()
-	elseif UnitClass("player") == "Druid" then
+	elseif class == "Druid" then
 		initDruidData()
-	elseif UnitClass("player") == "Shaman" then
+	elseif class == "Shaman" then
 		initShamanData()
 	end
 end

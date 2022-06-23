@@ -265,7 +265,7 @@ function UpdatePlayer(uid,info,name,class)
 			azs.targetList[name]={}
 		end
 		azs.targetList[name][uid]=info
-		azs.targetList[oldName]=nil
+		azs.targetList[oldName][uid]=nil
 
 		AddBias(info,biasList[name])
 		RemoveBias(info,biasList[oldName])
@@ -317,7 +317,7 @@ function RemoveUid(uid)
 	local role=info.role
 
 	azs.targetList.all[uid]=nil
-	azs.targetList[name]=nil
+	azs.targetList[name][uid]=nil
 
 	if group==0 then
 		azs.targetList.party[uid]=nil
@@ -361,8 +361,9 @@ function isTargetInList(target, list)
   end
 end
 
+--/script PrintTargetLists()
 function PrintTargetLists()
 	for uid,info in pairs(azs.targetList.all) do
-		DEFAULT_CHAT_FRAME:AddMessage(uid.." | "..info.name.." | "..info.role.." | "..info.azs.class.." | group"..info.group.." | "..info.bias)
+		DEFAULT_CHAT_FRAME:AddMessage(uid.." | "..info.name.." | "..info.role.." | "..info.class.." | group"..info.group.." | "..info.bias)
 	end
 end

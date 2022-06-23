@@ -8,9 +8,9 @@ function initHunterData()
     removeBuff("Ability_Rogue_FeignDeath")
     CastSpellByName("Freezing Trap")
   end
-  azs.class.special = function()
+  azs.class.special = function(params)
     hunterManaDrain()
-    hunterDps()
+    hunterDps(params)
   end
   azs.class.buff = function(shouldHunterBuffPet)
     hunterBuff(shouldHunterBuffPet)
@@ -26,6 +26,7 @@ function initHunterData()
   local dpsParams = "{multiShotEnabled = \"" .. tostring(azs.class.multiShotEnabled) .. "\"}"
   local mainAttackMacro = "/script azs.dps(nil, ".. dpsParams ..")"
   local secondaryAttackMacro = "/script azs.dps(\"cross\", ".. dpsParams ..")"
+  local specialAttackMacro = "/script azs.special(\"nil\", ".. dpsParams ..")"
 
   azs.class.initActionBar = {
     {"Attack", autoAttackActionSlot},
@@ -42,7 +43,7 @@ function initHunterData()
     {"Attack skull", "Ability_Hunter_CriticalShot", mainAttackMacro, {1,5}, ""},
     {"Attack cross", "Ability_Marksmanship", secondaryAttackMacro, {2}, ""},
     {"Trap", "Spell_Frost_ChainsOfIce", "/script azs.cc()", {3}},
-    {"Drain mana", "Spell_Holy_ElunesGrace", "/script azs.special()", {4}, ""},
+    {"Drain mana", "Spell_Holy_ElunesGrace", specialAttackMacro, {4}, ""},
     {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}, "azs.class.shouldHunterBuffPet = false"},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
     {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}

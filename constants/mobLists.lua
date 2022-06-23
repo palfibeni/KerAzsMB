@@ -11,7 +11,7 @@ FIRE_IMMUNE_MOBS = {"Nefarian", "Onyxia", "Firemaw", "Ebonroc", "Flamegore",
   "Scorching Elemental", "Living Blaze", "Blazerunner"}
 
 -- High fire damage mobs:
-HIGH_FIRE_DAMAGE_MOBS = {"Nefarian", "Onyxia", "Firemaw", "Vaelastrasz",
+HIGH_FIRE_DAMAGE_MOBS = {"Onyxia", "Firemaw", "Vaelastrasz",
   "Baron Geddon", "Ragnaros", "Pyroguard Emberseer", "Firewalker", "Flameguard"}
 
 -- High frost damage mobs:

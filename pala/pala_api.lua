@@ -61,7 +61,8 @@ function initHolyPaladinData()
     {"DispelOnly", "Spell_Holy_Renew", dispelOnlyMacro, {66,67}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"Buff", "Spell_Holy_GreaterBlessingofWisdom", "/script azs.buff(\""..buffType.."\")", {8}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""},
-    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
+    {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""},
+    {"PalaHealOnRazu", "Ability_Warrior_BattleShout", "/script /script healOnRazoviousPala()", {}, ""}
   }
   azs.class.help = function()
     azs.debug("Paladin is mainly heal, what buff he will use is determined by its ")

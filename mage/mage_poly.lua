@@ -54,7 +54,6 @@ function recastPolymorphFriendTargets()
 			TargetUnit(target)
 			if IsActionInRange(polymorphActionSlot) == 1 then
 				CastSpellByName("Polymorph")
-				azs.Debug("Poly: "..info.name)
 			end
 			return true
 		end

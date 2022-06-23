@@ -22,17 +22,25 @@ function getPlayerRoleByName(name)
 	return "multicaster"
 end
 
+-- /script azs.debug(getMainByRole("multicaster"))
 function getMainByRole(role)
 	for id,toon in pairs(azs.nameList[role]) do
+		azs.debug("is toon in targetList?: " .. toon)
 		if azs.targetList[toon] ~= nil then
 			for target,info in pairs(azs.targetList[toon]) do
-				if not UnitIsDeadOrGhost(target) or (UnitIsGhost(target) and UnitIsGhost("player")) then
+				if isValidMain(target) then
 					return toon
 				end
 			end
 		end
 	end
 	return nil
+end
+
+function isValidMain(target)
+	if not UnitIsConnected(target) then return false end
+	if UnitIsGhost(target) and UnitIsGhost("player") then return true end
+	return not UnitIsDeadOrGhost(target)
 end
 
 -- maintank -

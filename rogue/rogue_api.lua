@@ -4,7 +4,7 @@ function initRogueData()
   azs.class.weapon = azs.class.weapon or getRogueWeapon() -- Could be "Sword" or "Dagger"
   azs.class.mainRole = azs.class.mainRole or "Damage" -- either "Damage" or "Stun"
   azs.debug("I am " .. azs.class.weapon .. " Rogue")
-  azs.class.dps = function(params) rogueAttack(params) end
+  azs.class.dps = function(params) azs.rogueAttack(params) end
   azs.class.buff = function()
     if isInProgressRaid() then applyPoisons() end
   end
