@@ -25,7 +25,6 @@ end
 -- /script azs.debug(getMainByRole("multicaster"))
 function getMainByRole(role)
 	for id,toon in pairs(azs.nameList[role]) do
-		azs.debug("is toon in targetList?: " .. toon)
 		if azs.targetList[toon] ~= nil then
 			for target,info in pairs(azs.targetList[toon]) do
 				if isValidMain(target) then
