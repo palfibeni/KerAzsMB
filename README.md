@@ -17,12 +17,13 @@ This will find the target enemy with the skull (ID = 8) raid target icon on it, 
 
 ## How to setup
 ### Wiring in the addon:
-1. Download the scripts and place them inside you Interface/Addons/ folder.
+1. Download the scripts and place them inside you Interface/Addons/ folder. Required dependecy: [Supermacro](https://legacy-wow.com/vanilla-addons/supermacro/)
 2. Make a copy of the data.lua.sample file, with the name data.lua.
 3. Edit the azs.nameList according to the tanks you and your team is using in raids, in the newly created data.lua.
 Optional: edit the remaining arrays in data.lua, according to the comments
 3. Login to your character and run the command: /deepinit
-4. Now you can access to this powerful multiboxing framework. Enjoy :)
+4. In the interface options set the auto self cast hast to DISABLED, for healing/buffing to work.
+5. Now you can access to this powerful multiboxing framework. Enjoy :)
 
 ### Hotkey.net
 To use this framework in its full potential I use Hotkey.net for a keydown broadcasting tool.

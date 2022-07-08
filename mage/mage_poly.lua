@@ -70,7 +70,7 @@ function findNewTargetPolymorphFriendTargets()
 				currentHealTarget = target
 				azs.currentPolyTarget = target -- Fixate on a target, until the mind control expires.
 				CastSpellByName("Polymorph")
-				azs.Debug("Poly: "..info.name)
+				azs.debug("Poly: "..info.name)
 			end
 		end
 	end

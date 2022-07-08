@@ -27,6 +27,7 @@ function initHunterData()
   local mainAttackMacro = "/script azs.dps(nil, ".. dpsParams ..")"
   local secondaryAttackMacro = "/script azs.dps(\"cross\", ".. dpsParams ..")"
   local specialAttackMacro = "/script azs.special(\"nil\", ".. dpsParams ..")"
+  local hunterAoe = "/script hunterExplosiveTrap()" .. string.char(10) .. mainAttackMacro
 
   azs.class.initActionBar = {
     {"Attack", autoAttackActionSlot},
@@ -40,10 +41,11 @@ function initHunterData()
   }
 
   azs.class.initMacros = {
-    {"Attack skull", "Ability_Hunter_CriticalShot", mainAttackMacro, {1,5}, ""},
+    {"Attack skull", "Ability_Hunter_CriticalShot", mainAttackMacro, {1}, ""},
     {"Attack cross", "Ability_Marksmanship", secondaryAttackMacro, {2}, ""},
     {"Trap", "Spell_Frost_ChainsOfIce", "/script azs.cc()", {3}},
     {"Drain mana", "Spell_Holy_ElunesGrace", specialAttackMacro, {4}, ""},
+    {"Aoe", "Ability_GolemStormBolt", hunterAoe, {5}, ""},
     {"Buff", "Ability_TrueShot", "/script azs.buff()", {8}, "azs.class.shouldHunterBuffPet = false"},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}},
     {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}

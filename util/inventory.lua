@@ -18,6 +18,7 @@ hfastMounts = {"Horn of the Black War Wolf", "Red Skeletal Warhorse", "Black War
 	"Great Brown Kodo", "Great Gray Kodo", "Great White Kodo",
 	"Swift Blue Raptor", "Swift Olive Raptor", "Swift Orange Raptor"
 }
+aqMounts = {"Yellow Qiraji Resonating Crystal", "Blue Qiraji Resonating Crystal", "Green Qiraji Resonating Crystal", "Red Qiraji Resonating Crystal"}
 wizardOils = {"Brilliant Wizard Oil", "Wizard Oil", "Lesser Wizard Oil"}
 manaOils = {"Brilliant Mana Oil", "Mana Oil", "Lesser Mana Oil"}
 poisons = {"Instant Poison", "Deadly Poison"}
@@ -28,6 +29,10 @@ healthPotions = {"Major Healing Potion", "Superior Healing Potion", "Greater Hea
 manaRunes = {"Demonic Rune", "Dark Rune"}
 
 function mountUp()
+	if isInAQ40() then
+		useItemFromList(aqMounts)
+		return
+	end
 	local bag,slot
 	if not IsShiftKeyDown() and UnitLevel("player") == 60 then
 		if UnitFactionGroup("player") == "Alliance" then

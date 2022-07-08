@@ -4,10 +4,15 @@ azs.dps = function(targetingMode, param)
 		return
 	end
 	if azs.class.handleNefaCall then azs.class.handleNefaCall() end
-	if not hasMandokirGaze() and azs.getTarget(targetingMode) then
-		azs.class.dps(param)
-	else
+	if hasMandokirGaze() then
 		azs.class.stop()
+		return
+	end
+	if azs.getTarget(targetingMode) then
+		azs.class.dps(param)
+	elseif UnitClass("player") == "Warrior" or UnitClass("player") == "Rogue" or UnitClass("player") == "Hunter" then
+		stop_autoattack()
+		stop_ranged_attack()
 	end
 end
 
@@ -82,6 +87,7 @@ azs.buff = function(param)
 	azs.class.buff(param)
 end
 
+-- /script azs.debug(getPlayerRoleByName(UnitName("player")))
 azs.follow = function(param)
 	if hasMandokirGaze() then return end
 	local name = UnitName("player")

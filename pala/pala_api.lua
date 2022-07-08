@@ -51,15 +51,20 @@ function initHolyPaladinData()
   end
 
   local freedomLogic = getFreedomLogic()
-  local healOrDispelMacro = freedomLogic .. "/script palaRess()" .. string.char(10) .. "/script azs.healOrDispel(\"hlTankOnly\")"
-  local dispelOnlyMacro = freedomLogic .. "/script palaRess()" .. string.char(10) .. "/script azs.dispel(\"hlTankOnly\")"
-  local healOnlyMacro = freedomLogic .. "/script palaRess()" .. string.char(10) .. "/script azs.heal(\"hlTankOnly\")"
-  local buffType = getDefaultPaladinValue("buff", determinePaladinBuff())
+  local ressMacro = "/script palaRess()" .. string.char(10)
+  local judgementLogic = getJudgementLogic()
+  local stunLogic = "/script -- paladinStun()" .. string.char(10)
+  local healingBaseMacro = freedomLogic .. ressMacro .. judgementLogic .. stunLogic
+
+  local healOrDispelMacro = healingBaseMacro .. "/script azs.healOrDispel(\"hlTankOnly\")"
+  local dispelOnlyMacro = healingBaseMacro .. "/script azs.dispel(\"hlTankOnly\")"
+  local healOnlyMacro = healingBaseMacro .. "/script azs.heal(\"hlTankOnly\")"
+  local buffMacro = "/script azs.buff(\""..getDefaultPaladinValue("buff", determinePaladinBuff()).."\")"
   azs.class.initMacros = {
     {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"HealOnly", "Spell_Holy_HolyBolt", healOnlyMacro, {64,65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"DispelOnly", "Spell_Holy_Renew", dispelOnlyMacro, {66,67}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"Buff", "Spell_Holy_GreaterBlessingofWisdom", "/script azs.buff(\""..buffType.."\")", {8}, ""},
+    {"Buff", "Spell_Holy_GreaterBlessingofWisdom", buffMacro, {8}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""},
     {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""},
     {"PalaHealOnRazu", "Ability_Warrior_BattleShout", "/script /script healOnRazoviousPala()", {}, ""}
@@ -77,6 +82,10 @@ end
 
 function getFreedomLogic()
   return "/script blessingOfFreedom(\"" .. getDefaultPaladinValue("freedom", azs.assistMe) .. "\")" .. string.char(10)
+end
+
+function getJudgementLogic()
+  return "/script -- judgement(\"".. getDefaultPaladinValue("seal", "wisdom") .."\")" .. string.char(10)
 end
 
 function getDefaultPaladinValue(field, defaultValue)
@@ -127,10 +136,13 @@ function initRetriPaladinData()
   end
 
   local freedomLogic = getFreedomLogic()
-  local healOrDispelMacro = freedomLogic .. "/script palaRess()" .. "/script azs.healOrDispel(\"hlTankOnly\")"
-  local dispelOnlyMacro = freedomLogic .. "/script palaRess()" .. "/script azs.dispel(\"hlTankOnly\")"
-  local healOnlyMacro = freedomLogic .. "/script palaRess()" .. "/script azs.heal(\"hlTankOnly\")"
-  local buffType = getDefaultPaladinValue("buff", determinePaladinBuff())
+  local ressMacro = "/script palaRess()" .. string.char(10)
+  local healingBaseMacro = freedomLogic .. ressMacro
+
+  local healOrDispelMacro = healingBaseMacro .. "/script azs.healOrDispel(\"hlTankOnly\")"
+  local dispelOnlyMacro = healingBaseMacro .. "/script azs.dispel(\"hlTankOnly\")"
+  local healOnlyMacro = healingBaseMacro .. "/script azs.heal(\"hlTankOnly\")"
+  local buffMacro = "/script azs.buff(\""..getDefaultPaladinValue("buff", determinePaladinBuff()).."\")"
 
   azs.class.initActionBar = {
     {"Holy Strike(Rank 1)", holyStrikeActionSlot},
@@ -143,7 +155,7 @@ function initRetriPaladinData()
     {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {65}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"HealOnly", "Spell_Nature_MagicImmunity", healOnlyMacro, {66}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
     {"DispelOnly", "Spell_Holy_Renew", dispelOnlyMacro, {67}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
-    {"Buff", "Spell_Holy_GreaterBlessingofWisdom", "/script azs.buff(\""..buffType.."\")", {8}, ""},
+    {"Buff", "Spell_Holy_GreaterBlessingofWisdom", buffMacro, {8}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}}
   }
   azs.class.help = function()

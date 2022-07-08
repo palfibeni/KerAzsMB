@@ -14,7 +14,7 @@ function palaAttack()
   if shouldPaladinStun() then
     CastSpellByName("Hammer of Justice")
   end
-  castSeal()
+  castSelectedSeal("dps")
   if UnitCreatureType("target") == "Humanoid" and not has_debuff("target", "Spell_Holy_SealOfMight") and GetSpellCooldownByName("Repentance") == 0 and GetSpellCooldownByName("Judgement") == 0 and player_hasBuff("Ability_Warrior_InnerRage") then
       CastSpellByName("Repentance")
   end
@@ -62,6 +62,49 @@ function shouldPaladinStun()
   return GetSpellCooldownByName("Hammer of Justice") == 0
 end
 
+function paladinStun()
+  if not GetSpellCooldownByName("Hammer of Justice") == 0 then return end
+  if not UnitAffectingCombat("player") then return end
+  if not isInMeleeRange() then return end
+  if isStunned("target") then return end
+  CastSpellByName("Hammer of Justice")
+end
+
+-- /script judgement("light") -- "light", "wisdom", "dps"
+function judgement(seal)
+  if not GetSpellCooldownByName("Judgement") == 0 then return end
+  if not UnitAffectingCombat("player") then return end
+  if not isInMeleeRange() then return end
+  if not hasJudgementApplied() and not hasSealApplied() then
+    castSelectedSeal(seal)
+  elseif not hasJudgementApplied() then
+    CastSpellByName("Judgement")
+  end
+end
+
+function hasJudgementApplied()
+  return has_debuff("target", "Spell_Holy_HealingAura")
+    or has_debuff("target", "Spell_Holy_RighteousnessAura")
+    or has_debuff("target", "Spell_Holy_HolySmite")
+end
+
+function hasSealApplied()
+  return player_hasBuff("Spell_Holy_HealingAura")
+    or player_hasBuff("Spell_Holy_RighteousnessAura")
+    or player_hasBuff("Ability_ThunderBolt")
+    or player_hasBuff("Ability_Warrior_InnerRage")
+end
+
+function castSelectedSeal(seal)
+  if seal == "light" then
+    cast_buff_player("Spell_Holy_HealingAura", "Seal of Light")
+  elseif seal == "wisdom" then
+    cast_buff_player("Spell_Holy_RighteousnessAura", "Seal of Wisdom")
+  elseif seal == "dps" then
+    castSeal()
+  end
+end
+
 function castSeal()
   if not hasJudgementApplied() and not hasSealApplied() then
     if UnitLevel("player") > 38 and UnitMana("player") < (UnitLevel("player") * 5) then
@@ -74,15 +117,4 @@ function castSeal()
   else
     cast_buff_player("Ability_ThunderBolt", "Seal of Righteousness")
   end
-end
-
-function hasJudgementApplied()
-  return has_debuff("target", "Spell_Holy_HealingAura")
-    or has_debuff("target", "Spell_Holy_RighteousnessAura")
-    or has_debuff("target", "Spell_Holy_HolySmite")
-end
-
-function hasSealApplied()
-  return player_hasBuff("Ability_ThunderBolt")
-    or player_hasBuff("Ability_Warrior_InnerRage")
 end

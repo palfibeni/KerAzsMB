@@ -1,7 +1,18 @@
+stunIcons = {"Spell_Holy_SealOfMight"}
+rootIcons = {"Spell_Nature_Earthbind", "Spell_Nature_StrangleVines", "Spell_Nature_Web", "Ability_Ensnare"}
+
 -- If target has no debuff, cast it.
 function cast_debuff(icon, spell_name)
 	if has_debuff("target", icon) then return end
 	CastSpellByName(spell_name)
+end
+
+function isRooted(target)
+	hasDebuffs(target, rootIcons)
+end
+
+function isStunned(target)
+	hasDebuffs(target, stunIcons)
 end
 
 -- Return whether given target has the given debuff

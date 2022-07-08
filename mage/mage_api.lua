@@ -32,8 +32,12 @@ function initMageData()
   azs.class.initActionBar = {
     {"Evocation", evocationActionSlot},
     {"Shoot", autoAttackActionSlot},
-    {"Polymorph", polymorphActionSlot}
+    {"Polymorph", polymorphActionSlot},
+    {"Scorch", scorchActionSlot},
+    {"Fire Blast", fireblastActionSlot},
+    {"Fireball", fireballActionSlot}
   }
+
   azs.class.initMacros = {
     {"Poly " .. azs.class.ccTarget, "Ability_Seal", "/script azs.cc(" .. azs.class.ccTarget .. ")", {3}, ""},
     {"AoE", "Spell_Frost_FrostNova", "/script azs.aoe()", {5}, ""},
@@ -44,17 +48,23 @@ function initMageData()
     {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10}, ""}
   }
 
-  table.insert(azs.class.initActionBar, {"Scorch", scorchActionSlot})
-  table.insert(azs.class.initActionBar, {"Fire Blast", fireblastActionSlot})
-  table.insert(azs.class.initActionBar, {"Fireball", fireballActionSlot})
+  local friendlyPolyLogic = "/script -- polymorphFriendTargets()" .. string.char(10)
+  local decurseMacro = "/script -- azs.dispel()" .. string.char(10)
+  local dpsBaseMacro = friendlyPolyLogic .. decurseMacro
+
+  local mainDpsMacro = dpsBaseMacro .. "/script azs.dps()"
+  local secondaryDpsMacro = dpsBaseMacro .. "/script azs.dps(\"cross\")"
+  local offElementDpsMacro = dpsBaseMacro
   if azs.class.talent == MAGE_FIRE then
-    table.insert(azs.class.initMacros, {"Attack skull", "Spell_Fire_Fireball02", "/script azs.dps()", {1,4}, ""})
-    table.insert(azs.class.initMacros, {"Attack cross", "Spell_Fire_Fire", "/script azs.dps(\"cross\")", {2}, ""})
-    table.insert(azs.class.initMacros, {"Attack Fire skull", "Spell_Frost_FrostArmor", "/script azs.dps(nil, \"Frost\")", {64}, ""})
+    offElementDpsMacro = offElementDpsMacro .. "/script azs.dps(nil, \"Frost\")"
+    table.insert(azs.class.initMacros, {"Attack skull", "Spell_Fire_Fireball02", mainDpsMacro, {1,4}, ""})
+    table.insert(azs.class.initMacros, {"Attack cross", "Spell_Fire_Fire", secondaryDpsMacro, {2}, ""})
+    table.insert(azs.class.initMacros, {"Attack Fire skull", "Spell_Frost_FrostArmor", offElementDpsMacro, {64}, ""})
   else
-    table.insert(azs.class.initMacros, {"Attack skull", "Spell_Frost_FrostArmor", "/script azs.dps()", {1,4}, ""})
-    table.insert(azs.class.initMacros, {"Attack cross", "Spell_Frost_FrostBolt02", "/script azs.dps(\"cross\")", {2}, ""})
-    table.insert(azs.class.initMacros, {"Attack Fire skull", "Spell_Fire_Fireball02", "/script azs.dps(nil, \"Fire\")", {64}, ""})
+    offElementDpsMacro = offElementDpsMacro .. "/script azs.dps(nil, \"Fire\")"
+    table.insert(azs.class.initMacros, {"Attack skull", "Spell_Frost_FrostArmor", mainDpsMacro, {1,4}, ""})
+    table.insert(azs.class.initMacros, {"Attack cross", "Spell_Frost_FrostBolt02", secondaryDpsMacro, {2}, ""})
+    table.insert(azs.class.initMacros, {"Attack Fire skull", "Spell_Fire_Fireball02", offElementDpsMacro, {64}, ""})
   end
 
   azs.class.help = function()

@@ -70,7 +70,7 @@ end
 -- 2 = Trade, 11.11 yards
 -- 3 = Duel, 9.9 yards
 -- 4 = Follow, 28 yards
-function is_in_melee_range()
+function isInMeleeRange()
 	return CheckInteractDistance("target",3)
 end
 

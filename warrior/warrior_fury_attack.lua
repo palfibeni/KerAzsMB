@@ -28,7 +28,7 @@ function warriorFuryAttack()
 end
 
 function charge()
-	if azs.class.chargeEnabled and not is_in_melee_range() then
+	if azs.class.chargeEnabled and not isInMeleeRange() then
 		if UnitAffectingCombat("player") == nil then
 			warriorBattleStance()
 			CastSpellByName("Charge")

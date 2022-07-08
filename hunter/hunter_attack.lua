@@ -36,7 +36,7 @@ f:SetScript("OnEvent", HunterEventHandler)
 
 function hunterDps(params)
   handleNefaCallHunter()
-  if is_in_melee_range() then
+  if isInMeleeRange() then
 		hunterMeleeDps()
 	else
 		hunterRangedDps(params)
