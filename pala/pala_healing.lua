@@ -18,7 +18,7 @@ end
 
 -- /script healOnRazoviousPala()
 function healOnRazoviousPala()
-	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder(0.98) then
 	  CastSpellByName("Flash of Light")
 	  return
 	end

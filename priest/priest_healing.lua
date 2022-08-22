@@ -20,7 +20,7 @@ end
 
 -- /script healOnRazoviousPriest()
 function healOnRazoviousPriest()
-	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder(0.98) then
 	  CastSpellByName("Greater Heal(Rank 1")
 	  return
 	end

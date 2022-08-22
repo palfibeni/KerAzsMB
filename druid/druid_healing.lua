@@ -17,7 +17,7 @@ innervateActionSlot = 61;
 
 -- /script healOnRazoviousDruid()
 function healOnRazoviousDruid()
-	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder("target",0.98) then
+	if UnitName("target") == "Deathknight Understudy" and UnitIsFriend("player","target") and isTargetHpUnder(0.98) then
 	  CastSpellByName("Healing Touch(Rank 4")
 	  return
 	end
