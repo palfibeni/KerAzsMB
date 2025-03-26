@@ -82,7 +82,7 @@ function initBalanceDruidData()
     druidBuff()
     askMageWater()
     drinkMageWater()
-    if isInProgressRaid() then applyWizardOil() end
+    applyWeaponEnchantBasedOnClass()
   end
   azs.class.stop = function()
     SpellStopCasting()
@@ -124,7 +124,7 @@ function initRestoDruidData()
     druidBuff()
     askMageWater()
     drinkMageWater()
-    if isInProgressRaid() then applyManaOil() end
+    applyWeaponEnchantBasedOnClass()
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then

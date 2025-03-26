@@ -25,7 +25,6 @@ function HunterEventHandler()
     if ignoreNext then
       ignoreNext = false
     else
-      --azs.debug("Auto Shot!")
       aimedShotExpire = GetTime() + aimedShotWindow
       instantShotExpire = GetTime() + instantShotWindow
     end

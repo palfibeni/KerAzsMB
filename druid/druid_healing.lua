@@ -167,6 +167,14 @@ function initDruidHealProfiles()
 		regular={
 			{0.2 , 540 , "Nature's Swiftness",1,azs.targetList.tank},
 			{0.2 , 540 , "Healing Touch(Rank 9)",1,azs.targetList.tank, true},
+			{0.7 , 99, "Healing Touch(Rank 4)"},
+			{0.8 , 49, "Healing Touch(Rank 3)"},
+			{0.9 , 280 , "Regrowth(Rank 3)",3},
+			{0.9 , 49, "Healing Touch(Rank 2)",2}
+		},
+		swiftmend={
+			{0.2 , 540 , "Nature's Swiftness",1,azs.targetList.tank},
+			{0.2 , 540 , "Healing Touch(Rank 9)",1,azs.targetList.tank, true},
 			{0.4 , 350 , "Regrowth(Rank 4)",3},
 			{0.4 , 248, "Swiftmend",1,azs.targetList.tank},
 			{0.5 , 166, "Healing Touch(Rank 4)"},

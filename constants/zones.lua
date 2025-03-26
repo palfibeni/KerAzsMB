@@ -16,3 +16,8 @@ ZG_ARLOKK = "Temple of Bethekk"
 ZG_GHAZ_RANKA = "Pagle's Pointe"
 ZG_JINDO = "Bloodfire Pit"
 ZG_HAKKAR = "Altar of the Blood God"
+
+-- BG zones:
+AV = "Alterac Valley"
+WSG = "Warsong Gulch"
+AB = "Arathi Basin"

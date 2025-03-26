@@ -56,6 +56,7 @@ function isInSubZone(subZone)
   return GetMinimapZoneText() == subZone
 end
 
-function hasMandokirGaze()
-	return isInZG() and has_debuff("player", "Spell_Shadow_Charm")
+function isInBG()
+  local zone = GetRealZoneText()
+  return zone == AV or zone == WSG or zone == AB
 end

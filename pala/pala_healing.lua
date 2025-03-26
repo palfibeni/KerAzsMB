@@ -125,14 +125,6 @@ end
 function initPalaHealProfiles()
 	palaHealProfiles={
 		regular={
-			{0.4 , 720, "Divine Favor"},
-			{0.4 , 660, "Holy Light"},
-			{0.6 , 140, "Flash of Light"},
-			{0.8 , 90 , "Flash of Light(Rank 4)"},
-			{0.9 , 50 , "Flash of Light(Rank 2)"},
-			{0.9 , 35 , "Holy Light(Rank 1)", 2}
-		},
-		hlTankOnly={
 			{0.4 , 720, "Divine Favor",1,azs.targetList.tank},
 			{0.4 , 660, "Holy Light",1,azs.targetList.tank},
 			{0.6 , 140, "Flash of Light"},
@@ -184,5 +176,8 @@ function getPaladinDefaultHealingProfile()
 	if azs.class.talent == PALADIN_RETRI then
 		 return "retriDangerZone"
   end
+	if UnitLevel("player") == 60 then
+		return "flashOfLightSpam"
+	end
 	return getDefaultHealingProfile()
 end

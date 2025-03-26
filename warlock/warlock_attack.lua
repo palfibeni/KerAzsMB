@@ -1,17 +1,5 @@
 corruptionEnabled = false;
 
-function warlock_skull(curse, element)
-	if azs.targetSkull() then
-		warlockAttack(curse, element)
-	end
-end
-
-function warlock_cross(curse, element)
-	if azs.targetCross() then
-		warlockAttack(curse, element)
-	end
-end
-
 -- ATTACK
 function warlockAttack(params)
 	local curse = params.curse or azs.class.curse
@@ -23,7 +11,7 @@ function warlockAttack(params)
 			if useTrinkets() then return end
 		end
 		if element == "Fire" then
-			CastSpellByName("Immolate")
+			CastSpellByName("Searing Pain")
 		else
 			corruption()
 			warlockCurse(curse)

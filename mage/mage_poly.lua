@@ -2,36 +2,6 @@ lastFriendlyPoly = 0
 lastFriendlyPolyTarget = nil
 polymorphActionSlot = 16
 
--- /script poly_star()
-function poly_star()
-    polymorphByIcon(1)
-end
-
--- /script poly_orange()
-function poly_orange()
-    polymorphByIcon(2)
-end
-
--- /script poly_purple()
-function poly_purple()
-    polymorphByIcon(3)
-end
-
--- /script poly_green()
-function poly_green()
-    polymorphByIcon(4)
-end
-
--- /script poly_moon()
-function poly_moon()
-    polymorphByIcon(5)
-end
-
--- /script poly_blue()
-function poly_blue()
-    polymorphByIcon(6)
-end
-
 function polymorphByIcon(icon)
     azs.targetByIcon(icon)
     if (GetRaidTargetIndex("target") == icon) then

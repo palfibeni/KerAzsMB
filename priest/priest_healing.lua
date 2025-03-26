@@ -207,21 +207,21 @@ function initPriestHealProfiles()
 			{0.99, 0  , "Flash Heal"},
 			{0.9 , 131, "Heal",2}
 		},
-    midLevel={
+		midLevel={
 			{0.4 , 265, "Flash Heal",1,azs.targetList.tank},
-      {0.3 , 265, "Flash Heal"},
-      {0.5 , 155, "Flash Heal(Rank 2)"},
-      {0.6 , 259, "Heal"},
-      {0.7 , 174, "Heal(Rank 2)"},
-      {0.8 , 131, "Heal(Rank 1)"},
-      {0.9 , 96 , "Renew(Rank 3)",3}
-    },
-    lesser={
+			{0.3 , 265, "Flash Heal"},
+			{0.5 , 155, "Flash Heal(Rank 2)"},
+			{0.6 , 259, "Heal"},
+			{0.7 , 174, "Heal(Rank 2)"},
+			{0.8 , 131, "Heal(Rank 1)"},
+			{0.9 , 96 , "Renew(Rank 3)",3}
+		},
+		lesser={
 			{0.5 , 63, "Lesser Heal",1,azs.targetList.tank},
-      {0.3 , 63, "Lesser Heal"},
-      {0.7 , 38, "Lesser Heal(Rank 2)"},
-      {0.8 , 94 , "Renew",3}
-    }
+			{0.3 , 63, "Lesser Heal"},
+			{0.7 , 38, "Lesser Heal(Rank 2)"},
+			{0.8 , 94 , "Renew",3}
+		}
 	}
 end
 

@@ -6,7 +6,7 @@ function initRogueData()
   azs.debug("I am " .. azs.class.weapon .. " Rogue")
   azs.class.dps = function(params) azs.rogueAttack(params) end
   azs.class.buff = function()
-    if isInProgressRaid() then applyPoisons() end
+    applyWeaponEnchantBasedOnClass()
   end
   azs.class.stop = function()
     stop_autoattack()

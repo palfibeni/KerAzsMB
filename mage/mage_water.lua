@@ -19,12 +19,13 @@ function mageWater(minimumAmount, waterType)
   end
 end
 
--- /script azs.debug(player_hasBuff("INV_Drink_18"))
+-- /script azs.debug(player_hasBuff("INV_Drink_06"))
+-- /script azs.debug(hasBuffFromList("player", mageWaterIcons))
 
-function drinkMageWater(amount)
+function drinkMageWater(percent)
   if UnitAffectingCombat("player") then return end
-  local relativeManaAmount = amount or 50
-  if not isPlayerRelativeManaAbove(relativeManaAmount) and not hasBuffFromList("player", mageWaterIcons) then
+  local percent = percent or 0.5
+  if isPlayerManaUnder(percent) and not hasBuffFromList("player", mageWaterIcons) then
     useItemFromList(mageWaters)
   end
 end

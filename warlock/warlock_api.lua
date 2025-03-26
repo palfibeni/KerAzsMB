@@ -28,7 +28,7 @@ function initWarlockData()
     warlockBuff(summon)
     askMageWater()
     drinkMageWater()
-    if isInProgressRaid() then applyWizardOil() end
+    applyWeaponEnchantBasedOnClass()
   end
   azs.class.aoe = function() warlockAoe() end
   -- azs.class.handleNefaCall = function() end
@@ -48,8 +48,8 @@ function initWarlockData()
     {"Attack skull", "Spell_Shadow_DeathCoil", mainAttackMacro, {1}},
     {"Attack cross", "Spell_Shadow_ShadowBolt", secondaryAttackMacro, {2}},
     {"Banish " .. azs.class.ccTarget, "Spell_Shadow_Cripple", "/script azs.cc(" .. azs.class.ccTarget .. ")", {3}},
-    {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special(\"skull\", \"Mana\")", {4}, ""},
-    {"Drain soul", "Spell_Shadow_Haunting", "/script azs.special(\"skull\", \"Soul\")", {64}, ""},
+    {"Drain mana", "Spell_Shadow_SiphonMana", "/script azs.special(nil, \"Mana\")", {4}, ""},
+    {"Drain soul", "Spell_Shadow_Haunting", "/script azs.special(nil, \"Soul\")", {64}, ""},
     {"AoE", "Spell_Shadow_RainOfFire", "/script azs.aoe()", {5}},
     {"Buff", "Spell_Shadow_SummonImp", "/script azs.buff(\"" .. azs.class.summon .. "\")", {8}, ""},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {9}, ""},

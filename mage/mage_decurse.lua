@@ -2,11 +2,7 @@ mageDispelRange="Remove Lesser Curse"
 
 mageDecurse={Curse=true}
 
-function MageDispel(lTargetList)
-	mageDispel(lTargetList)
-end
-
--- /script MageDispel(azs.targetList.all)
+-- /script mageDispel(azs.targetList.all)
 function mageDispel(lTargetList)
 	local lTargetList=lTargetList or azs.targetList.all
 	if SpellCastReady(mageDispelRange,false) then

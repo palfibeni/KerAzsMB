@@ -1,15 +1,3 @@
--- SUCCUBUS
-function warlock_buffs_succubus()
-  warlockArmor()
-  demonicSacrifice()
-end
-
--- IMP
-function warlock_buffs_imp()
-  warlockArmor()
-  summonImp()
-end
-
 function warlockBuff(summon)
   warlockArmor()
   warlockSummon(summon)

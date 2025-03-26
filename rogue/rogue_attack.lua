@@ -20,6 +20,15 @@ if UnitClass("player") == "Rogue" then
     end
   end
 
+  azs.burstDmg = function()
+    if GetComboPoints("target") >= 1 and isTargetHpUnder(0.7) then
+      if useTrinkets() then return end
+      CastSpellByName("Blade Flurry")
+      CastSpellByName("Adrenaline Rush")
+  	  useRacials()
+    end
+  end
+
   azs.spendComboPoints = function(mainRole)
     local mainRole = mainRole or "Damage"
     if mainRole == "Damage" then
@@ -29,15 +38,6 @@ if UnitClass("player") == "Rogue" then
       end
     else
       CastSpellByName("Kidney Shot")
-    end
-  end
-
-  azs.burstDmg = function()
-    if GetComboPoints("target") >= 1 and isTargetHpUnder(0.7) then
-      if useTrinkets() then return end
-      CastSpellByName("Blade Flurry")
-      CastSpellByName("Adrenaline Rush")
-  	  useRacials()
     end
   end
 

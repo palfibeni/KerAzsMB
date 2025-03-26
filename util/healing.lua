@@ -47,23 +47,30 @@ function isPlayerHpUnder(percent)
 end
 
 function isTargetManaOver(percent)
-	return not UnitIsDead("target") and UnitMana("target") / UnitHealthMana("target") > percent
+	return not UnitIsDead("target") and UnitMana("target") / UnitManaMax("target") > percent
 end
 
 function isTargetManaUnder(percent)
-	return not UnitIsDead("target") and UnitMana("target") / UnitHealthMana("target") < percent
+	return not UnitIsDead("target") and UnitMana("target") / UnitManaMax("target") < percent
 end
 
 function isPlayerRelativeManaAbove(amount)
   return UnitMana("player") >= (UnitLevel("player") * amount)
 end
 
-function isPlayerManaOver(percent)
-	return UnitMana("player") / UnitHealthMana("player") > percent
+function isPlayerRelativeManaBelow(amount)
+  return UnitMana("player") <= (UnitLevel("player") * amount)
 end
 
+function isPlayerManaOver(percent)
+	return UnitMana("player") / UnitManaMax("player") > percent
+end
+
+-- /script azs.debug(isPlayerManaUnder(50))
+-- /script azs.debug(UnitMana("player"))
+-- /script azs.debug(UnitManaMax("player"))
 function isPlayerManaUnder(percent)
-	return UnitMana("player") / UnitHealthMana("player") < percent
+	return UnitMana("player") / UnitManaMax("player") < percent
 end
 
 function resurrectAll(spell, targetList)

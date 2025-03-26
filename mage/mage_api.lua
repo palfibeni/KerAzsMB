@@ -15,7 +15,7 @@ function initMageData()
     mageBuff()
     drinkMageWater()
     offerMageWater()
-    if isInProgressRaid() then applyWizardOil() end
+    applyWeaponEnchantBasedOnClass()
   end
   azs.class.aoe = function() mageAoe() end
   -- azs.class.handleNefaCall = function() end

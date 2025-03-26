@@ -2,8 +2,7 @@
 biasList={group={}}
 
 -- Set default global bias values
-biasList.tank=-0.1
-biasList.mainTank=-0.12
+biasList.tank=-0.15
 biasList.heal=0
 biasList.multiheal=-0.08
 biasList.multimelee=-0.06

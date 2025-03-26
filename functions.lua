@@ -8,9 +8,10 @@ azs.dps = function(targetingMode, param)
 		azs.class.stop()
 		return
 	end
+	local class = UnitClass("player")
 	if azs.getTarget(targetingMode) then
 		azs.class.dps(param)
-	elseif UnitClass("player") == "Warrior" or UnitClass("player") == "Rogue" or UnitClass("player") == "Hunter" then
+	elseif class == "Warrior" or class == "Rogue" or class == "Hunter" or azs.class.talent == PALADIN_RETRI or class == "Shaman" then
 		stop_autoattack()
 		stop_ranged_attack()
 	end

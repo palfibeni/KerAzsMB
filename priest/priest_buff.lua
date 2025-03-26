@@ -17,6 +17,10 @@ function fearWard(playerName)
   buffPlayer("Spell_Holy_Excorcism", "Fear Ward", playerName)
 end
 
+function shadowProt()
+	buffTargetList("Spell_Shadow_AntiShadow", "Shadow Protection")
+end
+
 function powerInfusion()
 	if GetSpellCooldownByName("Power Infusion") ~= 0 then return end
 	if not IsActionReady(powerInfusionActionSlot) then return end

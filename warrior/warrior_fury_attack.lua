@@ -9,9 +9,9 @@ function warriorFuryAttack()
 	berserkerRage()
 	bloodrage()
 	battleShout()
-	if isTargetHpUnder(0.3) then
-    if useTrinkets() then return end
-	  useRacials()
+	if isTargetHpUnder(0.25) then
+		if useTrinkets() then return end
+		useRacials()
 		cast_buff_player("Ability_Racial_DeathPact", "Death Wish")
 		cast_buff_player("Ability_Racial_CriticalStrike", "Recklessness")
 		CastSpellByName("Execute")
@@ -20,7 +20,7 @@ function warriorFuryAttack()
 			CastSpellByName("Bloodthirst")
 		end
 		whirlwind()
-		if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 55 then
+		if not IsCurrentAction(heroicStrikeActionSlot) and UnitMana("player") >= 55 then -- 45 with ony, 75 if no ony
 			CastSpellByName("Heroic Strike")
 		end
 	end
@@ -28,7 +28,7 @@ function warriorFuryAttack()
 end
 
 function charge()
-	if azs.class.chargeEnabled and not isInMeleeRange() then
+	if azs.class.chargeEnabled and UnitExists("target") and not isInMeleeRange() then
 		if UnitAffectingCombat("player") == nil then
 			warriorBattleStance()
 			CastSpellByName("Charge")
@@ -57,13 +57,13 @@ function warriorBerserkerStance()
 end
 
 function berserkerRage()
-  if IsActionReady(berserkerRageActionSlot) then
+	if IsActionReady(berserkerRageActionSlot) then
 		CastSpellByName("Berserker Rage")
-  end
+	end
 end
 
 function whirlwind()
-	if IsActionReady(whirlwindActionSlot) and  UnitMana("player") >= 25 then
+	if IsActionReady(whirlwindActionSlot) and UnitMana("player") >= 35 then -- 35 with ony, 55 without
 		CastSpellByName("Whirlwind")
 	end
 end

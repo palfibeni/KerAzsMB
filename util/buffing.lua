@@ -27,6 +27,7 @@ end
 function getIndexOfBuff(target, icon)
 	local i=1
 	while UnitBuff(target,i) ~= nil do
+		azs.debug(UnitBuff(target,i))
 		if "Interface\\Icons\\" .. icon == UnitBuff(target,i) then
 			return i
 		end
@@ -43,14 +44,14 @@ end
 -- Returns the index of given buff, if the target has it, otherwise -1
 function getIndexOfBuffFromList(target, icons)
 	local i=1
-	for _,icon in pairs(icons) do
-		while UnitBuff(target,i) ~= nil do
+	while UnitBuff(target,i) ~= nil do
+		for _,icon in pairs(icons) do
 			local buff = UnitBuff(target,i)
 			if "Interface\\Icons\\" .. icon == buff then
 				return i
 			end
-			i=i+1
 		end
+		i=i+1
 	end
 	return -1
 end

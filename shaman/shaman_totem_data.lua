@@ -28,5 +28,6 @@ airTotems = {
   windfury = {icon = nil, spell = "Windfury Totem"},
   natureRes = {icon = "Spell_Nature_NatureResistanceTotem", spell = "Nature Resistance Totem"},
   windfall = {icon = "Spell_Nature_EarthBind", spell = "Windfall Totem"},
+  tranquil = {icon = "Spell_Nature_Brilliance", spell = "Tranquil Air Totem"},
   none = {}
 }

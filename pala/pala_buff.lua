@@ -15,12 +15,16 @@ function paladinBuff(buff, aura)
   setDefaultAura(aura)
   if buff == "Sanc/Salva" then
     return palaRaidSancSalva()
+  elseif buff == "Salva" then
+    return palaRaidSalva()
   elseif buff == "Kings" then
     return palaRaidKings()
   elseif buff == "Might/Wisdom" then
     return palaRaidMightWisdom()
   elseif buff == "Light" then
     return palaRaidLight()
+  elseif buff == "SmallMight/Wisdom" then
+    return palaSmallMightWisdom()
   elseif buff == "Small" then
     if getSpellId("Blessing of Kings") ~= -1 then
       return palaSmallKings()
@@ -86,11 +90,25 @@ function palaRaidSancSalva(ltargetList)
 	end
 end
 
+-- /script palaRaidMightSalva()
+function palaRaidMightSalva(ltargetList)
+	local ltargetList = ltargetList or azs.targetList.all
+	for target,info in pairs(ltargetList) do
+    if info.class == "WARRIOR" then
+			buffTargetWithBless("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might", target)
+    elseif info.class == "DRUID" or info.class == "PRIEST" or info.class == "PALADIN" or info.class == "SHAMAN" then
+      buffTargetWithBless("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom", target)
+    else
+      buffTargetWithBless("Spell_Holy_GreaterBlessingofSalvation", "Greater Blessing of Salvation", target)
+    end
+	end
+end
+
 -- /script palaRaidMightWisdom()
 function palaRaidMightWisdom(ltargetList)
 	local ltargetList = ltargetList or azs.targetList.all
 	for target,info in pairs(ltargetList) do
-    if info.class == "WARRIOR" or info.class == "ROGUE" or info.class == "DRUID" then
+    if info.class == "WARRIOR" or info.class == "ROGUE" then
 			buffTargetWithBless("Spell_Holy_GreaterBlessingofKings", "Greater Blessing of Might", target)
     else
 			buffTargetWithBless("Spell_Holy_GreaterBlessingofWisdom", "Greater Blessing of Wisdom", target)

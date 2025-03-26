@@ -37,7 +37,7 @@ function initHolyPaladinData()
     paladinBuff(buff, aura)
     askMageWater()
     drinkMageWater()
-    if isInProgressRaid() then applyManaOil() end
+    applyWeaponEnchantBasedOnClass()
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -48,6 +48,7 @@ function initHolyPaladinData()
 
   azs.class.stop = function()
     SpellStopCasting()
+    stop_autoattack()
   end
 
   local freedomLogic = getFreedomLogic()
@@ -56,9 +57,10 @@ function initHolyPaladinData()
   local stunLogic = "/script -- paladinStun()" .. string.char(10)
   local healingBaseMacro = freedomLogic .. ressMacro .. judgementLogic .. stunLogic
 
-  local healOrDispelMacro = healingBaseMacro .. "/script azs.healOrDispel(\"hlTankOnly\")"
-  local dispelOnlyMacro = healingBaseMacro .. "/script azs.dispel(\"hlTankOnly\")"
-  local healOnlyMacro = healingBaseMacro .. "/script azs.heal(\"hlTankOnly\")"
+  local healProfile = getPaladinDefaultHealingProfile()
+  local healOrDispelMacro = healingBaseMacro .. "/script azs.healOrDispel(\""..healProfile.."\")"
+  local dispelOnlyMacro = healingBaseMacro .. "/script azs.dispel(\""..healProfile.."\")"
+  local healOnlyMacro = healingBaseMacro .. "/script azs.heal(\""..healProfile.."\")"
   local buffMacro = "/script azs.buff(\""..getDefaultPaladinValue("buff", determinePaladinBuff()).."\")"
   azs.class.initMacros = {
     {"HealOrDispel", "Spell_ChargePositive", healOrDispelMacro, {1,2,3,4,5,6}, "SetBias(-0.15,\"group\",".. azs.class.prioGroup ..")"},
@@ -121,7 +123,6 @@ function initRetriPaladinData()
   azs.class.buff = function(buff, aura)
     paladinBuff(buff, aura)
     askMageWater()
-    if isInProgressRaid() then applyManaOil() end
   end
 
   if azs.healers[playerName] and azs.healers[playerName].group then
@@ -139,9 +140,10 @@ function initRetriPaladinData()
   local ressMacro = "/script palaRess()" .. string.char(10)
   local healingBaseMacro = freedomLogic .. ressMacro
 
-  local healOrDispelMacro = healingBaseMacro .. "/script azs.healOrDispel(\"hlTankOnly\")"
-  local dispelOnlyMacro = healingBaseMacro .. "/script azs.dispel(\"hlTankOnly\")"
-  local healOnlyMacro = healingBaseMacro .. "/script azs.heal(\"hlTankOnly\")"
+  local healProfile = getPaladinDefaultHealingProfile()
+  local healOrDispelMacro = healingBaseMacro .. "/script azs.healOrDispel(\""..healProfile.."\")"
+  local dispelOnlyMacro = healingBaseMacro .. "/script azs.dispel(\""..healProfile.."\")"
+  local healOnlyMacro = healingBaseMacro .. "/script azs.heal(\""..healProfile.."\")"
   local buffMacro = "/script azs.buff(\""..getDefaultPaladinValue("buff", determinePaladinBuff()).."\")"
 
   azs.class.initActionBar = {

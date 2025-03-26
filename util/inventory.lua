@@ -27,6 +27,25 @@ weightStones = {"Elemental Sharpening Stone", "Weightstone"}
 manaPotions = {"Major Mana Potion", "Superior Mana Potion", "Greater Mana Potion", "Mana Potion", "Lesser Mana Potion", "Minor Mana Potion"}
 healthPotions = {"Major Healing Potion", "Superior Healing Potion", "Greater Healing Potion", "Healing Potion", "Lesser Healing Potion", "Minor Healing Potion"}
 manaRunes = {"Demonic Rune", "Dark Rune"}
+-- Flask of Titans = Interface\Icons\INV_Potion_62
+-- Flask of Distilled Wisdom = Interface\Icons\INV_Potion_97
+-- Flask of Supreme Power = Interface\Icons\INV_Potion_41
+--
+-- Elixir of the Mongoose = Interface\Icons\INV_Potion_32
+-- Elixir of Fortitude = Interface\Icons\INV_Potion_44
+--
+-- Juju Power = Interface\Icons\INV_Misc_MonsterScales_11
+-- Juju Might = Interface\Icons\INV_Misc_MonsterScales_07
+-- Juju Ember = Interface\Icons\INV_Misc_MonsterScales_15
+-- Juju Flurry = Interface\Icons\INV_Misc_MonsterScales_17
+--
+-- Blessed Sunfruit = Interface\Icons\Spell_Holy_Devotion
+-- Blessed Sunfruit Juice = Interface\Icons\Spell_Holy_LayOnHands
+--
+-- Greater Arcane Elixir = Interface\Icons\INV_Potion_25
+-- Mageblood Potion = Interface\Icons\INV_Potion_45
+-- Elixir of Greater Firepower = Interface\Icons\INV_Potion_60
+-- Elixir of Shadow Power = Interface\Icons\INV_Potion_46
 
 function mountUp()
 	if isInAQ40() then
@@ -46,9 +65,17 @@ function mountUp()
 		UseContainerItem(bag,slot)
 		ResetCursor()
 	elseif not IsShiftKeyDown() and UnitClass("player") == "Paladin" then
-		CastSpellByName("Summon Warhorse")
+		if getSpellId("Summon Charger") ~= -1 then
+			CastSpellByName("Summon Charger")
+		else
+			CastSpellByName("Summon Warhorse")
+		end
 	elseif not IsShiftKeyDown() and UnitClass("player") == "Warlock" then
-		CastSpellByName("Summon Felsteed")
+		if getSpellId("Summon Dreadsteed") ~= -1 then
+			CastSpellByName("Summon Dreadsteed")
+		else
+			CastSpellByName("Summon Felsteed")
+		end
 	else
 		if UnitFactionGroup("player") == "Alliance" then
 			useItemFromList(slowMounts)
@@ -74,6 +101,20 @@ function useTrinkets()
 		return true;
 	end
 	return false;
+end
+
+function applyWeaponEnchantBasedOnClass()
+	if not isInProgressRaid() then return end
+	local class = UnitClass("player")
+	if class == "Warrior" then
+		applySharpeningStone()
+	elseif class == "Mage" or class == "Warlock" or (class == "Druid" and azs.class.talent == DRUID_BALANCE) then
+		applyWizardOil()
+	elseif class == "Rogue" then
+		applyPoisons()
+	elseif class == "Paladin" or class == "Priest" or (class == "Druid" and azs.class.talent == DRUID_RESTO) then
+		applyManaOil()
+	end
 end
 
 function applyWizardOil()
@@ -248,6 +289,21 @@ function equipItemByItemLink(itemLink,invSlotId)
 			if item==itemLink then
 				PickupContainerItem(bag,slot)
 				EquipCursorItem(invSlotId)
+			end
+		end
+	end
+end
+
+function equipItemByItemname(itemName,invSlotId)
+	for bag=0,4 do
+		for slot=1,GetContainerNumSlots(bag) do
+			local texture = GetContainerItemInfo(bag,slot)
+			if texture then
+				local item=GetContainerItemLink(bag,slot)
+				if string.find(item, itemName) then
+					PickupContainerItem(bag,slot)
+					EquipCursorItem(invSlotId)
+				end
 			end
 		end
 	end

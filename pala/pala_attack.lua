@@ -4,7 +4,7 @@ antiInvuDebuff = "Spell_Holy_RemoveCurse"
 
 function palaAttack()
   if player_hasBuff("Spell_Holy_Restoration") or player_hasBuff("Spell_Holy_SealOfProtection") or player_hasBuff("Spell_Holy_DivineIntervention") then
-    palaHeal(azs.targetList.all, "hlTankOnly")
+    palaHeal(azs.targetList.all, "regular")
     return
   end
   palaHeal(azs.targetList.all, "retriDangerZone")
@@ -13,6 +13,9 @@ function palaAttack()
   if castingOrChanneling() then return end
   if shouldPaladinStun() then
     CastSpellByName("Hammer of Justice")
+  end
+  if IsActionReady(holyStrikeActionSlot) and not IsCurrentAction(holyStrikeActionSlot) then
+    CastSpellByName("Holy Strike(Rank 1)")
   end
   castSelectedSeal("dps")
   if UnitCreatureType("target") == "Humanoid" and not has_debuff("target", "Spell_Holy_SealOfMight") and GetSpellCooldownByName("Repentance") == 0 and GetSpellCooldownByName("Judgement") == 0 and player_hasBuff("Ability_Warrior_InnerRage") then
@@ -101,13 +104,13 @@ function castSelectedSeal(seal)
   elseif seal == "wisdom" then
     cast_buff_player("Spell_Holy_RighteousnessAura", "Seal of Wisdom")
   elseif seal == "dps" then
-    castSeal()
+    castDpsSeal()
   end
 end
 
-function castSeal()
+function castDpsSeal()
   if not hasJudgementApplied() and not hasSealApplied() then
-    if UnitLevel("player") > 38 and UnitMana("player") < (UnitLevel("player") * 5) then
+    if UnitLevel("player") > 38 and isPlayerRelativeManaBelow(5) then
       cast_buff_player("Spell_Holy_RighteousnessAura", "Seal of Wisdom")
     elseif not player_hasBuff("Spell_Holy_RighteousnessAura") then
       cast_buff_player("Spell_Holy_HolySmite", "Seal of the Crusader")
@@ -116,5 +119,11 @@ function castSeal()
     cast_buff_player("Ability_Warrior_InnerRage", "Seal of Command")
   else
     cast_buff_player("Ability_ThunderBolt", "Seal of Righteousness")
+  end
+end
+
+function castConsecration()
+  if GetSpellCooldownByName("Consecration") == 0 then
+    CastSpellByName("Consecration")
   end
 end

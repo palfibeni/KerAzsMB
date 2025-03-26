@@ -108,24 +108,27 @@ end
 function initshamanHealProfiles()
 	shamanHealProfiles={
 		regular={
-			{0.2 , 540 , "Nature's Swiftness",1,azs.targetList.tank},
-			{0.2 , 589 , "Healing Wave",1,azs.targetList.tank, true},
-			{0.4 , 190, "Healing Wave(Rank 5)"},
-			{0.6 , 223, "Lesser Healing Wave(Rank 4)",1,azs.targetList.tank},
-			{0.8 , 299, "Chain Heal(Rank 2)"},
-			{0.8 , 247, "Chain Heal(Rank 1)"},
-			{0.9 , 50 , "Lesser Healing Wave(Rank 2)"},
+			{0.2 , 540, "Nature's Swiftness",1,azs.targetList.tank},
+			{0.2 , 589, "Healing Wave",1,azs.targetList.tank, true},
+			{0.4 , 190, "Healing Wave(Rank 4)"},
+			{0.7 , 223, "Lesser Healing Wave(Rank 4)",1,azs.targetList.tank},
+			{0.7 , 190, "Healing Wave(Rank 4)"},
+			{0.8 , 223, "Healing Wave(Rank 3)",1,azs.targetList.tank},
+			{0.8 , 299, "Chain Heal(Rank 2)",4},
+			{0.8 , 247, "Chain Heal(Rank 1)",4},
+			{0.9 , 50 , "Healing Wave(Rank 1)"},
 			{0.9 , 35 , "Healing Wave(Rank 1)", 2}
 		},
 		midLevel={
-			{0.4 , 150, "Healing Wave(Rank 3)"},
-			{0.5 , 150, "Healing Wave(Rank 3)",1,azs.targetList.tank},
-			{0.8 , 35 , "Lesser Healing Wave"}
+			{0.4 , 35 , "Lesser Healing Wave",1,azs.targetList.tank},
+			{0.6 , 150, "Healing Wave(Rank 3)"},
+			{0.7 , 150, "Healing Wave(Rank 3)",1,azs.targetList.tank},
+			{0.9 , 35 , "Healing Wave(Rank 1)", 2}
 		},
 		lesser={
 			{0.3 , 35, "Healing Wave"},
 			{0.4 , 35, "Healing Wave",1,azs.targetList.tank},
-			{0.6 , 35 , "Healing Wave(Rank 1)"}
+			{0.6 , 35, "Healing Wave(Rank 1)"}
 		},
 	}
 end

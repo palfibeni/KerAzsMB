@@ -3,6 +3,17 @@ azs.class.lastFireTotem = 0
 azs.class.lastWaterTotem = 0
 azs.class.lastAirTotem = 0
 
+function applyShamanWeaponEnchant()
+  local weaponSlot = 16
+  if not hasWeaponEnchant(weaponSlot) then
+    if UnitLevel("player") > 29 then
+      CastSpellByName("Windfury weapon")
+    else
+      CastSpellByName("Rockbiter weapon")
+    end
+  end
+end
+
 function shamanBuff(param)
   cast_buff_player("Spell_Nature_LightningShield", "Lightning Shield")
   castShamanTotems(param)
@@ -18,7 +29,7 @@ end
 function castTotem(totem, lastTotem)
   if totem == nil or totem.spell == nil then return end
   if totem.icon == nil then
-    if lastTotem + 20 < GetTime() then
+    if lastTotem + 30 < GetTime() then
   		CastSpellByName(totem.spell)
       return true
   	end
@@ -41,6 +52,11 @@ end
 function overrideEarthTotem()
   if isTargetInMobList(FEARING_MOBS) then
     return earthTotems.tremor
+  end
+  for target,info in pairs(azs.targetList.group) do 
+	if info.class == "WARRIOR" or info.class == "ROGUE" then
+		return earthTotems.strength
+	end
   end
   return nil
 end
@@ -105,7 +121,13 @@ function airTotemLogic(airTotem)
 end
 
 function overrideAirTotem()
-  if isInAQ20() or isInSubZone(ZG_MARLI) then return airTotems.natureRes end
+  for target,info in pairs(azs.targetList.group) do 
+    if info.class == "WARRIOR" or info.class == "ROGUE" then
+      return airTotems.windfury
+    elseif info.class == "MAGE" or info.class == "WARLOCK" then
+      return airTotems.tranquil
+    end
+  end
   return nil
 end
 

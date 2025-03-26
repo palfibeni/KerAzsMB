@@ -90,7 +90,7 @@ function initShadowPriestData()
   azs.class.buff = function()
     if UnitLevel("player") == 60 then priestRaidBuff() else priestSmallBuff() end
     askMageWater()
-    if isInProgressRaid() then applyWizardOil() end
+    applyWeaponEnchantBasedOnClass()
   end
   azs.class.stop = function()
     SpellStopCasting()

@@ -99,17 +99,28 @@ SlashCmdList["AZSHELP"]=function()
 end
 
 azs.getTarget = function(targetingMode)
-	targetingMode = targetingMode or azs.targetingMode
+	targetingMode = overrideTargetingMode() or targetingMode or azs.targetingMode
 	if targetingMode == "skull" then
 		return azs.targetSkull()
 	elseif targetingMode == "cross" then
 		return azs.targetCross()
 	elseif targetingMode == "assist" then
-		AssistByName(azs.assistMe)
+		local assistMe = getMainByRole("multitank")
+		if isNameExistsInGroup(azs.assistMe) then
+			assistMe = azs.assistMe
+		end
+		AssistByName(assistMe)
 		return true
 	elseif targetingMode == "solo" then
 		return true
 	end
+end
+
+function overrideTargetingMode()
+	if isInBG() then
+		return "assist"
+	end
+	return nil
 end
 
 function initActionBar()

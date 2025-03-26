@@ -58,7 +58,7 @@ azs.healers = {
   Lionel = {group = 3, buff = "Might/Wisdom", seal = "light", freedom = "Peacebringer"},
   Nobleforged = {group = 4, buff = "Sanc/Salva", seal = "wisdom", freedom = "Cooperbeard"},
   Bronzecoat = {group = 5, fearWard = "Peacebringer"},
-	Fordragon = {group = 6, buff = "Kings", seal = "light", freedom = "Cooperbeard"},
+  Fordragon = {group = 6, buff = "Kings", seal = "light", freedom = "Cooperbeard"},
   Moonflower = {group = 7},
   Lightweight = {group = 2, fearWard = "Stardancer"},
   Greenshadow = {group = 1},

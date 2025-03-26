@@ -38,7 +38,7 @@ function initTankWarrior()
     azs.class.aoe = function() warriorTankAoe() end
   end
   azs.class.buff = function()
-    if isInProgressRaid() then applySharpeningStone() end
+    applyWeaponEnchantBasedOnClass()
   end
   azs.class.initActionBar = {
     {"Attack", autoAttackActionSlot},
@@ -62,7 +62,7 @@ function initTankWarrior()
   azs.class.initMacros = {
     {"Tank attack", "Ability_Warrior_DefensiveStance", "/script azs.dps(\"solo\")", {73,74,76,85,86,88}, "azs.warriorTauntEnabled = true"},
     {"AoE tank attack", "Ability_Warrior_Cleave", "/script azs.aoe(\"solo\")", {77,89}, "azs.warriorTauntEnabled = true"},
-    {"WTaunt", "Spell_Nature_Reincarnation", "/script warriorTaunt()", {75,87}},
+    {"Taunt", "Spell_Nature_Reincarnation", "/script warriorTaunt()", {75,87}},
     {"Buff", "Ability_Creature_Poison_03", "/script azs.buff()", {60, 92}},
     {"MountUp", "Spell_Nature_Swiftness", "/script mountUp()", {81,93,105}},
     {"Follow", "Ability_Hunter_MendPet", "/script azs.follow()", {10, 82, 94, 106}, ""}
@@ -84,7 +84,7 @@ function initFuryWarrior()
     stop_autoattack()
   end
   azs.class.buff = function()
-    if isInProgressRaid() then applySharpeningStone() end
+    applyWeaponEnchantBasedOnClass()
   end
   azs.class.initActionBar = {
     {"Attack", autoAttackActionSlot},

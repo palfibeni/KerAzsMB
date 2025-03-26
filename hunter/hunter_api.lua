@@ -26,7 +26,7 @@ function initHunterData()
   local dpsParams = "{multiShotEnabled = \"" .. tostring(azs.class.multiShotEnabled) .. "\"}"
   local mainAttackMacro = "/script azs.dps(nil, ".. dpsParams ..")"
   local secondaryAttackMacro = "/script azs.dps(\"cross\", ".. dpsParams ..")"
-  local specialAttackMacro = "/script azs.special(\"nil\", ".. dpsParams ..")"
+  local specialAttackMacro = "/script azs.special(nil, ".. dpsParams ..")"
   local hunterAoe = "/script hunterExplosiveTrap()" .. string.char(10) .. mainAttackMacro
 
   azs.class.initActionBar = {

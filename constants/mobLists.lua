@@ -3,7 +3,7 @@ TRANQABLE_MOBS = {"Magmadar", "Flamegor", "Chromaggus", "Maws", "Princess Huhura
   "Hakkar the Soulflayer", "Gluth", "Death Talon Seether", "Qiraji Slayer"}
 
 -- Fire immune mobs:
-FIRE_IMMUNE_MOBS = {"Nefarian", "Onyxia", "Firemaw", "Ebonroc", "Flamegore",
+FIRE_IMMUNE_MOBS = {"Nefarian", "Onyxia", "Firemaw", "Ebonroc", "Flamegor",
   "Firelord", "Firewalker", "Flameguard", "Lava Spawn", "Vaelastrasz",
   "Baron Geddon", "Ragnaros", "Pyroguard Emberseer", "Fireguard",
   "Fireguard Destroyer", "Blazing Fireguard", "Ambassador Flamelash",
@@ -18,7 +18,7 @@ HIGH_FIRE_DAMAGE_MOBS = {"Onyxia", "Firemaw", "Vaelastrasz",
 HIGH_FROST_DAMAGE_MOBS = {"Azuregos", "Sapphiron"}
 
 -- High shadow damage mobs:
-HIGH_SHADOW_DAMAGE_MOBS = {"Kazzak"}
+HIGH_SHADOW_DAMAGE_MOBS = {"Kazzak", "Lethon", "Naxxramas Acolyte", "Necropolis Acolyte"}
 
 FEARING_MOBS = {"Soulflayer", "Hakkari Priest", "High Priestess Jeklik",
   "Gurubashi Berserker", "Hakkari Blood Priest", "Nefarian", "Onyxia",

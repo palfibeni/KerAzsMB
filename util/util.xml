@@ -9,5 +9,6 @@
     <Script file="spellbook.lua"/>
     <Script file="targeting.lua"/>
     <Script file="zone.lua"/>
+    <Script file="bosses.lua"/>
   	<Include file="healing\healing.xml"/>
 </Ui>

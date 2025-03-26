@@ -38,7 +38,7 @@ end
 
 function isValidMain(target)
 	if not UnitIsConnected(target) then return false end
-	if UnitIsGhost(target) and UnitIsGhost("player") then return true end
+	if UnitIsGhost("player") then return UnitIsGhost(target) end
 	return not UnitIsDeadOrGhost(target)
 end
 
@@ -59,6 +59,12 @@ function getFollowTarget()
 	if mainMelee then return mainMelee end
 	local mainCaster = getMainByRole("multicaster")
 	if mainCaster then return mainCaster end
+end
+
+function isNameExistsInGroup(playerName)
+	local playerName = playerName
+	if azs.targetList[playerName] then return true end
+	return false
 end
 
 -- 1 = Inspect, 9.9 yards

@@ -198,22 +198,19 @@ function SpellCastReady(spell,delay)
 end
 
 function handleLowMana()
-	drinkMageWater(50)
-	if isInProgressRaid() and UnitMana("player") / UnitManaMax("player") < 0.4 then
+	drinkMageWater(0.5)
+	if isPlayerManaUnder(0.4) and isTargetProgressRaidBoss() then
 		useItemFromList(manaPotions)
 		return
 	end
-	if isInProgressRaid() and UnitMana("player") / UnitManaMax("player") < 0.6 then
+	if isPlayerManaUnder(0.6) and isTargetProgressRaidBoss() then
 		useItemFromList(manaRunes)
 		return
 	end
 end
 
 function useHealingTrinket()
-	if UnitMana("player") / UnitManaMax("player") < 0.8 then
-		useTrinkets()
-		return
-	end
+	if isPlayerManaUnder(0.8) then useTrinkets() end
 end
 
 function initHealProfiles()
